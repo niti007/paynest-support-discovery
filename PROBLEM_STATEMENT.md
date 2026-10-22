@@ -29,7 +29,9 @@ Compare the process we say we follow with what the data shows we actually do.
 **Deliverables:** (a) a current-state flow diagram built from the ticket histories; (b) a gap list ranking the gaps between documented and actual practice by their cost to PayNest; (c) a short statement of what you think the problem is, and what you think it is not.
 
 ### Phase 3: Architect
-Design a target solution on Microsoft Azure that responds to what you found, not to what was asked.
+Design a target solution that responds to what you found, not to what was asked. You are free to choose any cloud, framework, model provider and language; justify your choices.
+
+**Hints:** think about which data belongs in an operational database (e.g. PostgreSQL, MongoDB, Cosmos DB, DynamoDB) and which knowledge should be searchable by meaning in a vector database (e.g. pgvector, Qdrant, Pinecone, Weaviate, Chroma, Azure AI Search). Look closely at what metadata that knowledge needs to carry.
 **Deliverables:** (a) an architecture diagram; (b) for every component, the specific evidence in the data room that makes it necessary, and what would happen without it; (c) a view on safety, privacy and failure behaviour; (d) a cost model for a peak week against our spending constraints; (e) the integration constraints you found and how your design respects them.
 
 ### Phase 4: Solutionise
