@@ -7,3 +7,4 @@ __pycache__/
 *.zip
 # optional: strip trainer/ from the student copy
 # trainer/
+trainer/
