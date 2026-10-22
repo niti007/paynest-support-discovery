@@ -1,0 +1,1114 @@
+[
+ {
+  "key": "PNJ-4412",
+  "summary": "Attendance connector posts duplicate punches for night-shift records (idempotency key missing)",
+  "issue_type": "Bug",
+  "priority": "P1",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-08-07T04:03:30+05:30",
+  "reporter": "AG-027",
+  "customer_ids": [
+   "C-1001"
+  ],
+  "linked_ticket_ids": [
+   "PN-100588",
+   "PN-100611",
+   "PN-100617",
+   "PN-100618",
+   "PN-100649",
+   "PN-100650",
+   "PN-100658",
+   "PN-100673",
+   "PN-100681",
+   "PN-100700",
+   "PN-100709",
+   "PN-100752",
+   "PN-100827",
+   "PN-100962",
+   "PN-101027",
+   "PN-101029",
+   "PN-101036",
+   "PN-101054",
+   "PN-101071",
+   "PN-101086",
+   "PN-101098",
+   "PN-101102",
+   "PN-101104",
+   "PN-101106",
+   "PN-101111",
+   "PN-101112",
+   "PN-101116",
+   "PN-101117",
+   "PN-101119",
+   "PN-101123",
+   "PN-101134",
+   "PN-101137",
+   "PN-101194",
+   "PN-101199",
+   "PN-101206",
+   "PN-101211",
+   "PN-101221",
+   "PN-101224",
+   "PN-101231",
+   "PN-101277",
+   "PN-101375",
+   "PN-101380",
+   "PN-101410",
+   "PN-101422",
+   "PN-101439",
+   "PN-101440",
+   "PN-101468",
+   "PN-101476"
+  ],
+  "resolution_note": "Root cause: connector v2.7 dropped the idempotency key on retries; customer-specific mapping amplifies. Fix in 2.7.3, rollout pending customer UAT."
+ },
+ {
+  "key": "PNJ-4418",
+  "summary": "Kestrel: overtime computed twice after sync retry",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-08-06T21:20:52+05:30",
+  "reporter": "AG-042",
+  "customer_ids": [
+   "C-1001"
+  ],
+  "linked_ticket_ids": [
+   "PN-100581",
+   "PN-100678",
+   "PN-101109",
+   "PN-101185",
+   "PN-101283",
+   "PN-101491"
+  ],
+  "resolution_note": "Duplicate of PNJ-4412 symptom; separate calc path."
+ },
+ {
+  "key": "PNJ-4466",
+  "summary": "Kestrel: sync re-imports prior week on token refresh",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-09-03T06:51:10+05:30",
+  "reporter": "AG-030",
+  "customer_ids": [
+   "C-1001"
+  ],
+  "linked_ticket_ids": [
+   "PN-101031"
+  ],
+  "resolution_note": "Related to PNJ-4412, token refresh resets cursor."
+ },
+ {
+  "key": "PNJ-5003",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Payroll Engine",
+  "status": "In Progress",
+  "created": "2026-07-01T22:19:46+05:30",
+  "reporter": "AG-030",
+  "customer_ids": [
+   "C-1002"
+  ],
+  "linked_ticket_ids": [
+   "PN-100007"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5006",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Question",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "Done",
+  "created": "2026-07-02T09:11:13+05:30",
+  "reporter": "AG-039",
+  "customer_ids": [
+   "C-1007"
+  ],
+  "linked_ticket_ids": [
+   "PN-100017"
+  ],
+  "resolution_note": ""
+ },
+ {
+  "key": "PNJ-5008",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Closed",
+  "created": "2026-07-03T05:52:21+05:30",
+  "reporter": "AG-041",
+  "customer_ids": [
+   "C-1002"
+  ],
+  "linked_ticket_ids": [
+   "PN-100050"
+  ],
+  "resolution_note": ""
+ },
+ {
+  "key": "PNJ-5014",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Closed",
+  "created": "2026-07-02T17:47:44+05:30",
+  "reporter": "AG-025",
+  "customer_ids": [
+   "C-1011"
+  ],
+  "linked_ticket_ids": [
+   "PN-100052"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5019",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Question",
+  "priority": "P3",
+  "component": "Reports",
+  "status": "Closed",
+  "created": "2026-07-03T16:05:02+05:30",
+  "reporter": "AG-030",
+  "customer_ids": [
+   "C-1019"
+  ],
+  "linked_ticket_ids": [
+   "PN-100071"
+  ],
+  "resolution_note": ""
+ },
+ {
+  "key": "PNJ-5021",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Payroll Engine",
+  "status": "In Progress",
+  "created": "2026-07-04T00:07:13+05:30",
+  "reporter": "AG-027",
+  "customer_ids": [
+   "C-1007"
+  ],
+  "linked_ticket_ids": [
+   "PN-100081"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5026",
+  "summary": "WPS SIF export column order rejected by bank",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Reports",
+  "status": "In Progress",
+  "created": "2026-07-03T22:01:01+05:30",
+  "reporter": "AG-042",
+  "customer_ids": [
+   "C-1051"
+  ],
+  "linked_ticket_ids": [
+   "PN-100083"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5028",
+  "summary": "WPS SIF export column order rejected by bank",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "Done",
+  "created": "2026-07-05T20:06:40+05:30",
+  "reporter": "AG-028",
+  "customer_ids": [
+   "C-1029"
+  ],
+  "linked_ticket_ids": [
+   "PN-100100"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5034",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-07-17T21:34:57+05:30",
+  "reporter": "AG-037",
+  "customer_ids": [
+   "C-1011"
+  ],
+  "linked_ticket_ids": [
+   "PN-100180"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5035",
+  "summary": "WPS SIF export column order rejected by bank",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "In Progress",
+  "created": "2026-07-25T14:29:52+05:30",
+  "reporter": "AG-036",
+  "customer_ids": [
+   "C-1001"
+  ],
+  "linked_ticket_ids": [
+   "PN-100236"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5037",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "Done",
+  "created": "2026-07-26T19:14:40+05:30",
+  "reporter": "AG-034",
+  "customer_ids": [
+   "C-1012"
+  ],
+  "linked_ticket_ids": [
+   "PN-100263"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5040",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "Closed",
+  "created": "2026-07-26T21:07:14+05:30",
+  "reporter": "AG-041",
+  "customer_ids": [
+   "C-1011"
+  ],
+  "linked_ticket_ids": [
+   "PN-100269"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5044",
+  "summary": "WPS SIF export column order rejected by bank",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Payroll Engine",
+  "status": "Closed",
+  "created": "2026-07-27T04:13:11+05:30",
+  "reporter": "AG-035",
+  "customer_ids": [
+   "C-1008"
+  ],
+  "linked_ticket_ids": [
+   "PN-100276"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5050",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "Closed",
+  "created": "2026-07-28T09:28:10+05:30",
+  "reporter": "AG-042",
+  "customer_ids": [
+   "C-1002"
+  ],
+  "linked_ticket_ids": [
+   "PN-100317"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5054",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-07-28T10:41:24+05:30",
+  "reporter": "AG-030",
+  "customer_ids": [
+   "C-1003"
+  ],
+  "linked_ticket_ids": [
+   "PN-100319"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5055",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "Done",
+  "created": "2026-07-29T00:20:44+05:30",
+  "reporter": "AG-025",
+  "customer_ids": [
+   "C-1006"
+  ],
+  "linked_ticket_ids": [
+   "PN-100351"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5058",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Payments",
+  "status": "In Progress",
+  "created": "2026-07-28T19:28:31+05:30",
+  "reporter": "AG-038",
+  "customer_ids": [
+   "C-1030"
+  ],
+  "linked_ticket_ids": [
+   "PN-100352"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5064",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Reports",
+  "status": "In Progress",
+  "created": "2026-07-29T23:32:43+05:30",
+  "reporter": "AG-041",
+  "customer_ids": [
+   "C-1008"
+  ],
+  "linked_ticket_ids": [
+   "PN-100374"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5068",
+  "summary": "Webhook retry storm",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-07-30T06:16:27+05:30",
+  "reporter": "AG-039",
+  "customer_ids": [
+   "C-1008"
+  ],
+  "linked_ticket_ids": [
+   "PN-100388"
+  ],
+  "resolution_note": ""
+ },
+ {
+  "key": "PNJ-5071",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Question",
+  "priority": "P3",
+  "component": "Payments",
+  "status": "Done",
+  "created": "2026-07-31T15:54:00+05:30",
+  "reporter": "AG-030",
+  "customer_ids": [
+   "C-1012"
+  ],
+  "linked_ticket_ids": [
+   "PN-100443"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5073",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Reports",
+  "status": "Done",
+  "created": "2026-07-31T16:35:17+05:30",
+  "reporter": "AG-028",
+  "customer_ids": [
+   "C-1009"
+  ],
+  "linked_ticket_ids": [
+   "PN-100449"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5078",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Reports",
+  "status": "Closed",
+  "created": "2026-07-31T23:23:32+05:30",
+  "reporter": "AG-039",
+  "customer_ids": [
+   "C-1026"
+  ],
+  "linked_ticket_ids": [
+   "PN-100454"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5083",
+  "summary": "Webhook retry storm",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Reports",
+  "status": "Done",
+  "created": "2026-08-02T06:19:06+05:30",
+  "reporter": "AG-036",
+  "customer_ids": [
+   "C-1005"
+  ],
+  "linked_ticket_ids": [
+   "PN-100488"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5085",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Question",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "In Progress",
+  "created": "2026-08-12T03:55:16+05:30",
+  "reporter": "AG-042",
+  "customer_ids": [
+   "C-1026"
+  ],
+  "linked_ticket_ids": [
+   "PN-100612"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5086",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Payroll Engine",
+  "status": "Done",
+  "created": "2026-08-12T19:21:35+05:30",
+  "reporter": "AG-041",
+  "customer_ids": [
+   "C-1001"
+  ],
+  "linked_ticket_ids": [
+   "PN-100620"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5089",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Question",
+  "priority": "P3",
+  "component": "Payroll Engine",
+  "status": "In Progress",
+  "created": "2026-08-25T00:57:10+05:30",
+  "reporter": "AG-037",
+  "customer_ids": [
+   "C-1015"
+  ],
+  "linked_ticket_ids": [
+   "PN-100695"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5092",
+  "summary": "WPS SIF export column order rejected by bank",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "Closed",
+  "created": "2026-08-26T08:49:51+05:30",
+  "reporter": "AG-025",
+  "customer_ids": [
+   "C-1036"
+  ],
+  "linked_ticket_ids": [
+   "PN-100728"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5098",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Closed",
+  "created": "2026-08-26T20:13:35+05:30",
+  "reporter": "AG-027",
+  "customer_ids": [
+   "C-1012"
+  ],
+  "linked_ticket_ids": [
+   "PN-100756"
+  ],
+  "resolution_note": ""
+ },
+ {
+  "key": "PNJ-5099",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Task",
+  "priority": "P3",
+  "component": "Payroll Engine",
+  "status": "In Progress",
+  "created": "2026-08-27T03:47:22+05:30",
+  "reporter": "AG-025",
+  "customer_ids": [
+   "C-1030"
+  ],
+  "linked_ticket_ids": [
+   "PN-100757"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5105",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Question",
+  "priority": "P2",
+  "component": "Reports",
+  "status": "In Progress",
+  "created": "2026-08-27T09:34:55+05:30",
+  "reporter": "AG-032",
+  "customer_ids": [
+   "C-1002"
+  ],
+  "linked_ticket_ids": [
+   "PN-100760"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5107",
+  "summary": "Payslip PDF renders net pay 0 for subset of Meridian employees",
+  "issue_type": "Incident",
+  "priority": "P1",
+  "component": "Payslip Service",
+  "status": "Done",
+  "created": "2026-09-26T04:53:03+05:30",
+  "reporter": "AG-034",
+  "customer_ids": [
+   "C-1002"
+  ],
+  "linked_ticket_ids": [
+   "PN-101253",
+   "PN-101258",
+   "PN-101260",
+   "PN-101264",
+   "PN-101265",
+   "PN-101267",
+   "PN-101268"
+  ],
+  "resolution_note": "Template cache served an empty salary-structure snapshot after a config publish. Cache purged, 31 users affected."
+ },
+ {
+  "key": "PNJ-5110",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "Done",
+  "created": "2026-08-28T04:38:16+05:30",
+  "reporter": "AG-034",
+  "customer_ids": [
+   "C-1008"
+  ],
+  "linked_ticket_ids": [
+   "PN-100780"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5116",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Question",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "Closed",
+  "created": "2026-08-27T19:20:13+05:30",
+  "reporter": "AG-029",
+  "customer_ids": [
+   "C-1013"
+  ],
+  "linked_ticket_ids": [
+   "PN-100792"
+  ],
+  "resolution_note": ""
+ },
+ {
+  "key": "PNJ-5118",
+  "summary": "Webhook retry storm",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "Done",
+  "created": "2026-08-28T02:26:17+05:30",
+  "reporter": "AG-030",
+  "customer_ids": [
+   "C-1012"
+  ],
+  "linked_ticket_ids": [
+   "PN-100794"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5124",
+  "summary": "Webhook retry storm",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "Done",
+  "created": "2026-08-28T23:27:25+05:30",
+  "reporter": "AG-041",
+  "customer_ids": [
+   "C-1006"
+  ],
+  "linked_ticket_ids": [
+   "PN-100836"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5127",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Reports",
+  "status": "Closed",
+  "created": "2026-08-29T08:46:12+05:30",
+  "reporter": "AG-027",
+  "customer_ids": [
+   "C-1007"
+  ],
+  "linked_ticket_ids": [
+   "PN-100852"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5130",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "Done",
+  "created": "2026-08-30T05:50:09+05:30",
+  "reporter": "AG-029",
+  "customer_ids": [
+   "C-1019"
+  ],
+  "linked_ticket_ids": [
+   "PN-100864"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5131",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-08-29T18:35:50+05:30",
+  "reporter": "AG-030",
+  "customer_ids": [
+   "C-1025"
+  ],
+  "linked_ticket_ids": [
+   "PN-100875"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5136",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Statutory",
+  "status": "Done",
+  "created": "2026-08-30T11:55:35+05:30",
+  "reporter": "AG-032",
+  "customer_ids": [
+   "C-1008"
+  ],
+  "linked_ticket_ids": [
+   "PN-100893"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5142",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Question",
+  "priority": "P2",
+  "component": "Statutory",
+  "status": "In Progress",
+  "created": "2026-08-31T05:26:21+05:30",
+  "reporter": "AG-025",
+  "customer_ids": [
+   "C-1031"
+  ],
+  "linked_ticket_ids": [
+   "PN-100897"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5145",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Reports",
+  "status": "Done",
+  "created": "2026-08-31T04:17:19+05:30",
+  "reporter": "AG-025",
+  "customer_ids": [
+   "C-1022"
+  ],
+  "linked_ticket_ids": [
+   "PN-100898"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5150",
+  "summary": "Webhook retry storm",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "In Progress",
+  "created": "2026-08-31T04:00:50+05:30",
+  "reporter": "AG-040",
+  "customer_ids": [
+   "C-1001"
+  ],
+  "linked_ticket_ids": [
+   "PN-100901"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5154",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "In Progress",
+  "created": "2026-08-30T23:10:36+05:30",
+  "reporter": "AG-031",
+  "customer_ids": [
+   "C-1007"
+  ],
+  "linked_ticket_ids": [
+   "PN-100934"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5160",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Question",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-09-03T07:32:05+05:30",
+  "reporter": "AG-028",
+  "customer_ids": [
+   "C-1003"
+  ],
+  "linked_ticket_ids": [
+   "PN-101041"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5162",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Task",
+  "priority": "P3",
+  "component": "Payments",
+  "status": "Done",
+  "created": "2026-09-16T14:12:21+05:30",
+  "reporter": "AG-041",
+  "customer_ids": [
+   "C-1002"
+  ],
+  "linked_ticket_ids": [
+   "PN-101151"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5168",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Task",
+  "priority": "P3",
+  "component": "Payroll Engine",
+  "status": "Done",
+  "created": "2026-09-22T23:34:54+05:30",
+  "reporter": "AG-039",
+  "customer_ids": [
+   "C-1012"
+  ],
+  "linked_ticket_ids": [
+   "PN-101200"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5169",
+  "summary": "Bank file generation intermittent error",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Reports",
+  "status": "Done",
+  "created": "2026-09-24T21:51:52+05:30",
+  "reporter": "AG-042",
+  "customer_ids": [
+   "C-1010"
+  ],
+  "linked_ticket_ids": [
+   "PN-101220"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5171",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Payments",
+  "status": "Done",
+  "created": "2026-09-26T21:05:21+05:30",
+  "reporter": "AG-040",
+  "customer_ids": [
+   "C-1012"
+  ],
+  "linked_ticket_ids": [
+   "PN-101290"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5175",
+  "summary": "WPS SIF export column order rejected by bank",
+  "issue_type": "Task",
+  "priority": "P3",
+  "component": "Reports",
+  "status": "Closed",
+  "created": "2026-09-27T04:26:59+05:30",
+  "reporter": "AG-031",
+  "customer_ids": [
+   "C-1017"
+  ],
+  "linked_ticket_ids": [
+   "PN-101315"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5178",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Payroll Engine",
+  "status": "Done",
+  "created": "2026-09-27T10:07:18+05:30",
+  "reporter": "AG-031",
+  "customer_ids": [
+   "C-1012"
+  ],
+  "linked_ticket_ids": [
+   "PN-101329"
+  ],
+  "resolution_note": "Engine already updated; support content out of date."
+ },
+ {
+  "key": "PNJ-5179",
+  "summary": "PF computation differs from circular for restricted-wage employees",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-09-27T18:10:53+05:30",
+  "reporter": "AG-027",
+  "customer_ids": [
+   "C-1028"
+  ],
+  "linked_ticket_ids": [
+   "PN-101342"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5181",
+  "summary": "Reports export timeout on large tenant",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "Done",
+  "created": "2026-09-28T03:14:17+05:30",
+  "reporter": "AG-042",
+  "customer_ids": [
+   "C-1003"
+  ],
+  "linked_ticket_ids": [
+   "PN-101352"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5185",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Statutory",
+  "status": "In Progress",
+  "created": "2026-09-28T09:28:06+05:30",
+  "reporter": "AG-033",
+  "customer_ids": [
+   "C-1010"
+  ],
+  "linked_ticket_ids": [
+   "PN-101358"
+  ],
+  "resolution_note": "Config issue on tenant."
+ },
+ {
+  "key": "PNJ-5186",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Bug",
+  "priority": "P2",
+  "component": "Payroll Engine",
+  "status": "In Progress",
+  "created": "2026-09-29T00:17:17+05:30",
+  "reporter": "AG-041",
+  "customer_ids": [
+   "C-1027"
+  ],
+  "linked_ticket_ids": [
+   "PN-101398"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5188",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Question",
+  "priority": "P2",
+  "component": "Payments",
+  "status": "Done",
+  "created": "2026-09-29T07:25:55+05:30",
+  "reporter": "AG-025",
+  "customer_ids": [
+   "C-1012"
+  ],
+  "linked_ticket_ids": [
+   "PN-101414"
+  ],
+  "resolution_note": ""
+ },
+ {
+  "key": "PNJ-5194",
+  "summary": "Payroll engine mismatch vs published help article",
+  "issue_type": "Bug",
+  "priority": "P3",
+  "component": "Payroll Engine",
+  "status": "Closed",
+  "created": "2026-09-29T14:18:04+05:30",
+  "reporter": "AG-025",
+  "customer_ids": [
+   "C-1004"
+  ],
+  "linked_ticket_ids": [
+   "PN-101415"
+  ],
+  "resolution_note": "Could not reproduce."
+ },
+ {
+  "key": "PNJ-5196",
+  "summary": "WPS SIF export column order rejected by bank",
+  "issue_type": "Task",
+  "priority": "P2",
+  "component": "Integrations",
+  "status": "Done",
+  "created": "2026-09-29T22:26:03+05:30",
+  "reporter": "AG-032",
+  "customer_ids": [
+   "C-1027"
+  ],
+  "linked_ticket_ids": [
+   "PN-101426"
+  ],
+  "resolution_note": ""
+ },
+ {
+  "key": "PNJ-5202",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Question",
+  "priority": "P2",
+  "component": "Payroll Engine",
+  "status": "In Progress",
+  "created": "2026-10-01T05:40:20+05:30",
+  "reporter": "AG-034",
+  "customer_ids": [
+   "C-1004"
+  ],
+  "linked_ticket_ids": [
+   "PN-101480"
+  ],
+  "resolution_note": "Fixed in next release."
+ },
+ {
+  "key": "PNJ-5204",
+  "summary": "Leave accrual rounding issue",
+  "issue_type": "Question",
+  "priority": "P3",
+  "component": "Payroll Engine",
+  "status": "Closed",
+  "created": "2026-09-30T20:22:07+05:30",
+  "reporter": "AG-031",
+  "customer_ids": [
+   "C-1007"
+  ],
+  "linked_ticket_ids": [
+   "PN-101489"
+  ],
+  "resolution_note": "Config issue on tenant."
+ }
+]

@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: PayNest Payroll Platform API
+  version: "2.4.1"
+  description: |
+    Public REST API for the PayNest payroll engine. Authenticate with a tenant-scoped bearer token.
+    This spec was exported from the Engineering wiki in July 2026; some endpoints used by internal
+    tools are intentionally not listed. Contact the Payroll Platform team (Meera Iyer) for access.
+servers:
+  - url: https://api.paynest.example/v2
+security:
+  - bearerAuth: []
+paths:
+  /tenants/{tenant_id}:
+    get:
+      summary: Get tenant profile
+      description: Returns company name, region (IN or UAE), contract tier and employee count.
+      parameters:
+        - {name: tenant_id, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {description: Tenant profile}
+  /tenants/{tenant_id}/payroll-runs:
+    get:
+      summary: List payroll runs
+      description: Paginated list of payroll runs for a tenant, newest first. Optional `month` filter (YYYY-MM).
+      parameters:
+        - {name: tenant_id, in: path, required: true, schema: {type: string}}
+        - {name: month, in: query, required: false, schema: {type: string}}
+      responses:
+        "200": {description: List of runs}
+    post:
+      summary: Create payroll run
+      description: Starts a new payroll run in `draft` state. Requires the `payroll:write` scope, which is not issued to support tooling.
+      responses:
+        "201": {description: Run created}
+  /payroll-runs/{run_id}/status:
+    get:
+      summary: Get payroll run status
+      description: |
+        Returns the current state of a payroll run (`draft`, `computing`, `awaiting_approval`, `approved`,
+        `bank_file_generated`, `paid`, `failed`) and the last engine message.
+        Intended for the customer's own dashboards and our internal status page.
+        This endpoint reads from the live engine queue, so the gateway applies fair-use throttling per tenant;
+        clients that poll aggressively around month-end may see delayed or rejected responses. Prefer webhooks where possible.
+      parameters:
+        - {name: run_id, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {description: Run status}
+        "429": {description: Too many requests}
+  /payroll-runs/{run_id}/employees/{employee_id}/payslip:
+    get:
+      summary: Get payslip
+      description: Returns the payslip for an employee for the run. Returns personal data. Access is audited. Requires `payslip:read`.
+      parameters:
+        - {name: run_id, in: path, required: true, schema: {type: string}}
+        - {name: employee_id, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {description: Payslip JSON}
+  /statutory/rates:
+    get:
+      summary: Get statutory parameters
+      description: Returns statutory parameters (PF wage ceiling, ESI limits, WPS file version, etc.) as used by the engine. `region` and `as_of` (date) query parameters select the applicable set.
+      parameters:
+        - {name: region, in: query, required: true, schema: {type: string, enum: [IN, UAE]}}
+        - {name: as_of, in: query, required: false, schema: {type: string, format: date}}
+      responses:
+        "200": {description: Parameters in force}
+  /webhooks:
+    post:
+      summary: Register webhook
+      description: Events include payroll.completed, payroll.failed, bank_file.generated.
+      responses:
+        "201": {description: Registered}
+components:
+  securitySchemes:
+    bearerAuth: {type: http, scheme: bearer}

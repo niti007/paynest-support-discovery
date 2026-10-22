@@ -1,0 +1,61 @@
+{
+ "disclaimer": "Fictional rules and values created for a teaching case study. Not legal or tax advice.",
+ "rules": [
+  {
+   "rule_id": "R-IN-TDS-2026-04",
+   "region": "IN",
+   "topic": "tds_slabs",
+   "title": "TDS slabs (new regime) for FY2026-27",
+   "effective_from": "2026-04-01",
+   "old_value": "FY25-26 slabs",
+   "new_value": "FY26-27 slabs",
+   "affects_kb_topics": [
+    "tds"
+   ],
+   "source": "Finance Act circular (fictional)",
+   "status": "applied"
+  },
+  {
+   "rule_id": "R-UAE-GRAT-2026-01",
+   "region": "UAE",
+   "topic": "gratuity_clarification",
+   "title": "End-of-service gratuity: clarification on part-time and fixed-term calculation",
+   "effective_from": "2026-01-01",
+   "old_value": "21 days basic per year (first 5 years)",
+   "new_value": "unchanged; clarification only",
+   "affects_kb_topics": [
+    "gratuity"
+   ],
+   "source": "MoHRE guidance (fictional)",
+   "status": "applied"
+  },
+  {
+   "rule_id": "R-UAE-WPS-2026-07",
+   "region": "UAE",
+   "topic": "wps_file_format",
+   "title": "WPS SIF file format moves from v2 to v3 (new mandatory establishment-reference column, revised EDR record layout)",
+   "effective_from": "2026-07-15",
+   "old_value": "SIF v2 (14 columns)",
+   "new_value": "SIF v3 (16 columns, new EDR layout)",
+   "affects_kb_topics": [
+    "wps_file_format"
+   ],
+   "source": "Central Bank / MoHRE notice (fictional)",
+   "status": "in_force"
+  },
+  {
+   "rule_id": "R-IN-PF-2026-08",
+   "region": "IN",
+   "topic": "pf_wage_ceiling",
+   "title": "EPF statutory wage ceiling raised",
+   "effective_from": "2026-08-01",
+   "old_value": "INR 15,000 per month",
+   "new_value": "INR 25,000 per month",
+   "affects_kb_topics": [
+    "pf_wage_ceiling"
+   ],
+   "source": "EPFO circular (fictional)",
+   "status": "in_force"
+  }
+ ]
+}

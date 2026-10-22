@@ -1,0 +1,61 @@
+customer_id,name,tier,region,monthly_fee_usd,employees_paid
+C-1001,Kestrel Logistics Pvt Ltd,Enterprise,IN,4200,6200
+C-1002,Meridian Foods Pvt Ltd,Enterprise,IN,3100,3400
+C-1003,Gulf Horizon Contracting LLC,Enterprise,UAE,3600,5100
+C-1004,Falcon Trading LLC,Enterprise,UAE,2320,3264
+C-1005,Malabar Pharma Pvt Ltd,Enterprise,IN,1570,1087
+C-1006,Lotus Education Trust,Enterprise,IN,3370,2085
+C-1007,Al Noor Technical Services LLC,Enterprise,UAE,3580,1853
+C-1008,Oasis Trading LLC,Enterprise,UAE,2370,2038
+C-1009,Bharat Healthcare Pvt Ltd,Enterprise,IN,3530,2394
+C-1010,Surya Hospitality Pvt Ltd,Enterprise,IN,2300,1758
+C-1011,Orchid Textiles Pvt Ltd,Enterprise,IN,3190,3699
+C-1012,Navrang Infotech Ltd,Enterprise,IN,2950,3500
+C-1013,Indus Constructions Ltd,Business,IN,760,400
+C-1014,Kaveri Auto Components Ltd,Business,IN,540,426
+C-1015,Burj Technical Services LLC,Business,UAE,700,854
+C-1016,Surya Education Trust,Business,IN,730,482
+C-1017,Marina Facilities Management LLC,Business,UAE,790,207
+C-1018,Lotus Healthcare Pvt Ltd,Business,IN,320,473
+C-1019,Ashoka Pharma Pvt Ltd,Business,IN,340,366
+C-1020,Burj Trading LLC,Business,UAE,660,885
+C-1021,Pinnacle Hospitality Pvt Ltd,Business,IN,710,661
+C-1022,Lotus Infotech Ltd,Business,IN,880,808
+C-1023,Ganga Foods Pvt Ltd,Business,IN,460,292
+C-1024,Himalaya Education Trust,Business,IN,650,701
+C-1025,Bharat Education Trust,Business,IN,670,588
+C-1026,Burj Contracting LLC,Business,UAE,550,520
+C-1027,Bharat Constructions Ltd,Business,IN,380,671
+C-1028,Lotus Pharma Pvt Ltd,Business,IN,780,198
+C-1029,Sahara Hospitality FZE,Business,UAE,390,792
+C-1030,Indus Auto Components Ltd,Business,IN,730,582
+C-1031,Indus Hospitality Pvt Ltd,Standard,IN,170,117
+C-1032,Sagar Hospitality Pvt Ltd,Standard,IN,190,155
+C-1033,Ganga Retail Pvt Ltd,Standard,IN,50,49
+C-1034,Neel Constructions Ltd,Standard,IN,130,107
+C-1035,Deccan Pharma Pvt Ltd,Standard,IN,180,60
+C-1036,Indus Textiles Pvt Ltd,Standard,IN,130,148
+C-1037,Desert Rose Facilities Management LLC,Standard,UAE,210,47
+C-1038,Al Noor Hospitality FZE,Standard,UAE,140,149
+C-1039,Malabar Healthcare Pvt Ltd,Standard,IN,90,115
+C-1040,Pearl Facilities Management LLC,Standard,UAE,210,20
+C-1041,Neel Foods Pvt Ltd,Standard,IN,200,24
+C-1042,Himalaya Constructions Ltd,Standard,IN,160,98
+C-1043,Indus Healthcare Pvt Ltd,Standard,IN,120,40
+C-1044,Zenith Retail Pvt Ltd,Standard,IN,200,37
+C-1045,Oasis Technical Services LLC,Standard,UAE,90,52
+C-1046,Ganga Textiles Pvt Ltd,Standard,IN,100,87
+C-1047,Orchid Foods Pvt Ltd,Standard,IN,180,74
+C-1048,Gulf Crest Facilities Management LLC,Standard,UAE,110,99
+C-1049,Bharat Foods Pvt Ltd,Standard,IN,160,132
+C-1050,Falcon Contracting LLC,Standard,UAE,190,50
+C-1051,Arya Textiles Pvt Ltd,Standard,IN,70,106
+C-1052,Surya Auto Components Ltd,Standard,IN,120,76
+C-1053,Tarang Constructions Ltd,Standard,IN,60,78
+C-1054,Malabar Education Trust,Standard,IN,60,104
+C-1055,Kaveri Hospitality Pvt Ltd,Standard,IN,120,91
+C-1056,Surya Foods Pvt Ltd,Standard,IN,110,158
+C-1057,Tarang Healthcare Pvt Ltd,Standard,IN,200,82
+C-1058,Burj Logistics FZCO,Standard,UAE,180,68
+C-1059,Burj Facilities Management LLC,Standard,UAE,180,110
+C-1060,Gulf Crest Technical Services LLC,Standard,UAE,190,33

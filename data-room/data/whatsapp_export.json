@@ -1,0 +1,2975 @@
+[
+ {
+  "thread_id": "WA-10254",
+  "ticket_id": "PN-100009",
+  "wa_contact": "+91 00000 08603",
+  "customer_hint": "Bharat Healthcare Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1782889821000,
+    "text": "How to download all payslips together: We need all payslips for June as one zip. Is there a way?"
+   },
+   {
+    "from": "agent",
+    "ts": 1782890301000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1782918128669,
+    "text": "ok, waiting"
+   },
+   {
+    "from": "agent",
+    "ts": 1782968342820,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-87788",
+  "ticket_id": "PN-100016",
+  "wa_contact": "+91 00000 88805",
+  "customer_hint": "Kestrel Logistics Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1782893736000,
+    "text": "Our June payroll run has been on Processing for several hours. Finance is waiting to approve. Is the engine down?"
+   },
+   {
+    "from": "agent",
+    "ts": 1782895956000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1782961424742,
+    "text": "ok, waiting"
+   },
+   {
+    "from": "agent",
+    "ts": 1783075877802,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-50756",
+  "ticket_id": "PN-100025",
+  "wa_contact": "+971 00000 04115",
+  "customer_hint": "Falcon Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1782902276000,
+    "text": "تحميل كشوف الرواتب: كيف يمكنني تحميل كشوف الرواتب لجميع الموظفين دفعة واحدة؟"
+   },
+   {
+    "from": "agent",
+    "ts": 1782907376000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1782909981800,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1783063806533,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-83724",
+  "ticket_id": "PN-100028",
+  "wa_contact": "+91 00000 46089",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1782904937000,
+    "text": "What is the current PF wage ceiling and how should we treat employees above it in the June run? Your article KB-0143 is what we followed so far."
+   },
+   {
+    "from": "agent",
+    "ts": 1782906677000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1782940181372,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-23861",
+  "ticket_id": "PN-100063",
+  "wa_contact": "+971 00000 44510",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1782983326000,
+    "text": "كيف يمكنني تحميل كشوف الرواتب لجميع الموظفين دفعة واحدة؟"
+   },
+   {
+    "from": "agent",
+    "ts": 1782984286000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1783018947646,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1783113630598,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-38695",
+  "ticket_id": "PN-100072",
+  "wa_contact": "+91 00000 58681",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783054122000,
+    "text": "Payslip ka net pay aur bank file ka amount match nahi kar raha 11 logon ke liye. Kya galat hua?"
+   },
+   {
+    "from": "agent",
+    "ts": 1783057422000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1783111694330,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1783260098831,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-58402",
+  "ticket_id": "PN-100074",
+  "wa_contact": "+971 00000 04317",
+  "customer_hint": "Gulf Horizon Contracting LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783055456000,
+    "text": "Admin cannot log in: Our HR admin cannot log in. The OTP is not arriving on the registered phone. Salary account IBAN AE00 0000 8137 2298 2109 352, Emirates ID 784-0000-4302970-0."
+   },
+   {
+    "from": "agent",
+    "ts": 1783060736000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1783100513980,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": false
+ },
+ {
+  "thread_id": "WA-38344",
+  "ticket_id": "PN-100080",
+  "wa_contact": "+971 00000 09593",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783065707000,
+    "text": "We need all payslips for June as one zip. Is there a way?"
+   },
+   {
+    "from": "agent",
+    "ts": 1783067267000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1783069710824,
+    "text": "Thik hai"
+   },
+   {
+    "from": "agent",
+    "ts": 1783155263626,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-11801",
+  "ticket_id": "PN-100082",
+  "wa_contact": "+971 00000 01022",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783067072000,
+    "text": "How do we import last year's YTD figures from our previous vendor?"
+   },
+   {
+    "from": "agent",
+    "ts": 1783069112000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1783116027125,
+    "text": "any update??"
+   },
+   {
+    "from": "agent",
+    "ts": 1783187628096,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-23549",
+  "ticket_id": "PN-100108",
+  "wa_contact": "+91 00000 41478",
+  "customer_hint": "Indus Auto Components Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783330272000,
+    "text": "How to change the approver for payroll: How do I change the payroll approver after our finance head left?"
+   },
+   {
+    "from": "agent",
+    "ts": 1783334952000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1783375270702,
+    "text": "شكراً"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-19068",
+  "ticket_id": "PN-100115",
+  "wa_contact": "+91 00000 92689",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783419871000,
+    "text": "नया कर्मचारी कैसे जोड़ें: नए कर्मचारी को सिस्टम में कैसे जोड़ें? कृपया स्टेप्स बताएं।"
+   },
+   {
+    "from": "agent",
+    "ts": 1783424371000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1783455604332,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1783593010962,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-26160",
+  "ticket_id": "PN-100122",
+  "wa_contact": "+91 00000 97825",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783571793000,
+    "text": "Attendance regularisation not reflecting in payroll: Regularised attendance days are not reflected in the July payroll inputs."
+   },
+   {
+    "from": "agent",
+    "ts": 1783575333000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1783624456412,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-66197",
+  "ticket_id": "PN-100147",
+  "wa_contact": "+91 00000 69966",
+  "customer_hint": "Bharat Constructions Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783928855000,
+    "text": "नया कर्मचारी कैसे जोड़ें: नए कर्मचारी को सिस्टम में कैसे जोड़ें? कृपया स्टेप्स बताएं।"
+   },
+   {
+    "from": "agent",
+    "ts": 1783930835000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1783984100643,
+    "text": "Still not fixed"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-50598",
+  "ticket_id": "PN-100152",
+  "wa_contact": "+91 00000 02188",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1783936212000,
+    "text": "Steps to add a new allowance and make it taxable please."
+   },
+   {
+    "from": "agent",
+    "ts": 1783938792000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1784000978270,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-77520",
+  "ticket_id": "PN-100183",
+  "wa_contact": "+91 00000 30151",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1784444019000,
+    "text": "Bulk me employees upload kaise karein: Bulk me employees ko upload kaise karte hain? Template download nahi ho raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1784447139000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1784458339471,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-12857",
+  "ticket_id": "PN-100191",
+  "wa_contact": "+91 00000 64625",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1784532099000,
+    "text": "Salary register export is blank: The monthly salary register export gives an empty file. Needed for audit."
+   },
+   {
+    "from": "agent",
+    "ts": 1784536299000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1784560898248,
+    "text": "any update??"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-34577",
+  "ticket_id": "PN-100194",
+  "wa_contact": "+91 00000 76935",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1784538143000,
+    "text": "We want only HR heads to see CTC. How to set role permissions?"
+   },
+   {
+    "from": "agent",
+    "ts": 1784541983000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1784604004688,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-19476",
+  "ticket_id": "PN-100204",
+  "wa_contact": "+971 00000 80664",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1784621615000,
+    "text": "How do I add employees in bulk?: Where can I find the bulk upload template and how do we map the columns? Salary account IBAN AE00 0000 4615 2653 2224 708, Emirates ID 784-0000-2134616-0."
+   },
+   {
+    "from": "agent",
+    "ts": 1784621795000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1784643667376,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1784779048382,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-60669",
+  "ticket_id": "PN-100213",
+  "wa_contact": "+91 00000 86578",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1784707257000,
+    "text": "Steps to add a new allowance and make it taxable please."
+   },
+   {
+    "from": "agent",
+    "ts": 1784707617000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1784719745179,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1784911207029,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-82883",
+  "ticket_id": "PN-100238",
+  "wa_contact": "+91 00000 89185",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1784963194000,
+    "text": "नए कर्मचारी को सिस्टम में कैसे जोड़ें? कृपया स्टेप्स बताएं।"
+   },
+   {
+    "from": "agent",
+    "ts": 1784965774000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1784974240866,
+    "text": "Still not fixed"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-71518",
+  "ticket_id": "PN-100246",
+  "wa_contact": "+91 00000 13519",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1784968281000,
+    "text": "How can I build a headcount by cost centre report with joiners and leavers?"
+   },
+   {
+    "from": "agent",
+    "ts": 1784970561000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1785035189189,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785164586938,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-94694",
+  "ticket_id": "PN-100272",
+  "wa_contact": "+971 00000 65718",
+  "customer_hint": "Burj Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785062419000,
+    "text": "We need all payslips for July as one zip. Is there a way?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785067219000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1785128251016,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785229157584,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-92767",
+  "ticket_id": "PN-100292",
+  "wa_contact": "+971 00000 85193",
+  "customer_hint": "Al Noor Technical Services LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785132857000,
+    "text": "تحميل كشوف الرواتب: كيف يمكنني تحميل كشوف الرواتب لجميع الموظفين دفعة واحدة؟"
+   },
+   {
+    "from": "agent",
+    "ts": 1785138197000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785167369342,
+    "text": "Still not fixed"
+   },
+   {
+    "from": "agent",
+    "ts": 1785221159588,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-11555",
+  "ticket_id": "PN-100306",
+  "wa_contact": "+971 00000 79849",
+  "customer_hint": "Falcon Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785141603000,
+    "text": "Need the gratuity accrual report for the year-end audit."
+   },
+   {
+    "from": "agent",
+    "ts": 1785143163000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1785191457410,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-71146",
+  "ticket_id": "PN-100314",
+  "wa_contact": "+91 00000 01103",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785146714000,
+    "text": "How to download all payslips together: We need all payslips for July as one zip. Is there a way?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785147734000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785167799341,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1785291516394,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-73561",
+  "ticket_id": "PN-100328",
+  "wa_contact": "+91 00000 06082",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785217991000,
+    "text": "After the July payroll the PF deduction for higher-paid employees looks different from last month. Your help article KB-0142 says one thing but the payslip shows another. Which is right?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785221471000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785276071843,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1785387786430,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-44426",
+  "ticket_id": "PN-100349",
+  "wa_contact": "+91 00000 35498",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785237427000,
+    "text": "How to add a new salary component: Steps to add a new allowance and make it taxable please."
+   },
+   {
+    "from": "agent",
+    "ts": 1785241807000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1785299186003,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-17972",
+  "ticket_id": "PN-100356",
+  "wa_contact": "+971 00000 69745",
+  "customer_hint": "Sahara Hospitality FZE",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785246387000,
+    "text": "How do I restrict who sees salary data?: We want only HR heads to see CTC. How to set role permissions?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785247887000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785273396356,
+    "text": "any update??"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-92407",
+  "ticket_id": "PN-100360",
+  "wa_contact": "+91 00000 65077",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785300873000,
+    "text": "Please explain ESI applicability for employees whose gross crosses the wage limit mid-year. An example would help."
+   },
+   {
+    "from": "agent",
+    "ts": 1785304233000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1785352963148,
+    "text": "Still not fixed"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-63252",
+  "ticket_id": "PN-100379",
+  "wa_contact": "+91 00000 50619",
+  "customer_hint": "Malabar Healthcare Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785311837000,
+    "text": "Regularised attendance days are not reflected in the July payroll inputs."
+   },
+   {
+    "from": "agent",
+    "ts": 1785315077000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1785376783548,
+    "text": "ok, waiting"
+   },
+   {
+    "from": "agent",
+    "ts": 1785449524395,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-13516",
+  "ticket_id": "PN-100392",
+  "wa_contact": "+91 00000 67385",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785319881000,
+    "text": "We are two weeks from go-live. Can someone confirm the statutory settings checklist for our state? Bank details for the employee: A/C 55799915843, IFSC FAKE0456512. Please correct."
+   },
+   {
+    "from": "agent",
+    "ts": 1785321741000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1785337473953,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785496108730,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-52929",
+  "ticket_id": "PN-100410",
+  "wa_contact": "+971 00000 50050",
+  "customer_hint": "Oasis Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785392094000,
+    "text": "Our July payroll run has been on Processing for several hours. Finance is waiting to approve. Is the engine down?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785393714000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785422003673,
+    "text": "ok, waiting"
+   },
+   {
+    "from": "agent",
+    "ts": 1785560058633,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-92580",
+  "ticket_id": "PN-100423",
+  "wa_contact": "+91 00000 83859",
+  "customer_hint": "Navrang Infotech Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785398187000,
+    "text": "We are two weeks from go-live. Can someone confirm the statutory settings checklist for our state?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785399747000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785461109693,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1785581354821,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-99183",
+  "ticket_id": "PN-100499",
+  "wa_contact": "+91 00000 68502",
+  "customer_hint": "Malabar Pharma Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785571853000,
+    "text": "Arrears not included in this month: Arrears approved last cycle were not picked up in the July run for 1 people. Please advise how to add them without re-running everything."
+   },
+   {
+    "from": "agent",
+    "ts": 1785572573000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1785631104824,
+    "text": "شكراً"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-41050",
+  "ticket_id": "PN-100508",
+  "wa_contact": "+971 00000 64414",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785579401000,
+    "text": "SSO login loop: SSO redirects back to the login page repeatedly for several users."
+   },
+   {
+    "from": "agent",
+    "ts": 1785579941000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1785587194394,
+    "text": "any update??"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-87374",
+  "ticket_id": "PN-100534",
+  "wa_contact": "+91 00000 61260",
+  "customer_hint": "Himalaya Education Trust",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785664153000,
+    "text": "Admin cannot log in: Our HR admin cannot log in. The OTP is not arriving on the registered phone."
+   },
+   {
+    "from": "agent",
+    "ts": 1785667573000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785732017392,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-26631",
+  "ticket_id": "PN-100535",
+  "wa_contact": "+91 00000 59551",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785664782000,
+    "text": "Data migration from old payroll system: How do we import last year's YTD figures from our previous vendor?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785665442000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1785698843310,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-76176",
+  "ticket_id": "PN-100545",
+  "wa_contact": "+91 00000 01882",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785738166000,
+    "text": "Salary nahi aayi: Payroll run kar diya tha lekin 49 employees ke account me salary nahi aayi. Status 'Completed' dikha raha hai. Please urgent check karo, salary week hai."
+   },
+   {
+    "from": "agent",
+    "ts": 1785743266000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1785762791786,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-35732",
+  "ticket_id": "PN-100560",
+  "wa_contact": "+91 00000 35121",
+  "customer_hint": "Kestrel Logistics Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785755595000,
+    "text": "How do I restrict who sees salary data?: We want only HR heads to see CTC. How to set role permissions?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785760755000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785791566724,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-18044",
+  "ticket_id": "PN-100566",
+  "wa_contact": "+91 00000 83977",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785820941000,
+    "text": "Admin cannot log in: Our HR admin cannot log in. The OTP is not arriving on the registered phone."
+   },
+   {
+    "from": "agent",
+    "ts": 1785824541000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1785861789806,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1785989526908,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-32351",
+  "ticket_id": "PN-100577",
+  "wa_contact": "+971 00000 37887",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1785920984000,
+    "text": "We want only HR heads to see CTC. How to set role permissions?"
+   },
+   {
+    "from": "agent",
+    "ts": 1785925484000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1785945255652,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1786056155132,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-83262",
+  "ticket_id": "PN-100599",
+  "wa_contact": "+91 00000 51598",
+  "customer_hint": "Navrang Infotech Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1786270184000,
+    "text": "नए कर्मचारी को सिस्टम में कैसे जोड़ें? कृपया स्टेप्स बताएं। My Aadhaar is 0000 6784 9032 and PAN ABCDE1774F, please verify."
+   },
+   {
+    "from": "agent",
+    "ts": 1786273064000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1786334874308,
+    "text": "Still not fixed"
+   },
+   {
+    "from": "agent",
+    "ts": 1786446336818,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-26568",
+  "ticket_id": "PN-100616",
+  "wa_contact": "+91 00000 58472",
+  "customer_hint": "Lotus Education Trust",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1786452336000,
+    "text": "Sabhi employees ko payslip email kaise bhejein? Option nahi mil raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1786457676000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1786519357678,
+    "text": "شكراً"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-31148",
+  "ticket_id": "PN-100629",
+  "wa_contact": "+91 00000 45715",
+  "customer_hint": "Bharat Education Trust",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1786614297000,
+    "text": "Salary register export is blank: The monthly salary register export gives an empty file. Needed for audit."
+   },
+   {
+    "from": "agent",
+    "ts": 1786617477000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1786639286636,
+    "text": "Still not fixed"
+   },
+   {
+    "from": "agent",
+    "ts": 1786746091772,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-56945",
+  "ticket_id": "PN-100631",
+  "wa_contact": "+971 00000 74821",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1786618926000,
+    "text": "How to change the approver for payroll: How do I change the payroll approver after our finance head left?"
+   },
+   {
+    "from": "agent",
+    "ts": 1786623666000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1786642514801,
+    "text": "Still not fixed"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-17983",
+  "ticket_id": "PN-100635",
+  "wa_contact": "+91 00000 94779",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1786701349000,
+    "text": "How can I build a headcount by cost centre report with joiners and leavers?"
+   },
+   {
+    "from": "agent",
+    "ts": 1786705249000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1786710326987,
+    "text": "Still not fixed"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-85047",
+  "ticket_id": "PN-100652",
+  "wa_contact": "+91 00000 66707",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787047854000,
+    "text": "Steps to add a new allowance and make it taxable please."
+   },
+   {
+    "from": "agent",
+    "ts": 1787050854000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1787114132915,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-68966",
+  "ticket_id": "PN-100656",
+  "wa_contact": "+971 00000 91204",
+  "customer_hint": "Oasis Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787113066000,
+    "text": "How do I add employees in bulk?: Where can I find the bulk upload template and how do we map the columns? Emirates ID 784-0000-4644214-0. Please check his record."
+   },
+   {
+    "from": "agent",
+    "ts": 1787115586000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1787143991889,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1787270618331,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-14336",
+  "ticket_id": "PN-100674",
+  "wa_contact": "+971 00000 85578",
+  "customer_hint": "Desert Rose Facilities Management LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787207571000,
+    "text": "Steps to add a new allowance and make it taxable please. Emirates ID 784-0000-8749958-0. Please check his record."
+   },
+   {
+    "from": "agent",
+    "ts": 1787211591000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1787219247971,
+    "text": "ok"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-20115",
+  "ticket_id": "PN-100680",
+  "wa_contact": "+91 00000 53139",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787228796000,
+    "text": "Where can I find the bulk upload template and how do we map the columns?"
+   },
+   {
+    "from": "agent",
+    "ts": 1787229816000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1787256174623,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1787368152367,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": false
+ },
+ {
+  "thread_id": "WA-35494",
+  "ticket_id": "PN-100682",
+  "wa_contact": "+971 00000 61853",
+  "customer_hint": "Oasis Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787296363000,
+    "text": "How to add a new salary component: Steps to add a new allowance and make it taxable please."
+   },
+   {
+    "from": "agent",
+    "ts": 1787300803000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1787316030151,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1787444097185,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-68947",
+  "ticket_id": "PN-100713",
+  "wa_contact": "+971 00000 79711",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787640146000,
+    "text": "Steps to add a new allowance and make it taxable please."
+   },
+   {
+    "from": "agent",
+    "ts": 1787645486000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1787698311975,
+    "text": "شكراً"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-82164",
+  "ticket_id": "PN-100717",
+  "wa_contact": "+971 00000 40637",
+  "customer_hint": "Burj Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787641276000,
+    "text": "الرواتب لم تصل: لم يتم تحويل رواتب 18 موظفين هذا الشهر رغم تشغيل مسير الرواتب. يرجى المساعدة بشكل عاجل."
+   },
+   {
+    "from": "agent",
+    "ts": 1787642296000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1787691289038,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-66045",
+  "ticket_id": "PN-100722",
+  "wa_contact": "+91 00000 25686",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787644702000,
+    "text": "Year-end carry forward did not apply for 36 employees. Balances show zero."
+   },
+   {
+    "from": "agent",
+    "ts": 1787645422000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1787682396506,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-53285",
+  "ticket_id": "PN-100725",
+  "wa_contact": "+91 00000 00007",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787645939000,
+    "text": "Login nahi ho raha, OTP bhi nahi aa raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1787646359000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1787656530212,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-97621",
+  "ticket_id": "PN-100734",
+  "wa_contact": "+91 00000 20950",
+  "customer_hint": "Bharat Healthcare Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787653582000,
+    "text": "How to change the approver for payroll: How do I change the payroll approver after our finance head left? PAN ABCDE8563F / Aadhaar 0000 1573 4943 attached for KYC."
+   },
+   {
+    "from": "agent",
+    "ts": 1787658802000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1787665389048,
+    "text": "Thik hai"
+   },
+   {
+    "from": "agent",
+    "ts": 1787795626671,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-87342",
+  "ticket_id": "PN-100772",
+  "wa_contact": "+91 00000 43169",
+  "customer_hint": "Kestrel Logistics Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787809213000,
+    "text": "The monthly salary register export gives an empty file. Needed for audit."
+   },
+   {
+    "from": "agent",
+    "ts": 1787812153000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1787851624513,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-73153",
+  "ticket_id": "PN-100781",
+  "wa_contact": "+91 00000 01052",
+  "customer_hint": "Lotus Healthcare Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787815958000,
+    "text": "Bulk me employees ko upload kaise karte hain? Template download nahi ho raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1787819678000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1787824566594,
+    "text": "Still not fixed"
+   },
+   {
+    "from": "agent",
+    "ts": 1787942863737,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-53742",
+  "ticket_id": "PN-100789",
+  "wa_contact": "+91 00000 79576",
+  "customer_hint": "Navrang Infotech Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787821219000,
+    "text": "Sabhi employees ko payslip email kaise bhejein? Option nahi mil raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1787825899000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1787879616108,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-13871",
+  "ticket_id": "PN-100812",
+  "wa_contact": "+91 00000 22986",
+  "customer_hint": "Surya Hospitality Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787901885000,
+    "text": "Regime switch mid-year: An employee switched tax regime in August. How does PayNest recompute TDS for the remaining months?"
+   },
+   {
+    "from": "agent",
+    "ts": 1787902425000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1787941039561,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1787983458326,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": false
+ },
+ {
+  "thread_id": "WA-74371",
+  "ticket_id": "PN-100820",
+  "wa_contact": "+971 00000 69638",
+  "customer_hint": "Al Noor Technical Services LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787903985000,
+    "text": "We need all payslips for August as one zip. Is there a way?"
+   },
+   {
+    "from": "agent",
+    "ts": 1787904345000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1787939762925,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-55644",
+  "ticket_id": "PN-100831",
+  "wa_contact": "+91 00000 62364",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787907866000,
+    "text": "SSO login loop: SSO redirects back to the login page repeatedly for several users."
+   },
+   {
+    "from": "agent",
+    "ts": 1787910806000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1787923948140,
+    "text": "any update??"
+   },
+   {
+    "from": "agent",
+    "ts": 1788012092628,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-53649",
+  "ticket_id": "PN-100849",
+  "wa_contact": "+971 00000 59514",
+  "customer_hint": "Al Noor Technical Services LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787919114000,
+    "text": "How to download all payslips together: We need all payslips for August as one zip. Is there a way?"
+   },
+   {
+    "from": "agent",
+    "ts": 1787922114000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1787985153999,
+    "text": "ok, waiting"
+   },
+   {
+    "from": "agent",
+    "ts": 1788025724356,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-25002",
+  "ticket_id": "PN-100850",
+  "wa_contact": "+971 00000 45554",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787919908000,
+    "text": "Steps to add a new allowance and make it taxable please."
+   },
+   {
+    "from": "agent",
+    "ts": 1787920868000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1787983694058,
+    "text": "Still not fixed"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-65047",
+  "ticket_id": "PN-100871",
+  "wa_contact": "+91 00000 02785",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787987316000,
+    "text": "Leave balance carry forward nahi hua: Leave balance carry forward nahi hua, year end ke baad zero dikha raha hai."
+   },
+   {
+    "from": "agent",
+    "ts": 1787991216000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1788037446954,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-15098",
+  "ticket_id": "PN-100872",
+  "wa_contact": "+91 00000 27962",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787987785000,
+    "text": "Login nahi ho raha, OTP bhi nahi aa raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1787991565000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1788019785951,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1788069902983,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-16258",
+  "ticket_id": "PN-100882",
+  "wa_contact": "+91 00000 85626",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787996895000,
+    "text": "Payroll run stuck at 'Processing': Our August payroll run has been on Processing for several hours. Finance is waiting to approve. Is the engine down?"
+   },
+   {
+    "from": "agent",
+    "ts": 1787998095000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1788052246025,
+    "text": "Still not fixed"
+   },
+   {
+    "from": "agent",
+    "ts": 1788078744178,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-60354",
+  "ticket_id": "PN-100886",
+  "wa_contact": "+91 00000 51092",
+  "customer_hint": "Meridian Foods Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1787999678000,
+    "text": "Where can I find the bulk upload template and how do we map the columns?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788004058000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1788014595663,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-76712",
+  "ticket_id": "PN-100900",
+  "wa_contact": "+91 00000 49388",
+  "customer_hint": "Ashoka Pharma Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788069293000,
+    "text": "Our HR admin cannot log in. The OTP is not arriving on the registered phone."
+   },
+   {
+    "from": "agent",
+    "ts": 1788072593000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1788080010144,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-72530",
+  "ticket_id": "PN-100913",
+  "wa_contact": "+91 00000 96417",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788076485000,
+    "text": "Bulk me employees upload kaise karein: Bulk me employees ko upload kaise karte hain? Template download nahi ho raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1788081705000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1788120045196,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-67306",
+  "ticket_id": "PN-100929",
+  "wa_contact": "+91 00000 45156",
+  "customer_hint": "Ashoka Pharma Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788084304000,
+    "text": "How do I add employees in bulk?: Where can I find the bulk upload template and how do we map the columns?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788087664000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1788148609610,
+    "text": "any update??"
+   },
+   {
+    "from": "agent",
+    "ts": 1788281802609,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-36009",
+  "ticket_id": "PN-100940",
+  "wa_contact": "+971 00000 07163",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788094568000,
+    "text": "How do I change the payroll approver after our finance head left?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788094928000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1788124132777,
+    "text": "ok, waiting"
+   },
+   {
+    "from": "agent",
+    "ts": 1788211855055,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-20761",
+  "ticket_id": "PN-100941",
+  "wa_contact": "+971 00000 18652",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788096928000,
+    "text": "How can I build a headcount by cost centre report with joiners and leavers?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788101428000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1788112665264,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788214722380,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-28774",
+  "ticket_id": "PN-100942",
+  "wa_contact": "+971 00000 18138",
+  "customer_hint": "Marina Facilities Management LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788100337000,
+    "text": "Year-end carry forward did not apply for 30 employees. Balances show zero."
+   },
+   {
+    "from": "agent",
+    "ts": 1788104837000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1788144217163,
+    "text": "ok"
+   }
+  ],
+  "closed": false
+ },
+ {
+  "thread_id": "WA-75774",
+  "ticket_id": "PN-100946",
+  "wa_contact": "+91 00000 80405",
+  "customer_hint": "Navrang Infotech Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788154656000,
+    "text": "Our August payroll run has been on Processing for several hours. Finance is waiting to approve. Is the engine down?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788159936000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1788168465116,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-72979",
+  "ticket_id": "PN-100963",
+  "wa_contact": "+971 00000 61325",
+  "customer_hint": "Gulf Horizon Contracting LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788165370000,
+    "text": "Custom report: headcount by cost centre: How can I build a headcount by cost centre report with joiners and leavers?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788165790000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1788229053091,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-90390",
+  "ticket_id": "PN-100986",
+  "wa_contact": "+91 00000 55968",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788248464000,
+    "text": "Salary nahi aayi: Payroll run kar diya tha lekin 44 employees ke account me salary nahi aayi. Status 'Completed' dikha raha hai. Please urgent check karo, salary week hai."
+   },
+   {
+    "from": "agent",
+    "ts": 1788250624000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1788253410131,
+    "text": "any update??"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-51845",
+  "ticket_id": "PN-100998",
+  "wa_contact": "+971 00000 00676",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788257068000,
+    "text": "Bank rejected our WPS file: The bank portal rejected the WPS file generated from PayNest for 13 employees. We followed KB-0201. Salary deadline is close, please help."
+   },
+   {
+    "from": "agent",
+    "ts": 1788259288000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1788279666623,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788466124290,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-12026",
+  "ticket_id": "PN-101002",
+  "wa_contact": "+91 00000 88154",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788260612000,
+    "text": "Our HR admin cannot log in. The OTP is not arriving on the registered phone."
+   },
+   {
+    "from": "agent",
+    "ts": 1788265232000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1788304395624,
+    "text": "Still not fixed"
+   },
+   {
+    "from": "agent",
+    "ts": 1788380458722,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-86929",
+  "ticket_id": "PN-101024",
+  "wa_contact": "+971 00000 54389",
+  "customer_hint": "Falcon Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788331756000,
+    "text": "Year-end carry forward did not apply for 14 employees. Balances show zero."
+   },
+   {
+    "from": "agent",
+    "ts": 1788332776000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1788345623668,
+    "text": "شكراً"
+   }
+  ],
+  "closed": false
+ },
+ {
+  "thread_id": "WA-78074",
+  "ticket_id": "PN-101067",
+  "wa_contact": "+91 00000 96803",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788493131000,
+    "text": "Our HR admin cannot log in. The OTP is not arriving on the registered phone. Bank details for the employee: A/C 77473510674, IFSC FAKE0449989. Please correct."
+   },
+   {
+    "from": "agent",
+    "ts": 1788497031000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1788544678867,
+    "text": "any update??"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-87390",
+  "ticket_id": "PN-101094",
+  "wa_contact": "+971 00000 78784",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1788866123000,
+    "text": "SSO redirects back to the login page repeatedly for several users."
+   },
+   {
+    "from": "agent",
+    "ts": 1788870923000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1788894358043,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1788986655104,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": false
+ },
+ {
+  "thread_id": "WA-75487",
+  "ticket_id": "PN-101126",
+  "wa_contact": "+91 00000 25308",
+  "customer_hint": "Navrang Infotech Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1789201417000,
+    "text": "We want only HR heads to see CTC. How to set role permissions?"
+   },
+   {
+    "from": "agent",
+    "ts": 1789202737000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1789225010604,
+    "text": "any update??"
+   },
+   {
+    "from": "agent",
+    "ts": 1789407693360,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-51636",
+  "ticket_id": "PN-101172",
+  "wa_contact": "+91 00000 71134",
+  "customer_hint": "Indus Hospitality Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1789635461000,
+    "text": "How to download all payslips together: We need all payslips for September as one zip. Is there a way?"
+   },
+   {
+    "from": "agent",
+    "ts": 1789639301000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1789640982764,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-12364",
+  "ticket_id": "PN-101176",
+  "wa_contact": "+971 00000 49048",
+  "customer_hint": "Burj Technical Services LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1789638460000,
+    "text": "كيف يمكنني تحميل كشوف الرواتب لجميع الموظفين دفعة واحدة؟"
+   },
+   {
+    "from": "agent",
+    "ts": 1789639060000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1789703034412,
+    "text": "ok"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-40538",
+  "ticket_id": "PN-101186",
+  "wa_contact": "+91 00000 59922",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1789727647000,
+    "text": "Data migration from old payroll system: How do we import last year's YTD figures from our previous vendor?"
+   },
+   {
+    "from": "agent",
+    "ts": 1789729567000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1789767378708,
+    "text": "Still not fixed"
+   },
+   {
+    "from": "agent",
+    "ts": 1789933009373,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-79997",
+  "ticket_id": "PN-101187",
+  "wa_contact": "+91 00000 40037",
+  "customer_hint": "Meridian Foods Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1789732332000,
+    "text": "Monthly salary register ka report download karne pe blank file aa rahi hai."
+   },
+   {
+    "from": "agent",
+    "ts": 1789733592000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1789744279573,
+    "text": "any update??"
+   },
+   {
+    "from": "agent",
+    "ts": 1789856121127,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-80300",
+  "ticket_id": "PN-101189",
+  "wa_contact": "+971 00000 95652",
+  "customer_hint": "Falcon Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1789742469000,
+    "text": "Attendance regularisation not reflecting in payroll: Regularised attendance days are not reflected in the September payroll inputs."
+   },
+   {
+    "from": "agent",
+    "ts": 1789744509000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1789748061538,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1789909006975,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-12106",
+  "ticket_id": "PN-101225",
+  "wa_contact": "+91 00000 65042",
+  "customer_hint": "Bharat Healthcare Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790237684000,
+    "text": "Leave balance carry forward nahi hua: Leave balance carry forward nahi hua, year end ke baad zero dikha raha hai."
+   },
+   {
+    "from": "agent",
+    "ts": 1790242964000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790295184404,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1790453396472,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-90581",
+  "ticket_id": "PN-101226",
+  "wa_contact": "+91 00000 57884",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790241417000,
+    "text": "We want only HR heads to see CTC. How to set role permissions?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790244117000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1790254471355,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": false
+ },
+ {
+  "thread_id": "WA-44239",
+  "ticket_id": "PN-101230",
+  "wa_contact": "+91 00000 70875",
+  "customer_hint": "Meridian Foods Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790248011000,
+    "text": "Bulk me employees ko upload kaise karte hain? Template download nahi ho raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1790250591000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790271447458,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790393984188,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-43397",
+  "ticket_id": "PN-101278",
+  "wa_contact": "+91 00000 34558",
+  "customer_hint": "Kestrel Logistics Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790326102000,
+    "text": "Payroll run kar diya tha lekin 18 employees ke account me salary nahi aayi. Status 'Completed' dikha raha hai. Please urgent check karo, salary week hai."
+   },
+   {
+    "from": "agent",
+    "ts": 1790330722000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1790340619336,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790498659072,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-40986",
+  "ticket_id": "PN-101309",
+  "wa_contact": "+971 00000 59058",
+  "customer_hint": "Al Noor Technical Services LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790405114000,
+    "text": "لا أستطيع تسجيل الدخول إلى حساب المسؤول."
+   },
+   {
+    "from": "agent",
+    "ts": 1790410334000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790415398078,
+    "text": "any update??"
+   },
+   {
+    "from": "agent",
+    "ts": 1790596711311,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-91549",
+  "ticket_id": "PN-101312",
+  "wa_contact": "+91 00000 38963",
+  "customer_hint": "Meridian Foods Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790407547000,
+    "text": "Year-end carry forward did not apply for 12 employees. Balances show zero."
+   },
+   {
+    "from": "agent",
+    "ts": 1790410547000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1790436372404,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790593533696,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-81775",
+  "ticket_id": "PN-101317",
+  "wa_contact": "+971 00000 64628",
+  "customer_hint": "Oasis Trading LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790410589000,
+    "text": "الرواتب لم تصل: لم يتم تحويل رواتب 1 موظفين هذا الشهر رغم تشغيل مسير الرواتب. يرجى المساعدة بشكل عاجل."
+   },
+   {
+    "from": "agent",
+    "ts": 1790412809000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1790480497734,
+    "text": "Thik hai"
+   },
+   {
+    "from": "agent",
+    "ts": 1790493775966,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-16528",
+  "ticket_id": "PN-101318",
+  "wa_contact": "+91 00000 74419",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790412127000,
+    "text": "Sabhi employees ko payslip email kaise bhejein? Option nahi mil raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1790415547000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790460209621,
+    "text": "kab tak hoga?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790509377814,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-79360",
+  "ticket_id": "PN-101319",
+  "wa_contact": "+971 00000 71538",
+  "customer_hint": "Gulf Horizon Contracting LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790413214000,
+    "text": "Need the gratuity accrual report for the year-end audit."
+   },
+   {
+    "from": "agent",
+    "ts": 1790413754000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1790439139769,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-71716",
+  "ticket_id": "PN-101330",
+  "wa_contact": "+971 00000 71308",
+  "customer_hint": "Gulf Horizon Contracting LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790417369000,
+    "text": "كيف يمكنني تحميل كشوف الرواتب لجميع الموظفين دفعة واحدة؟"
+   },
+   {
+    "from": "agent",
+    "ts": 1790418569000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790466783507,
+    "text": "kab tak hoga?"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-70196",
+  "ticket_id": "PN-101340",
+  "wa_contact": "+91 00000 68068",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790484948000,
+    "text": "ESI applicability for employees near the limit: Please explain ESI applicability for employees whose gross crosses the wage limit mid-year. An example would help."
+   },
+   {
+    "from": "agent",
+    "ts": 1790488908000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1790555338873,
+    "text": "شكراً"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-47155",
+  "ticket_id": "PN-101384",
+  "wa_contact": "+971 00000 46548",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790575900000,
+    "text": "Getting an error when uploading the SIF file generated by the system. It was fine last month."
+   },
+   {
+    "from": "agent",
+    "ts": 1790580760000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1790612509761,
+    "text": "ok"
+   },
+   {
+    "from": "agent",
+    "ts": 1790740049893,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-33648",
+  "ticket_id": "PN-101393",
+  "wa_contact": "+91 00000 82855",
+  "customer_hint": "Kestrel Logistics Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790583138000,
+    "text": "We are two weeks from go-live. Can someone confirm the statutory settings checklist for our state? PAN ABCDE3839F / Aadhaar 0000 2658 3527 attached for KYC."
+   },
+   {
+    "from": "agent",
+    "ts": 1790588058000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790620366600,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1790705126099,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-78384",
+  "ticket_id": "PN-101399",
+  "wa_contact": "+91 00000 70308",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790585708000,
+    "text": "वेतन जमा नहीं हुआ: इस महीने 6 कर्मचारियों का वेतन खाते में जमा नहीं हुआ है। कृपया जल्दी जाँच करें।"
+   },
+   {
+    "from": "agent",
+    "ts": 1790590388000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1790642152799,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-89534",
+  "ticket_id": "PN-101421",
+  "wa_contact": "+91 00000 98879",
+  "customer_hint": "Lotus Education Trust",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790657813000,
+    "text": "छुट्टी का बैलेंस गलत: छुट्टी का बैलेंस गलत दिख रहा है, कृपया ठीक करें।"
+   },
+   {
+    "from": "agent",
+    "ts": 1790662373000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1790717831992,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-52810",
+  "ticket_id": "PN-101441",
+  "wa_contact": "+91 00000 48001",
+  "customer_hint": "Navrang Infotech Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790668878000,
+    "text": "Arrears not included in this month: Arrears approved last cycle were not picked up in the September run for 59 people. Please advise how to add them without re-running everything."
+   },
+   {
+    "from": "agent",
+    "ts": 1790672178000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790739888679,
+    "text": "Thik hai"
+   },
+   {
+    "from": "agent",
+    "ts": 1790776882208,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-17961",
+  "ticket_id": "PN-101448",
+  "wa_contact": "+971 00000 93276",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790673173000,
+    "text": "Has the WPS SIF file layout changed recently? Our bank asked us to confirm the version. We have been using KB-0201."
+   },
+   {
+    "from": "agent",
+    "ts": 1790677253000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1790742718080,
+    "text": "ok, waiting"
+   },
+   {
+    "from": "agent",
+    "ts": 1790765035570,
+    "text": "Issue resolved, please confirm."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-57704",
+  "ticket_id": "PN-101459",
+  "wa_contact": "+91 00000 54548",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790684287000,
+    "text": "Form 16 aur payslip TDS mismatch: Form 16 me TDS ka figure payslip se match nahi kar raha."
+   },
+   {
+    "from": "agent",
+    "ts": 1790685187000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1790696269507,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-70232",
+  "ticket_id": "PN-101466",
+  "wa_contact": "+91 00000 91528",
+  "customer_hint": "Meridian Foods Pvt Ltd",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790746778000,
+    "text": "पीएफ की वेतन सीमा अभी कितनी है और उससे ज़्यादा वेतन वालों के लिए गणना कैसे होगी?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790748158000,
+    "text": "Namaste, please share your company name and employee ID."
+   },
+   {
+    "from": "customer",
+    "ts": 1790778662376,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1790832933225,
+    "text": "We have updated your account, thanks."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-94852",
+  "ticket_id": "PN-101469",
+  "wa_contact": "+971 00000 87752",
+  "customer_hint": "Burj Contracting LLC",
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790748422000,
+    "text": "How to download all payslips together: We need all payslips for September as one zip. Is there a way?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790751782000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1790752669103,
+    "text": "Thik hai"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-11687",
+  "ticket_id": "PN-101471",
+  "wa_contact": "+91 00000 38108",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790749342000,
+    "text": "PF ka wage ceiling abhi kitna hai? Basic 38000 wale employee ka PF kaise calculate hoga? KB KB-0143 follow kiya tha."
+   },
+   {
+    "from": "agent",
+    "ts": 1790750962000,
+    "text": "مرحباً، نراجع الطلب الآن."
+   },
+   {
+    "from": "customer",
+    "ts": 1790758971429,
+    "text": "ok, waiting"
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-18150",
+  "ticket_id": "PN-101473",
+  "wa_contact": "+91 00000 16359",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790750769000,
+    "text": "How to change the approver for payroll: How do I change the payroll approver after our finance head left?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790755089000,
+    "text": "Hello, we are checking this for you."
+   },
+   {
+    "from": "customer",
+    "ts": 1790777756574,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1790940425118,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-53266",
+  "ticket_id": "PN-101479",
+  "wa_contact": "+91 00000 13067",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790753203000,
+    "text": "PF deduction looks different this month: After the September payroll the PF deduction for higher-paid employees looks different from last month. Your help article KB-0142 says one thing but the payslip shows another. Which is right?"
+   },
+   {
+    "from": "agent",
+    "ts": 1790758063000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790806760864,
+    "text": "شكراً"
+   },
+   {
+    "from": "agent",
+    "ts": 1790847986635,
+    "text": "Escalated to our team."
+   }
+  ],
+  "closed": true
+ },
+ {
+  "thread_id": "WA-57110",
+  "ticket_id": "PN-101500",
+  "wa_contact": "+971 00000 72070",
+  "customer_hint": null,
+  "messages": [
+   {
+    "from": "customer",
+    "ts": 1790777761000,
+    "text": "Steps to add a new allowance and make it taxable please."
+   },
+   {
+    "from": "agent",
+    "ts": 1790781661000,
+    "text": "Thank you for contacting PayNest. Looking into it."
+   },
+   {
+    "from": "customer",
+    "ts": 1790844017846,
+    "text": "Still not fixed"
+   }
+  ],
+  "closed": true
+ }
+]

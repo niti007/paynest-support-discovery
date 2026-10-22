@@ -1,0 +1,129 @@
+breach_id,ticket_id,customer_id,tier,priority,sla_resolution_target_h,actual_resolution_h,breach_h,credit_pct,monthly_fee_usd,credit_usd,invoice_month,agent_noted_reason,approved_by
+BR-0001,PN-100003,C-1006,Enterprise,P3,72,179.8,107.8,3.0,3370,101.1,2026-07,,finance-auto
+BR-0002,PN-100014,C-1002,Enterprise,P2,24,40.0,16.0,5.0,3100,155.0,2026-07,Customer unresponsive,F. Qureshi
+BR-0003,PN-100021,C-1001,Enterprise,P3,72,212.9,140.9,3.0,4200,126.0,2026-07,Agent delay,S. Rao
+BR-0004,PN-100027,C-1002,Enterprise,P3,72,145.7,73.7,3.0,3100,93.0,2026-07,,finance-auto
+BR-0005,PN-100032,C-1002,Enterprise,P3,72,179.5,107.5,3.0,3100,93.0,2026-07,Agent delay,finance-auto
+BR-0006,PN-100038,C-1011,Enterprise,P2,24,36.8,12.8,5.0,3190,159.5,2026-07,Awaiting engineering,F. Qureshi
+BR-0007,PN-100043,C-1008,Enterprise,P2,24,33.3,9.3,5.0,2370,118.5,2026-07,Customer unresponsive,A. Krishnan
+BR-0008,PN-100045,C-1002,Enterprise,P3,72,132.7,60.7,2.0,3100,62.0,2026-07,Awaiting engineering,A. Krishnan
+BR-0009,PN-100051,C-1007,Enterprise,P2,24,76.1,52.1,7.5,3580,268.5,2026-07,Customer unresponsive,A. Krishnan
+BR-0010,PN-100085,C-1027,Business,P3,96,147.0,51.0,1.0,380,3.8,2026-07,Customer unresponsive,A. Krishnan
+BR-0011,PN-100089,C-1011,Enterprise,P3,72,222.5,150.5,3.0,3190,95.7,2026-07,Waiting on L2,finance-auto
+BR-0012,PN-100092,C-1004,Enterprise,P2,24,54.3,30.3,7.5,2320,174.0,2026-07,,finance-auto
+BR-0013,PN-100094,C-1009,Enterprise,P1,8,13.1,5.1,10.0,3530,353.0,2026-07,Waiting on L2,finance-auto
+BR-0014,PN-100103,C-1009,Enterprise,P3,72,196.2,124.2,3.0,3530,105.9,2026-07,,S. Rao
+BR-0015,PN-100197,C-1008,Enterprise,P3,72,190.0,118.0,3.0,2370,71.1,2026-07,,S. Rao
+BR-0016,PN-100215,C-1009,Enterprise,P3,72,181.5,109.5,3.0,3530,105.9,2026-07,Customer unresponsive,S. Rao
+BR-0017,PN-100234,C-1006,Enterprise,P3,72,152.2,80.2,3.0,3370,101.1,2026-07,,finance-auto
+BR-0018,PN-100244,C-1025,Business,P3,96,290.3,194.3,1.5,670,10.05,2026-08,Awaiting engineering,A. Krishnan
+BR-0019,PN-100275,C-1018,Business,P2,48,111.7,63.7,4.5,320,14.4,2026-07,Agent delay,S. Rao
+BR-0020,PN-100276,C-1008,Enterprise,P2,24,61.1,37.1,7.5,2370,177.75,2026-07,Agent delay,A. Krishnan
+BR-0021,PN-100284,C-1002,Enterprise,P2,24,62.0,38.0,7.5,3100,232.5,2026-07,High volume,S. Rao
+BR-0022,PN-100308,C-1001,Enterprise,P3,72,227.3,155.3,3.0,4200,126.0,2026-08,,F. Qureshi
+BR-0023,PN-100311,C-1004,Enterprise,P2,24,54.7,30.7,7.5,2320,174.0,2026-07,High volume,finance-auto
+BR-0024,PN-100312,C-1002,Enterprise,P3,72,143.1,71.1,2.0,3100,62.0,2026-08,Awaiting engineering,S. Rao
+BR-0025,PN-100327,C-1016,Business,P3,96,209.3,113.3,1.5,730,10.95,2026-08,High volume,S. Rao
+BR-0026,PN-100337,C-1010,Enterprise,P2,24,73.2,49.2,7.5,2300,172.5,2026-07,High volume,A. Krishnan
+BR-0027,PN-100339,C-1004,Enterprise,P1,8,16.9,8.9,15.0,2320,348.0,2026-07,Awaiting engineering,finance-auto
+BR-0028,PN-100347,C-1026,Business,P3,96,124.2,28.2,1.0,550,5.5,2026-08,High volume,finance-auto
+BR-0029,PN-100393,C-1008,Enterprise,P3,72,165.9,93.9,3.0,2370,71.1,2026-08,Awaiting engineering,finance-auto
+BR-0030,PN-100394,C-1014,Business,P2,48,118.1,70.1,4.5,540,24.3,2026-08,Agent delay,A. Krishnan
+BR-0031,PN-100402,C-1003,Enterprise,P2,24,29.7,5.7,5.0,3600,180.0,2026-07,Agent delay,F. Qureshi
+BR-0032,PN-100403,C-1004,Enterprise,P2,24,68.4,44.4,7.5,2320,174.0,2026-08,Agent delay,F. Qureshi
+BR-0033,PN-100407,C-1009,Enterprise,P2,24,33.6,9.6,5.0,3530,176.5,2026-07,Awaiting engineering,F. Qureshi
+BR-0034,PN-100440,C-1004,Enterprise,P2,24,53.2,29.2,7.5,2320,174.0,2026-08,,S. Rao
+BR-0035,PN-100441,C-1004,Enterprise,P1,8,12.8,4.8,10.0,2320,232.0,2026-07,,S. Rao
+BR-0036,PN-100452,C-1004,Enterprise,P2,24,38.3,14.3,5.0,2320,116.0,2026-08,Awaiting engineering,finance-auto
+BR-0037,PN-100455,C-1008,Enterprise,P3,72,102.1,30.1,2.0,2370,47.4,2026-08,Waiting on L2,A. Krishnan
+BR-0038,PN-100467,C-1012,Enterprise,P3,72,163.1,91.1,3.0,2950,88.5,2026-08,Awaiting engineering,F. Qureshi
+BR-0039,PN-100473,C-1012,Enterprise,P3,72,188.3,116.3,3.0,2950,88.5,2026-08,High volume,S. Rao
+BR-0040,PN-100501,C-1009,Enterprise,P3,72,180.4,108.4,3.0,3530,105.9,2026-08,Awaiting engineering,A. Krishnan
+BR-0041,PN-100517,C-1002,Enterprise,P2,24,40.9,16.9,5.0,3100,155.0,2026-08,High volume,F. Qureshi
+BR-0042,PN-100523,C-1003,Enterprise,P1,8,20.5,12.5,15.0,3600,540.0,2026-08,,A. Krishnan
+BR-0043,PN-100524,C-1022,Business,P3,96,177.6,81.6,1.0,880,8.8,2026-08,High volume,F. Qureshi
+BR-0044,PN-100548,C-1001,Enterprise,P2,24,27.7,3.7,5.0,4200,210.0,2026-08,,finance-auto
+BR-0045,PN-100549,C-1004,Enterprise,P2,24,67.7,43.7,7.5,2320,174.0,2026-08,,S. Rao
+BR-0046,PN-100581,C-1001,Enterprise,P3,72,154.1,82.1,3.0,4200,126.0,2026-08,Agent delay,S. Rao
+BR-0047,PN-100588,C-1001,Enterprise,P3,72,161.5,89.5,3.0,4200,126.0,2026-08,Waiting on L2,F. Qureshi
+BR-0048,PN-100611,C-1001,Enterprise,P2,24,61.2,37.2,7.5,4200,315.0,2026-08,High volume,finance-auto
+BR-0049,PN-100617,C-1001,Enterprise,P2,24,56.9,32.9,7.5,4200,315.0,2026-08,,S. Rao
+BR-0050,PN-100618,C-1001,Enterprise,P3,72,99.8,27.8,2.0,4200,84.0,2026-08,Waiting on L2,finance-auto
+BR-0051,PN-100647,C-1010,Enterprise,P3,72,113.9,41.9,2.0,2300,46.0,2026-08,Agent delay,finance-auto
+BR-0052,PN-100649,C-1001,Enterprise,P2,24,42.3,18.3,5.0,4200,210.0,2026-08,High volume,finance-auto
+BR-0053,PN-100650,C-1001,Enterprise,P3,72,159.2,87.2,3.0,4200,126.0,2026-08,High volume,S. Rao
+BR-0054,PN-100658,C-1001,Enterprise,P2,24,56.7,32.7,7.5,4200,315.0,2026-08,Agent delay,finance-auto
+BR-0055,PN-100673,C-1001,Enterprise,P1,8,16.8,8.8,15.0,4200,630.0,2026-08,Agent delay,finance-auto
+BR-0056,PN-100678,C-1001,Enterprise,P3,72,166.3,94.3,3.0,4200,126.0,2026-08,Customer unresponsive,finance-auto
+BR-0057,PN-100681,C-1001,Enterprise,P1,8,16.9,8.9,15.0,4200,630.0,2026-08,,finance-auto
+BR-0058,PN-100697,C-1027,Business,P3,96,296.5,200.5,1.5,380,5.7,2026-09,Awaiting engineering,finance-auto
+BR-0059,PN-100700,C-1001,Enterprise,P3,72,159.3,87.3,3.0,4200,126.0,2026-08,High volume,S. Rao
+BR-0060,PN-100709,C-1001,Enterprise,P1,8,25.5,17.5,15.0,4200,630.0,2026-08,Awaiting engineering,F. Qureshi
+BR-0061,PN-100721,C-1003,Enterprise,P3,72,209.8,137.8,3.0,3600,108.0,2026-09,High volume,F. Qureshi
+BR-0062,PN-100724,C-1004,Enterprise,P2,24,53.0,29.0,7.5,2320,174.0,2026-08,Waiting on L2,A. Krishnan
+BR-0063,PN-100731,C-1003,Enterprise,P3,72,129.4,57.4,2.0,3600,72.0,2026-08,,S. Rao
+BR-0064,PN-100736,C-1002,Enterprise,P3,72,82.8,10.8,2.0,3100,62.0,2026-08,Awaiting engineering,F. Qureshi
+BR-0065,PN-100752,C-1001,Enterprise,P2,24,70.1,46.1,7.5,4200,315.0,2026-08,,S. Rao
+BR-0066,PN-100753,C-1009,Enterprise,P3,72,210.1,138.1,3.0,3530,105.9,2026-09,Agent delay,A. Krishnan
+BR-0067,PN-100783,C-1002,Enterprise,P3,72,143.3,71.3,2.0,3100,62.0,2026-09,,S. Rao
+BR-0068,PN-100787,C-1007,Enterprise,P3,72,107.5,35.5,2.0,3580,71.6,2026-09,High volume,A. Krishnan
+BR-0069,PN-100792,C-1013,Business,P3,96,177.1,81.1,1.0,760,7.6,2026-09,High volume,S. Rao
+BR-0070,PN-100796,C-1002,Enterprise,P3,72,208.9,136.9,3.0,3100,93.0,2026-09,Waiting on L2,F. Qureshi
+BR-0071,PN-100797,C-1002,Enterprise,P2,24,37.1,13.1,5.0,3100,155.0,2026-08,High volume,S. Rao
+BR-0072,PN-100799,C-1024,Business,P3,96,212.5,116.5,1.5,650,9.75,2026-09,Agent delay,finance-auto
+BR-0073,PN-100815,C-1011,Enterprise,P1,8,17.9,9.9,15.0,3190,478.5,2026-08,Awaiting engineering,S. Rao
+BR-0074,PN-100833,C-1011,Enterprise,P2,24,32.8,8.8,5.0,3190,159.5,2026-08,,S. Rao
+BR-0075,PN-100835,C-1003,Enterprise,P3,72,212.1,140.1,3.0,3600,108.0,2026-09,,finance-auto
+BR-0076,PN-100836,C-1006,Enterprise,P3,72,87.4,15.4,2.0,3370,67.4,2026-09,High volume,F. Qureshi
+BR-0077,PN-100853,C-1001,Enterprise,P1,8,12.2,4.2,10.0,4200,420.0,2026-08,High volume,finance-auto
+BR-0078,PN-100855,C-1007,Enterprise,P3,72,126.2,54.2,2.0,3580,71.6,2026-09,Customer unresponsive,F. Qureshi
+BR-0079,PN-100870,C-1006,Enterprise,P2,24,45.0,21.0,5.0,3370,168.5,2026-08,High volume,A. Krishnan
+BR-0080,PN-100875,C-1025,Business,P2,48,101.0,53.0,4.5,670,30.15,2026-09,High volume,finance-auto
+BR-0081,PN-100876,C-1004,Enterprise,P2,24,75.0,51.0,7.5,2320,174.0,2026-09,Customer unresponsive,A. Krishnan
+BR-0082,PN-100889,C-1010,Enterprise,P3,72,96.5,24.5,2.0,2300,46.0,2026-09,High volume,A. Krishnan
+BR-0083,PN-100898,C-1022,Business,P1,12,23.0,11.0,5.0,880,44.0,2026-08,Waiting on L2,S. Rao
+BR-0084,PN-100901,C-1001,Enterprise,P2,24,30.3,6.3,5.0,4200,210.0,2026-08,High volume,A. Krishnan
+BR-0085,PN-100906,C-1021,Business,P2,48,128.8,80.8,4.5,710,31.95,2026-09,Agent delay,S. Rao
+BR-0086,PN-100911,C-1010,Enterprise,P3,72,179.3,107.3,3.0,2300,69.0,2026-09,High volume,F. Qureshi
+BR-0087,PN-100915,C-1010,Enterprise,P3,72,146.7,74.7,3.0,2300,69.0,2026-09,Agent delay,F. Qureshi
+BR-0088,PN-100920,C-1013,Business,P2,48,64.1,16.1,3.0,760,22.8,2026-09,Agent delay,A. Krishnan
+BR-0089,PN-100921,C-1001,Enterprise,P2,24,42.1,18.1,5.0,4200,210.0,2026-09,Agent delay,F. Qureshi
+BR-0090,PN-100978,C-1001,Enterprise,P2,24,55.6,31.6,7.5,4200,315.0,2026-09,,S. Rao
+BR-0091,PN-100983,C-1001,Enterprise,P3,72,168.2,96.2,3.0,4200,126.0,2026-09,Waiting on L2,finance-auto
+BR-0092,PN-100997,C-1012,Enterprise,P3,72,110.8,38.8,2.0,2950,59.0,2026-09,Agent delay,F. Qureshi
+BR-0093,PN-101006,C-1004,Enterprise,P3,72,142.0,70.0,2.0,2320,46.4,2026-09,Customer unresponsive,S. Rao
+BR-0094,PN-101013,C-1024,Business,P2,48,132.4,84.4,4.5,650,29.25,2026-09,High volume,S. Rao
+BR-0095,PN-101019,C-1022,Business,P3,96,183.9,87.9,1.0,880,8.8,2026-09,Customer unresponsive,finance-auto
+BR-0096,PN-101041,C-1003,Enterprise,P2,24,70.8,46.8,7.5,3600,270.0,2026-09,,F. Qureshi
+BR-0097,PN-101055,C-1004,Enterprise,P3,72,132.4,60.4,2.0,2320,46.4,2026-09,Agent delay,A. Krishnan
+BR-0098,PN-101061,C-1002,Enterprise,P2,24,49.6,25.6,7.5,3100,232.5,2026-09,,S. Rao
+BR-0099,PN-101089,C-1005,Enterprise,P2,24,50.6,26.6,7.5,1570,117.75,2026-09,High volume,S. Rao
+BR-0100,PN-101103,C-1010,Enterprise,P3,72,217.3,145.3,3.0,2300,69.0,2026-09,Agent delay,A. Krishnan
+BR-0101,PN-101121,C-1025,Business,P3,96,127.6,31.6,1.0,670,6.7,2026-09,Customer unresponsive,S. Rao
+BR-0102,PN-101163,C-1011,Enterprise,P3,72,221.8,149.8,3.0,3190,95.7,2026-09,Waiting on L2,S. Rao
+BR-0103,PN-101210,C-1011,Enterprise,P3,72,86.0,14.0,2.0,3190,63.8,2026-09,High volume,F. Qureshi
+BR-0104,PN-101292,C-1026,Business,P1,12,28.0,16.0,7.5,550,41.25,2026-09,High volume,F. Qureshi
+BR-0105,PN-101307,C-1030,Business,P2,48,142.7,94.7,4.5,730,32.85,2026-10,High volume,F. Qureshi
+BR-0106,PN-101314,C-1012,Enterprise,P2,24,60.7,36.7,7.5,2950,221.25,2026-09,Agent delay,S. Rao
+BR-0107,PN-101315,C-1017,Business,P2,48,128.0,80.0,4.5,790,35.55,2026-10,,S. Rao
+BR-0108,PN-101320,C-1007,Enterprise,P1,8,18.9,10.9,15.0,3580,537.0,2026-09,High volume,S. Rao
+BR-0109,PN-101323,C-1002,Enterprise,P2,24,68.6,44.6,7.5,3100,232.5,2026-09,High volume,F. Qureshi
+BR-0110,PN-101324,C-1012,Enterprise,P2,24,56.0,32.0,7.5,2950,221.25,2026-09,High volume,A. Krishnan
+BR-0111,PN-101329,C-1012,Enterprise,P3,72,161.4,89.4,3.0,2950,88.5,2026-10,High volume,F. Qureshi
+BR-0112,PN-101331,C-1003,Enterprise,P2,24,51.3,27.3,7.5,3600,270.0,2026-09,High volume,F. Qureshi
+BR-0113,PN-101335,C-1016,Business,P1,12,15.8,3.8,5.0,730,36.5,2026-09,Agent delay,A. Krishnan
+BR-0114,PN-101349,C-1007,Enterprise,P2,24,48.9,24.9,7.5,3580,268.5,2026-09,Agent delay,F. Qureshi
+BR-0115,PN-101352,C-1003,Enterprise,P3,72,180.3,108.3,3.0,3600,108.0,2026-10,Customer unresponsive,S. Rao
+BR-0116,PN-101358,C-1010,Enterprise,P2,24,31.4,7.4,5.0,2300,115.0,2026-09,Agent delay,finance-auto
+BR-0117,PN-101369,C-1027,Business,P2,48,56.0,8.0,3.0,380,11.4,2026-09,Agent delay,finance-auto
+BR-0118,PN-101373,C-1001,Enterprise,P3,72,84.5,12.5,2.0,4200,84.0,2026-10,High volume,S. Rao
+BR-0119,PN-101385,C-1004,Enterprise,P3,72,128.7,56.7,2.0,2320,46.4,2026-10,High volume,F. Qureshi
+BR-0120,PN-101414,C-1012,Enterprise,P3,72,222.7,150.7,3.0,2950,88.5,2026-10,Agent delay,A. Krishnan
+BR-0121,PN-101415,C-1004,Enterprise,P1,8,19.0,11.0,15.0,2320,348.0,2026-09,Awaiting engineering,S. Rao
+BR-0122,PN-101425,C-1001,Enterprise,P2,24,37.6,13.6,5.0,4200,210.0,2026-10,High volume,A. Krishnan
+BR-0123,PN-101428,C-1015,Business,P3,96,142.5,46.5,1.0,700,7.0,2026-10,Waiting on L2,S. Rao
+BR-0124,PN-101444,C-1003,Enterprise,P2,24,68.7,44.7,7.5,3600,270.0,2026-10,,finance-auto
+BR-0125,PN-101450,C-1003,Enterprise,P3,72,224.2,152.2,3.0,3600,108.0,2026-10,Awaiting engineering,S. Rao
+BR-0126,PN-101454,C-1014,Business,P1,12,27.5,15.5,7.5,540,40.5,2026-09,Waiting on L2,finance-auto
+BR-0127,PN-101462,C-1006,Enterprise,P1,8,20.9,12.9,15.0,3370,505.5,2026-10,High volume,A. Krishnan
+BR-0128,PN-101489,C-1007,Enterprise,P2,24,66.0,42.0,7.5,3580,268.5,2026-10,Agent delay,S. Rao

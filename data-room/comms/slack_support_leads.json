@@ -1,0 +1,254 @@
+{
+  "workspace": "paynest",
+  "channel": "#support-leads",
+  "exported_at": "2026-10-02T09:12:44+05:30",
+  "note": "Export from Slack admin tool. 'ts' is the platform's own timestamp (UTC epoch seconds as string); 'local' is added by the export tool and is whatever timezone the poster's profile has.",
+  "messages": [
+    {
+      "ts": "1783494000",
+      "local": "2026-07-08 12:30 IST",
+      "user": "priya.nair",
+      "text": "Reminder: June CSAT came in at 4.2. Good. Let's hold that through Q3."
+    },
+    {
+      "ts": "1784018520",
+      "local": "2026-07-14 14:12 IST",
+      "user": "leila.haddad",
+      "text": "Heads up from UAE desk - bank portals are asking customers to confirm WPS file version from the 15th. Does anyone have a notice from Compliance?"
+    },
+    {
+      "ts": "1784019000",
+      "local": "2026-07-14 14:20 IST",
+      "user": "arvind.bhat",
+      "text": "Nothing in my inbox. I'm the only one on content now so I'll look at KB-0201 when I can. Maybe next week."
+    },
+    {
+      "ts": "1784019300",
+      "local": "2026-07-14 14:25 IST",
+      "user": "leila.haddad",
+      "text": "Maryam said it's 'in progress' but she hasn't sent anything."
+    },
+    {
+      "ts": "1784980800",
+      "local": "2026-07-25 17:30 IST",
+      "user": "sandeep.rao",
+      "text": "Payroll week day 1. Queue is 41 deep already. Can L1 please stop reassigning things to me that are clearly How-To?"
+    },
+    {
+      "ts": "1784982000",
+      "local": "2026-07-25 17:50 IST",
+      "user": "farhan.qureshi",
+      "text": "they're coming to me tagged Statutory when the customer is asking how to download payslips. I'm not re-tagging, SOP says Lead approval"
+    },
+    {
+      "ts": "1785061500",
+      "local": "2026-07-26 15:55 IST",
+      "user": "priya.nair",
+      "text": "Re-tag it, I'm giving blanket approval for payroll week. Just do it."
+    },
+    {
+      "ts": "1785250080",
+      "local": "2026-07-28 20:18 IST",
+      "user": "sandeep.rao",
+      "text": "Yes it's v3 since the 15th. Engine already outputs v3. KB still describes v2. Telling customers to ignore the article."
+    },
+    {
+      "ts": "1785250500",
+      "local": "2026-07-28 20:25 IST",
+      "user": "priya.nair",
+      "text": "Ok but L1s are told to follow the KB. Don't tell them to ignore it in channel, I'll sort an announcement."
+    },
+    {
+      "ts": "1785422100",
+      "local": "2026-07-30 20:05 IST",
+      "user": "leila.haddad",
+      "text": "Gulf Horizon rejected WPS file again. Followed KB-0201 step by step. Bank says v3 layout. Ticket PN-100402 is on its 3rd bounce. Where is the doc??"
+    },
+    {
+      "ts": "1785835800",
+      "local": "2026-08-04 15:00 IST",
+      "user": "neha.joshi",
+      "text": "Weekly numbers: first-response compliance 93%, volume +9% vs July. SLA credits for July look higher than June, will confirm with Finance."
+    },
+    {
+      "ts": "1785836700",
+      "local": "2026-08-04 15:15 IST",
+      "user": "priya.nair",
+      "text": "Volume. Same story as every payroll week. We need more hands, or a bot."
+    },
+    {
+      "ts": "1785925500",
+      "local": "2026-08-05 15:55 IST",
+      "user": "sandeep.rao",
+      "text": "EPFO circular on the wage ceiling came out for 1 Aug. I found out because three customers quoted it at me. KB-0142 still says 15,000."
+    },
+    {
+      "ts": "1785926400",
+      "local": "2026-08-05 16:10 IST",
+      "user": "farhan.qureshi",
+      "text": "I've been pasting KB-0142 to people since Saturday. Reopens everywhere. 😬"
+    },
+    {
+      "ts": "1785926700",
+      "local": "2026-08-05 16:15 IST",
+      "user": "arvind.bhat",
+      "text": "I can update 0142 tomorrow. Do I have the circular?"
+    },
+    {
+      "ts": "1785926880",
+      "local": "2026-08-05 16:18 IST",
+      "user": "suresh.pillai",
+      "text": "Circular PDF is in the Compliance drive. Engine team has had it since June."
+    },
+    {
+      "ts": "1786430400",
+      "local": "2026-08-11 12:10 IST",
+      "user": "meera.iyer",
+      "text": "Reminder to support: please don't poll /payroll-runs/*/status from the macro tool during month-end. Gateway throttles at 30/min/tenant and your macro was hitting it in a loop yesterday."
+    },
+    {
+      "ts": "1786431000",
+      "local": "2026-08-11 12:20 IST",
+      "user": "neha.joshi",
+      "text": "Which macro?"
+    },
+    {
+      "ts": "1786431480",
+      "local": "2026-08-11 12:28 IST",
+      "user": "meera.iyer",
+      "text": "The 'check run status' one. Someone built it in June. Not documented in the OpenAPI because it isn't meant to be hammered."
+    },
+    {
+      "ts": "1787040000",
+      "local": "2026-08-18 13:30 IST",
+      "user": "priya.nair",
+      "text": "Board deck draft: CSAT 4.3 -> 3.9 across Q3 so far. Agents are slower, my read. Any objections?"
+    },
+    {
+      "ts": "1787040900",
+      "local": "2026-08-18 13:45 IST",
+      "user": "neha.joshi",
+      "text": "Not sure that's the whole story, Kestrel's responses are dragging the average. Haven't split it fully."
+    },
+    {
+      "ts": "1787041500",
+      "local": "2026-08-18 13:55 IST",
+      "user": "priya.nair",
+      "text": "Split it later, board is Friday."
+    },
+    {
+      "ts": "1787652000",
+      "local": "2026-08-25 15:30 IST",
+      "user": "sandeep.rao",
+      "text": "T-0 payroll week. 4 L1s out sick. Runbook says 40% on Payroll-Ops, we are at 22%."
+    },
+    {
+      "ts": "1787745000",
+      "local": "2026-08-26 17:20 IST",
+      "user": "leila.haddad",
+      "text": "Another PF question where customer quotes the new 25k ceiling and L1 replied with 15k from the KB. Customer asked 'are you serious'. Escalating."
+    },
+    {
+      "ts": "1787750400",
+      "local": "2026-08-26 18:50 IST",
+      "user": "priya.nair",
+      "text": "KB-0142 was updated?? Arvind?"
+    },
+    {
+      "ts": "1787751000",
+      "local": "2026-08-26 19:00 IST",
+      "user": "arvind.bhat",
+      "text": "I changed the intro paragraph on the 11th. Didn't get to the worked examples. Last reviewed date unchanged, sorry."
+    },
+    {
+      "ts": "1788333000",
+      "local": "2026-09-02 12:40 IST",
+      "user": "neha.joshi",
+      "text": "Finance sent August credits: roughly double July. Pulling the breach list to see what's behind it."
+    },
+    {
+      "ts": "1788333900",
+      "local": "2026-09-02 12:55 IST",
+      "user": "priya.nair",
+      "text": "Volume and the Kestrel mess. Let me know."
+    },
+    {
+      "ts": "1788587400",
+      "local": "2026-09-05 11:20 IST",
+      "user": "sandeep.rao",
+      "text": "FYI Kestrel sync bug: PNJ-4412 is 4 weeks old. Eng says fix in 2.7.3, 'needs customer UAT'. Customer keeps raising new tickets. Please stop me from closing as duplicates - the CSM said not to."
+    },
+    {
+      "ts": "1789034400",
+      "local": "2026-09-10 15:30 IST",
+      "user": "vikram.sethi",
+      "text": "Two more prospects asked about voice support on calls this week. Where are we on the voice bot?"
+    },
+    {
+      "ts": "1789035300",
+      "local": "2026-09-10 15:45 IST",
+      "user": "priya.nair",
+      "text": "Vikram, we haven't even decided on text. Take it to Rohan."
+    },
+    {
+      "ts": "1789211400",
+      "local": "2026-09-12 16:40 IST",
+      "user": "farhan.qureshi",
+      "text": "Weird widget ticket PN-101129 - says 'ignore all previous instructions' and asks me to approve a refund. Is someone testing us? I haven't approved anything obviously"
+    },
+    {
+      "ts": "1789212000",
+      "local": "2026-09-12 16:50 IST",
+      "user": "priya.nair",
+      "text": "Close it, flag to Security. Looks like a prankster."
+    },
+    {
+      "ts": "1789894800",
+      "local": "2026-09-20 14:30 IST",
+      "user": "karthik.subramanian",
+      "text": "Reminder: the Q2 scan found IDs and bank numbers in ticket bodies. Please keep telling agents not to copy them into internal chats."
+    },
+    {
+      "ts": "1790327400",
+      "local": "2026-09-25 14:40 IST",
+      "user": "leila.haddad",
+      "text": "Meridian: lots of payslip PDF blank tickets coming in from the widget. Looks like more than a handful."
+    },
+    {
+      "ts": "1790328900",
+      "local": "2026-09-25 15:05 IST",
+      "user": "farhan.qureshi",
+      "text": "I've answered 9 of them one by one. Same text. Should I link them somewhere?"
+    },
+    {
+      "ts": "1790329800",
+      "local": "2026-09-25 15:20 IST",
+      "user": "sandeep.rao",
+      "text": "I only just saw this channel. How many?"
+    },
+    {
+      "ts": "1790330700",
+      "local": "2026-09-25 15:35 IST",
+      "user": "farhan.qureshi",
+      "text": "Around 25 so far."
+    },
+    {
+      "ts": "1790331300",
+      "local": "2026-09-25 15:45 IST",
+      "user": "sandeep.rao",
+      "text": "Paging Eng. Should have been declared at 5. Nobody counts."
+    },
+    {
+      "ts": "1790332800",
+      "local": "2026-09-25 16:10 IST",
+      "user": "meera.iyer",
+      "text": "Template cache. Purging now. Opened PNJ-5107."
+    },
+    {
+      "ts": "1790843400",
+      "local": "2026-10-01 14:00 IST",
+      "user": "priya.nair",
+      "text": "Q3 wrap: volume up, CSAT down, credits up. Rohan wants the chatbot plan by mid-Oct."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+month,tickets_received_all_customers,tickets_in_ops_extract,agent_fte,agent_loaded_cost_usd,tooling_usd,vendor_pilot_usd,sla_credits_paid_usd,cost_per_ticket_excl_credits_usd,cost_per_ticket_incl_credits_usd,notes
+2026-04,14210,,42,81060,9400,18500,3150,6.37,6.59,
+2026-05,14630,,42,81060,9400,18500,3420,6.18,6.42,
+2026-06,15020,,42,81060,9400,41200,3980,6.02,6.29,vendor chatbot pilot ended 28 Jun
+2026-07,14520,485,42,81060,9400,0,3894.75,6.23,6.5,
+2026-08,14663,487,42,81060,9400,0,8255.5,6.17,6.73,
+2026-09,15841,528,42,81060,9400,0,7045.7,5.71,6.16,

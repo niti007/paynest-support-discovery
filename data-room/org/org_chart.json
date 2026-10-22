@@ -1,0 +1,34 @@
+{
+  "company": "PayNest Technologies Pvt Ltd",
+  "as_of": "2026-09-30",
+  "notes": "Compiled by HR from the Darwinbox export. Reporting lines are formal; informal influence is not captured. Two roles are shown as vacant.",
+  "people": [
+    {"id": "E-001", "name": "Rohan Mehta", "title": "CEO and Co-founder", "reports_to": null, "location": "Mumbai"},
+    {"id": "E-002", "name": "Anjali Krishnan", "title": "Chief Financial Officer", "reports_to": "E-001", "location": "Mumbai"},
+    {"id": "E-003", "name": "Vikram Sethi", "title": "VP Sales", "reports_to": "E-001", "location": "Mumbai"},
+    {"id": "E-004", "name": "Priya Nair", "title": "Head of Customer Support", "reports_to": "E-001", "location": "Pune"},
+    {"id": "E-005", "name": "Meera Iyer", "title": "Engineering Manager, Payroll Platform", "reports_to": "E-006", "location": "Bengaluru"},
+    {"id": "E-006", "name": "Ravi Deshpande", "title": "VP Engineering", "reports_to": "E-001", "location": "Bengaluru"},
+    {"id": "E-007", "name": "Karthik Subramanian", "title": "Data Protection Officer and Head of Compliance", "reports_to": "E-001", "location": "Mumbai"},
+    {"id": "E-008", "name": "Sandeep Rao", "title": "L2 Support Lead (Payroll and Statutory)", "reports_to": "E-004", "location": "Pune"},
+    {"id": "E-009", "name": "Farhan Qureshi", "title": "Senior L1 Support Agent", "reports_to": "E-008", "location": "Pune"},
+    {"id": "E-010", "name": "Neha Joshi", "title": "Support Operations Analyst", "reports_to": "E-004", "location": "Pune"},
+    {"id": "E-011", "name": "Leila Haddad", "title": "L2 Support Lead, UAE Desk", "reports_to": "E-004", "location": "Dubai"},
+    {"id": "E-012", "name": "Arvind Bhat", "title": "Content Team Lead (Knowledge Base)", "reports_to": "E-004", "location": "Pune", "note": "Team reduced from 3 to 1 in April 2026"},
+    {"id": "E-013", "name": "Suresh Pillai", "title": "Compliance Manager, India", "reports_to": "E-007", "location": "Mumbai"},
+    {"id": "E-014", "name": "Maryam Al-Suwaidi", "title": "Compliance Manager, UAE", "reports_to": "E-007", "location": "Dubai", "note": "Vacant since 31 July 2026"},
+    {"id": "E-015", "name": "(vacant)", "title": "Head of Support Tooling", "reports_to": "E-004", "location": "Pune"}
+  ],
+  "support_desk": {
+    "total_active_agents": 42,
+    "by_tier": {"L1": 24, "L2": 12, "L3": 6},
+    "desks": ["Pune", "Bengaluru (remote)", "Dubai"],
+    "tools": ["Zendesk-like helpdesk (internally 'DeskOne')", "Jira (project PNJ)", "Confluence (space SUP-KB)", "Slack", "Aircall for telephony"]
+  },
+  "company_stats": {
+    "customers": 1400,
+    "employees_paid_monthly": 180000,
+    "regions": ["India", "UAE"],
+    "customer_count_note": "CFO deck says 1,380 active; CRM says 1,412 incl. trials. Both are quoted internally."
+  }
+}
