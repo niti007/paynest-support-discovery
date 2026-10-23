@@ -26,20 +26,4 @@ Students should receive a copy of the repo **without** `trainer/` (and without `
 git archive HEAD data-room Case.md -o ramcopayce-student-pack.zip
 ```
 
-## For trainers
-- `trainer/ANSWER_KEY.md`: the hidden root cause with exact numbers, red herrings, planted traps (with file and ticket ids), and the mapping from evidence to architecture needs.
-- `trainer/analysis.py`: recomputes the proof numbers from the raw data room, using only the files learners see. Its output matches the answer key.
-  ```
-  python3 trainer/analysis.py
-  ```
 
-## Regenerating the data
-Python 3.9+, standard library only. From the repo root:
-```
-python3 generator/generate.py
-```
-The generator is seeded (`random.seed(42)`) and rewrites these files byte-for-byte identically on every run:
-
-`data-room/data/{tickets_export.json, whatsapp_export.json, call_center_notes.json, sla_breaches_q3.csv, csat_survey.csv, jira_escalations.json, kb_articles.json, customers.csv, agent_roster.csv, monthly_cost_sheet.csv}` and `data-room/integrations/statutory_rules.json`.
-
-All other files (transcripts, SOPs, org chart, Slack export, etc.) are hand-written and are not touched by the generator. If you change the generator, re-run `trainer/analysis.py` and update the numbers in `trainer/ANSWER_KEY.md`.
