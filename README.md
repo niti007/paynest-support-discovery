@@ -21,9 +21,5 @@ trainer/               TRAINER ONLY: ANSWER_KEY.md and analysis.py
 2. Work through the four phases. Do **not** open `trainer/`.
 3. The data is intentionally imperfect. Clean it yourself and document your assumptions.
 
-Students should receive a copy of the repo **without** `trainer/` (and without `generator/`, which contains the generating logic). Zip suggestion:
-```
-git archive HEAD data-room Case.md -o ramcopayce-student-pack.zip
-```
 
 
