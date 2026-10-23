@@ -2,7 +2,7 @@
 
 *Ramco Payce is a real company (https://www.ramco.com/products/payce). The support data, people and interviews in this case are a realistic simulation built for teaching and do not represent Ramco's actual data, staff or customers.*
 
-A hands-on case for FDE Academy learners. An HR and payroll SaaS company (Ramco Payce, India and UAE) wants "a ChatGPT chatbot to cut support headcount by 30%" and does not know how. Learners receive a raw, messy client **data room** and must **find the real problem** before they design anything: Discover, Diagnose, Architect, Solutionise.
+ An HR and payroll SaaS company (Ramco Payce, India and UAE) wants "a ChatGPT chatbot to cut support headcount by 30%" and does not know how. Learners receive a raw, messy client **data room** and must **find the real problem** before they design anything: Discover, Diagnose, Architect, Solutionise.
 
 Everything in the repo is a simulation. All people, tickets, incidents, circulars and numbers are invented for teaching, and every identifier (Aadhaar-like, PAN, Emirates ID, IBAN, IFSC, phone) is deliberately fake.
 
