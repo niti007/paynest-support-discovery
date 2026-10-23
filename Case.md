@@ -1,9 +1,11 @@
-# PayNest Support: Problem Statement
+# Ramco Payce Support: Problem Statement
+
+*Ramco Payce is a real company (https://www.ramco.com/products/payce). The support data, people and interviews in this case are a realistic simulation built for teaching and do not represent Ramco's actual data, staff or customers.*
 
 *Written by the client. This is the brief we give you, in our own words. It is deliberately not a specification.*
 
-## 1. About PayNest
-PayNest is a mid-size HR and payroll SaaS company serving about 1,400 business customers in **India and the UAE**. Roughly **180,000 employees** are paid each month through our platform. Customers use us to run payroll, calculate and file statutory deductions, issue payslips and manage leave and attendance. Larger customers have contracts with service-level commitments, and miss-penalties are paid as credits.
+## 1. About Ramco Payce
+Ramco Payce is a mid-size HR and payroll SaaS company serving about 1,400 business customers in **India and the UAE**. Roughly **180,000 employees** are paid each month through our platform. Customers use us to run payroll, calculate and file statutory deductions, issue payslips and manage leave and attendance. Larger customers have contracts with service-level commitments, and miss-penalties are paid as credits.
 
 Our support organisation has **42 agents** in three tiers (L1, L2, L3) across Pune, Bengaluru and Dubai. We use a helpdesk tool, Jira for engineering escalations, a Confluence knowledge base and Slack. Customers reach us by email, an in-app widget, a partner/reseller portal, WhatsApp and phone.
 
@@ -26,7 +28,7 @@ Work out what is actually going on in Support. Read, query and join the data. De
 
 ### Phase 2: Diagnose
 Compare the process we say we follow with what the data shows we actually do.
-**Deliverables:** (a) a current-state flow diagram built from the ticket histories; (b) a gap list ranking the gaps between documented and actual practice by their cost to PayNest; (c) a short statement of what you think the problem is, and what you think it is not.
+**Deliverables:** (a) a current-state flow diagram built from the ticket histories; (b) a gap list ranking the gaps between documented and actual practice by their cost to Ramco Payce; (c) a short statement of what you think the problem is, and what you think it is not.
 
 ### Phase 3: Architect
 Design a target solution that responds to what you found, not to what was asked. You are free to choose any cloud, framework, model provider and language; justify your choices.

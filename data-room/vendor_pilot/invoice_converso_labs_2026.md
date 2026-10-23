@@ -1,5 +1,5 @@
 # INVOICE SUMMARY: Converso Labs Pvt Ltd
-**Customer:** PayNest Technologies Pvt Ltd  |  **Product:** ConversoAssist (AI support assistant), managed pilot  |  **Contract:** CL-PN-2026-014
+**Customer:** Ramco Systems Ltd (Ramco Payce)  |  **Product:** ConversoAssist (AI support assistant), managed pilot  |  **Contract:** CL-PN-2026-014
 
 | Invoice | Period | Item | Qty | Unit (USD) | Amount (USD) |
 |---|---|---|---|---|---|

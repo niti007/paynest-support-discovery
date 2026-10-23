@@ -1,4 +1,6 @@
-# PayNest: Support Data Room
+# Ramco Payce: Support Data Room
+
+*Ramco Payce is a real company (https://www.ramco.com/products/payce). The support data, people and interviews in this case are a realistic simulation built for teaching and do not represent Ramco's actual data, staff or customers.*
 
 Hi,
 

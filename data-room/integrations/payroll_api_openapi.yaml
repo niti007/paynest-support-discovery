@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
-  title: PayNest Payroll Platform API
+  title: Ramco Payce Payroll Platform API
   version: "2.4.1"
   description: |
-    Public REST API for the PayNest payroll engine. Authenticate with a tenant-scoped bearer token.
+    Public REST API for the Ramco Payce payroll engine. Authenticate with a tenant-scoped bearer token.
     This spec was exported from the Engineering wiki in July 2026; some endpoints used by internal
     tools are intentionally not listed. Contact the Payroll Platform team (Meera Iyer) for access.
 servers:
-  - url: https://api.paynest.example/v2
+  - url: https://api.ramcopayce.example/v2
 security:
   - bearerAuth: []
 paths:

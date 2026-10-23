@@ -1,5 +1,5 @@
 {
-  "workspace": "paynest",
+  "workspace": "ramcopayce",
   "channel": "#support-leads",
   "exported_at": "2026-10-02T09:12:44+05:30",
   "note": "Export from Slack admin tool. 'ts' is the platform's own timestamp (UTC epoch seconds as string); 'local' is added by the export tool and is whatever timezone the poster's profile has.",

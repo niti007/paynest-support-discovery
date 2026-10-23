@@ -54,7 +54,7 @@
 
 **[00:05:53] Deepa:** 'SLA breach.' That's all.
 
-**[00:06:00] Interviewer:** Would you use a chatbot from PayNest?
+**[00:06:00] Interviewer:** Would you use a chatbot from Ramco Payce?
 
 **[00:06:07] Deepa:** For how-to, yes. "How do I download a payslip." I don't want to wait. But not for money. If it tells me wrong PF numbers I will lose my head. We had a vendor, it said an old TDS number.
 

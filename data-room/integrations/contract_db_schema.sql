@@ -1,4 +1,4 @@
--- PayNest Contracts DB (PostgreSQL 14). Read replica available to Support Ops.
+-- Ramco Payce Contracts DB (PostgreSQL 14). Read replica available to Support Ops.
 -- Source of truth for tiers, fees and SLA terms. Owner: Finance Systems.
 
 CREATE TABLE customers (

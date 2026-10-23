@@ -50,7 +50,7 @@
 
 **[00:05:24] Interviewer:** What about what comes out?
 
-**[00:05:31] Karthik:** A system that tells a customer a number it made up. An employer relying on it for a statutory filing. That's a harm that lands on PayNest. And a system that leaks another tenant's data. We had one payslip go to the wrong customer in May. If an AI can retrieve across tenants by mistake, that's the same incident at scale.
+**[00:05:31] Karthik:** A system that tells a customer a number it made up. An employer relying on it for a statutory filing. That's a harm that lands on Ramco Payce. And a system that leaks another tenant's data. We had one payslip go to the wrong customer in May. If an AI can retrieve across tenants by mistake, that's the same incident at scale.
 
 **[00:05:59] Karthik:** Agents too. I have seen tickets where an agent pasted a full Emirates ID back into a reply, to 'confirm'. That is on us, not on the customer.
 

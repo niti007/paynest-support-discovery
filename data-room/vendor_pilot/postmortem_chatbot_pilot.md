@@ -3,7 +3,7 @@
 **Author:** Neha Joshi (Support Ops), reviewed by Priya Nair  |  **Status:** circulated to leadership 2 July 2026
 
 ## Summary
-PayNest ran a managed AI-assistant pilot from 6 April to 28 June 2026 on the in-app widget for 140 customer accounts. The pilot was stopped early. The vendor's dashboard reported a 38% "deflection rate"; our own review found it was not safe to extend.
+Ramco Payce ran a managed AI-assistant pilot from 6 April to 28 June 2026 on the in-app widget for 140 customer accounts. The pilot was stopped early. The vendor's dashboard reported a 38% "deflection rate"; our own review found it was not safe to extend.
 
 ## What happened
 1. **Setup.** The vendor ingested our Confluence KB (the 24 published articles) on 28 March, and pointed the assistant at it. There was **no re-sync job**. We were told "KB updates can be pushed manually on request".
@@ -15,7 +15,7 @@ PayNest ran a managed AI-assistant pilot from 6 April to 28 June 2026 on the in-
 7. **Data handling.** The vendor's sub-processor list included a US region. Our DPO had not been consulted before the pilot began.
 
 ## What was measured
-| Metric | Vendor dashboard | PayNest review |
+| Metric | Vendor dashboard | Ramco Payce review |
 |---|---|---|
 | Deflection rate | 38% | "Not comparable": 41% of "deflected" sessions were users abandoning after a wrong or empty answer |
 | Median latency | 3.1 s | 3.4 s outside peak; 8.6 s on 25th-28th |
