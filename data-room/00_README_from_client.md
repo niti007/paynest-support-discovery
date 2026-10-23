@@ -21,7 +21,7 @@ Leadership wants **a ChatGPT-style chatbot for customer support that lets us red
 - The interview transcripts were auto-transcribed; speaker attribution is mostly right.
 
 ## What's in the folder
-See `PROBLEM_STATEMENT.md` in the repo root for the full index. Each file's header or neighbouring document explains where it came from.
+See `Case.md` in the repo root for the full index. Each file's header or neighbouring document explains where it came from.
 
 ## Who to ask
 Neha Joshi (Support Ops) for data questions; my office for interview scheduling. We would rather you ask than guess.

@@ -10,20 +10,20 @@ Everything in the repo is a simulation. All people, tickets, incidents, circular
 
 ## Layout
 ```
-PROBLEM_STATEMENT.md   learner-facing brief (client's framing + data room index)
+Case.md   learner-facing brief (client's framing + data room index)
 data-room/             the raw client material learners work from
 generator/generate.py  seeded generator for every machine-generated data file
 trainer/               TRAINER ONLY: ANSWER_KEY.md and analysis.py
 ```
 
 ## For students
-1. Read `PROBLEM_STATEMENT.md`, then `data-room/00_README_from_client.md`.
+1. Read `Case.md`, then `data-room/00_README_from_client.md`.
 2. Work through the four phases. Do **not** open `trainer/`.
 3. The data is intentionally imperfect. Clean it yourself and document your assumptions.
 
 Students should receive a copy of the repo **without** `trainer/` (and without `generator/`, which contains the generating logic). Zip suggestion:
 ```
-git archive HEAD data-room PROBLEM_STATEMENT.md -o ramcopayce-student-pack.zip
+git archive HEAD data-room Case.md -o ramcopayce-student-pack.zip
 ```
 
 ## For trainers
