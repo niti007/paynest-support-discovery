@@ -1,0 +1,108 @@
+{
+  "probe": "p2_network_compute",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "iam_roles_created",
+      "evidence": "arn:aws:iam::554559231166:role/paynest-probe-exec-role arn:aws:iam::554559231166:role/paynest-probe-task-role",
+      "pass": true
+    },
+    {
+      "name": "vpc_private_no_igw_no_nat",
+      "evidence": "vpc-090b40bf8fdd946e5 subnets=['subnet-060124b4bc2e14a53', 'subnet-0512aa0b278ca4de9'] azs=['eu-north-1a', 'eu-north-1b'] igw=0 nat=0",
+      "pass": true
+    },
+    {
+      "name": "endpoints_available",
+      "evidence": "{'s3': 'vpce-062a147b70c37e126', 'bedrock-runtime': 'vpce-0463f7c411be4e3e9', 'sqs': 'vpce-08d93ba3e69aa1f02', 'kms': 'vpce-0202a7dfd8a7b007d', 'secretsmanager': 'vpce-05aecfb1d3b7b00a2', 'ecr.api': 'vpce-0734bc7622bedc2e8', 'ecr.dkr': 'vpce-015d2032f8ef043a5', 'logs': 'vpce-0d45826fea9d4e702'}",
+      "pass": true
+    },
+    {
+      "name": "image_pushed_arm64",
+      "evidence": "554559231166.dkr.ecr.eu-north-1.amazonaws.com/paynest-probe-hello:latest",
+      "pass": true
+    },
+    {
+      "name": "task_a_running",
+      "evidence": "arn:aws:ecs:eu-north-1:554559231166:task/paynest-probe-cluster/b05d5321aaed444ab67f1f0c0198c5bf lastStatus=RUNNING stopped=None ip=10.42.0.193",
+      "pass": true
+    },
+    {
+      "name": "task_b_2vcpu_8gb_running",
+      "evidence": "arn:aws:ecs:eu-north-1:554559231166:task/paynest-probe-cluster/a1e479d2bb5e46238ff472b1d7015a45 lastStatus=RUNNING stopped=None",
+      "pass": true
+    },
+    {
+      "name": "task_a_bedrock_ok_private",
+      "evidence": "['BEDROCK_OK Ok, what would you like to discuss or as']",
+      "pass": true
+    },
+    {
+      "name": "task_a_sqs_ok_private",
+      "evidence": "['SQS_OK']",
+      "pass": true
+    },
+    {
+      "name": "sqs_message_from_fargate_received",
+      "evidence": "hello from fargate",
+      "pass": true
+    },
+    {
+      "name": "alb_internal_target_healthy",
+      "evidence": "{'State': 'healthy'}",
+      "pass": true
+    }
+  ],
+  "ids_resolved": {
+    "queue_url": "https://sqs.eu-north-1.amazonaws.com/554559231166/paynest-probe-q-net",
+    "exec_role": "arn:aws:iam::554559231166:role/paynest-probe-exec-role",
+    "task_role": "arn:aws:iam::554559231166:role/paynest-probe-task-role",
+    "vpc": "vpc-090b40bf8fdd946e5",
+    "subnets": [
+      "subnet-060124b4bc2e14a53",
+      "subnet-0512aa0b278ca4de9"
+    ],
+    "azs": [
+      "eu-north-1a",
+      "eu-north-1b"
+    ],
+    "sg": "sg-02be21bfb5d40c092",
+    "route_table": "rtb-0b509f4c64872b4dc",
+    "endpoints": {
+      "s3": "vpce-062a147b70c37e126",
+      "bedrock-runtime": "vpce-0463f7c411be4e3e9",
+      "sqs": "vpce-08d93ba3e69aa1f02",
+      "kms": "vpce-0202a7dfd8a7b007d",
+      "secretsmanager": "vpce-05aecfb1d3b7b00a2",
+      "ecr.api": "vpce-0734bc7622bedc2e8",
+      "ecr.dkr": "vpce-015d2032f8ef043a5",
+      "logs": "vpce-0d45826fea9d4e702"
+    },
+    "image": "554559231166.dkr.ecr.eu-north-1.amazonaws.com/paynest-probe-hello:latest",
+    "task_a": "arn:aws:ecs:eu-north-1:554559231166:task/paynest-probe-cluster/b05d5321aaed444ab67f1f0c0198c5bf",
+    "task_a_ip": "10.42.0.193",
+    "task_b": "arn:aws:ecs:eu-north-1:554559231166:task/paynest-probe-cluster/a1e479d2bb5e46238ff472b1d7015a45",
+    "task_a_log_lines": [
+      "BEDROCK_OK Ok, what would you like to discuss or as",
+      "SQS_OK"
+    ],
+    "alb": "arn:aws:elasticloadbalancing:eu-north-1:554559231166:loadbalancer/app/paynest-probe-alb/1c9dca6328c76484",
+    "alb_scheme": "internal",
+    "tg": "arn:aws:elasticloadbalancing:eu-north-1:554559231166:targetgroup/paynest-probe-tg/0a9237ee258a6821"
+  },
+  "latency_ms": {
+    "vpc": 3018,
+    "endpoints": 86568,
+    "ecr_build_push": 19895,
+    "task_a_running": 231347,
+    "task_b_running": 16350,
+    "alb_healthy": 144876,
+    "total": 516681
+  },
+  "est_cost_usd": 0.046,
+  "error": null,
+  "fallback": null,
+  "notes": [
+    "Model amazon.nova-lite-v1:0 used because eu.anthropic.claude-haiku-5-5 returned AccessDeniedException 'anthropic.claude-haiku-5-5 is not available for this account' (account model access, not VPC)."
+  ]
+}
