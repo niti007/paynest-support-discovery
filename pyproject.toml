@@ -1,0 +1,23 @@
+[project]
+name = "paynest-a7"
+version = "0.1.0"
+description = "PayNest A7 support pipeline (solution/)"
+requires-python = ">=3.12"
+dependencies = [
+    "psycopg[binary]>=3.2",
+    "pgvector>=0.3",
+    "boto3[crt]>=1.35",
+    "valkey>=6.0",
+    "pytest>=8",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["solution/tests"]
+markers = [
+    "db: needs the docker compose postgres/valkey stack running",
+    "aws: calls AWS (Bedrock); profile paynest, Region eu-north-1",
+]
