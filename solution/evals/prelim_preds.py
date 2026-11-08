@@ -162,6 +162,20 @@ def laya_calibrate() -> dict:
     return res
 
 
+def derive_calibrated(sets: list[str]) -> None:
+    """preds_laya_calibrated_<set>: same choices as laya, confidence = temperature-scaled probability (T from calib split)."""
+    from solution.a7.decide.laya import Calibrator, scale_probs
+
+    cal = Calibrator.load()
+    for sname in sets:
+        rows = read("laya", sname)
+        for r in rows:
+            if "probs" in r and r["choice"] in r["probs"]:
+                r["raw_confidence"] = r["confidence"]
+                r["confidence"] = round(scale_probs(r["probs"], cal.temperature(r["name"])).get(r["choice"], 0.0), 5)
+        write("laya_calibrated", sname, rows)
+
+
 def write(backend: str, name: str, preds: list[dict]) -> Path:
     REPORTS.mkdir(parents=True, exist_ok=True)
     path = REPORTS / f"preds_{backend}_{name}.jsonl"
@@ -175,6 +189,9 @@ def read(backend: str, name: str) -> list[dict]:
 
 def main(argv: list[str]) -> int:
     backend = argv[1]
+    if backend == "laya-derive":
+        derive_calibrated(argv[2].split(","))
+        return 0
     if backend == "laya-calibrate":
         print(json.dumps(laya_calibrate(), indent=1))
         return 0
@@ -183,7 +200,7 @@ def main(argv: list[str]) -> int:
     dec = get_decider(dec_name)
     t0 = time.time()
     preds = run(dec, recs, workers)
-    path = write(backend, name, preds)
+    path = write(backend, name.split("-")[0] if name.startswith("routing-") else name, preds)  # routing-eval/-300 -> preds_<b>_routing
     m = metrics(preds, recs)
     m["wall_s"] = round(time.time() - t0, 1)
     if hasattr(dec, "usage"):
