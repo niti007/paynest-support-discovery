@@ -71,9 +71,20 @@ def cleanup():
         if arns:
             wait_until(lambda: not ecs.list_tasks(cluster=NAMES["cluster"])["taskArns"], 180, 5)
         safe(ecs.delete_cluster, cluster=NAMES["cluster"])
-    fams = safe(ecs.list_task_definitions, familyPrefix=P, status="ACTIVE")
-    for a in (fams or {}).get("taskDefinitionArns", []):
-        safe(ecs.deregister_task_definition, taskDefinition=a)
+    arns = []
+    for pg in ecs.get_paginator("list_task_definitions").paginate(familyPrefix=f"{P}-task", status="ACTIVE"):
+        arns += pg["taskDefinitionArns"]
+    print(f"  task defs ACTIVE (family prefix {P}-task): {len(arns)}", flush=True)
+    for a in arns:
+        r = safe(ecs.deregister_task_definition, taskDefinition=a)
+        st = (r or {}).get("taskDefinition", {}).get("status")
+        print(f"  deregister {a} -> {st}", flush=True)
+        if st != "INACTIVE":
+            res["notes"].append(f"deregister did not return INACTIVE for {a}: {st}")
+    left = ecs.list_task_definitions(familyPrefix=f"{P}-task", status="ACTIVE")["taskDefinitionArns"]
+    print(f"  task defs still ACTIVE after deregister: {len(left)}", flush=True)
+    if left:
+        res["notes"].append(f"task defs still ACTIVE after cleanup: {left}")
     # ALB
     lbs = []
     try:
