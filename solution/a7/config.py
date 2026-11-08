@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 REGION = "eu-north-1"
 AWS_PROFILE = "paynest"
 
-# Model choice is PROVISIONAL: the user confirms the final choice.
+# Model choice confirmed by the user on 2026-11-08.
 # Evidence: infra/probes/results/p1_model_candidates.json (EN/AR/HI/Hinglish + forced enum tool, all passed for these).
 MODEL_CHEAP = "eu.amazon.nova-lite-v1:0"          # eu. Geo profile
 MODEL_HARD = "qwen.qwen3-235b-a22b-2507-v1:0"     # in-Region ON_DEMAND (alt: openai.gpt-oss-120b-1:0, also passed all checks)
@@ -61,5 +61,5 @@ class Quotas:
 
 QUOTAS = Quotas()
 
-# Free plan facts from freetier.get_account_plan_state
-PLAN = {"type": "FREE", "credits_usd": 100.0, "expires": "2027-05-07"}
+# Free plan facts from freetier GetAccountPlanState: USD 140 credits live as of 2026-11-08 (it was 100 at sign-up).
+PLAN = {"type": "FREE", "credits_usd": 140.0, "expires": "2027-05-07"}

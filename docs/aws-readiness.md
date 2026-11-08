@@ -2,9 +2,10 @@
 
 ## Summary
 
-- Account 554559231166 on the FREE plan: USD 100 credits, status ACTIVE, expires 2027-05-07.
+- Account 554559231166 on the FREE plan: USD 140 credits live as of 2026-11-08 (it was 100 at sign-up), status ACTIVE, expires 2027-05-07.
 - Region: eu-north-1. Checked on 2026-11-08.
-- Probe rows: 11 PASS, 2 BLOCKED with a fallback (Bedrock LLMs, Bedrock Evaluations).
+- Probe rows: 12 PASS, 1 BLOCKED with a fallback (Bedrock Evaluations).
+- Gate 0 validation: `infra/probes/results/gate0_validation.md`.
 - Total probe cost recorded in the result files: about USD 0.08.
 
 ## Results
@@ -13,8 +14,8 @@ Each row is one probe group from the Phase 0b table in the plan. Result files ar
 
 | Group | Status | Evidence | Fallback / note | Result file |
 |---|---|---|---|---|
-| Account | PASS | Plan FREE, ACTIVE, USD 100.0 credits. Fargate On-Demand vCPU quota 12. RDS DB instances 40. ElastiCache nodes per Region 300. | None | p1_account.json |
-| Bedrock LLMs | BLOCKED-with-fallback | Claude Haiku 5.5 and Sonnet 5.5 denied: "not available for this account" (TPM quota 0). Nova Lite, Qwen3 235B and Qwen3 32B pass en, ar, hi, Hinglish and the enum tool. | Nova Lite (cheap), Qwen3 235B (hard), Qwen3 32B (fallback). See Models chosen. | p1_bedrock_llm.json, p1_model_candidates.json |
+| Account | PASS | Plan FREE, ACTIVE, USD 140 credits live (100 at sign-up). Fargate On-Demand vCPU quota 12. RDS DB instances 40. ElastiCache nodes per Region 300. | None | p1_account.json |
+| Bedrock LLMs | PASS | Claude Haiku 5.5 and Sonnet 5.5 denied: "not available for this account" (TPM quota 0). Nova Lite, Qwen3 235B and Qwen3 32B pass en, ar, hi, Hinglish and the enum tool. | Claude 5.5 denied, Claude 4.x needs the use-case form; in-Region Nova Lite / Qwen3 chosen. See Models chosen. | p1_bedrock_llm.json, p1_model_candidates.json |
 | Bedrock embeddings | PASS | eu.cohere.embed-v4:0 returns 1024 dims for en, hi, ar and control. en-ar similarity 0.6742, control 0.2471. | Titan Text Embeddings V2 also passed (1024 dims). | p1_bedrock_embed.json |
 | Bedrock Evaluations | BLOCKED-with-fallback | CreateEvaluationJob: AccessDeniedException "Your account is not authorized to invoke this API operation." The probe's S3 bucket and IAM role were deleted. | DeepEval judge, cross-checked by a second Bedrock model. | p1_bedrock_eval.json |
 | Database | PASS | RDS PostgreSQL 17.11. pgvector 0.8.2. HNSW nearest-neighbour query uses the index. tsvector query returns 1 row. RLS: app_user sees 2 rows as T1 and 0 rows in the T2 lookup. | None | p3_rds_pgvector.json |
@@ -42,7 +43,7 @@ Why Claude is not used:
 - Claude 5.5 is "not available for this account." Its token quota is 0, so calls cannot run.
 - Claude 4.x (Haiku 4.5, Sonnet 4.6) needs the Anthropic use-case form filled in the Bedrock console first. Even then, it allows only 10 requests per minute.
 
-Note: the `ids_resolved` field in `p1_bedrock_llm.json` predates the decision. It still lists qwen3-32b as cheap and gpt-oss-120b as hard. This table follows `config.py`.
+Note: `p1_bedrock_llm.json` predates the decision; see its `superseded_by` field. This table follows `config.py`.
 
 ## Limits that affect the build
 
@@ -87,5 +88,5 @@ Recorded cost per probe (USD, from each JSON's `est_cost_usd`):
 ## What stays in the account
 
 - The CDKToolkit bootstrap stack. It is CREATE_COMPLETE, bootstrap version 33, with qualifier hnb659fds. It is tagged project=paynest.
-- One KMS key, 43c53102-ad91-4e38-98a8-16a0b188b46a, in PendingDeletion. The date it will be deleted is not recorded in the result files.
-- The result of the tag sweep is not recorded in the result files.
+- One KMS key, 43c53102-ad91-4e38-98a8-16a0b188b46a, in PendingDeletion, DeletionDate 2026-11-15T15:27:11Z.
+- Gate 0 tag sweep: 16 tagged ARNs in eu-north-1, 0 live (all stale index entries). A us-east-1 tag query is denied by the project SCP; nothing was created there.
