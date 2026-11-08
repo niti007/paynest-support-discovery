@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "eu.cohere.embed-v4:0:dims1024",
+      "pass": true,
+      "evidence": "dims={'en': 1024, 'hi': 1024, 'ar': 1024, 'control': 1024}"
+    },
+    {
+      "name": "eu.cohere.embed-v4:0:semantic",
+      "pass": true,
+      "evidence": {
+        "en_hi": 0.4325,
+        "en_ar": 0.6742,
+        "en_control": 0.2471
+      }
+    },
+    {
+      "name": "amazon.titan-embed-text-v2:0:dims1024",
+      "pass": true,
+      "evidence": "dims={'en': 1024, 'hi': 1024, 'ar': 1024, 'control': 1024}"
+    },
+    {
+      "name": "amazon.titan-embed-text-v2:0:semantic",
+      "pass": true,
+      "evidence": {
+        "en_hi": 0.3118,
+        "en_ar": 0.424,
+        "en_control": 0.071
+      }
+    }
+  ],
+  "ids_resolved": {
+    "cohere": "eu.cohere.embed-v4:0",
+    "titan": "amazon.titan-embed-text-v2:0",
+    "denied": {}
+  },
+  "latency_ms": {
+    "eu.cohere.embed-v4:0:en": 487,
+    "eu.cohere.embed-v4:0:hi": 274,
+    "eu.cohere.embed-v4:0:ar": 271,
+    "eu.cohere.embed-v4:0:control": 296,
+    "amazon.titan-embed-text-v2:0:en": 158,
+    "amazon.titan-embed-text-v2:0:hi": 183,
+    "amazon.titan-embed-text-v2:0:ar": 177,
+    "amazon.titan-embed-text-v2:0:control": 155
+  },
+  "est_cost_usd": 7e-06,
+  "error": null,
+  "fallback": null
+}
