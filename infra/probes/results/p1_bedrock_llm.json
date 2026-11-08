@@ -131,5 +131,6 @@
   },
   "est_cost_usd": 0.000352,
   "error": "eu.anthropic.claude-haiku-5-5 -> AccessDeniedException: anthropic.claude-haiku-5-5 is not available for this account. You can explore other available models on Amazon Bedrock. For additional access options, contact AWS Sales at https://aws.amazon.com/contact-us/sales-support/; eu.anthropic.claude-sonnet-5-5 -> AccessDeniedException: anthropic.claude-sonnet-5-5 is not available for this account. You can explore other available models on Amazon Bedrock. For additional access options, contact AWS Sales at https://aws.amazon.com/contact-us/sales-support/",
-  "fallback": "eu./global. Geo profiles denied by FREE-plan SCP; use in-Region ON_DEMAND models listed in ids_resolved"
+  "fallback": "eu./global. Geo profiles denied by FREE-plan SCP; use in-Region ON_DEMAND models listed in ids_resolved",
+  "superseded_by": "p1_model_candidates.json + solution/a7/config.py (user decision 2026-11-08: cheap=eu.amazon.nova-lite-v1:0, hard=qwen.qwen3-235b-a22b-2507-v1:0, fallback=qwen.qwen3-32b-v1:0)"
 }

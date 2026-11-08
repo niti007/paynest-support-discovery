@@ -8,3 +8,4 @@ __pycache__/
 # optional: strip trainer/ from the student copy
 # trainer/
 trainer/
+.claude/
