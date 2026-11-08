@@ -14,6 +14,10 @@ dependencies = [
     "cryptography==50.0.2",
     "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl",
     "xx_ent_wiki_sm @ https://github.com/explosion/spacy-models/releases/download/xx_ent_wiki_sm-3.8.0/xx_ent_wiki_sm-3.8.0-py3-none-any.whl",
+    "strands-decider[mlx]>=0.3.0",
+    "fastapi>=0.162.2",
+    "uvicorn[standard]>=0.54.0",
+    "httpx>=0.28.1",
 ]
 
 [tool.uv]
@@ -26,4 +30,5 @@ testpaths = ["solution/tests"]
 markers = [
     "db: needs the docker compose postgres/valkey stack running",
     "aws: calls AWS (Bedrock); profile paynest, Region eu-north-1",
+    "model: loads the real Strands Decider weights (Apple silicon, slow first load)",
 ]
