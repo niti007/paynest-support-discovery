@@ -1,0 +1,126 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "p3_secrets_via_role",
+      "pass": true,
+      "evidence": {
+        "check": "p3_secrets_via_role",
+        "pass": true,
+        "evidence": "PGPASSWORD injected by ECS from Secrets Manager via execution role, length=28 (value not logged)"
+      }
+    },
+    {
+      "name": "pg_connect",
+      "pass": true,
+      "evidence": {
+        "check": "pg_connect",
+        "pass": true,
+        "ms": 65,
+        "version": "PostgreSQL 17.11 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 12.4.0, 64-bit"
+      }
+    },
+    {
+      "name": "a_pgvector_extension",
+      "pass": true,
+      "evidence": {
+        "check": "a_pgvector_extension",
+        "pass": true,
+        "extversion": "0.8.2"
+      }
+    },
+    {
+      "name": "b_hnsw_nn_query",
+      "pass": true,
+      "evidence": {
+        "check": "b_hnsw_nn_query",
+        "pass": true,
+        "nearest_id": 2,
+        "body": "shipping times to Sweden",
+        "distance": 0.0,
+        "uses_hnsw": true,
+        "plan": "Limit  (cost=16.02..17.37 rows=1 width=12) |   ->  Index Scan using chunks_hnsw on chunks  (cost=16.02..20.06 rows=3 width=12) |         Order By: (embedding <=> '[-0.14441,0.7723,-0.36402,0.21597,0.4"
+      }
+    },
+    {
+      "name": "c_tsvector_websearch",
+      "pass": true,
+      "evidence": {
+        "check": "c_tsvector_websearch",
+        "pass": true,
+        "rows": [
+          [
+            1,
+            "refund policy for damaged items"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "d_rls",
+      "pass": true,
+      "evidence": {
+        "check": "d_rls",
+        "pass": true,
+        "as_user": "app_user",
+        "t1_rows": 2,
+        "t1_tenants": [
+          "T1"
+        ],
+        "t2_lookup_while_T1": 0,
+        "t2_rows_while_T2": 1
+      }
+    },
+    {
+      "name": "f_runner_done",
+      "pass": true,
+      "evidence": "RUNNER_DONE printed"
+    }
+  ],
+  "error": null,
+  "fallback": null,
+  "ids_resolved": {
+    "vpc": "vpc-0bec3689522bd5b6c",
+    "subnets": [
+      "subnet-0ecc724f1e59ed485",
+      "subnet-02f06ab5f5b52272e"
+    ],
+    "vpc_created_by_probe": false,
+    "sg_runner": "sg-058ffbd53d8fdca32",
+    "sg_rds": "sg-0af776e9d48de37ed",
+    "sg_cache": "sg-03be4dff4b73cfc3b",
+    "rds_engine_version": "17.11",
+    "rds_secret_arn": "arn:aws:secretsmanager:eu-north-1:554559231166:secret:rds!db-d3180a5f-ed74-4ba9-beef-e0cbd3ad2723-l8DByu",
+    "image": "554559231166.dkr.ecr.eu-north-1.amazonaws.com/paynest-probe-data-runner:latest",
+    "rds_endpoint": "paynest-probe-pg.cz6a4a46ozfi.eu-north-1.rds.amazonaws.com",
+    "valkey_endpoint": "master.paynest-probe-vk.odmgnx.eun1.cache.amazonaws.com",
+    "valkey_port": 6379,
+    "valkey_engine": "valkey 9.0",
+    "exec_role": "arn:aws:iam::554559231166:role/paynest-probe-data-exec",
+    "task_def": "arn:aws:ecs:eu-north-1:554559231166:task-definition/paynest-probe-data-runner:1",
+    "task": "arn:aws:ecs:eu-north-1:554559231166:task/paynest-probe-data/1993ae9f005a47e186ec2597a216af29",
+    "task_stop": {
+      "stoppedReason": "Essential container in task exited",
+      "exitCode": 0,
+      "reason": null
+    }
+  },
+  "latency_ms": {
+    "image_build_push": 46680,
+    "rds_create_to_available": 400554,
+    "valkey_create_to_available": 656334,
+    "task_run": 52918
+  },
+  "est_cost_usd": 0.015,
+  "wall_seconds": 1209,
+  "raw_log_lines": [
+    "{\"check\": \"p3_secrets_via_role\", \"pass\": true, \"evidence\": \"PGPASSWORD injected by ECS from Secrets Manager via execution role, length=28 (value not logged)\"}",
+    "{\"check\": \"pg_connect\", \"pass\": true, \"ms\": 65, \"version\": \"PostgreSQL 17.11 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 12.4.0, 64-bit\"}",
+    "{\"check\": \"a_pgvector_extension\", \"pass\": true, \"extversion\": \"0.8.2\"}",
+    "{\"check\": \"b_hnsw_nn_query\", \"pass\": true, \"nearest_id\": 2, \"body\": \"shipping times to Sweden\", \"distance\": 0.0, \"uses_hnsw\": true, \"plan\": \"Limit  (cost=16.02..17.37 rows=1 width=12) |   ->  Index Scan using chunks_hnsw on chunks  (cost=16.02..20.06 rows=3 width=12) |         Order By: (embedding <=> '[-0.14441,0.7723,-0.36402,0.21597,0.4\"}",
+    "{\"check\": \"c_tsvector_websearch\", \"pass\": true, \"rows\": [[1, \"refund policy for damaged items\"]]}",
+    "{\"check\": \"d_rls\", \"pass\": true, \"as_user\": \"app_user\", \"t1_rows\": 2, \"t1_tenants\": [\"T1\"], \"t2_lookup_while_T1\": 0, \"t2_rows_while_T2\": 1}",
+    "{\"check\": \"e_valkey\", \"pass\": true, \"get\": \"v\", \"ttl\": 30, \"deleted\": 1, \"tls\": true, \"server\": \"9.0.0\", \"ms\": 53}",
+    "RUNNER_DONE"
+  ]
+}
