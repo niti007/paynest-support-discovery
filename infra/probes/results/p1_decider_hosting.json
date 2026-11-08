@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "agentcore.list_agent_runtimes",
+      "pass": true,
+      "evidence": "reachable, 0 runtimes"
+    },
+    {
+      "name": "sagemaker.list_endpoints",
+      "pass": true,
+      "evidence": "reachable, 0 endpoints"
+    },
+    {
+      "name": "sagemaker.service_quotas",
+      "pass": true,
+      "evidence": "4 matched"
+    }
+  ],
+  "ids_resolved": {
+    "sagemaker_quotas": {
+      "Maximum total concurrency that can be allocated across all serverless endpoints": 500.0,
+      "ml.m5.large for endpoint usage": 16.0,
+      "Maximum number of serverless endpoints": 50.0,
+      "ml.g5.xlarge for endpoint usage": 1.0
+    },
+    "default": "ECS Fargate 2 vCPU / 8 GB",
+    "agentcore_runtime_reachable": true,
+    "sagemaker_reachable": true
+  },
+  "latency_ms": {},
+  "est_cost_usd": 0.0,
+  "error": null,
+  "fallback": null
+}

@@ -1,0 +1,271 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "cheap:eu.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "pass": false,
+      "evidence": {
+        "langs": {
+          "en": false,
+          "ar": false,
+          "hi": false,
+          "hinglish": false
+        },
+        "enum_valid": false,
+        "p50_latency_ms": null,
+        "errors": {
+          "en": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "ar": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "hi": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "hinglish": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "enum_tool": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes."
+        }
+      }
+    },
+    {
+      "name": "cheap:eu.amazon.nova-lite-v1:0",
+      "pass": true,
+      "evidence": {
+        "langs": {
+          "en": true,
+          "ar": true,
+          "hi": true,
+          "hinglish": true
+        },
+        "enum_valid": true,
+        "p50_latency_ms": 422
+      }
+    },
+    {
+      "name": "cheap:qwen.qwen3-32b-v1:0",
+      "pass": true,
+      "evidence": {
+        "langs": {
+          "en": true,
+          "ar": true,
+          "hi": true,
+          "hinglish": true
+        },
+        "enum_valid": true,
+        "p50_latency_ms": 409
+      }
+    },
+    {
+      "name": "hard:eu.anthropic.claude-sonnet-4-6",
+      "pass": false,
+      "evidence": {
+        "langs": {
+          "en": false,
+          "ar": false,
+          "hi": false,
+          "hinglish": false
+        },
+        "enum_valid": false,
+        "p50_latency_ms": null,
+        "errors": {
+          "en": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "ar": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "hi": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "hinglish": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "enum_tool": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes."
+        }
+      }
+    },
+    {
+      "name": "hard:qwen.qwen3-235b-a22b-2507-v1:0",
+      "pass": true,
+      "evidence": {
+        "langs": {
+          "en": true,
+          "ar": true,
+          "hi": true,
+          "hinglish": true
+        },
+        "enum_valid": true,
+        "p50_latency_ms": 955
+      }
+    },
+    {
+      "name": "hard:openai.gpt-oss-120b-1:0",
+      "pass": true,
+      "evidence": {
+        "langs": {
+          "en": true,
+          "ar": true,
+          "hi": true,
+          "hinglish": true
+        },
+        "enum_valid": true,
+        "p50_latency_ms": 671
+      }
+    }
+  ],
+  "ids_resolved": {
+    "table": [
+      {
+        "model": "eu.anthropic.claude-haiku-4-5-20251001-v1:0",
+        "tier_candidate": "cheap",
+        "listed": true,
+        "langs": {
+          "en": false,
+          "ar": false,
+          "hi": false,
+          "hinglish": false
+        },
+        "enum_valid": false,
+        "errors": {
+          "en": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "ar": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "hi": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "hinglish": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "enum_tool": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes."
+        },
+        "p50_latency_ms": null,
+        "usd_per_1m_in": 1.1,
+        "usd_per_1m_out": 5.5,
+        "price_source": "Price List API AmazonBedrockFoundationModels / Claude Haiku 4.5 / EUN1-MP:EUN1_InputTokenCount-Units / EUN1-MP:EUN1_OutputTokenCount-Units",
+        "quota": {
+          "rpm": 10,
+          "tpm": 5000000
+        },
+        "pass": false
+      },
+      {
+        "model": "eu.amazon.nova-lite-v1:0",
+        "tier_candidate": "cheap",
+        "listed": true,
+        "langs": {
+          "en": true,
+          "ar": true,
+          "hi": true,
+          "hinglish": true
+        },
+        "enum_valid": true,
+        "errors": {},
+        "enum_output": {
+          "confidence": 0.95,
+          "choice": "payroll_window"
+        },
+        "p50_latency_ms": 422,
+        "usd_per_1m_in": 0.06499999999999999,
+        "usd_per_1m_out": 0.25999999999999995,
+        "price_source": "Price List API AmazonBedrock / Nova Lite / EUN1-NovaLite-input-tokens / EUN1-NovaLite-output-tokens",
+        "quota": {
+          "rpm": 20,
+          "tpm": 400000
+        },
+        "pass": true
+      },
+      {
+        "model": "qwen.qwen3-32b-v1:0",
+        "tier_candidate": "cheap",
+        "listed": true,
+        "langs": {
+          "en": true,
+          "ar": true,
+          "hi": true,
+          "hinglish": true
+        },
+        "enum_valid": true,
+        "errors": {},
+        "enum_output": {
+          "choice": "payroll_window",
+          "confidence": 0.95
+        },
+        "p50_latency_ms": 409,
+        "usd_per_1m_in": 0.15,
+        "usd_per_1m_out": 0.6,
+        "price_source": "Price List API AmazonBedrock / Qwen3 32B / EUN1-Qwen3-32B-input-tokens / EUN1-Qwen3-32B-output-tokens",
+        "quota": {
+          "rpm": 100,
+          "tpm": 100000000
+        },
+        "pass": true
+      },
+      {
+        "model": "eu.anthropic.claude-sonnet-4-6",
+        "tier_candidate": "hard",
+        "listed": true,
+        "langs": {
+          "en": false,
+          "ar": false,
+          "hi": false,
+          "hinglish": false
+        },
+        "enum_valid": false,
+        "errors": {
+          "en": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "ar": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "hi": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "hinglish": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.",
+          "enum_tool": "ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes."
+        },
+        "p50_latency_ms": null,
+        "usd_per_1m_in": 3.3,
+        "usd_per_1m_out": 16.5,
+        "price_source": "Price List API AmazonBedrockFoundationModels / Claude Sonnet 4.6 / EUN1-MP:EUN1_InputTokenCount-Units / EUN1-MP:EUN1_OutputTokenCount-Units",
+        "quota": {
+          "tpm": 6000000,
+          "rpm": 10
+        },
+        "pass": false
+      },
+      {
+        "model": "qwen.qwen3-235b-a22b-2507-v1:0",
+        "tier_candidate": "hard",
+        "listed": true,
+        "langs": {
+          "en": true,
+          "ar": true,
+          "hi": true,
+          "hinglish": true
+        },
+        "enum_valid": true,
+        "errors": {},
+        "enum_output": {
+          "choice": "payroll_window",
+          "confidence": 0.95
+        },
+        "p50_latency_ms": 955,
+        "usd_per_1m_in": 0.22,
+        "usd_per_1m_out": 0.88,
+        "price_source": "Price List API AmazonBedrock / Qwen3 235B A22B 2507 / EUN1-Qwen3-235B-A22B-input-tokens / EUN1-Qwen3-235B-A22B-output-tokens",
+        "quota": {
+          "rpm": 100,
+          "tpm": 100000000
+        },
+        "pass": true
+      },
+      {
+        "model": "openai.gpt-oss-120b-1:0",
+        "tier_candidate": "hard",
+        "listed": true,
+        "langs": {
+          "en": true,
+          "ar": true,
+          "hi": true,
+          "hinglish": true
+        },
+        "enum_valid": true,
+        "errors": {},
+        "enum_output": {
+          "choice": "payroll_window",
+          "confidence": 0.99
+        },
+        "p50_latency_ms": 671,
+        "usd_per_1m_in": 0.15,
+        "usd_per_1m_out": 0.6,
+        "price_source": "Price List API AmazonBedrock / gpt-oss-120b / EUN1-gpt-oss-120b-input-tokens / EUN1-gpt-oss-120b-output-tokens",
+        "quota": {
+          "tpm": 100000000,
+          "rpm": 100
+        },
+        "pass": true
+      }
+    ]
+  },
+  "latency_ms": {},
+  "est_cost_usd": 0.01,
+  "error": "{\"eu.anthropic.claude-haiku-4-5-20251001-v1:0\": {\"en\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\", \"ar\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\", \"hi\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\", \"hinglish\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\", \"enum_tool\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\"}, \"eu.anthropic.claude-sonnet-4-6\": {\"en\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\", \"ar\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\", \"hi\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\", \"hinglish\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\", \"enum_tool\": \"ResourceNotFoundException: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.\"}}",
+  "fallback": null
+}

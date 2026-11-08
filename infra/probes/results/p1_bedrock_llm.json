@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "id_listed:eu.anthropic.claude-haiku-5-5",
+      "pass": true,
+      "evidence": "inference profile"
+    },
+    {
+      "name": "id_listed:eu.anthropic.claude-sonnet-5-5",
+      "pass": true,
+      "evidence": "inference profile"
+    },
+    {
+      "name": "id_listed:eu.amazon.nova-lite-v1:0",
+      "pass": true,
+      "evidence": "inference profile"
+    },
+    {
+      "name": "id_listed:amazon.nova-lite-v1:0",
+      "pass": true,
+      "evidence": "foundation model"
+    },
+    {
+      "name": "id_listed:eu.amazon.nova-2-lite-v1:0",
+      "pass": true,
+      "evidence": "inference profile"
+    },
+    {
+      "name": "cheap:eu.anthropic.claude-haiku-5-5:en",
+      "pass": false,
+      "evidence": "AccessDeniedException: anthropic.claude-haiku-5-5 is not available for this account. You can explore other available models on Amazon Bedrock. For additional access options, contact AWS Sales at https://aws.amazon.com/contact-us/sales-support/"
+    },
+    {
+      "name": "cheap:qwen.qwen3-32b-v1:0:en",
+      "pass": true,
+      "evidence": "282ms in=35 out=17"
+    },
+    {
+      "name": "cheap:qwen.qwen3-32b-v1:0:ar",
+      "pass": true,
+      "evidence": "413ms in=45 out=18 text='\u0646\u0639\u062a\u0630\u0631 \u0644\u0644\u062a\u0623\u062e\u064a\u0631 \u0648\u0633\u0646\u0642\u0648\u0645 \u0628\u062a\u062d\u0642\u064a\u0642 \u0627\u0644\u0623\u0645\u0631 \u0641\u0648\u0631\u064b\u0627.'"
+    },
+    {
+      "name": "cheap:qwen.qwen3-32b-v1:0:hi",
+      "pass": true,
+      "evidence": "494ms in=108 out=52 text='\u0905\u092d\u0940 \u0925\u094b\u0921\u093c\u093e \u0907\u0902\u0924\u091c\u093e\u0930 \u0915\u0930\u0947\u0902, \u0906\u092a\u0915\u0940 \u0924\u0928\u0916\u094d\u0935\u093e\u0939 \u0936\u093e\u092e \u0924\u0915 \u0906 \u091c\u093e\u090f\u0917\u0940\u0964'"
+    },
+    {
+      "name": "cheap:qwen.qwen3-32b-v1:0:hinglish",
+      "pass": true,
+      "evidence": "363ms in=47 out=26 text='Thik hai, aapke salary ka wait ho raha hai, aaj tode se chec'"
+    },
+    {
+      "name": "cheap:qwen.qwen3-32b-v1:0:enum_tool",
+      "pass": true,
+      "evidence": "313ms in=200 out=31 input={'choice': 'payroll_window', 'confidence': 0.95}"
+    },
+    {
+      "name": "hard:eu.anthropic.claude-sonnet-5-5:en",
+      "pass": false,
+      "evidence": "AccessDeniedException: anthropic.claude-sonnet-5-5 is not available for this account. You can explore other available models on Amazon Bedrock. For additional access options, contact AWS Sales at https://aws.amazon.com/contact-us/sales-support/"
+    },
+    {
+      "name": "hard:openai.gpt-oss-120b-1:0:en",
+      "pass": true,
+      "evidence": "827ms in=90 out=98"
+    },
+    {
+      "name": "hard:openai.gpt-oss-120b-1:0:ar",
+      "pass": true,
+      "evidence": "793ms in=92 out=110 text='\u0646\u0639\u062a\u0630\u0631 \u0639\u0646 \u0627\u0644\u062a\u0623\u062e\u064a\u0631\u060c \u0648\u0633\u0646\u0642\u0648\u0645 \u0628\u0627\u0644\u062a\u062d\u0642\u0642 \u0645\u0646 \u062d\u0627\u0644\u0629 \u0631\u0627\u062a\u0628\u0643 \u0641\u0648\u0631\u064b\u0627.'"
+    },
+    {
+      "name": "fallback:eu.amazon.nova-lite-v1:0:en",
+      "pass": true,
+      "evidence": "323ms in=24 out=28"
+    },
+    {
+      "name": "fallback:eu.amazon.nova-lite-v1:0:ar",
+      "pass": true,
+      "evidence": "433ms in=28 out=24 text='\u0639\u0630\u0631\u064b\u0627\u060c \u0633\u0646\u0642\u0648\u0645 \u0628\u0627\u0644\u062a\u062d\u0642\u0642 \u0645\u0646 \u0633\u0628\u0628 \u0627\u0644\u062a\u0623\u062e\u064a\u0631 \u0648\u0633\u0646\u0639\u0627\u0644\u062c \u0627\u0644\u0623\u0645\u0631 \u0641\u064a \u0623\u0642\u0631\u0628 \u0648\u0642'"
+    },
+    {
+      "name": "fallback:eu.amazon.nova-lite-v1:0:enum_tool",
+      "pass": true,
+      "evidence": "401ms in=438 out=26 input={'confidence': 0.95, 'choice': 'payroll_window'}"
+    }
+  ],
+  "ids_resolved": {
+    "on_demand_text_models": [
+      "amazon.nova-2-5-sonic",
+      "amazon.nova-2-sonic-v1:0",
+      "amazon.nova-lite-v1:0",
+      "deepseek.v3-v1:0",
+      "deepseek.v3.2",
+      "minimax.minimax-m2.1",
+      "minimax.minimax-m2.5",
+      "mistral.devstral-2-123b",
+      "moonshotai.kimi-k2.5",
+      "nvidia.nemotron-super-3-120b",
+      "openai.gpt-oss-120b-1:0",
+      "openai.gpt-oss-20b-1:0",
+      "qwen.qwen3-235b-a22b-2507-v1:0",
+      "qwen.qwen3-32b-v1:0",
+      "qwen.qwen3-coder-30b-a3b-v1:0",
+      "qwen.qwen3-coder-480b-a35b-v1:0",
+      "zai.glm-4.7",
+      "zai.glm-4.7-flash",
+      "zai.glm-5"
+    ],
+    "cheap": "qwen.qwen3-32b-v1:0",
+    "hard": "openai.gpt-oss-120b-1:0",
+    "fallback": "eu.amazon.nova-lite-v1:0",
+    "denied": {
+      "eu.anthropic.claude-haiku-5-5": "AccessDeniedException: anthropic.claude-haiku-5-5 is not available for this account. You can explore other available models on Amazon Bedrock. For additional access options, contact AWS Sales at https://aws.amazon.com/contact-us/sales-support/",
+      "eu.anthropic.claude-sonnet-5-5": "AccessDeniedException: anthropic.claude-sonnet-5-5 is not available for this account. You can explore other available models on Amazon Bedrock. For additional access options, contact AWS Sales at https://aws.amazon.com/contact-us/sales-support/"
+    }
+  },
+  "latency_ms": {
+    "cheap:qwen.qwen3-32b-v1:0:en": 282,
+    "cheap:qwen.qwen3-32b-v1:0:ar": 413,
+    "cheap:qwen.qwen3-32b-v1:0:hi": 494,
+    "cheap:qwen.qwen3-32b-v1:0:hinglish": 363,
+    "cheap:qwen.qwen3-32b-v1:0:tool": 313,
+    "hard:openai.gpt-oss-120b-1:0:en": 827,
+    "hard:openai.gpt-oss-120b-1:0:ar": 793,
+    "fallback:eu.amazon.nova-lite-v1:0:en": 323,
+    "fallback:eu.amazon.nova-lite-v1:0:ar": 433,
+    "fallback:eu.amazon.nova-lite-v1:0:tool": 401
+  },
+  "est_cost_usd": 0.000352,
+  "error": "eu.anthropic.claude-haiku-5-5 -> AccessDeniedException: anthropic.claude-haiku-5-5 is not available for this account. You can explore other available models on Amazon Bedrock. For additional access options, contact AWS Sales at https://aws.amazon.com/contact-us/sales-support/; eu.anthropic.claude-sonnet-5-5 -> AccessDeniedException: anthropic.claude-sonnet-5-5 is not available for this account. You can explore other available models on Amazon Bedrock. For additional access options, contact AWS Sales at https://aws.amazon.com/contact-us/sales-support/",
+  "fallback": "eu./global. Geo profiles denied by FREE-plan SCP; use in-Region ON_DEMAND models listed in ids_resolved"
+}
