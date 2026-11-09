@@ -139,8 +139,7 @@ class PostgresVaultStore:
         with self.conn.cursor() as cur:
             cur.executemany(
                 "INSERT INTO pii_vault (ticket_id, placeholder, pii_type, ciphertext, key_ref) "
-                "VALUES (%s, %s, %s, %s, %s) ON CONFLICT (ticket_id, placeholder) DO UPDATE "
-                "SET pii_type = EXCLUDED.pii_type, ciphertext = EXCLUDED.ciphertext, key_ref = EXCLUDED.key_ref",
+                "VALUES (%s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",  # no SELECT needed: app_user cannot read pii_vault
                 data)
         if self.commit:
             self.conn.commit()
