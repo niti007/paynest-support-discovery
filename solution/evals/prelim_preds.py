@@ -145,7 +145,7 @@ def laya_calibrate() -> dict:
             by_q[p["name"]].append((p["probs"], gold(cexp[p["id"]], p["name"])))
     cal = Calibrator.fit(by_q, {"fit_split": "routing calib (20%, stratified, seed 20261108)", "n": len(calib)})
     cal.save()
-    epreds = read("laya", "routing-eval")
+    epreds = read("laya", "routing")
     exp = {r["id"]: r for r in routing}
     res = {"temperatures": cal.temperatures}
     for q in ("category", "urgency"):
