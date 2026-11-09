@@ -82,3 +82,39 @@ def test_real_mlx_decision():
     out = b.decide_multi([DecideItem("category", Q, CATS, TEXT), DecideItem("urgency", "How urgent?", ["low", "high"], TEXT)])
     assert out["category"].choice == d.choice
     assert out["urgency"].choice in ("low", "high")
+
+
+def test_hints_reach_engine_criteria():
+    """CATEGORY_HINTS must reach the strands-decider ChoiceQuestion.criteria (they used to be dropped)."""
+    from types import SimpleNamespace
+
+    from decider.engine import RealEngine
+    from solution.a7.decide.base import CATEGORY_HINTS, classify_questions
+
+    seen = {}
+
+    class FakeEng:
+        def ask(self, ctx, qs):
+            seen.update({n: q.criteria for n, q in qs.items()})
+            ans = {n: SimpleNamespace(choice=list(q.criteria)[0], probabilities={k: 1 / len(q.criteria) for k in q.criteria},
+                                      confidence=0.5) for n, q in qs.items()}
+            return SimpleNamespace(answers=ans)
+
+    eng = RealEngine.__new__(RealEngine)
+    import threading
+    eng._eng, eng._lock, eng.device = FakeEng(), threading.Lock(), "fake"
+    items = classify_questions({"masked_text": "hello"})
+    cat = next(i for i in items if i.name == "category")
+    assert cat.hints
+    StrandsDeciderBackend(engine=eng).decide_multi(items)
+    assert seen["category"] == {o: CATEGORY_HINTS[o] for o in cat.options}
+    # questions without hints still send bare labels (None)
+    other = next(i for i in items if i.name != "category")
+    assert all(v is None for v in seen[other.name].values()) or other.hints
+
+
+def test_hints_pass_over_http(stub_client):
+    r = stub_client.post("/decide_multi", headers={"X-A7-Token": "s3cret"},
+                         json={"items": [{"name": "a", "question": Q, "options": CATS, "context": TEXT,
+                                          "hints": {"payroll": "salary"}}]})
+    assert r.status_code == 200

@@ -1,7 +1,7 @@
 """Engine wrapper shared by the HTTP server and the in-process backend.
 
 Self-contained on purpose (no solution.* imports) so the container image only needs decider/.
-Items are plain dicts: {"name", "question", "options", "context"}. Results are plain dicts:
+Items are plain dicts: {"name", "question", "options", "context", "hints" (optional {option: description})}. Results are plain dicts:
 {"choice", "confidence", "latency_ms", "raw"}; "__invalid__" / 0.0 when the output is not one of the options.
 """
 from __future__ import annotations
@@ -70,7 +70,7 @@ class RealEngine:
             groups.setdefault(it.get("context") or "", []).append(it)
         out: dict[str, dict[str, Any]] = {}
         for ctx, grp in groups.items():
-            qs = {it["name"]: ChoiceQuestion(instructions=it["question"], criteria={o: None for o in it["options"]})
+            qs = {it["name"]: ChoiceQuestion(instructions=it["question"], criteria={o: (it.get("hints") or {}).get(o) for o in it["options"]})
                   for it in grp}
             t0 = time.perf_counter()
             with self._lock:

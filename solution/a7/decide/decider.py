@@ -62,7 +62,7 @@ class StrandsDeciderBackend:
                 self._client = httpx.Client(timeout=self.timeout, headers={"X-A7-Token": self.token})
             if len(items) == 1:
                 it = items[0]
-                r = self._client.post(f"{self.url}/decide", json={k: it[k] for k in ("question", "options", "context")})
+                r = self._client.post(f"{self.url}/decide", json={k: it.get(k) for k in ("question", "options", "context", "hints")})
                 r.raise_for_status()
                 return {it["name"]: r.json()}
             r = self._client.post(f"{self.url}/decide_multi", json={"items": items})
@@ -84,8 +84,8 @@ class StrandsDeciderBackend:
         if not items:
             return {}
         t0 = time.perf_counter()
-        payload = [{"name": i.name, "question": i.question, "options": list(i.options), "context": i.context}
-                   for i in items]
+        payload = [{"name": i.name, "question": i.question, "options": list(i.options), "context": i.context,
+                    "hints": dict(i.hints) if i.hints else None} for i in items]
         res = self._run(payload)
         wall = (time.perf_counter() - t0) * 1000 / len(items)
         return {i.name: _to_decision(res[i.name], list(i.options), wall) for i in items}

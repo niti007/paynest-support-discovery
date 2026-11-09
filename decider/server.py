@@ -25,6 +25,7 @@ class DecideReq(BaseModel):
     question: str
     options: list[str] = Field(min_length=2)
     context: str | None = None
+    hints: dict[str, str] | None = None
 
 
 class ItemReq(DecideReq):
