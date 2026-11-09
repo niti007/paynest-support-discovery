@@ -1,0 +1,12 @@
+{
+  "app": "uv run --python 3.12 python app.py",
+  "context": {
+    "region": "eu-north-1",
+    "env_name": "dev",
+    "sizing": "dev",
+    "public_alb": false,
+    "@aws-cdk/core:defaultCrossStackReferences": "strong",
+    "@aws-cdk/core:checkSecretUsage": true,
+    "@aws-cdk/aws-iam:minimizePolicies": true
+  }
+}
