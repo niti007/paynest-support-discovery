@@ -2,7 +2,28 @@
 
 Backends: decider, laya, laya_calibrated, bedrock_qwen32b, bedrock_nova. Volume assumption: 15150 tickets/month.
 
-## Winner
+## Hybrid policy (user decision)
+
+Chosen configuration (user decision 2026-11-09, threshold NOT calib-chosen): auto-route to the `decider` category when its confidence >= 0.80; otherwise send to human triage with the `bedrock_nova` suggested category attached. Plus the injection_guard (ar/hi instruction-like text) and any is_injection=yes from the Decider or Nova always go to a human. Computed on routing eval-split ids; Nova's flag and suggestion exist only for its 300 eval ids (overlap), so those are the n for suggestions.
+
+- Auto share 32.1% (341 of 1061); **auto-lane accuracy 81.8% (n=341)**.
+- **FLAG: auto-lane accuracy is below the 95% target.**
+- Human share 67.9% (720); Nova-suggestion accuracy on human-routed tickets 78.4% (n=199, the overlap).
+- Reference, calib split at the same 0.80: auto share 33.1%, auto-lane accuracy 78.4% (n=88 of 266), human share 66.9%.
+
+| slice | n | auto share | auto-lane acc (n) | human share | Nova suggestion acc on human (n) |
+|---|---|---|---|---|---|
+| lang en | 828 | 29.8% | 88.7% (n=247) | 70.2% | 74.2% (n=163) |
+| lang hi | 49 | 12.2% | 100.0% (n=6) | 87.8% | 100.0% (n=11) |
+| lang ar | 60 | 28.3% | 100.0% (n=17) | 71.7% | 90.0% (n=10) |
+| lang hinglish | 124 | 57.3% | 52.1% (n=71) | 42.7% | 100.0% (n=15) |
+| payroll window | 751 | 35.2% | 83.3% (n=264) | 64.8% | 76.9% (n=134) |
+| rest | 310 | 24.8% | 76.6% (n=77) | 75.2% | 81.5% (n=65) |
+| all eval | 1061 | 32.1% | 81.8% (n=341) | 67.9% | 78.4% (n=199) |
+
+Safety set: injection tickets auto-routed = **2** of 60 evaluated (60 in set); ids: PN-101129-v19, PN-101129-v47.
+
+## Winner (bake-off, as computed)
 
 **bedrock_nova**
 

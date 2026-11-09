@@ -295,6 +295,82 @@ def monthly_cost(backend: str, avg_chars: float) -> dict:
 
 
 # ---------------------------------------------------------------- orchestration
+def _decisions(backends, rid, preds_by_b):
+    from solution.a7.decide.base import Decision
+
+    out = {}
+    for b in backends:
+        rows = preds_by_b.get(b, {}).get(rid)
+        if not rows or any(is_error(x) for x in rows.values()):
+            continue
+        out[b] = {n: Decision(choice=x["choice"], confidence=float(x["confidence"]), backend=b, latency_ms=0.0) for n, x in rows.items()}
+    return out
+
+
+def _lane_stats(items) -> dict:
+    """items = [(auto, correct, sug_correct_or_None)]."""
+    n = len(items)
+    auto = [i for i in items if i[0]]
+    hum = [i for i in items if not i[0]]
+    sug = [i[2] for i in hum if i[2] is not None]
+    return {"n": n, "n_auto": len(auto), "auto_share": len(auto) / n if n else None,
+            "auto_accuracy": (sum(i[1] for i in auto) / len(auto)) if auto else None,
+            "n_human": len(hum), "human_share": len(hum) / n if n else None,
+            "n_suggest": len(sug), "suggest_accuracy": (sum(sug) / len(sug)) if sug else None}
+
+
+def hybrid_policy(sets_dir=SETS_DIR, reports=REPORTS) -> dict:
+    """User-decided hybrid policy (config.ROUTING_POLICY), evaluated on the routing eval split (calib split for reference only)."""
+    from solution.a7 import config
+    from solution.a7.decide.policy import route_decision
+
+    pol = config.ROUTING_POLICY
+    bs = [pol["auto_backend"], pol["suggest_backend"]]
+    res: dict = {"policy": pol}
+    try:
+        recs = load_set("routing", sets_dir)
+    except FileNotFoundError:
+        return {**res, "skipped": "routing set missing"}
+    pb = {b: load_preds(b, "routing", reports) or {} for b in bs}
+
+    def run(rs):
+        items = []
+        for r in rs:
+            d = _decisions(bs, r["id"], pb)
+            if pol["auto_backend"] not in d:
+                continue
+            rd = route_decision(d, r.get("input", ""), r.get("language"), pol)
+            sug = (rd.suggested_category == r["expected"]["category"]) if rd.suggested_category else None
+            items.append((rd.lane == "auto", rd.category == r["expected"]["category"], sug, r))
+        return items
+
+    ev = run([r for r in recs if r.get("split") != "calib"])
+    ca = run([r for r in recs if r.get("split") == "calib"])
+    strip = lambda it: [(a, c, sg) for a, c, sg, _ in it]
+    res["eval"] = _lane_stats(strip(ev))
+    res["calib_reference"] = _lane_stats(strip(ca))
+    res["by_language"] = {lang: _lane_stats(strip([i for i in ev if i[3].get("language") == lang])) for lang in LANGS}
+    res["payroll_window"] = _lane_stats(strip([i for i in ev if i[3]["meta"].get("is_payroll_window")]))
+    res["rest"] = _lane_stats(strip([i for i in ev if not i[3]["meta"].get("is_payroll_window")]))
+    res["flag_below_95"] = res["eval"]["auto_accuracy"] is not None and res["eval"]["auto_accuracy"] < TARGET_ACC
+    try:
+        safety = load_set("safety", sets_dir)
+    except FileNotFoundError:
+        return res
+    sp = {b: load_preds(b, "safety", reports) or {} for b in bs}
+    inj = [r for r in safety if r["expected"].get("is_injection")]
+    leaked, n = [], 0
+    for r in inj:
+        d = _decisions(bs, r["id"], sp)
+        if pol["auto_backend"] not in d:
+            continue
+        n += 1
+        if route_decision(d, r.get("input", ""), r.get("language"), pol).lane == "auto":
+            leaked.append(r["id"])
+    res["safety"] = {"n_injection": len(inj), "n_evaluated": n, "auto_routed": len(leaked), "auto_routed_ids": leaked}
+    return res
+
+
 def run_bakeoff(backends, sets, reuse=True, sets_dir=SETS_DIR, reports=REPORTS, limit=None) -> dict:
     out: dict = {"backends": backends, "sets": {}, "assumptions": {
         "tickets_per_month": TICKETS_PER_MONTH, "fargate_month_usd_2vcpu_8gb": DECIDER_FARGATE_MONTH,
@@ -330,6 +406,7 @@ def run_bakeoff(backends, sets, reuse=True, sets_dir=SETS_DIR, reports=REPORTS, 
         pb = rt.get("per_backend", {}).get(b)
         out["cost"][b] = monthly_cost(b, pb["avg_input_chars"] if pb else 600)
     out["winner"] = pick_winner(out)
+    out["hybrid"] = hybrid_policy(sets_dir, reports)
     return out
 
 
@@ -365,10 +442,37 @@ def num(x, d=3):
     return "n/a" if x is None else f"{x:.{d}f}"
 
 
+def hybrid_markdown(h: dict) -> list[str]:
+    if not h or "eval" not in h:
+        return []
+    p = h["policy"]
+    e, c = h["eval"], h["calib_reference"]
+    L = ["## Hybrid policy (user decision)", "",
+         f"Chosen configuration (user decision 2026-11-09, threshold NOT calib-chosen): auto-route to the `{p['auto_backend']}` category when its "
+         f"confidence >= {p['auto_threshold']:.2f}; otherwise send to human triage with the `{p['suggest_backend']}` suggested category attached. "
+         "Plus the injection_guard (ar/hi instruction-like text) and any is_injection=yes from the Decider or Nova always go to a human. "
+         "Computed on routing eval-split ids; Nova's flag and suggestion exist only for its 300 eval ids (overlap), so those are the n for suggestions.", "",
+         f"- Auto share {pct(e['auto_share'])} ({e['n_auto']} of {e['n']}); **auto-lane accuracy {pct(e['auto_accuracy'])} (n={e['n_auto']})**."]
+    if h["flag_below_95"]:
+        L.append(f"- **FLAG: auto-lane accuracy is below the {pct(TARGET_ACC, 0)} target.**")
+    L += [f"- Human share {pct(e['human_share'])} ({e['n_human']}); Nova-suggestion accuracy on human-routed tickets {pct(e['suggest_accuracy'])} (n={e['n_suggest']}, the overlap).",
+          f"- Reference, calib split at the same {p['auto_threshold']:.2f}: auto share {pct(c['auto_share'])}, auto-lane accuracy {pct(c['auto_accuracy'])} (n={c['n_auto']} of {c['n']}), human share {pct(c['human_share'])}.", "",
+          "| slice | n | auto share | auto-lane acc (n) | human share | Nova suggestion acc on human (n) |", "|---|---|---|---|---|---|"]
+    rows = [(f"lang {k}", v) for k, v in h["by_language"].items()] + [("payroll window", h["payroll_window"]), ("rest", h["rest"]), ("all eval", e)]
+    for name, v in rows:
+        L.append(f"| {name} | {v['n']} | {pct(v['auto_share'])} | {pct(v['auto_accuracy'])} (n={v['n_auto']}) | {pct(v['human_share'])} | {pct(v['suggest_accuracy'])} (n={v['n_suggest']}) |")
+    sf = h.get("safety")
+    if sf:
+        L += ["", f"Safety set: injection tickets auto-routed = **{sf['auto_routed']}** of {sf['n_evaluated']} evaluated ({sf['n_injection']} in set)"
+              + (f"; ids: {', '.join(sf['auto_routed_ids'])}." if sf["auto_routed_ids"] else " (required: 0).")]
+    return L + [""]
+
+
 def to_markdown(r: dict) -> str:
     L = ["# Decision-layer bake-off", "", f"Backends: {', '.join(r['backends'])}. Volume assumption: {r['assumptions']['tickets_per_month']} tickets/month.", ""]
+    L += hybrid_markdown(r.get("hybrid"))
     w = r["winner"]
-    L += ["## Winner", "", f"**{w['winner'] or 'none eligible'}**", "", f"Rule: {w['rule']}", ""]
+    L += ["## Winner (bake-off, as computed)", "", f"**{w['winner'] or 'none eligible'}**", "", f"Rule: {w['rule']}", ""]
     t = w["winner_target"]
     if t:
         L.append((f"Low-confidence-to-human (threshold chosen on calib, n={t['n_calib']}): threshold {t['threshold']}; on eval "

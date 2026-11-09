@@ -63,3 +63,8 @@ QUOTAS = Quotas()
 
 # Free plan facts from freetier GetAccountPlanState: USD 140 credits live as of 2026-11-08 (it was 100 at sign-up).
 PLAN = {"type": "FREE", "credits_usd": 140.0, "expires": "2027-05-07"}
+
+# Routing policy: user decision 2026-11-09. Decider category confidence >= auto_threshold -> auto-route; otherwise a
+# human triages with the suggest_backend's category attached. The injection guard and is_injection flags always go to a human.
+# The threshold is a user-set value, NOT chosen on the calib split.
+ROUTING_POLICY = {"auto_backend": "decider", "auto_threshold": 0.80, "suggest_backend": "bedrock_nova"}
