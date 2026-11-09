@@ -69,7 +69,8 @@ def main(backend: str, set_name: str) -> int:
     keep = [r for r in rows if r["id"] not in ok]
     merged = keep + [x for rs in ok.values() for x in rs]
     order = {r["id"]: i for i, r in enumerate(recs)}
-    merged.sort(key=lambda r: (order.get(r["id"], 10**9), r["name"]))
+    if name != "routing-calib":  # calib rows are appended after the existing eval rows, which stay untouched
+        merged.sort(key=lambda r: (order.get(r["id"], 10**9), r["name"]))
     path.write_text("".join(json.dumps(x, ensure_ascii=False) + "\n" for x in merged), encoding="utf-8")
     print(json.dumps({"merged_ids": len(ok), "still_errored_ids": len(still_bad), "credential_abort": err_left[:1],
                       "usage": dec.usage()}), flush=True)

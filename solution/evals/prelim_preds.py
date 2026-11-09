@@ -36,6 +36,8 @@ def load(name: str) -> list[dict]:
 def select(set_name: str) -> tuple[str, list[dict]]:
     if set_name == "routing-eval":
         return "routing-eval", [r for r in load("routing") if r["split"] == "eval"]
+    if set_name == "routing-calib":  # the calib split (used only to choose the low-confidence threshold)
+        return "routing-calib", [r for r in load("routing") if r["split"] == "calib"]
     if set_name == "routing-300":  # stratified by category, fixed seed, eval split only
         rng = random.Random(SEED)
         recs = [r for r in load("routing") if r["split"] == "eval"]

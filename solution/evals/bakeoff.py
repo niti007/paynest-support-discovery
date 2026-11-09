@@ -220,6 +220,10 @@ def ticket_latencies(preds, ids) -> list[float]:
 
 
 def evaluate(records, preds, ids) -> dict:
+    # calib-split rows are used ONLY to choose the threshold; every metric below is computed on non-calib ids
+    all_ids = set(ids)
+    calib_ids = {r["id"] for r in records if r.get("split") == "calib"}
+    ids = all_ids - calib_ids
     res: dict = {"n": len(ids), "questions": {}}
     for name in ("category", "urgency", "is_injection"):
         rr = _rows(records, preds, name, ids)
@@ -230,7 +234,7 @@ def evaluate(records, preds, ids) -> dict:
     res["reliability"] = reliability(rows)
     res["sweep"] = sweep(rows)
     res["target"] = threshold_for_target(rows)
-    res["calib_threshold"] = calib_threshold(cat)
+    res["calib_threshold"] = calib_threshold(cat + [x for x in _rows(records, preds, "category", all_ids & calib_ids)])
     ids_in = {r["id"] for r in records if r["id"] in ids and r["id"] in preds}
     n_clean_t = len(clean_ids(preds, ids_in))
     res["n_clean"], res["n_error"] = n_clean_t, len(ids_in) - n_clean_t

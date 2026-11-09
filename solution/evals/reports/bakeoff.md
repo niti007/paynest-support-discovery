@@ -8,7 +8,7 @@ Backends: decider, laya, laya_calibrated, bedrock_qwen32b, bedrock_nova. Volume 
 
 Rule: highest clean routing accuracy on the common clean ids (3 dp), then ECE, then USD/month; injection is not an eligibility filter. The low-confidence threshold is chosen on the calib split and applied to eval.
 
-95% auto-lane accuracy is NOT reachable on the calib split (n=0) at any threshold.
+95% auto-lane accuracy is NOT reachable on the calib split (n=266) at any threshold.
 
 | backend | clean routing acc (common clean ids, n) | ECE | injection recall (safety) | recall + guard | USD/month |
 |---|---|---|---|---|---|
@@ -35,21 +35,21 @@ Set size 1327; ids common to all backends with preds: 300; missing preds: none.
 
 | backend | n own | category | urgency | is_injection | n common | category | urgency | is_injection |
 |---|---|---|---|---|---|---|---|---|
-| decider | 1327 | 54.6% | 62.6% | 100.0% | 300 | 53.3% | 59.0% | 100.0% |
+| decider | 1061 | 54.8% | 63.1% | 100.0% | 300 | 53.3% | 59.0% | 100.0% |
 | laya | 1061 | 36.3% | 59.6% | 82.3% | 300 | 38.0% | 56.7% | 83.0% |
 | laya_calibrated | 1061 | 36.3% | 59.6% | 82.3% | 300 | 38.0% | 56.7% | 83.0% |
-| bedrock_qwen32b | 1327 | 77.9% | 53.1% | 100.0% | 300 | 77.3% | 52.0% | 100.0% |
+| bedrock_qwen32b | 1061 | 77.7% | 53.3% | 100.0% | 300 | 77.3% | 52.0% | 100.0% |
 | bedrock_nova | 300 | 82.0% | 42.0% | 99.3% | 300 | 82.0% | 42.0% | 99.3% |
 
 ### Clean vs errored tickets, baselines
 
 | backend | n_clean | n_error | keep-initial baseline (n) | acc on misrouted tickets (n) | eval acc / calib-picked threshold / eval auto acc / eval human share |
 |---|---|---|---|---|---|
-| decider | 1327 | 0 | 84.9% (n=1327) | 80.2% (n=111) | 54.8% (n=1061) / 0.9 / 100.0% (n=133) / 87.5% |
+| decider | 1061 | 0 | 84.7% (n=1061) | 78.3% (n=92) | 54.8% (n=1061) / 0.9 / 100.0% (n=133) / 87.5% |
 | laya | 1061 | 0 | 84.7% (n=1061) | 54.3% (n=92) | 36.3% (n=1061) / none reaches 95% on calib (n=0) / n/a (n=None) / n/a |
 | laya_calibrated | 1061 | 0 | 84.7% (n=1061) | 54.3% (n=92) | 36.3% (n=1061) / none reaches 95% on calib (n=0) / n/a (n=None) / n/a |
-| bedrock_qwen32b | 1327 | 0 | 84.9% (n=1327) | 85.6% (n=111) | 77.7% (n=1061) / 0.99 / n/a (n=0) / 100.0% |
-| bedrock_nova | 300 | 0 | 88.0% (n=300) | 91.7% (n=24) | 82.0% (n=300) / none reaches 95% on calib (n=0) / n/a (n=None) / n/a |
+| bedrock_qwen32b | 1061 | 0 | 84.7% (n=1061) | 83.7% (n=92) | 77.7% (n=1061) / 0.99 / n/a (n=0) / 100.0% |
+| bedrock_nova | 300 | 0 | 88.0% (n=300) | 91.7% (n=24) | 82.0% (n=300) / none reaches 95% on calib (n=266) / n/a (n=None) / n/a |
 
 injection_guard trigger rate on this set (its cost in human share): en 0/1035 (0.0%), hi 0/61 (0.0%), ar 0/76 (0.0%), hinglish 0/155 (0.0%), all 0/1327 (0.0%)
 
@@ -58,40 +58,40 @@ injection_guard trigger rate on this set (its cost in human share): en 0/1035 (0
 
 | backend | n | p50 | p95 |
 |---|---|---|---|
-| decider | 1327 | 631 | 698 |
+| decider | 1061 | 631 | 698 |
 | laya | 1061 | 73 | 86 |
 | laya_calibrated | 1061 | 73 | 86 |
-| bedrock_qwen32b | 1327 | 3949 | 4202 |
+| bedrock_qwen32b | 1061 | 3949 | 4203 |
 | bedrock_nova | 300 | 18010 | 18124 |
 
 ### Payroll-window bounce (category, own ids)
 
 | backend | n window | acc window | n rest | acc rest | drop | misroute window |
 |---|---|---|---|---|---|---|
-| decider | 935 | 57.8% | 392 | 46.9% | -10.8% | 42.2% |
+| decider | 751 | 58.1% | 310 | 46.8% | -11.3% | 41.9% |
 | laya | 751 | 39.9% | 310 | 27.4% | -12.5% | 60.1% |
 | laya_calibrated | 751 | 39.9% | 310 | 27.4% | -12.5% | 60.1% |
-| bedrock_qwen32b | 935 | 78.0% | 392 | 77.8% | -0.2% | 22.0% |
+| bedrock_qwen32b | 751 | 77.8% | 310 | 77.4% | -0.3% | 22.2% |
 | bedrock_nova | 212 | 81.1% | 88 | 84.1% | 3.0% | 18.9% |
 
 ### Language subsets (category accuracy / n)
 
 | backend | en | hi | ar | hinglish |
 |---|---|---|---|---|
-| decider | 50.6% (n=1035) | 90.2% (n=61) | 48.7% (n=76) | 69.7% (n=155) |
+| decider | 50.6% (n=828) | 91.8% (n=49) | 48.3% (n=60) | 71.0% (n=124) |
 | laya | 35.1% (n=828) | 30.6% (n=49) | 88.3% (n=60) | 21.0% (n=124) |
 | laya_calibrated | 35.1% (n=828) | 30.6% (n=49) | 88.3% (n=60) | 21.0% (n=124) |
-| bedrock_qwen32b | 74.4% (n=1035) | 90.2% (n=61) | 80.3% (n=76) | 95.5% (n=155) |
+| bedrock_qwen32b | 73.9% (n=828) | 91.8% (n=49) | 81.7% (n=60) | 95.2% (n=124) |
 | bedrock_nova | 78.5% (n=237) | 100.0% (n=11) | 91.7% (n=12) | 95.0% (n=40) |
 
 ### PII over-masking impact (category accuracy with vs without a PERSON mask)
 
 | backend | lang | n masked | acc masked | n unmasked | acc unmasked | delta (unmasked - masked) |
 |---|---|---|---|---|---|---|
-| decider | en | 90 | 92.2% | 945 | 46.7% | -45.6% |
-| decider | hi | 6 | 33.3% | 55 | 96.4% | 63.0% |
-| decider | ar | 62 | 37.1% | 14 | 100.0% | 62.9% |
-| decider | hinglish | 0 | n/a | 155 | 69.7% | n/a |
+| decider | en | 70 | 91.4% | 758 | 46.8% | -44.6% |
+| decider | hi | 4 | 50.0% | 45 | 95.6% | 45.6% |
+| decider | ar | 49 | 36.7% | 11 | 100.0% | 63.3% |
+| decider | hinglish | 0 | n/a | 124 | 71.0% | n/a |
 | laya | en | 70 | 78.6% | 758 | 31.1% | -47.4% |
 | laya | hi | 4 | 0.0% | 45 | 33.3% | 33.3% |
 | laya | ar | 49 | 89.8% | 11 | 81.8% | -8.0% |
@@ -100,10 +100,10 @@ injection_guard trigger rate on this set (its cost in human share): en 0/1035 (0
 | laya_calibrated | hi | 4 | 0.0% | 45 | 33.3% | 33.3% |
 | laya_calibrated | ar | 49 | 89.8% | 11 | 81.8% | -8.0% |
 | laya_calibrated | hinglish | 0 | n/a | 124 | 21.0% | n/a |
-| bedrock_qwen32b | en | 90 | 96.7% | 945 | 72.3% | -24.4% |
-| bedrock_qwen32b | hi | 6 | 33.3% | 55 | 96.4% | 63.0% |
-| bedrock_qwen32b | ar | 62 | 75.8% | 14 | 100.0% | 24.2% |
-| bedrock_qwen32b | hinglish | 0 | n/a | 155 | 95.5% | n/a |
+| bedrock_qwen32b | en | 70 | 97.1% | 758 | 71.8% | -25.4% |
+| bedrock_qwen32b | hi | 4 | 50.0% | 45 | 95.6% | 45.6% |
+| bedrock_qwen32b | ar | 49 | 77.6% | 11 | 100.0% | 22.4% |
+| bedrock_qwen32b | hinglish | 0 | n/a | 124 | 95.2% | n/a |
 | bedrock_nova | en | 19 | 94.7% | 218 | 77.1% | -17.7% |
 | bedrock_nova | hi | 0 | n/a | 11 | 100.0% | n/a |
 | bedrock_nova | ar | 11 | 90.9% | 1 | 100.0% | 9.1% |
@@ -111,20 +111,20 @@ injection_guard trigger rate on this set (its cost in human share): en 0/1035 (0
 
 ### Calibration (category, own ids)
 
-**decider**: ECE (10 bins) = 0.174
+**decider**: ECE (10 bins) = 0.172
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
 | 0.0-0.1 | 0 | n/a | n/a |
 | 0.1-0.2 | 0 | n/a | n/a |
 | 0.2-0.3 | 1 | 0.289 | 1.000 |
-| 0.3-0.4 | 77 | 0.366 | 0.532 |
-| 0.4-0.5 | 78 | 0.449 | 0.256 |
-| 0.5-0.6 | 328 | 0.551 | 0.253 |
-| 0.6-0.7 | 264 | 0.645 | 0.561 |
-| 0.7-0.8 | 149 | 0.753 | 0.550 |
-| 0.8-0.9 | 261 | 0.860 | 0.690 |
-| 0.9-1.0 | 169 | 0.957 | 1.000 |
+| 0.3-0.4 | 61 | 0.368 | 0.541 |
+| 0.4-0.5 | 61 | 0.452 | 0.295 |
+| 0.5-0.6 | 269 | 0.551 | 0.257 |
+| 0.6-0.7 | 205 | 0.645 | 0.551 |
+| 0.7-0.8 | 122 | 0.753 | 0.549 |
+| 0.8-0.9 | 209 | 0.860 | 0.703 |
+| 0.9-1.0 | 133 | 0.957 | 1.000 |
 
 **laya**: ECE (10 bins) = 0.489
 
@@ -156,7 +156,7 @@ injection_guard trigger rate on this set (its cost in human share): en 0/1035 (0
 | 0.8-0.9 | 0 | n/a | n/a |
 | 0.9-1.0 | 0 | n/a | n/a |
 
-**bedrock_qwen32b**: ECE (10 bins) = 0.170
+**bedrock_qwen32b**: ECE (10 bins) = 0.173
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
@@ -168,8 +168,8 @@ injection_guard trigger rate on this set (its cost in human share): en 0/1035 (0
 | 0.5-0.6 | 0 | n/a | n/a |
 | 0.6-0.7 | 0 | n/a | n/a |
 | 0.7-0.8 | 0 | n/a | n/a |
-| 0.8-0.9 | 2 | 0.850 | 1.000 |
-| 0.9-1.0 | 1325 | 0.949 | 0.779 |
+| 0.8-0.9 | 1 | 0.850 | 1.000 |
+| 0.9-1.0 | 1060 | 0.949 | 0.776 |
 
 **bedrock_nova**: ECE (10 bins) = 0.084
 
@@ -192,18 +192,18 @@ injection_guard trigger rate on this set (its cost in human share): en 0/1035 (0
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 11.8% | 1171 | 56.5% |
-| 0.55 | 21.7% | 1039 | 62.6% |
-| 0.60 | 36.5% | 843 | 68.7% |
-| 0.65 | 47.7% | 694 | 71.3% |
-| 0.70 | 56.4% | 579 | 74.4% |
-| 0.75 | 62.9% | 492 | 82.3% |
-| 0.80 | 67.6% | 430 | 81.2% |
-| 0.85 | 75.1% | 331 | 88.8% |
-| 0.90 | 87.3% | 169 | 100.0% |
-| 0.95 | 91.6% | 111 | 100.0% |
+| 0.50 | 11.6% | 938 | 56.4% |
+| 0.55 | 21.6% | 832 | 62.6% |
+| 0.60 | 36.9% | 669 | 68.8% |
+| 0.65 | 47.7% | 555 | 71.5% |
+| 0.70 | 56.3% | 464 | 74.8% |
+| 0.75 | 62.9% | 394 | 83.0% |
+| 0.80 | 67.8% | 342 | 81.9% |
+| 0.85 | 75.4% | 261 | 88.9% |
+| 0.90 | 87.5% | 133 | 100.0% |
+| 0.95 | 91.6% | 89 | 100.0% |
 
-Threshold for >=95% auto-lane accuracy: 0.90, human share 87.3%.
+Threshold for >=95% auto-lane accuracy: 0.90, human share 87.5%.
 
 **laya**
 
@@ -243,18 +243,18 @@ Threshold for >=95% auto-lane accuracy: 0.90, human share 87.3%.
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 0.0% | 1327 | 77.9% |
-| 0.55 | 0.0% | 1327 | 77.9% |
-| 0.60 | 0.0% | 1327 | 77.9% |
-| 0.65 | 0.0% | 1327 | 77.9% |
-| 0.70 | 0.0% | 1327 | 77.9% |
-| 0.75 | 0.0% | 1327 | 77.9% |
-| 0.80 | 0.0% | 1327 | 77.9% |
-| 0.85 | 0.0% | 1327 | 77.9% |
-| 0.90 | 0.2% | 1325 | 77.9% |
-| 0.95 | 11.9% | 1169 | 81.6% |
+| 0.50 | 0.0% | 1061 | 77.7% |
+| 0.55 | 0.0% | 1061 | 77.7% |
+| 0.60 | 0.0% | 1061 | 77.7% |
+| 0.65 | 0.0% | 1061 | 77.7% |
+| 0.70 | 0.0% | 1061 | 77.7% |
+| 0.75 | 0.0% | 1061 | 77.7% |
+| 0.80 | 0.0% | 1061 | 77.7% |
+| 0.85 | 0.0% | 1061 | 77.7% |
+| 0.90 | 0.1% | 1060 | 77.6% |
+| 0.95 | 11.4% | 940 | 81.3% |
 
-Threshold for >=95% auto-lane accuracy: 0.99, human share 99.9%.
+95% auto-lane accuracy not reachable.
 
 **bedrock_nova**
 
@@ -277,10 +277,10 @@ Threshold for >=95% auto-lane accuracy: 0.91, human share 92.3%.
 
 | backend | n | n inj | n benign | recall | FPR | PN-101129 original caught (n) | variants recall (n) | recall + guard | variants recall + guard | benign flagged or routed to human (+guard) |
 |---|---|---|---|---|---|---|---|---|---|---|
-| decider | 1327 | 1 | 1326 | 100.0% | 0.0% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.0% |
+| decider | 1061 | 1 | 1060 | 100.0% | 0.0% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.0% |
 | laya | 1061 | 1 | 1060 | 0.0% | 17.6% | False (n=1) | n/a (n=0) | 0.0% | n/a | 17.6% |
 | laya_calibrated | 1061 | 1 | 1060 | 0.0% | 17.6% | False (n=1) | n/a (n=0) | 0.0% | n/a | 17.6% |
-| bedrock_qwen32b | 1327 | 1 | 1326 | 100.0% | 0.0% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.0% |
+| bedrock_qwen32b | 1061 | 1 | 1060 | 100.0% | 0.0% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.0% |
 | bedrock_nova | 300 | 1 | 299 | 100.0% | 0.7% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.7% |
 
 ## Set: safety
@@ -547,13 +547,13 @@ Set size 48; ids common to all backends with preds: 48; missing preds: ['laya', 
 
 | backend | n own | category | urgency | is_injection | n common | category | urgency | is_injection |
 |---|---|---|---|---|---|---|---|---|
-| decider | 48 | 70.8% | 39.6% | 100.0% | 48 | 70.8% | 39.6% | 100.0% |
+| decider | 40 | 70.0% | 40.0% | 100.0% | 40 | 70.0% | 40.0% | 100.0% |
 
 ### Clean vs errored tickets, baselines
 
 | backend | n_clean | n_error | keep-initial baseline (n) | acc on misrouted tickets (n) | eval acc / calib-picked threshold / eval auto acc / eval human share |
 |---|---|---|---|---|---|
-| decider | 48 | 0 | 68.8% (n=48) | 91.7% (n=12) | 70.0% (n=40) / 0.6 / 60.0% (n=15) / 62.5% |
+| decider | 40 | 0 | 67.5% (n=40) | 90.9% (n=11) | 70.0% (n=40) / 0.6 / 60.0% (n=15) / 62.5% |
 
 injection_guard trigger rate on this set (its cost in human share): en 0/29 (0.0%), hi 0/3 (0.0%), ar 0/8 (0.0%), hinglish 0/8 (0.0%), all 0/48 (0.0%)
 
@@ -562,44 +562,44 @@ injection_guard trigger rate on this set (its cost in human share): en 0/29 (0.0
 
 | backend | n | p50 | p95 |
 |---|---|---|---|
-| decider | 48 | 636 | 696 |
+| decider | 40 | 636 | 696 |
 
 ### Payroll-window bounce (category, own ids)
 
 | backend | n window | acc window | n rest | acc rest | drop | misroute window |
 |---|---|---|---|---|---|---|
-| decider | 40 | 72.5% | 8 | 62.5% | -10.0% | 27.5% |
+| decider | 32 | 71.9% | 8 | 62.5% | -9.4% | 28.1% |
 
 ### Language subsets (category accuracy / n)
 
 | backend | en | hi | ar | hinglish |
 |---|---|---|---|---|
-| decider | 75.9% (n=29) | 33.3% (n=3) | 100.0% (n=8) | 37.5% (n=8) |
+| decider | 75.0% (n=24) | 50.0% (n=2) | 100.0% (n=7) | 28.6% (n=7) |
 
 ### PII over-masking impact (category accuracy with vs without a PERSON mask)
 
 | backend | lang | n masked | acc masked | n unmasked | acc unmasked | delta (unmasked - masked) |
 |---|---|---|---|---|---|---|
-| decider | en | 5 | 80.0% | 24 | 75.0% | -5.0% |
-| decider | hi | 3 | 33.3% | 0 | n/a | n/a |
-| decider | ar | 8 | 100.0% | 0 | n/a | n/a |
-| decider | hinglish | 0 | n/a | 8 | 37.5% | n/a |
+| decider | en | 4 | 75.0% | 20 | 75.0% | 0.0% |
+| decider | hi | 2 | 50.0% | 0 | n/a | n/a |
+| decider | ar | 7 | 100.0% | 0 | n/a | n/a |
+| decider | hinglish | 0 | n/a | 7 | 28.6% | n/a |
 
 ### Calibration (category, own ids)
 
-**decider**: ECE (10 bins) = 0.240
+**decider**: ECE (10 bins) = 0.294
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
 | 0.0-0.1 | 0 | n/a | n/a |
 | 0.1-0.2 | 0 | n/a | n/a |
 | 0.2-0.3 | 0 | n/a | n/a |
-| 0.3-0.4 | 10 | 0.342 | 0.900 |
+| 0.3-0.4 | 9 | 0.343 | 0.889 |
 | 0.4-0.5 | 3 | 0.452 | 1.000 |
-| 0.5-0.6 | 16 | 0.559 | 0.562 |
+| 0.5-0.6 | 13 | 0.554 | 0.615 |
 | 0.6-0.7 | 2 | 0.652 | 0.000 |
-| 0.7-0.8 | 4 | 0.740 | 1.000 |
-| 0.8-0.9 | 13 | 0.838 | 0.692 |
+| 0.7-0.8 | 3 | 0.741 | 1.000 |
+| 0.8-0.9 | 10 | 0.830 | 0.600 |
 | 0.9-1.0 | 0 | n/a | n/a |
 
 ### Low-confidence-to-human sweep (category, own ids)
@@ -608,24 +608,24 @@ injection_guard trigger rate on this set (its cost in human share): en 0/29 (0.0
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 27.1% | 35 | 62.9% |
-| 0.55 | 37.5% | 30 | 70.0% |
-| 0.60 | 60.4% | 19 | 68.4% |
-| 0.65 | 62.5% | 18 | 72.2% |
-| 0.70 | 64.6% | 17 | 76.5% |
-| 0.75 | 72.9% | 13 | 69.2% |
-| 0.80 | 72.9% | 13 | 69.2% |
-| 0.85 | 89.6% | 5 | 100.0% |
+| 0.50 | 30.0% | 28 | 60.7% |
+| 0.55 | 42.5% | 23 | 69.6% |
+| 0.60 | 62.5% | 15 | 60.0% |
+| 0.65 | 65.0% | 14 | 64.3% |
+| 0.70 | 67.5% | 13 | 69.2% |
+| 0.75 | 75.0% | 10 | 60.0% |
+| 0.80 | 75.0% | 10 | 60.0% |
+| 0.85 | 95.0% | 2 | 100.0% |
 | 0.90 | 100.0% | 0 | n/a |
 | 0.95 | 100.0% | 0 | n/a |
 
-Threshold for >=95% auto-lane accuracy: 0.82, human share 83.3%.
+Threshold for >=95% auto-lane accuracy: 0.82, human share 87.5%.
 
 ### Injection (is_injection, clean rows, own ids)
 
 | backend | n | n inj | n benign | recall | FPR | PN-101129 original caught (n) | variants recall (n) | recall + guard | variants recall + guard | benign flagged or routed to human (+guard) |
 |---|---|---|---|---|---|---|---|---|---|---|
-| decider | 48 | 0 | 48 | n/a | 0.0% | None (n=0) | n/a (n=0) | n/a | n/a | 0.0% |
+| decider | 40 | 0 | 40 | n/a | 0.0% | None (n=0) | n/a (n=0) | n/a | n/a | 0.0% |
 
 ## Set: control
 
@@ -635,13 +635,13 @@ Set size 29; ids common to all backends with preds: 29; missing preds: ['laya', 
 
 | backend | n own | category | urgency | is_injection | n common | category | urgency | is_injection |
 |---|---|---|---|---|---|---|---|---|
-| decider | 29 | 82.8% | 51.7% | 100.0% | 29 | 82.8% | 51.7% | 100.0% |
+| decider | 25 | 80.0% | 56.0% | 100.0% | 25 | 80.0% | 56.0% | 100.0% |
 
 ### Clean vs errored tickets, baselines
 
 | backend | n_clean | n_error | keep-initial baseline (n) | acc on misrouted tickets (n) | eval acc / calib-picked threshold / eval auto acc / eval human share |
 |---|---|---|---|---|---|
-| decider | 29 | 0 | 79.3% (n=29) | 80.0% (n=5) | 80.0% (n=25) / 0.0 / 80.0% (n=25) / 0.0% |
+| decider | 25 | 0 | 80.0% (n=25) | 75.0% (n=4) | 80.0% (n=25) / 0.0 / 80.0% (n=25) / 0.0% |
 
 injection_guard trigger rate on this set (its cost in human share): en 0/21 (0.0%), hi 0/1 (0.0%), ar 0/0 (n/a), hinglish 0/7 (0.0%), all 0/29 (0.0%)
 
@@ -650,32 +650,32 @@ injection_guard trigger rate on this set (its cost in human share): en 0/21 (0.0
 
 | backend | n | p50 | p95 |
 |---|---|---|---|
-| decider | 29 | 636 | 693 |
+| decider | 25 | 636 | 693 |
 
 ### Payroll-window bounce (category, own ids)
 
 | backend | n window | acc window | n rest | acc rest | drop | misroute window |
 |---|---|---|---|---|---|---|
-| decider | 25 | 88.0% | 4 | 50.0% | -38.0% | 12.0% |
+| decider | 21 | 85.7% | 4 | 50.0% | -35.7% | 14.3% |
 
 ### Language subsets (category accuracy / n)
 
 | backend | en | hi | ar | hinglish |
 |---|---|---|---|---|
-| decider | 81.0% (n=21) | 0.0% (n=1) | n/a (n=0) | 100.0% (n=7) |
+| decider | 77.8% (n=18) | 0.0% (n=1) | n/a (n=0) | 100.0% (n=6) |
 
 ### PII over-masking impact (category accuracy with vs without a PERSON mask)
 
 | backend | lang | n masked | acc masked | n unmasked | acc unmasked | delta (unmasked - masked) |
 |---|---|---|---|---|---|---|
-| decider | en | 0 | n/a | 21 | 81.0% | n/a |
+| decider | en | 0 | n/a | 18 | 77.8% | n/a |
 | decider | hi | 1 | 0.0% | 0 | n/a | n/a |
 | decider | ar | 0 | n/a | 0 | n/a | n/a |
-| decider | hinglish | 0 | n/a | 7 | 100.0% | n/a |
+| decider | hinglish | 0 | n/a | 6 | 100.0% | n/a |
 
 ### Calibration (category, own ids)
 
-**decider**: ECE (10 bins) = 0.283
+**decider**: ECE (10 bins) = 0.288
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
@@ -683,11 +683,11 @@ injection_guard trigger rate on this set (its cost in human share): en 0/21 (0.0
 | 0.1-0.2 | 0 | n/a | n/a |
 | 0.2-0.3 | 0 | n/a | n/a |
 | 0.3-0.4 | 0 | n/a | n/a |
-| 0.4-0.5 | 4 | 0.496 | 1.000 |
+| 0.4-0.5 | 3 | 0.496 | 1.000 |
 | 0.5-0.6 | 5 | 0.563 | 0.000 |
 | 0.6-0.7 | 0 | n/a | n/a |
-| 0.7-0.8 | 5 | 0.739 | 1.000 |
-| 0.8-0.9 | 15 | 0.861 | 1.000 |
+| 0.7-0.8 | 4 | 0.740 | 1.000 |
+| 0.8-0.9 | 13 | 0.860 | 1.000 |
 | 0.9-1.0 | 0 | n/a | n/a |
 
 ### Low-confidence-to-human sweep (category, own ids)
@@ -696,24 +696,24 @@ injection_guard trigger rate on this set (its cost in human share): en 0/21 (0.0
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 13.8% | 25 | 80.0% |
-| 0.55 | 17.2% | 24 | 83.3% |
-| 0.60 | 31.0% | 20 | 100.0% |
-| 0.65 | 31.0% | 20 | 100.0% |
-| 0.70 | 31.0% | 20 | 100.0% |
-| 0.75 | 48.3% | 15 | 100.0% |
-| 0.80 | 48.3% | 15 | 100.0% |
-| 0.85 | 58.6% | 12 | 100.0% |
+| 0.50 | 12.0% | 22 | 77.3% |
+| 0.55 | 16.0% | 21 | 81.0% |
+| 0.60 | 32.0% | 17 | 100.0% |
+| 0.65 | 32.0% | 17 | 100.0% |
+| 0.70 | 32.0% | 17 | 100.0% |
+| 0.75 | 48.0% | 13 | 100.0% |
+| 0.80 | 48.0% | 13 | 100.0% |
+| 0.85 | 60.0% | 10 | 100.0% |
 | 0.90 | 100.0% | 0 | n/a |
 | 0.95 | 100.0% | 0 | n/a |
 
-Threshold for >=95% auto-lane accuracy: 0.58, human share 27.6%.
+Threshold for >=95% auto-lane accuracy: 0.60, human share 32.0%.
 
 ### Injection (is_injection, clean rows, own ids)
 
 | backend | n | n inj | n benign | recall | FPR | PN-101129 original caught (n) | variants recall (n) | recall + guard | variants recall + guard | benign flagged or routed to human (+guard) |
 |---|---|---|---|---|---|---|---|---|---|---|
-| decider | 29 | 0 | 29 | n/a | 0.0% | None (n=0) | n/a (n=0) | n/a | n/a | 0.0% |
+| decider | 25 | 0 | 25 | n/a | 0.0% | None (n=0) | n/a (n=0) | n/a | n/a | 0.0% |
 
 ## Set: incident
 
@@ -723,13 +723,13 @@ Set size 78; ids common to all backends with preds: 78; missing preds: ['laya', 
 
 | backend | n own | category | urgency | is_injection | n common | category | urgency | is_injection |
 |---|---|---|---|---|---|---|---|---|
-| decider | 78 | 80.8% | 76.9% | 100.0% | 78 | 80.8% | 76.9% | 100.0% |
+| decider | 64 | 79.7% | 76.6% | 100.0% | 64 | 79.7% | 76.6% | 100.0% |
 
 ### Clean vs errored tickets, baselines
 
 | backend | n_clean | n_error | keep-initial baseline (n) | acc on misrouted tickets (n) | eval acc / calib-picked threshold / eval auto acc / eval human share |
 |---|---|---|---|---|---|
-| decider | 78 | 0 | 100.0% (n=78) | n/a (n=0) | 79.7% (n=64) / 0.62 / 91.1% (n=56) / 12.5% |
+| decider | 64 | 0 | 100.0% (n=64) | n/a (n=0) | 79.7% (n=64) / 0.62 / 91.1% (n=56) / 12.5% |
 
 injection_guard trigger rate on this set (its cost in human share): en 0/74 (0.0%), hi 0/0 (n/a), ar 0/0 (n/a), hinglish 0/4 (0.0%), all 0/78 (0.0%)
 
@@ -738,32 +738,32 @@ injection_guard trigger rate on this set (its cost in human share): en 0/74 (0.0
 
 | backend | n | p50 | p95 |
 |---|---|---|---|
-| decider | 78 | 632 | 635 |
+| decider | 64 | 632 | 635 |
 
 ### Payroll-window bounce (category, own ids)
 
 | backend | n window | acc window | n rest | acc rest | drop | misroute window |
 |---|---|---|---|---|---|---|
-| decider | 47 | 85.1% | 31 | 74.2% | -10.9% | 14.9% |
+| decider | 40 | 85.0% | 24 | 70.8% | -14.2% | 15.0% |
 
 ### Language subsets (category accuracy / n)
 
 | backend | en | hi | ar | hinglish |
 |---|---|---|---|---|
-| decider | 79.7% (n=74) | n/a (n=0) | n/a (n=0) | 100.0% (n=4) |
+| decider | 78.7% (n=61) | n/a (n=0) | n/a (n=0) | 100.0% (n=3) |
 
 ### PII over-masking impact (category accuracy with vs without a PERSON mask)
 
 | backend | lang | n masked | acc masked | n unmasked | acc unmasked | delta (unmasked - masked) |
 |---|---|---|---|---|---|---|
-| decider | en | 13 | 100.0% | 61 | 75.4% | -24.6% |
+| decider | en | 11 | 100.0% | 50 | 74.0% | -26.0% |
 | decider | hi | 0 | n/a | 0 | n/a | n/a |
 | decider | ar | 0 | n/a | 0 | n/a | n/a |
-| decider | hinglish | 0 | n/a | 4 | 100.0% | n/a |
+| decider | hinglish | 0 | n/a | 3 | 100.0% | n/a |
 
 ### Calibration (category, own ids)
 
-**decider**: ECE (10 bins) = 0.105
+**decider**: ECE (10 bins) = 0.117
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
@@ -773,10 +773,10 @@ injection_guard trigger rate on this set (its cost in human share): en 0/74 (0.0
 | 0.3-0.4 | 0 | n/a | n/a |
 | 0.4-0.5 | 0 | n/a | n/a |
 | 0.5-0.6 | 0 | n/a | n/a |
-| 0.6-0.7 | 32 | 0.640 | 0.531 |
-| 0.7-0.8 | 16 | 0.773 | 1.000 |
+| 0.6-0.7 | 26 | 0.639 | 0.500 |
+| 0.7-0.8 | 13 | 0.772 | 1.000 |
 | 0.8-0.9 | 0 | n/a | n/a |
-| 0.9-1.0 | 30 | 0.964 | 1.000 |
+| 0.9-1.0 | 25 | 0.964 | 1.000 |
 
 ### Low-confidence-to-human sweep (category, own ids)
 
@@ -784,24 +784,24 @@ injection_guard trigger rate on this set (its cost in human share): en 0/74 (0.0
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 0.0% | 78 | 80.8% |
-| 0.55 | 0.0% | 78 | 80.8% |
-| 0.60 | 0.0% | 78 | 80.8% |
-| 0.65 | 19.2% | 63 | 100.0% |
-| 0.70 | 41.0% | 46 | 100.0% |
-| 0.75 | 41.0% | 46 | 100.0% |
-| 0.80 | 61.5% | 30 | 100.0% |
-| 0.85 | 61.5% | 30 | 100.0% |
-| 0.90 | 61.5% | 30 | 100.0% |
-| 0.95 | 61.5% | 30 | 100.0% |
+| 0.50 | 0.0% | 64 | 79.7% |
+| 0.55 | 0.0% | 64 | 79.7% |
+| 0.60 | 0.0% | 64 | 79.7% |
+| 0.65 | 20.3% | 51 | 100.0% |
+| 0.70 | 40.6% | 38 | 100.0% |
+| 0.75 | 40.6% | 38 | 100.0% |
+| 0.80 | 60.9% | 25 | 100.0% |
+| 0.85 | 60.9% | 25 | 100.0% |
+| 0.90 | 60.9% | 25 | 100.0% |
+| 0.95 | 60.9% | 25 | 100.0% |
 
-Threshold for >=95% auto-lane accuracy: 0.63, human share 16.7%.
+Threshold for >=95% auto-lane accuracy: 0.63, human share 17.2%.
 
 ### Injection (is_injection, clean rows, own ids)
 
 | backend | n | n inj | n benign | recall | FPR | PN-101129 original caught (n) | variants recall (n) | recall + guard | variants recall + guard | benign flagged or routed to human (+guard) |
 |---|---|---|---|---|---|---|---|---|---|---|
-| decider | 78 | 0 | 78 | n/a | 0.0% | None (n=0) | n/a (n=0) | n/a | n/a | 0.0% |
+| decider | 64 | 0 | 64 | n/a | 0.0% | None (n=0) | n/a (n=0) | n/a | n/a | 0.0% |
 
 ## Set: smoke
 
@@ -811,19 +811,19 @@ Set size 14; ids common to all backends with preds: 14; missing preds: ['bedrock
 
 | backend | n own | category | urgency | is_injection | n common | category | urgency | is_injection |
 |---|---|---|---|---|---|---|---|---|
-| decider | 14 | 71.4% | 35.7% | 100.0% | 14 | 71.4% | 35.7% | 100.0% |
-| laya | 14 | 42.9% | 35.7% | 85.7% | 14 | 42.9% | 35.7% | 85.7% |
-| laya_calibrated | 14 | 42.9% | 35.7% | 85.7% | 14 | 42.9% | 35.7% | 85.7% |
-| bedrock_qwen32b | 14 | 85.7% | 35.7% | 100.0% | 14 | 85.7% | 35.7% | 100.0% |
+| decider | 12 | 75.0% | 41.7% | 100.0% | 12 | 75.0% | 41.7% | 100.0% |
+| laya | 12 | 41.7% | 41.7% | 83.3% | 12 | 41.7% | 41.7% | 83.3% |
+| laya_calibrated | 12 | 41.7% | 41.7% | 83.3% | 12 | 41.7% | 41.7% | 83.3% |
+| bedrock_qwen32b | 12 | 91.7% | 41.7% | 100.0% | 12 | 91.7% | 41.7% | 100.0% |
 
 ### Clean vs errored tickets, baselines
 
 | backend | n_clean | n_error | keep-initial baseline (n) | acc on misrouted tickets (n) | eval acc / calib-picked threshold / eval auto acc / eval human share |
 |---|---|---|---|---|---|
-| decider | 14 | 0 | 64.3% (n=14) | 75.0% (n=4) | 72.7% (n=11) / none reaches 95% on calib (n=2) / n/a (n=None) / n/a |
-| laya | 14 | 0 | 64.3% (n=14) | 75.0% (n=4) | 45.5% (n=11) / none reaches 95% on calib (n=2) / n/a (n=None) / n/a |
-| laya_calibrated | 14 | 0 | 64.3% (n=14) | 75.0% (n=4) | 45.5% (n=11) / none reaches 95% on calib (n=2) / n/a (n=None) / n/a |
-| bedrock_qwen32b | 14 | 0 | 64.3% (n=14) | 100.0% (n=4) | 90.9% (n=11) / none reaches 95% on calib (n=2) / n/a (n=None) / n/a |
+| decider | 12 | 0 | 58.3% (n=12) | 75.0% (n=4) | 72.7% (n=11) / none reaches 95% on calib (n=2) / n/a (n=None) / n/a |
+| laya | 12 | 0 | 58.3% (n=12) | 75.0% (n=4) | 45.5% (n=11) / none reaches 95% on calib (n=2) / n/a (n=None) / n/a |
+| laya_calibrated | 12 | 0 | 58.3% (n=12) | 75.0% (n=4) | 45.5% (n=11) / none reaches 95% on calib (n=2) / n/a (n=None) / n/a |
+| bedrock_qwen32b | 12 | 0 | 58.3% (n=12) | 100.0% (n=4) | 90.9% (n=11) / none reaches 95% on calib (n=2) / n/a (n=None) / n/a |
 
 injection_guard trigger rate on this set (its cost in human share): en 0/9 (0.0%), hi 0/1 (0.0%), ar 0/4 (0.0%), hinglish 0/0 (n/a), all 0/14 (0.0%)
 
@@ -832,88 +832,88 @@ injection_guard trigger rate on this set (its cost in human share): en 0/9 (0.0%
 
 | backend | n | p50 | p95 |
 |---|---|---|---|
-| decider | 14 | 634 | 693 |
-| laya | 14 | 87 | 96 |
-| laya_calibrated | 14 | 87 | 96 |
-| bedrock_qwen32b | 14 | 3763 | 4059 |
+| decider | 12 | 634 | 693 |
+| laya | 12 | 89 | 96 |
+| laya_calibrated | 12 | 89 | 96 |
+| bedrock_qwen32b | 12 | 3771 | 4063 |
 
 ### Payroll-window bounce (category, own ids)
 
 | backend | n window | acc window | n rest | acc rest | drop | misroute window |
 |---|---|---|---|---|---|---|
-| decider | 13 | 69.2% | 1 | 100.0% | 30.8% | 30.8% |
-| laya | 13 | 38.5% | 1 | 100.0% | 61.5% | 61.5% |
-| laya_calibrated | 13 | 38.5% | 1 | 100.0% | 61.5% | 61.5% |
-| bedrock_qwen32b | 13 | 84.6% | 1 | 100.0% | 15.4% | 15.4% |
+| decider | 11 | 72.7% | 1 | 100.0% | 27.3% | 27.3% |
+| laya | 11 | 36.4% | 1 | 100.0% | 63.6% | 63.6% |
+| laya_calibrated | 11 | 36.4% | 1 | 100.0% | 63.6% | 63.6% |
+| bedrock_qwen32b | 11 | 90.9% | 1 | 100.0% | 9.1% | 9.1% |
 
 ### Language subsets (category accuracy / n)
 
 | backend | en | hi | ar | hinglish |
 |---|---|---|---|---|
-| decider | 88.9% (n=9) | 0.0% (n=1) | 50.0% (n=4) | n/a (n=0) |
-| laya | 33.3% (n=9) | 0.0% (n=1) | 75.0% (n=4) | n/a (n=0) |
-| laya_calibrated | 33.3% (n=9) | 0.0% (n=1) | 75.0% (n=4) | n/a (n=0) |
-| bedrock_qwen32b | 100.0% (n=9) | 0.0% (n=1) | 75.0% (n=4) | n/a (n=0) |
+| decider | 88.9% (n=9) | n/a (n=0) | 33.3% (n=3) | n/a (n=0) |
+| laya | 33.3% (n=9) | n/a (n=0) | 66.7% (n=3) | n/a (n=0) |
+| laya_calibrated | 33.3% (n=9) | n/a (n=0) | 66.7% (n=3) | n/a (n=0) |
+| bedrock_qwen32b | 100.0% (n=9) | n/a (n=0) | 66.7% (n=3) | n/a (n=0) |
 
 ### PII over-masking impact (category accuracy with vs without a PERSON mask)
 
 | backend | lang | n masked | acc masked | n unmasked | acc unmasked | delta (unmasked - masked) |
 |---|---|---|---|---|---|---|
 | decider | en | 1 | 100.0% | 8 | 87.5% | -12.5% |
-| decider | hi | 1 | 0.0% | 0 | n/a | n/a |
-| decider | ar | 4 | 50.0% | 0 | n/a | n/a |
+| decider | hi | 0 | n/a | 0 | n/a | n/a |
+| decider | ar | 3 | 33.3% | 0 | n/a | n/a |
 | decider | hinglish | 0 | n/a | 0 | n/a | n/a |
 | laya | en | 1 | 100.0% | 8 | 25.0% | -75.0% |
-| laya | hi | 1 | 0.0% | 0 | n/a | n/a |
-| laya | ar | 4 | 75.0% | 0 | n/a | n/a |
+| laya | hi | 0 | n/a | 0 | n/a | n/a |
+| laya | ar | 3 | 66.7% | 0 | n/a | n/a |
 | laya | hinglish | 0 | n/a | 0 | n/a | n/a |
 | laya_calibrated | en | 1 | 100.0% | 8 | 25.0% | -75.0% |
-| laya_calibrated | hi | 1 | 0.0% | 0 | n/a | n/a |
-| laya_calibrated | ar | 4 | 75.0% | 0 | n/a | n/a |
+| laya_calibrated | hi | 0 | n/a | 0 | n/a | n/a |
+| laya_calibrated | ar | 3 | 66.7% | 0 | n/a | n/a |
 | laya_calibrated | hinglish | 0 | n/a | 0 | n/a | n/a |
 | bedrock_qwen32b | en | 1 | 100.0% | 8 | 100.0% | 0.0% |
-| bedrock_qwen32b | hi | 1 | 0.0% | 0 | n/a | n/a |
-| bedrock_qwen32b | ar | 4 | 75.0% | 0 | n/a | n/a |
+| bedrock_qwen32b | hi | 0 | n/a | 0 | n/a | n/a |
+| bedrock_qwen32b | ar | 3 | 66.7% | 0 | n/a | n/a |
 | bedrock_qwen32b | hinglish | 0 | n/a | 0 | n/a | n/a |
 
 ### Calibration (category, own ids)
 
-**decider**: ECE (10 bins) = 0.254
+**decider**: ECE (10 bins) = 0.192
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
 | 0.0-0.1 | 0 | n/a | n/a |
 | 0.1-0.2 | 0 | n/a | n/a |
 | 0.2-0.3 | 0 | n/a | n/a |
-| 0.3-0.4 | 2 | 0.345 | 1.000 |
+| 0.3-0.4 | 1 | 0.355 | 1.000 |
 | 0.4-0.5 | 0 | n/a | n/a |
-| 0.5-0.6 | 5 | 0.571 | 0.400 |
+| 0.5-0.6 | 4 | 0.565 | 0.500 |
 | 0.6-0.7 | 0 | n/a | n/a |
 | 0.7-0.8 | 1 | 0.763 | 0.000 |
 | 0.8-0.9 | 4 | 0.854 | 1.000 |
 | 0.9-1.0 | 2 | 0.975 | 1.000 |
 
-**laya**: ECE (10 bins) = 0.463
+**laya**: ECE (10 bins) = 0.414
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
 | 0.0-0.1 | 0 | n/a | n/a |
-| 0.1-0.2 | 2 | 0.136 | 1.000 |
+| 0.1-0.2 | 1 | 0.136 | 1.000 |
 | 0.2-0.3 | 0 | n/a | n/a |
 | 0.3-0.4 | 1 | 0.304 | 0.000 |
 | 0.4-0.5 | 3 | 0.468 | 0.333 |
 | 0.5-0.6 | 1 | 0.539 | 0.000 |
-| 0.6-0.7 | 1 | 0.647 | 0.000 |
+| 0.6-0.7 | 0 | n/a | n/a |
 | 0.7-0.8 | 0 | n/a | n/a |
 | 0.8-0.9 | 1 | 0.868 | 0.000 |
 | 0.9-1.0 | 5 | 0.998 | 0.600 |
 
-**laya_calibrated**: ECE (10 bins) = 0.175
+**laya_calibrated**: ECE (10 bins) = 0.142
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
 | 0.0-0.1 | 0 | n/a | n/a |
-| 0.1-0.2 | 9 | 0.141 | 0.333 |
+| 0.1-0.2 | 7 | 0.145 | 0.286 |
 | 0.2-0.3 | 1 | 0.210 | 0.000 |
 | 0.3-0.4 | 0 | n/a | n/a |
 | 0.4-0.5 | 0 | n/a | n/a |
@@ -923,7 +923,7 @@ injection_guard trigger rate on this set (its cost in human share): en 0/9 (0.0%
 | 0.8-0.9 | 0 | n/a | n/a |
 | 0.9-1.0 | 0 | n/a | n/a |
 
-**bedrock_qwen32b**: ECE (10 bins) = 0.101
+**bedrock_qwen32b**: ECE (10 bins) = 0.047
 
 | bin | n | mean conf | accuracy |
 |---|---|---|---|
@@ -936,7 +936,7 @@ injection_guard trigger rate on this set (its cost in human share): en 0/9 (0.0%
 | 0.6-0.7 | 0 | n/a | n/a |
 | 0.7-0.8 | 0 | n/a | n/a |
 | 0.8-0.9 | 1 | 0.850 | 1.000 |
-| 0.9-1.0 | 13 | 0.943 | 0.846 |
+| 0.9-1.0 | 11 | 0.946 | 0.909 |
 
 ### Low-confidence-to-human sweep (category, own ids)
 
@@ -944,44 +944,44 @@ injection_guard trigger rate on this set (its cost in human share): en 0/9 (0.0%
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 14.3% | 12 | 66.7% |
-| 0.55 | 21.4% | 11 | 72.7% |
-| 0.60 | 50.0% | 7 | 85.7% |
-| 0.65 | 50.0% | 7 | 85.7% |
-| 0.70 | 50.0% | 7 | 85.7% |
-| 0.75 | 50.0% | 7 | 85.7% |
-| 0.80 | 57.1% | 6 | 100.0% |
-| 0.85 | 64.3% | 5 | 100.0% |
-| 0.90 | 85.7% | 2 | 100.0% |
-| 0.95 | 85.7% | 2 | 100.0% |
+| 0.50 | 8.3% | 11 | 72.7% |
+| 0.55 | 16.7% | 10 | 80.0% |
+| 0.60 | 41.7% | 7 | 85.7% |
+| 0.65 | 41.7% | 7 | 85.7% |
+| 0.70 | 41.7% | 7 | 85.7% |
+| 0.75 | 41.7% | 7 | 85.7% |
+| 0.80 | 50.0% | 6 | 100.0% |
+| 0.85 | 58.3% | 5 | 100.0% |
+| 0.90 | 83.3% | 2 | 100.0% |
+| 0.95 | 83.3% | 2 | 100.0% |
 
-Threshold for >=95% auto-lane accuracy: 0.77, human share 57.1%.
+Threshold for >=95% auto-lane accuracy: 0.77, human share 50.0%.
 
 **laya**
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 42.9% | 8 | 37.5% |
-| 0.55 | 50.0% | 7 | 42.9% |
-| 0.60 | 50.0% | 7 | 42.9% |
-| 0.65 | 57.1% | 6 | 50.0% |
-| 0.70 | 57.1% | 6 | 50.0% |
-| 0.75 | 57.1% | 6 | 50.0% |
-| 0.80 | 57.1% | 6 | 50.0% |
-| 0.85 | 57.1% | 6 | 50.0% |
-| 0.90 | 64.3% | 5 | 60.0% |
-| 0.95 | 64.3% | 5 | 60.0% |
+| 0.50 | 41.7% | 7 | 42.9% |
+| 0.55 | 50.0% | 6 | 50.0% |
+| 0.60 | 50.0% | 6 | 50.0% |
+| 0.65 | 50.0% | 6 | 50.0% |
+| 0.70 | 50.0% | 6 | 50.0% |
+| 0.75 | 50.0% | 6 | 50.0% |
+| 0.80 | 50.0% | 6 | 50.0% |
+| 0.85 | 50.0% | 6 | 50.0% |
+| 0.90 | 58.3% | 5 | 60.0% |
+| 0.95 | 58.3% | 5 | 60.0% |
 
-Threshold for >=95% auto-lane accuracy: 1.00, human share 85.7%.
+Threshold for >=95% auto-lane accuracy: 1.00, human share 83.3%.
 
 **laya_calibrated**
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 71.4% | 4 | 75.0% |
-| 0.55 | 71.4% | 4 | 75.0% |
-| 0.60 | 78.6% | 3 | 66.7% |
-| 0.65 | 78.6% | 3 | 66.7% |
+| 0.50 | 66.7% | 4 | 75.0% |
+| 0.55 | 66.7% | 4 | 75.0% |
+| 0.60 | 75.0% | 3 | 66.7% |
+| 0.65 | 75.0% | 3 | 66.7% |
 | 0.70 | 100.0% | 0 | n/a |
 | 0.75 | 100.0% | 0 | n/a |
 | 0.80 | 100.0% | 0 | n/a |
@@ -995,24 +995,24 @@ Threshold for >=95% auto-lane accuracy: 1.00, human share 85.7%.
 
 | threshold | human share | n auto | auto-lane accuracy |
 |---|---|---|---|
-| 0.50 | 0.0% | 14 | 85.7% |
-| 0.55 | 0.0% | 14 | 85.7% |
-| 0.60 | 0.0% | 14 | 85.7% |
-| 0.65 | 0.0% | 14 | 85.7% |
-| 0.70 | 0.0% | 14 | 85.7% |
-| 0.75 | 0.0% | 14 | 85.7% |
-| 0.80 | 0.0% | 14 | 85.7% |
-| 0.85 | 0.0% | 14 | 85.7% |
-| 0.90 | 7.1% | 13 | 84.6% |
-| 0.95 | 28.6% | 10 | 90.0% |
+| 0.50 | 0.0% | 12 | 91.7% |
+| 0.55 | 0.0% | 12 | 91.7% |
+| 0.60 | 0.0% | 12 | 91.7% |
+| 0.65 | 0.0% | 12 | 91.7% |
+| 0.70 | 0.0% | 12 | 91.7% |
+| 0.75 | 0.0% | 12 | 91.7% |
+| 0.80 | 0.0% | 12 | 91.7% |
+| 0.85 | 0.0% | 12 | 91.7% |
+| 0.90 | 8.3% | 11 | 90.9% |
+| 0.95 | 25.0% | 9 | 100.0% |
 
-Threshold for >=95% auto-lane accuracy: 0.96, human share 85.7%.
+Threshold for >=95% auto-lane accuracy: 0.91, human share 25.0%.
 
 ### Injection (is_injection, clean rows, own ids)
 
 | backend | n | n inj | n benign | recall | FPR | PN-101129 original caught (n) | variants recall (n) | recall + guard | variants recall + guard | benign flagged or routed to human (+guard) |
 |---|---|---|---|---|---|---|---|---|---|---|
-| decider | 14 | 1 | 13 | 100.0% | 0.0% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.0% |
-| laya | 14 | 1 | 13 | 0.0% | 7.7% | False (n=1) | n/a (n=0) | 0.0% | n/a | 7.7% |
-| laya_calibrated | 14 | 1 | 13 | 0.0% | 7.7% | False (n=1) | n/a (n=0) | 0.0% | n/a | 7.7% |
-| bedrock_qwen32b | 14 | 1 | 13 | 100.0% | 0.0% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.0% |
+| decider | 12 | 1 | 11 | 100.0% | 0.0% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.0% |
+| laya | 12 | 1 | 11 | 0.0% | 9.1% | False (n=1) | n/a (n=0) | 0.0% | n/a | 9.1% |
+| laya_calibrated | 12 | 1 | 11 | 0.0% | 9.1% | False (n=1) | n/a (n=0) | 0.0% | n/a | 9.1% |
+| bedrock_qwen32b | 12 | 1 | 11 | 100.0% | 0.0% | True (n=1) | n/a (n=0) | 100.0% | n/a | 0.0% |
