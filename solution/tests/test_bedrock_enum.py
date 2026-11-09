@@ -78,7 +78,7 @@ def test_client_error_gives_invalid_not_exception():
     c = _client()
     with Stubber(c) as s:
         s.add_client_error("converse", service_error_code="ThrottlingException")
-        out = _dec(c).decide_multi(ITEMS)
+        out = _dec(c, max_attempts=1).decide_multi(ITEMS)
     assert all(v.choice == INVALID and v.raw["error"] == "ThrottlingException" for v in out.values())
 
 
@@ -97,3 +97,30 @@ def test_live_nova_lite():
     assert out["is_injection"].choice == "yes"
     assert all(v.choice != INVALID for v in out.values())
     assert 0 < d.usage()["cost_usd"] < 0.01
+
+
+def test_credential_error_raises_not_recorded():
+    from solution.a7.decide.bedrock_enum import CredentialError
+
+    class Expired(Exception):
+        pass
+
+    Expired.__name__ = "LoginRefreshRequired"
+
+    class C:
+        def converse(self, **kw):
+            raise Expired("expired")
+
+    with pytest.raises(CredentialError):
+        _dec(C()).decide_multi(ITEMS)
+
+
+def test_transient_validation_error_retried():
+    c = _client()
+    good = {"category": "payroll", "category_confidence": 0.9, "urgency": "high", "urgency_confidence": 0.6,
+            "is_injection": "no", "is_injection_confidence": 0.99}
+    with Stubber(c) as s:
+        s.add_client_error("converse", service_error_code="ValidationException")
+        s.add_response("converse", _resp(good))
+        out = _dec(c, max_attempts=2).decide_multi(ITEMS)
+    assert out["category"].choice == "payroll" and "error" not in out["category"].raw

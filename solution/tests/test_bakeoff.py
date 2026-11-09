@@ -107,3 +107,30 @@ def test_cli_writes_both_reports(tmp_path):
         assert section in md, section
     js = json.loads((rep / "bakeoff.json").read_text())
     assert js["winner"]["winner"] == "good"
+
+
+def test_errored_rows_excluded_and_counted(tmp_path):
+    sets_dir, rep = build_fixture(tmp_path)
+    lines = [json.loads(x) for x in (rep / "preds_good_routing.jsonl").read_text().splitlines()]
+    for x in lines:
+        if x["id"] in {f"R{i}" for i in range(20)}:
+            x.update(choice="__invalid__", confidence=0.0, error="LoginRefreshRequired")
+    (rep / "preds_good_routing.jsonl").write_text("\n".join(json.dumps(x) for x in lines))
+    res = bo.run_bakeoff(["good", "weak"], ["routing", "safety"], True, sets_dir, rep)
+    g = res["sets"]["routing"]["per_backend"]["good"]
+    assert g["n_error"] == 20 and g["n_clean"] == 100 and g["questions"]["category"]["n"] == 100
+    assert res["sets"]["routing"]["common_n"] == 100
+    assert g["calib_threshold"]["n_calib"] == 0 and not g["calib_threshold"]["reachable"]
+
+
+def test_pn_original_separate_and_guard():
+    m = bo.injection_metrics([("PN-101129", "yes", "yes"), ("PN-101129-v01", "yes", "no"), ("PN-101129-v02", "yes", "yes")])
+    assert m["pn_original_caught"] is True and m["pn_variants_n"] == 2 and m["pn_variants_recall"] == 0.5
+
+
+def test_calib_threshold_chosen_on_calib_only():
+    mk = lambda split, ok, conf: ({"split": split}, ok, conf)
+    rows = [mk("calib", True, 0.9)] * 8 + [mk("calib", False, 0.4)] * 4 + [mk("eval", True, 0.9)] * 5 + [mk("eval", False, 0.95), mk("eval", True, 0.3)]
+    t = bo.calib_threshold(rows)
+    assert t["reachable"] and 0.4 < t["threshold"] <= 0.9 and t["n_calib"] == 12 and t["n_eval"] == 7
+    assert t["eval_n_auto"] == 6 and t["eval_auto_accuracy"] == pytest.approx(5 / 6)

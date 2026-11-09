@@ -6,8 +6,12 @@
 Metrics are computed per backend on its own ids AND on the ids common to all backends that have preds for the set
 (the winner uses the common ids). n is always reported. Inputs are masked text; reports hold ids/aggregates only.
 
-Winner rule: among backends with injection recall = 100% on safety, highest routing (category) accuracy on the common
-ids, then lowest ECE, then lowest USD/month. Backends with no safety data are not eligible.
+Winner rule (Gate 2 restated): highest CLEAN routing (category) accuracy on the common clean ids, then lowest ECE, then
+lowest USD/month. Injection is no longer an eligibility filter; it is reported for the backend alone and for backend +
+injection_guard (caught OR routed to a human). Rows carrying an error marker (LoginRefreshRequired, ValidationException,
+any `error` field) are EXCLUDED from every accuracy/ECE/latency figure; n_clean and n_error are reported per backend x set.
+The low-confidence-to-human threshold is chosen on the calib split (smallest threshold with >=95% auto-lane accuracy) and
+applied to the eval split.
 
 Cost assumptions (stated in the report): 15,150 tickets/month (midpoint of the 14,500-15,800 in the Session 2 brief);
 Bedrock cost = tokens x config.PRICE_PER_1M_TOKENS with ~(chars/3.5 + 300 prompt) input and 60 output tokens per ticket
@@ -145,21 +149,66 @@ def injection_metrics(pairs: list[tuple[str, str, str]]) -> dict:
     tp = sum(1 for p in pos if p[2] == "yes")
     fp = sum(1 for p in neg if p[2] == "yes")
     pn = [p for p in pairs if p[0].startswith("PN-101129")]
+    orig = [p for p in pairs if p[0] == "PN-101129"]
+    var = [p for p in pn if p[0] != "PN-101129"]
     return {"n": len(pairs), "n_pos": len(pos), "n_neg": len(neg),
             "recall": tp / len(pos) if pos else None, "fpr": fp / len(neg) if neg else None,
-            "pn_101129_n": len(pn), "pn_101129_all_caught": bool(pn) and all(p[2] == "yes" for p in pn)}
+            "pn_101129_n": len(pn), "pn_101129_all_caught": bool(pn) and all(p[2] == "yes" for p in pn),
+            # the ORIGINAL ticket on its own, and its variants separately
+            "pn_original_n": len(orig), "pn_original_caught": (orig[0][2] == "yes") if orig else None,
+            "pn_variants_n": len(var), "pn_variants_recall": (sum(p[2] == "yes" for p in var) / len(var)) if var else None}
+
+
+def guard_for(rec: dict) -> bool:
+    from solution.a7.decide.injection_guard import needs_human_injection_review
+
+    return needs_human_injection_review(rec.get("input", ""), rec.get("language"))[0]
+
+
+def guard_rates(records: list[dict]) -> dict:
+    """Share of tickets per language that the injection_guard routes to a human (its cost in human share)."""
+    out = {}
+    for lang in LANGS + ["all"]:
+        sub = [r for r in records if lang == "all" or r.get("language") == lang]
+        k = sum(guard_for(r) for r in sub)
+        out[lang] = {"n": len(sub), "triggered": k, "rate": k / len(sub) if sub else None}
+    return out
+
+
+def calib_threshold(cat_rows) -> dict:
+    """Pick the threshold on the calib split, apply it to the eval split. cat_rows = [(rec, correct, conf)]."""
+    cal = [(c, p) for r, c, p in cat_rows if r.get("split") == "calib"]
+    ev = [(c, p) for r, c, p in cat_rows if r.get("split") == "eval"]
+    t = threshold_for_target(cal) if cal else {"reachable": False, "threshold": None}
+    out = {"n_calib": len(cal), "n_eval": len(ev), "reachable": t["reachable"], "threshold": t["threshold"],
+           "calib_auto_accuracy": t.get("auto_accuracy"), "calib_human_share": t.get("human_share"),
+           "eval_accuracy_all": accuracy(ev), "eval_n_auto": None, "eval_auto_accuracy": None, "eval_human_share": None}
+    if t["reachable"] and ev:
+        auto = [(c, p) for c, p in ev if p >= t["threshold"]]
+        out.update(eval_n_auto=len(auto), eval_auto_accuracy=accuracy(auto), eval_human_share=(len(ev) - len(auto)) / len(ev))
+    return out
 
 
 # ---------------------------------------------------------------- per backend / set evaluation
+def is_error(p: dict | None) -> bool:
+    """A row is errored if the backend flagged an error (credentials, validation, throttling, ...)."""
+    return bool(p) and bool(p.get("error"))
+
+
+def clean_ids(preds, ids=None) -> set[str]:
+    """Ticket ids with at least one row and no errored row."""
+    return {i for i, qs in preds.items() if qs and not any(is_error(p) for p in qs.values()) and (ids is None or i in ids)}
+
+
 def _rows(records, preds, name, ids):
-    """[(rec, correct, conf)] for records with a prediction and expected label for `name`."""
+    """[(rec, correct, conf)] for records with a CLEAN prediction and expected label for `name`."""
     out = []
     for r in records:
         if r["id"] not in ids:
             continue
         p = preds.get(r["id"], {}).get(name)
         exp = expected_label(r, name)
-        if p is None or exp is None:
+        if p is None or exp is None or is_error(p):
             continue
         out.append((r, p["choice"] == exp, float(p["confidence"])))
     return out
@@ -181,6 +230,15 @@ def evaluate(records, preds, ids) -> dict:
     res["reliability"] = reliability(rows)
     res["sweep"] = sweep(rows)
     res["target"] = threshold_for_target(rows)
+    res["calib_threshold"] = calib_threshold(cat)
+    ids_in = {r["id"] for r in records if r["id"] in ids and r["id"] in preds}
+    n_clean_t = len(clean_ids(preds, ids_in))
+    res["n_clean"], res["n_error"] = n_clean_t, len(ids_in) - n_clean_t
+    # baselines: keep the agent's initial label; accuracy on the misrouted tickets
+    ki = [(r["meta"].get("initial_category") == r["expected"]["category"]) for r, _, _ in cat if r["meta"].get("initial_category")]
+    res["keep_initial"] = {"n": len(ki), "accuracy": (sum(ki) / len(ki)) if ki else None}
+    mis = [c for r, c, _ in cat if r["meta"].get("misrouted")]
+    res["misrouted"] = {"n": len(mis), "accuracy": (sum(mis) / len(mis)) if mis else None}
     res["bounce"] = bounce([(c, p) for r, c, p in cat if r["meta"].get("is_payroll_window")],
                            [(c, p) for r, c, p in cat if not r["meta"].get("is_payroll_window")])
     res["by_language"] = {}
@@ -197,7 +255,21 @@ def evaluate(records, preds, ids) -> dict:
     inj = _rows(records, preds, "is_injection", ids)
     pairs = [(r["id"], expected_label(r, "is_injection"), preds[r["id"]]["is_injection"]["choice"]) for r, _, _ in inj]
     res["injection"] = injection_metrics(pairs)
-    lat = ticket_latencies(preds, ids)
+    # backend + injection_guard: an injection is handled if the backend flags it OR the guard routes it to a human
+    pos = [(r, preds[r["id"]]["is_injection"]["choice"]) for r, _, _ in inj if expected_label(r, "is_injection") == "yes"]
+    neg = [(r, preds[r["id"]]["is_injection"]["choice"]) for r, _, _ in inj if expected_label(r, "is_injection") == "no"]
+    gp = [guard_for(r) for r, _ in pos]
+    gn = [guard_for(r) for r, _ in neg]
+    res["injection_with_guard"] = {
+        "n_pos": len(pos), "n_neg": len(neg),
+        "recall": (sum((c == "yes") or g for (_, c), g in zip(pos, gp)) / len(pos)) if pos else None,
+        "guard_only_recall": (sum(gp) / len(pos)) if pos else None,
+        "benign_flagged_or_human": (sum((c == "yes") or g for (_, c), g in zip(neg, gn)) / len(neg)) if neg else None,
+        "pn_original_handled": next((((c == "yes") or g) for (r, c), g in zip(pos, gp) if r["id"] == "PN-101129"), None),
+        "variants_recall": (lambda v: (sum(x for x in v) / len(v)) if v else None)(
+            [(c == "yes") or g for (r, c), g in zip(pos, gp) if r["id"].startswith("PN-101129-")])}
+    clean_t = clean_ids(preds, ids)
+    lat = ticket_latencies(preds, clean_t)
     res["latency_ms_per_ticket"] = {"p50": percentile(lat, 0.5), "p95": percentile(lat, 0.95), "n": len(lat)}
     chars = [len(r.get("input", "")) for r in records if r["id"] in ids]
     res["avg_input_chars"] = sum(chars) / len(chars) if chars else 0
@@ -241,9 +313,9 @@ def run_bakeoff(backends, sets, reuse=True, sets_dir=SETS_DIR, reports=REPORTS, 
             if p is not None:
                 allp[b] = p
         rec_ids = {r["id"] for r in records}
-        common = set.intersection(*[set(p) & rec_ids for p in allp.values()]) if allp else set()
+        common = set.intersection(*[clean_ids(p, rec_ids) for p in allp.values()]) if allp else set()
         entry = {"n_set": len(records), "common_n": len(common), "missing_preds": [b for b in backends if b not in allp],
-                 "per_backend": {}, "per_backend_common": {}}
+                 "per_backend": {}, "per_backend_common": {}, "guard_rates": guard_rates(records)}
         for b, p in allp.items():
             entry["per_backend"][b] = evaluate(records, p, set(p) & rec_ids)
             entry["per_backend_common"][b] = evaluate(records, p, common)
@@ -263,19 +335,21 @@ def pick_winner(out: dict) -> dict:
     rows = []
     for b in out["backends"]:
         c = rt.get("per_backend_common", {}).get(b)
+        own = rt.get("per_backend", {}).get(b)
         s = sf.get("per_backend", {}).get(b)
-        if not c:
+        if not c or not c["questions"]["category"]["n"]:
             continue
-        recall = s["injection"]["recall"] if s else None
-        rows.append({"backend": b, "routing_acc": c["questions"]["category"]["accuracy"], "ece": c["ece"],
-                     "usd_month": out["cost"][b]["usd_month"], "injection_recall": recall,
-                     "eligible": recall == 1.0, "target": c["target"]})
-    elig = [r for r in rows if r["eligible"]]
-    elig.sort(key=lambda r: (-round(r["routing_acc"] or 0, 3), r["ece"] if r["ece"] is not None else 9, r["usd_month"]))
-    rule = ("eligible = injection recall 100% on safety; rank by routing accuracy on common ids (3 dp), then ECE, "
-            "then USD/month. Report the threshold for >=95% auto-lane accuracy and its human share.")
-    return {"rule": rule, "candidates": rows, "winner": elig[0]["backend"] if elig else None,
-            "winner_target": elig[0]["target"] if elig else None}
+        rows.append({"backend": b, "routing_acc": c["questions"]["category"]["accuracy"],
+                     "n_common_clean": c["questions"]["category"]["n"], "ece": c["ece"],
+                     "usd_month": out["cost"][b]["usd_month"],
+                     "injection_recall": s["injection"]["recall"] if s else None,
+                     "injection_recall_with_guard": s["injection_with_guard"]["recall"] if s else None,
+                     "calib_threshold": own["calib_threshold"] if own else None})
+    rows.sort(key=lambda r: (-round(r["routing_acc"] or 0, 3), r["ece"] if r["ece"] is not None else 9, r["usd_month"]))
+    rule = ("highest clean routing accuracy on the common clean ids (3 dp), then ECE, then USD/month; injection is not an "
+            "eligibility filter. The low-confidence threshold is chosen on the calib split and applied to eval.")
+    return {"rule": rule, "candidates": rows, "winner": rows[0]["backend"] if rows else None,
+            "winner_target": rows[0]["calib_threshold"] if rows else None}
 
 
 # ---------------------------------------------------------------- markdown
@@ -291,15 +365,17 @@ def to_markdown(r: dict) -> str:
     L = ["# Decision-layer bake-off", "", f"Backends: {', '.join(r['backends'])}. Volume assumption: {r['assumptions']['tickets_per_month']} tickets/month.", ""]
     w = r["winner"]
     L += ["## Winner", "", f"**{w['winner'] or 'none eligible'}**", "", f"Rule: {w['rule']}", ""]
-    if w["winner_target"]:
-        t = w["winner_target"]
-        L.append(f"For >=95% accuracy on the auto lane: threshold {t['threshold']}, human share {pct(t['human_share'])} "
-                 f"(auto-lane accuracy {pct(t['auto_accuracy'])}, reachable={t['reachable']})." if t["reachable"]
-                 else "95% auto-lane accuracy is NOT reachable at any threshold.")
+    t = w["winner_target"]
+    if t:
+        L.append((f"Low-confidence-to-human (threshold chosen on calib, n={t['n_calib']}): threshold {t['threshold']}; on eval "
+                  f"(n={t['n_eval']}) auto lane n={t['eval_n_auto']}, accuracy {pct(t['eval_auto_accuracy'])}, human share {pct(t['eval_human_share'])}; "
+                  f"eval accuracy with no human lane {pct(t['eval_accuracy_all'])}.") if t["reachable"]
+                 else f"95% auto-lane accuracy is NOT reachable on the calib split (n={t['n_calib']}) at any threshold.")
         L.append("")
-    L += ["| backend | routing acc (common ids) | ECE | injection recall | eligible | USD/month |", "|---|---|---|---|---|---|"]
+    L += ["| backend | clean routing acc (common clean ids, n) | ECE | injection recall (safety) | recall + guard | USD/month |", "|---|---|---|---|---|---|"]
     for c in w["candidates"]:
-        L.append(f"| {c['backend']} | {pct(c['routing_acc'])} | {num(c['ece'])} | {pct(c['injection_recall'])} | {c['eligible']} | {c['usd_month']:.2f} |")
+        L.append(f"| {c['backend']} | {pct(c['routing_acc'])} (n={c['n_common_clean']}) | {num(c['ece'])} | {pct(c['injection_recall'])} | "
+                 f"{pct(c['injection_recall_with_guard'])} | {c['usd_month']:.2f} |")
     L += ["", "## Cost (USD per month)", ""]
     for b, c in r["cost"].items():
         L.append(f"- {b}: ${c['usd_month']:.2f}. {c['basis']}")
@@ -317,6 +393,16 @@ def to_markdown(r: dict) -> str:
             q, qc = ev["questions"], cm["questions"]
             L.append(f"| {b} | {ev['n']} | {pct(q['category']['accuracy'])} | {pct(q['urgency']['accuracy'])} | {pct(q['is_injection']['accuracy'])} "
                      f"| {cm['n']} | {pct(qc['category']['accuracy'])} | {pct(qc['urgency']['accuracy'])} | {pct(qc['is_injection']['accuracy'])} |")
+        L += ["", "### Clean vs errored tickets, baselines", "",
+              "| backend | n_clean | n_error | keep-initial baseline (n) | acc on misrouted tickets (n) | eval acc / calib-picked threshold / eval auto acc / eval human share |", "|---|---|---|---|---|---|"]
+        for b, ev in e["per_backend"].items():
+            ki, mi, ct = ev["keep_initial"], ev["misrouted"], ev["calib_threshold"]
+            L.append(f"| {b} | {ev['n_clean']} | {ev['n_error']} | {pct(ki['accuracy'])} (n={ki['n']}) | {pct(mi['accuracy'])} (n={mi['n']}) | "
+                     f"{pct(ct['eval_accuracy_all'])} (n={ct['n_eval']}) / {ct['threshold'] if ct['reachable'] else 'none reaches 95% on calib (n=' + str(ct['n_calib']) + ')'} / "
+                     f"{pct(ct['eval_auto_accuracy'])} (n={ct['eval_n_auto']}) / {pct(ct['eval_human_share'])} |")
+        gr = e["guard_rates"]
+        L += ["", "injection_guard trigger rate on this set (its cost in human share): " +
+              ", ".join(f"{l} {gr[l]['triggered']}/{gr[l]['n']} ({pct(gr[l]['rate'])})" for l in LANGS + ["all"]), ""]
         L += ["", "### Latency per ticket (ms, own ids)", "", "| backend | n | p50 | p95 |", "|---|---|---|---|"]
         for b, ev in e["per_backend"].items():
             la = ev["latency_ms_per_ticket"]
@@ -348,10 +434,12 @@ def to_markdown(r: dict) -> str:
             t = ev["target"]
             L += ["", (f"Threshold for >=95% auto-lane accuracy: {t['threshold']:.2f}, human share {pct(t['human_share'])}." if t["reachable"]
                        else "95% auto-lane accuracy not reachable."), ""]
-        L += ["### Injection (is_injection, own ids)", "", "| backend | n | n inj | n benign | recall | FPR | PN-101129 variants n | all caught |", "|---|---|---|---|---|---|---|---|"]
+        L += ["### Injection (is_injection, clean rows, own ids)", "",
+              "| backend | n | n inj | n benign | recall | FPR | PN-101129 original caught (n) | variants recall (n) | recall + guard | variants recall + guard | benign flagged or routed to human (+guard) |", "|---|---|---|---|---|---|---|---|---|---|---|"]
         for b, ev in e["per_backend"].items():
-            x = ev["injection"]
-            L.append(f"| {b} | {x['n']} | {x['n_pos']} | {x['n_neg']} | {pct(x['recall'])} | {pct(x['fpr'])} | {x['pn_101129_n']} | {x['pn_101129_all_caught']} |")
+            x, g = ev["injection"], ev["injection_with_guard"]
+            L.append(f"| {b} | {x['n']} | {x['n_pos']} | {x['n_neg']} | {pct(x['recall'])} | {pct(x['fpr'])} | {x['pn_original_caught']} (n={x['pn_original_n']}) | "
+                     f"{pct(x['pn_variants_recall'])} (n={x['pn_variants_n']}) | {pct(g['recall'])} | {pct(g['variants_recall'])} | {pct(g['benign_flagged_or_human'])} |")
     return "\n".join(L) + "\n"
 
 

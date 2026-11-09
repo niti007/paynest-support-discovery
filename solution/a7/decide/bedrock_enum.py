@@ -81,6 +81,15 @@ def cost_usd(model: str, tokens_in: int, tokens_out: int) -> float:
     return (tokens_in * p[0] + tokens_out * p[1]) / 1_000_000
 
 
+CREDENTIAL_ERRORS = frozenset({"LoginRefreshRequired", "ExpiredToken", "ExpiredTokenException", "UnrecognizedClientException",
+                               "TokenRetrievalError", "NoCredentialsError", "SSOTokenLoadError", "InvalidClientTokenId",
+                               "UnauthorizedSSOTokenError", "CredentialRetrievalError"})
+
+
+class CredentialError(RuntimeError):
+    """Raised instead of recording a prediction when AWS credentials are missing/expired (never an 'answer')."""
+
+
 class BedrockEnumDecider(BaseDecider):
     def __init__(self, tier: str = "cheap", model_id: str | None = None, client: Any = None,
                  rpm: float | None = None, max_attempts: int = 2):
@@ -139,7 +148,10 @@ class BedrockEnumDecider(BaseDecider):
                 args, tin, tout, stop = self._converse(items)
             except Exception as e:  # noqa: BLE001 - botocore already did adaptive retries
                 err = getattr(e, "response", {}).get("Error", {}).get("Code") or type(e).__name__
-                break
+                if err in CREDENTIAL_ERRORS:
+                    raise CredentialError(err) from e
+                continue  # transient (e.g. an intermittent ValidationException): retry up to max_attempts
+            err = None
             tin_all += tin
             tout_all += tout
             if isinstance(args, dict) and all(it.name in args for it in items):
