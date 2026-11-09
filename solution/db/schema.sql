@@ -22,6 +22,15 @@ BEGIN
   END IF;
 END $$;
 
+-- a7_act: the ONLY role that can SELECT pii_vault (box 12 `act` reveals values for outbound replies).
+-- It has no other table privileges. In AWS its credential comes from Secrets Manager (bootstrap sets it).
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'a7_act') THEN
+    CREATE ROLE a7_act LOGIN PASSWORD 'a7_act_dev' NOSUPERUSER NOBYPASSRLS;
+  END IF;
+END $$;
+
 -- ---------------------------------------------------------------- tenant helper
 CREATE SCHEMA IF NOT EXISTS a7;
 
@@ -131,6 +140,86 @@ CREATE TABLE IF NOT EXISTS audit_log (
   created_at   timestamptz NOT NULL DEFAULT now()
 );
 
+-- Phase 3 additions (idempotent ALTERs so databases created by earlier phases upgrade in place).
+-- outbox.kind: reply | draft | assignment | notify | jira_intent | refund_intent | credit_intent | cluster
+-- shadow=true: auto_answer recorded but never to be sent (AUTO_SEND=false).  Nothing in A7 sends; a sender
+-- service would pick up status='queued' rows, and render PII only through act.render_outbound (a7_act).
+ALTER TABLE outbox ADD COLUMN IF NOT EXISTS kind            text NOT NULL DEFAULT 'reply';
+ALTER TABLE outbox ADD COLUMN IF NOT EXISTS lane            text;
+ALTER TABLE outbox ADD COLUMN IF NOT EXISTS shadow          boolean NOT NULL DEFAULT false;
+ALTER TABLE outbox ADD COLUMN IF NOT EXISTS restore_pii     boolean NOT NULL DEFAULT false;
+ALTER TABLE outbox ADD COLUMN IF NOT EXISTS approved_by     text;
+ALTER TABLE outbox ADD COLUMN IF NOT EXISTS payload         jsonb NOT NULL DEFAULT '{}';
+ALTER TABLE outbox ADD COLUMN IF NOT EXISTS idempotency_key text;
+ALTER TABLE outbox ADD COLUMN IF NOT EXISTS sent_at         timestamptz;   -- always NULL in this build
+CREATE UNIQUE INDEX IF NOT EXISTS outbox_idem ON outbox (idempotency_key);
+CREATE INDEX IF NOT EXISTS outbox_ticket ON outbox (ticket_id);
+
+ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS node       text;
+ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS dedupe_key text;
+CREATE UNIQUE INDEX IF NOT EXISTS audit_log_dedupe ON audit_log (dedupe_key);
+CREATE INDEX IF NOT EXISTS audit_log_ticket ON audit_log (ticket_id);
+
+-- Box 11: one approval per ticket (ticket_id is also the LangGraph thread_id). Masked text only.
+-- status: pending | deciding (claimed by the API while the graph resumes) | approved | rejected | edited
+CREATE TABLE IF NOT EXISTS approvals (
+  ticket_id             text PRIMARY KEY,
+  tenant_id             text NOT NULL,
+  lane                  text NOT NULL,
+  priority              text,
+  category              text,
+  status                text NOT NULL DEFAULT 'pending'
+                          CHECK (status IN ('pending','deciding','approved','rejected','edited')),
+  draft_masked          text,
+  edited_draft_masked   text,
+  reviewer              text,
+  requested_at          timestamptz NOT NULL DEFAULT now(),
+  decided_at            timestamptz
+);
+CREATE INDEX IF NOT EXISTS approvals_pending ON approvals (tenant_id, status);
+
+-- Sourced escalation timers (SLA 3.1, ESC). due_at is absolute; run_due fires each row once.
+-- kind: l1_to_l2 | privacy_dpo_security | p1_first_response
+CREATE TABLE IF NOT EXISTS escalations (
+  id           bigserial PRIMARY KEY,
+  tenant_id    text NOT NULL,
+  ticket_id    text NOT NULL,
+  kind         text NOT NULL,
+  level        text NOT NULL,                   -- target: L2 | DPO+Security | first_response
+  due_at       timestamptz NOT NULL,
+  fired_at     timestamptz,
+  resolved_at  timestamptz,                     -- a human decision stops the clock (not for privacy)
+  reason       text NOT NULL,
+  UNIQUE (ticket_id, kind)
+);
+CREATE INDEX IF NOT EXISTS escalations_due ON escalations (due_at) WHERE fired_at IS NULL AND resolved_at IS NULL;
+
+CREATE TABLE IF NOT EXISTS kb_suggestions (
+  id            bigserial PRIMARY KEY,
+  tenant_id     text NOT NULL,
+  ticket_id     text NOT NULL,
+  source_id     text,                            -- KB article / rule id, when known
+  reason        text NOT NULL,                   -- stale_kb | missing_kb | reviewer_edit
+  suggested_text text,                           -- masked
+  status        text NOT NULL DEFAULT 'proposed',
+  created_at    timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (ticket_id, reason, source_id)
+);
+
+-- A human resolved an ambiguous partner name -> customer. A PROPOSAL only: the code decides the customer
+-- (S4 p.26) and nothing here is read by resolve_tenant until a person approves it.
+CREATE TABLE IF NOT EXISTS partner_map_suggestions (
+  id            bigserial PRIMARY KEY,
+  tenant_id     text NOT NULL,
+  ticket_id     text NOT NULL,
+  partner_name  text NOT NULL,                   -- business name, not personal data
+  customer_id   text NOT NULL,
+  resolved_by   text,
+  status        text NOT NULL DEFAULT 'proposed',
+  created_at    timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (partner_name, customer_id)
+);
+
 CREATE TABLE IF NOT EXISTS incidents (
   id           bigserial PRIMARY KEY,
   tenant_id    text NOT NULL,
@@ -164,6 +253,14 @@ ALTER TABLE incidents    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE incidents    FORCE ROW LEVEL SECURITY;
 ALTER TABLE answer_cache ENABLE ROW LEVEL SECURITY;
 ALTER TABLE answer_cache FORCE ROW LEVEL SECURITY;
+ALTER TABLE approvals    ENABLE ROW LEVEL SECURITY;
+ALTER TABLE approvals    FORCE ROW LEVEL SECURITY;
+ALTER TABLE escalations  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE escalations  FORCE ROW LEVEL SECURITY;
+ALTER TABLE kb_suggestions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE kb_suggestions FORCE ROW LEVEL SECURITY;
+ALTER TABLE partner_map_suggestions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE partner_map_suggestions FORCE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS tenant_isolation ON customers;
 CREATE POLICY tenant_isolation ON customers
@@ -195,10 +292,43 @@ CREATE POLICY tenant_isolation ON answer_cache
   USING (tenant_id = current_setting('app.tenant_id', true))
   WITH CHECK (tenant_id = current_setting('app.tenant_id', true));
 
+DROP POLICY IF EXISTS tenant_isolation ON approvals;
+CREATE POLICY tenant_isolation ON approvals
+  USING (tenant_id = current_setting('app.tenant_id', true))
+  WITH CHECK (tenant_id = current_setting('app.tenant_id', true));
+
+-- escalations: the timer runner polls across tenants, so it sets app.runner='escalation' (transaction-local)
+-- instead of a tenant. Like app.tenant_id this is an application-level scope, not a privilege boundary.
+DROP POLICY IF EXISTS tenant_isolation ON escalations;
+CREATE POLICY tenant_isolation ON escalations
+  USING (tenant_id = current_setting('app.tenant_id', true)
+         OR current_setting('app.runner', true) = 'escalation')
+  WITH CHECK (tenant_id = current_setting('app.tenant_id', true)
+         OR current_setting('app.runner', true) = 'escalation');
+
+DROP POLICY IF EXISTS tenant_isolation ON kb_suggestions;
+CREATE POLICY tenant_isolation ON kb_suggestions
+  USING (tenant_id = current_setting('app.tenant_id', true))
+  WITH CHECK (tenant_id = current_setting('app.tenant_id', true));
+
+DROP POLICY IF EXISTS tenant_isolation ON partner_map_suggestions;
+CREATE POLICY tenant_isolation ON partner_map_suggestions
+  USING (tenant_id = current_setting('app.tenant_id', true))
+  WITH CHECK (tenant_id = current_setting('app.tenant_id', true));
+
 -- ---------------------------------------------------------------- grants (app_user: non-owner)
 GRANT USAGE ON SCHEMA public, a7 TO app_user;
 GRANT EXECUTE ON FUNCTION a7.set_tenant(text, boolean) TO app_user;
 GRANT SELECT ON customers, partner_customer_map, agents, statutory_rules, kb_chunks TO app_user;
-GRANT SELECT, INSERT, UPDATE, DELETE ON outbox, audit_log, incidents, answer_cache TO app_user;
-GRANT SELECT, INSERT, DELETE ON pii_vault TO app_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON outbox, audit_log, incidents, answer_cache,
+      approvals, escalations, kb_suggestions, partner_map_suggestions TO app_user;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO app_user;
+
+-- pii_vault: app_user (the gate) may only write. Only a7_act may read (ciphertext; the KMS key policy
+-- additionally limits kms:Decrypt to the act task role). REVOKEs are explicit so re-runs fix older databases.
+REVOKE ALL ON pii_vault FROM PUBLIC;
+REVOKE ALL ON pii_vault FROM app_user;
+REVOKE ALL ON pii_vault FROM a7_act;
+GRANT INSERT, UPDATE, DELETE ON pii_vault TO app_user;
+GRANT USAGE ON SCHEMA public TO a7_act;
+GRANT SELECT ON pii_vault TO a7_act;
