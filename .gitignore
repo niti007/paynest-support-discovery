@@ -13,3 +13,8 @@ trainer/
 .env
 # A7 local vault key (generated on first use; never commit)
 .a7_vault_key
+
+# CDK
+infra/cdk.out*/
+infra/.venv/
+infra/cdk.context.json
