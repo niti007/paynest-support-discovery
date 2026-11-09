@@ -19,6 +19,10 @@ dependencies = [
     "fastapi>=0.162.2",
     "uvicorn[standard]>=0.54.0",
     "httpx>=0.28.1",
+    "langgraph==1.2.20",
+    "langgraph-checkpoint-postgres==3.2.0",
+    "langchain-aws==1.9.2",
+    "psycopg-pool==3.3.3",
 ]
 
 [tool.uv]

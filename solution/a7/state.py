@@ -1,4 +1,4 @@
-"""Graph state for the A7 pipeline (minimal; Phase 3 extends it).
+"""Graph state for the A7 pipeline (Phase 3 extends it).
 
 Rules:
 - Raw text exists only in the transient `raw_record` key handed to pii_gate. The gate removes it and
@@ -8,10 +8,12 @@ Rules:
 """
 from __future__ import annotations
 
-from typing import Any, Literal, TypedDict
+import operator
+from typing import Annotated, Any, Literal, TypedDict
 
 Source = Literal["email", "widget", "partner", "whatsapp", "call"]
 Language = Literal["en", "hi", "ar", "hinglish"]
+Lane = Literal["auto_answer", "draft_for_agent", "route_queue", "incident", "human_review", "block"]
 
 
 class TicketState(TypedDict, total=False):
@@ -37,5 +39,38 @@ class TicketState(TypedDict, total=False):
     category: str                   # canon() of category_raw
     language: Language
     is_payroll_window: bool
+    # box 3: resolve_tenant
+    tenant_id: str | None           # set ONLY by code (resolve_tenant); tools read it via InjectedState
+    tenant_how: Literal["given", "partner_map", "ambiguous"]
+    tenant_region: str | None       # IN | UAE
+    tenant_tier: str | None         # Enterprise | Business | Standard
+    # box 4: classify
+    category_confidence: float
+    suggested_category: str | None  # the suggest_backend's (Nova) category, attached for a human
+    urgency: str                    # urgent | high | normal
+    priority: str                   # P1 | P2 | P3
+    is_injection: bool
+    # box 6: route
+    lane: Lane
+    queue: str | None
+    classify_lane: Literal["auto", "human"]   # box 4 verdict from decide/policy
+    route_reasons: list[str]
+    incident_signal: bool           # set by Phase 4 clustering; box 6 only reads it
+    # box 8: retrieve
+    as_of: str                      # YYYY-MM-DD, the ticket's received date
+    retrieved: list[dict[str, Any]]         # {source_id, kind, effective_from, effective_to, score}
+    context_chunks: list[dict[str, Any]]    # {source_id, title, body, effective_from}: global KB text, no PII
+    # box 9: agent
+    llm_tier: Literal["cheap", "hard"]
+    draft: str
+    citations: list[dict[str, Any]]         # {source_id, effective_from}
+    tool_calls: Annotated[list[dict[str, Any]], operator.add]   # {name, args_masked, ok}; nodes return DELTAS
+    tool_numbers: list[str]                 # numbers (<= 9 digits) seen in tool outputs, for the grounding check
+    # box 10: output_guard
+    guard: dict[str, Any]                   # {passed, failures, retries}
+    # box 11-13 (Builder C)
+    approval: dict[str, Any]                # {status, reviewer, decided_at, edited_draft}
+    actions: list[Any]
+    audit: list[Any]
     # observability (masked/ids/counts only)
     trace: list[dict[str, Any]]
