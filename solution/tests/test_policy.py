@@ -14,13 +14,13 @@ def mk(conf, dec_inj="no", nova_inj="no", nova_cat="billing"):
 BENIGN = "I cannot log in to my account since this morning."
 
 
-def test_threshold_edge_exactly_080_is_auto():
-    r = route_decision(mk(0.80), BENIGN, "en")
+def test_threshold_edge_exactly_090_is_auto():
+    r = route_decision(mk(0.90), BENIGN, "en")
     assert r.lane == "auto" and r.category == "access" and r.suggested_category == "billing"
 
 
 def test_below_threshold_goes_human_with_nova_suggestion():
-    r = route_decision(mk(0.7999), BENIGN, "en")
+    r = route_decision(mk(0.8999), BENIGN, "en")
     assert r.lane == "human" and r.category is None and r.suggested_category == "billing"
     assert r.reasons[0].startswith("low_confidence")
 
