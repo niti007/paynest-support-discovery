@@ -44,7 +44,8 @@ class RateLimiter:
             time.sleep(at - now)
 
 
-DEFAULT_RPM = {config.MODEL_CHEAP: 20, config.MODEL_FALLBACK: 90}
+# stay under the account quotas in config.QUOTAS (Nova Lite 10 RPM per config; Qwen3-32B 100 RPM, 90 used)
+DEFAULT_RPM = {config.MODEL_CHEAP: config.QUOTAS.nova_lite_ondemand_rpm, config.MODEL_FALLBACK: 0.9 * config.QUOTAS.qwen3_32b_ondemand_rpm}
 
 
 def make_client(region: str = config.REGION, profile: str | None = config.AWS_PROFILE):
