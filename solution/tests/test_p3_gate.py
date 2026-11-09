@@ -45,13 +45,14 @@ def mock_api():
 
 def _run(deciders_=None):
     from solution.a7 import db
-    from solution.a7.graph import build_graph, postgres_checkpointer, setup_checkpointer
+    from solution.a7.graph import build_graph, postgres_checkpointer
+    from solution.db import bootstrap
     from solution.a7.nodes.normalise import make_normalise
     from solution.a7.nodes.pii_gate import make_pii_gate
     from solution.a7.vault import LocalKeyProvider, MemoryVaultStore, Vault
     from solution.a7.worker import find_record, run_ticket
 
-    setup_checkpointer()
+    bootstrap.bootstrap()
     gate = make_pii_gate(Vault(MemoryVaultStore(), LocalKeyProvider(master_key=bytes(range(32)))))
     out = {}
     with postgres_checkpointer(db.app_dsn()) as cp:

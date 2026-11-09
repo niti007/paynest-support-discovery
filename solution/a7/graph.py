@@ -26,23 +26,10 @@ from .nodes.retrieve import make_retrieve  # noqa: E402
 from .nodes.route import route  # noqa: E402
 from .state import TicketState  # noqa: E402
 
-# Builder B / C deliverables. Until integration, fall back to the test stubs (solution/tests/_p3_stubs.py).
-try:
-    from .tools import get_tools  # type: ignore[attr-defined]
-except ImportError:  # pragma: no cover
-    from solution.tests._p3_stubs import get_tools  # type: ignore[no-redef]
-try:
-    from .nodes.human_approval import human_approval  # type: ignore[import-not-found]
-except ImportError:  # pragma: no cover
-    from solution.tests._p3_stubs import human_approval  # type: ignore[no-redef]
-try:
-    from .nodes.act import act  # type: ignore[import-not-found]
-except ImportError:  # pragma: no cover
-    from solution.tests._p3_stubs import act  # type: ignore[no-redef]
-try:
-    from .nodes.log_and_learn import log_and_learn  # type: ignore[import-not-found]
-except ImportError:  # pragma: no cover
-    from solution.tests._p3_stubs import log_and_learn  # type: ignore[no-redef]
+from .nodes.act import act  # noqa: E402
+from .nodes.human_approval import human_approval  # noqa: E402
+from .nodes.log_and_learn import log_and_learn  # noqa: E402
+from .tools import get_tools  # noqa: E402
 
 
 def delta(fn: Callable, keep_tool_calls: bool = False) -> Callable:
@@ -56,8 +43,8 @@ def delta(fn: Callable, keep_tool_calls: bool = False) -> Callable:
 
 
 def after_route(s: TicketState) -> str:
-    if s.get("lane") == "block":
-        return "log_and_learn"
+    if s.get("lane") == "block":        # no draft, no tools; human_approval records "not_required", log_and_learn audits it
+        return "human_approval"
     if not s.get("tenant_id"):          # ambiguous tenant: nothing tenant-scoped can run; a person decides
         return "human_approval"
     return "retrieve"
@@ -100,17 +87,6 @@ def build_graph(checkpointer: Any = None, *, deciders: dict | None = None, llm: 
 
 def thread_config(ticket_id: str) -> dict:
     return {"configurable": {"thread_id": ticket_id}}
-
-
-def setup_checkpointer(owner_dsn: str | None = None) -> None:
-    """Create the checkpoint tables (owner connection) and let app_user use them."""
-    import psycopg
-    from langgraph.checkpoint.postgres import PostgresSaver
-    from psycopg.rows import dict_row
-
-    with psycopg.connect(owner_dsn or db.dsn(), autocommit=True, row_factory=dict_row) as conn:
-        PostgresSaver(conn).setup()
-        conn.execute("GRANT SELECT, INSERT, UPDATE, DELETE ON checkpoints, checkpoint_blobs, checkpoint_writes, checkpoint_migrations TO app_user")
 
 
 @contextmanager

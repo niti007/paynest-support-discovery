@@ -63,10 +63,11 @@ def summary(v: dict[str, Any]) -> dict[str, Any]:
 
 
 def main(ids: list[str]) -> list[dict[str, Any]]:
-    from .graph import postgres_checkpointer, setup_checkpointer
+    from ..db import bootstrap
+    from .graph import postgres_checkpointer
     from .vault import LocalKeyProvider, PostgresVaultStore, Vault
 
-    setup_checkpointer()
+    bootstrap.bootstrap()
     out = []
     # NOTE: the vault store upserts (ON CONFLICT DO UPDATE) but app_user has no UPDATE on pii_vault; the owner connection is
     # used locally until Builder C's role split (a7 gate role) lands.

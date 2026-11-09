@@ -72,7 +72,12 @@ def make_resolve_tenant(lookup: TenantLookup | None = None) -> Callable[[TicketS
         info = lk.customer(tid) if tid else None
         if tid and not info:
             tid, how, reason = None, "ambiguous", "mapped_customer_missing"
-        out.update(tenant_id=tid, tenant_how=how, tenant_region=info["region"] if info else None,
+        name = customer_name_of(state.get("record"))
+        out.update(tenant_resolution={"ambiguous": how == "ambiguous", "partner_name": name if how == "partner_map" else None,
+                                      "customer_id": tid, "resolved_by": how},
+                   parent_ticket_id=state.get("parent_ticket_id"), linked_jira=state.get("linked_jira"),
+                   privacy_concern=bool(state.get("privacy_concern", False)),
+                   tenant_id=tid, tenant_how=how, tenant_region=info["region"] if info else None,
                    tenant_tier=info["tier"] if info else None,
                    trace=list(state.get("trace", [])) + [{"node": "resolve_tenant", "tenant_how": how, "reason": reason}])
         return out

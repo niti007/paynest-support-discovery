@@ -141,15 +141,17 @@ def make_output_guard(decider: Any | None = None, max_retries: int = 1) -> Calla
                     fails.append("decide:draft_does_not_answer" if d.choice == "no" else "decide:invalid")
             except Exception as e:  # noqa: BLE001 - fail closed
                 fails.append(f"decide:error:{type(e).__name__}")
+        extra = {"stale_kb": [f.split(":", 1)[1] for f in fails if f.startswith("retrieved_outside_validity:")],
+                 "missing_kb": not state.get("retrieved")}
         prev = state.get("guard") or {}
         retries = prev.get("retries", 0)
         out: TicketState = dict(state)  # type: ignore[assignment]
         if not fails:
-            out["guard"] = {"passed": True, "failures": [], "retries": retries, "final": True}
+            out["guard"] = {"passed": True, "failures": [], "retries": retries, "final": True, **extra}
         elif retries < max_retries:
-            out["guard"] = {"passed": False, "failures": fails, "retries": retries + 1, "final": False}
+            out["guard"] = {"passed": False, "failures": fails, "retries": retries + 1, "final": False, **extra}
         else:
-            out["guard"] = {"passed": False, "failures": fails, "retries": retries, "final": True}
+            out["guard"] = {"passed": False, "failures": fails, "retries": retries, "final": True, **extra}
             out["lane"] = "human_review"
             out["route_reasons"] = list(state.get("route_reasons", [])) + ["guard_failed->human_review"]
         out["trace"] = list(state.get("trace", [])) + [{"node": "output_guard", "passed": not fails, "failures": fails, "retries": retries}]

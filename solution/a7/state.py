@@ -42,6 +42,10 @@ class TicketState(TypedDict, total=False):
     # box 3: resolve_tenant
     tenant_id: str | None           # set ONLY by code (resolve_tenant); tools read it via InjectedState
     tenant_how: Literal["given", "partner_map", "ambiguous"]
+    tenant_resolution: dict[str, Any]       # {ambiguous, partner_name, customer_id, resolved_by} (Builder C learns partner names)
+    parent_ticket_id: str | None    # Phase 4 fills it
+    linked_jira: str | None
+    privacy_concern: bool
     tenant_region: str | None       # IN | UAE
     tenant_tier: str | None         # Enterprise | Business | Standard
     # box 4: classify
@@ -67,7 +71,7 @@ class TicketState(TypedDict, total=False):
     tool_calls: Annotated[list[dict[str, Any]], operator.add]   # {name, args_masked, ok}; nodes return DELTAS
     tool_numbers: list[str]                 # numbers (<= 9 digits) seen in tool outputs, for the grounding check
     # box 10: output_guard
-    guard: dict[str, Any]                   # {passed, failures, retries}
+    guard: dict[str, Any]                   # {passed, failures, retries, final, stale_kb: [ids], missing_kb: bool}
     # box 11-13 (Builder C)
     approval: dict[str, Any]                # {status, reviewer, decided_at, edited_draft}
     actions: list[Any]

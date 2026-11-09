@@ -115,3 +115,27 @@ def base_state(**kw) -> dict[str, Any]:
              customer_ref_how="given", category_raw="Statutory", category="statutory", language="en", is_payroll_window=True, trace=[])
     s.update(kw)
     return s
+
+
+# ---- Builder C stand-ins for DB-free graph tests (the real nodes are covered by test_human_loop and the db test) ----------
+from langgraph.types import interrupt  # noqa: E402
+
+NEEDS_APPROVAL = ("draft_for_agent", "human_review", "incident")
+
+
+def fake_human_approval(state):
+    if state.get("lane") not in NEEDS_APPROVAL:
+        return {"approval": {"status": "not_required", "reviewer": None, "decided_at": None, "edited_draft": None}}
+    d = interrupt({"ticket_id": state.get("ticket_id"), "lane": state.get("lane"), "draft": state.get("draft", "")}) or {}
+    return {"approval": {"status": d.get("status", "approved"), "reviewer": d.get("reviewer"), "decided_at": None, "edited_draft": d.get("edited_draft")}}
+
+
+def fake_act(state):
+    return {"actions": list(state.get("actions") or [])}
+
+
+def fake_log(state):
+    return {"audit": list(state.get("audit") or []) + [{"event": "fake", "lane": state.get("lane")}]}
+
+
+FAKE_C = dict(human_approval_node=fake_human_approval, act_node=fake_act, log_node=fake_log)

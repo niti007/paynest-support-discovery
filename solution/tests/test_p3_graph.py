@@ -9,7 +9,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.types import Command
 
 from solution.a7.graph import build_graph, thread_config
-from solution.tests.p3_fakes import (KB, RULE, FakeDecider, FakeLLM, FakeLookup, base_state, deciders, retriever_of, tool_call,
+from solution.tests.p3_fakes import (FAKE_C, KB, RULE, FakeDecider, FakeLLM, FakeLookup, base_state, deciders, retriever_of, tool_call,
                                      tools_factory)
 
 GOOD = "Yes. From 15 Jul 2026 the SIF file uses v3 with 16 columns and a mandatory establishment-reference column [R-UAE-WPS-2026-07, effective 15 Jul 2026]."
@@ -21,7 +21,7 @@ def run(state, *, auto=None, sug=None, script=None, chunks=(RULE, KB), guard_ans
     llm = FakeLLM(script or [AIMessage(content=GOOD)])
     ds = deciders(auto, sug)
     g = build_graph(saver or MemorySaver(), deciders=ds, llm=llm, tools_factory=tools, tenant_lookup=FakeLookup(),
-                    retriever=retriever_of(*chunks), output_decider=FakeDecider(answers=guard_answer))
+                    retriever=retriever_of(*chunks), output_decider=FakeDecider(answers=guard_answer), **FAKE_C)
     cfg = thread_config(state["ticket_id"])
     res = g.invoke(state, cfg)
     return g, cfg, g.get_state(cfg), res, llm
@@ -48,6 +48,7 @@ def test_draft_for_agent_path_pauses_at_approval_then_resumes():
 def test_auto_answer_assigned_not_sent():
     s = base_state(masked_text="How do I download all payslips at once?", category="howto")
     _, _, snap, _, llm = run(s, auto=FakeDecider("howto", 0.95, "normal"), script=[AIMessage(content=HOWTO)], chunks=(KB,))
+    assert snap.next == () and snap.values["approval"]["status"] == "not_required"
     assert snap.values["lane"] == "auto_answer" and snap.values["llm_tier"] == "cheap" and llm.tiers == ["cheap"]
     assert not snap.values.get("actions")          # nothing sent by this graph; AUTO_SEND=false is honoured by route/act
     assert os.environ.get("AUTO_SEND", "false") == "false"
@@ -59,7 +60,7 @@ def test_route_queue_path_uses_tool_and_records_it():
     _, _, snap, _, _ = run(s, auto=FakeDecider("payroll", 0.97, "high"), script=script, chunks=())
     v = snap.values
     assert v["lane"] == "route_queue" and v["queue"] == "Payroll-Ops"
-    assert [t["name"] for t in v["tool_calls"]] == ["whoami"] and v["guard"]["passed"]
+    assert [t["name"] for t in v["tool_calls"]] == ["whoami"] and v["guard"]["passed"] and snap.next == ()
 
 
 def test_incident_lane():
@@ -90,6 +91,7 @@ def test_block_lane_no_agent_no_tools_goes_to_log():
     assert v["lane"] == "block" and not v.get("tool_calls") and not v.get("draft") and llm.tiers == [] and llm.chat.seen == []
     assert "attach_human_review" in v["route_reasons"]
     assert nodes_run(snap) == ["resolve_tenant", "classify", "route"] and snap.next == () and v["audit"]
+    assert v["approval"]["status"] == "not_required"
     assert "__interrupt__" not in res
 
 
@@ -124,12 +126,13 @@ def test_no_raw_values_or_messages_in_checkpoint_state():
 @pytest.mark.db
 def test_postgres_checkpointer_restart_resumes_same_draft(owner):
     from solution.a7 import db
-    from solution.a7.graph import postgres_checkpointer, setup_checkpointer
-    setup_checkpointer()
+    from solution.a7.graph import postgres_checkpointer
+    from solution.db import bootstrap
+    bootstrap.bootstrap()
     state = base_state(ticket_id="PN-RESTART-1")
     ds = deciders(FakeDecider("statutory", 0.95, "urgent"))
     mk = lambda cp: build_graph(cp, deciders=ds, llm=FakeLLM([AIMessage(content=GOOD)]), tools_factory=tools_factory,
-                                 tenant_lookup=FakeLookup(), retriever=retriever_of(RULE, KB), output_decider=FakeDecider())
+                                 tenant_lookup=FakeLookup(), retriever=retriever_of(RULE, KB), output_decider=FakeDecider(), **FAKE_C)
     with postgres_checkpointer(db.dsn()) as cp:
         cp.delete_thread("PN-RESTART-1")
         g = mk(cp)
