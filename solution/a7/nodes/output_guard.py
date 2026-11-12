@@ -5,7 +5,7 @@ Code checks (all must pass):
  1. numbers grounded   every number in the draft appears in a retrieved chunk (valid on the ticket date), a tool output,
                        or the ticket itself. "Was: ..." sentences of rule chunks (the rule's old_value) are NOT evidence
                        (old values are stale): a draft may ASSERT one as current -> fail; it may MENTION one as superseded
-                       ("16 columns instead of 14", "v2 no longer applies") -> pass. Any other ungrounded number fails.
+                       ("16 columns instead of 14", "v2 no longer applies") -> pass. Direction-aware, rule-based: see stale_values.py. Any other ungrounded number fails.
  2. rules cited        every cited id (R-..., KB-...) is in the retrieved set; each cited rule's effective date is shown;
                        statutory drafts must cite a rule.
  3. validity           no retrieved chunk is outside its effective dates on the ticket date.
@@ -25,12 +25,14 @@ from ..lang import detect_language
 from ..pii.patterns import PLACEHOLDER_RE
 from ..pii.scanner import scan
 from ..state import TicketState
+from .stale_values import VERSION_RE, CurrentValues, asserted_stale
 
 ID_RE = re.compile(r"\b(?:R-[A-Z0-9]+(?:-[A-Z0-9]+)+|KB-\d{4})\b")
 NUM_RE = re.compile(r"\d+(?:[.,]\d+)*")
 _DIGITS = str.maketrans({**{chr(0x0660 + i): str(i) for i in range(10)}, **{chr(0x06F0 + i): str(i) for i in range(10)},
                          **{chr(0x0966 + i): str(i) for i in range(10)}})
 WAS_RE = re.compile(r"\bWas:.*?\.(?=\s|$)", re.S)
+NOW_RE = re.compile(r"\bNow:.*?\.(?=\s|$)", re.S)
 LIST_MARK_RE = re.compile(r"(?m)^\s*\d+[.)]\s")
 MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 OK_LANGS = {"en": {"en", "hinglish"}, "hinglish": {"en", "hinglish", "hi"}, "hi": {"hi", "hinglish"}, "ar": {"ar"}}
@@ -86,20 +88,6 @@ def evidence_numbers(state: TicketState) -> set[str]:
     return nums
 
 
-# A stale (old_value) number is allowed only in a sentence that marks it as superseded/replaced. General phrases in
-# English, Arabic, Hindi/Hinglish; nothing here is specific to one rule or ticket.
-SUPERSEDED_RE = re.compile(
-    r"\b(?:instead of|rather than|in place of|replaced?|replaces|replacing|superseded?|supersedes|no longer|not anymore|"
-    r"previously|formerly|earlier|used to|was|were|old|prior|obsolete|deprecated|retired|discontinued|"
-    r"does not apply|doesn't apply|do not apply|not applicable|is not valid|not valid|from\b[^.!?\n]*\bto|changed from|moved from|"
-    r"up from|down from|raised from|increased from|ki jagah|pehle|purana|ab nahi)\b"
-    r"|بدلا من|بدلا عن|بدل |عوضا عن|لم يعد|لم تعد|لا ينطبق|لا يسري|السابق|القديم|سابقا|كان |كانت |"
-    r"استبدل|حل محل|تم استبدال|ألغي|الغي|بدلا|(?:^|\s)من[^.!?\n]*(?:الى|إلى|ليصبح|لتصبح|اصبح|أصبح)|"
-    r"के बजाय|की जगह|पहले|पुराना|पुरानी|अब लागू नहीं|लागू नहीं|बदल", re.I)
-AR_MARKS_RE = re.compile("[\u064b-\u0652\u0640]")      # tanween, harakat, tatweel: matching is on the bare letters
-SENT_SPLIT_RE = re.compile(r"(?<=[.!?؟۔।])\s+|\n+")
-
-
 def stale_numbers(state: TicketState) -> set[str]:
     """Numbers that only occur in a rule's old value ("Was: ...") and nowhere in the current evidence."""
     old: set[str] = set()
@@ -109,14 +97,20 @@ def stale_numbers(state: TicketState) -> set[str]:
     return old - evidence_numbers(state)
 
 
-def asserted_stale(draft: str, stale: set[str]) -> set[str]:
-    """Stale numbers the draft states without marking them as superseded (sentence-level)."""
-    out: set[str] = set()
-    for sent in SENT_SPLIT_RE.split(draft or ""):
-        hit = stale & set(numbers_in(sent))
-        if hit and not SUPERSEDED_RE.search(AR_MARKS_RE.sub("", ascii_digits(sent))):
-            out |= hit
-    return out
+def current_values(state: TicketState, stale: set[str]) -> CurrentValues:
+    """Numbers and version labels from each rule's "Now: ..." text (16, v3): what a superseded mention must point to."""
+    nums: set[str] = set()
+    labels: set[str] = set()
+    for c in state.get("context_chunks", []):
+        was = " ".join(m.group(0) for m in WAS_RE.finditer(c.get("body", ""))).lower()
+        for m in NOW_RE.finditer(c.get("body", "")):
+            nums |= set(numbers_in(m.group(0)))
+            labels |= {v.lower() for v in VERSION_RE.findall(m.group(0)) if v.lower() not in was}
+    return CurrentValues(nums - stale, labels)
+
+
+def asserted_stale_in(state: TicketState, stale: set[str]) -> set[str]:
+    return asserted_stale(state.get("draft") or "", stale, current_values(state, stale))
 
 
 def code_checks(state: TicketState) -> list[str]:
@@ -127,7 +121,7 @@ def code_checks(state: TicketState) -> list[str]:
     # 1. numbers grounded
     ev = evidence_numbers(state)
     stale = stale_numbers(state)
-    asserted = asserted_stale(draft, stale)
+    asserted = asserted_stale_in(state, stale)
     ungrounded = sorted({n for n in numbers_in(draft) if n not in ev and (n not in stale or n in asserted)})
     if ungrounded:
         fails.append("numbers_not_grounded:" + ",".join(ungrounded))
