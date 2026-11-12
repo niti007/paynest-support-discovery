@@ -184,12 +184,42 @@ def test_flush_stale_and_flush_topic(app, owner):
     assert get(app) is None
 
 
-def test_load_kb_rerun_flushes_edited_topic_only(app, owner):
+def _chunk(i, topic, body, idx=0):
+    return dict(source="kb", source_id=f"KB-TC{i}", chunk_index=idx, region="IN", language="en", topic=topic, title="Add an employee",
+                body=body, last_reviewed=None, effective_from=None, effective_to=None, superseded_by=None, emb=None)
+
+
+def test_real_loader_upsert_noop_rerun_keeps_cache_and_real_edit_flushes_only_its_topic(app, owner):
+    """The loader path (INSERT ... ON CONFLICT DO UPDATE), not a plain UPDATE: a BEFORE INSERT trigger used to flush on the
+    insert half of every upsert, so even a no-op load_kb re-run emptied the cache."""
     from solution.ingest import load_kb as lk
+    same = [_chunk(0, TOPIC, "Open People and click Add."), _chunk(1, OTHER_TOPIC, "Open People and click Add.")]
+    for c in same:                                                    # earlier tests edited the rows: start from a known state
+        owner.execute(lk.UPSERT, c)
     put(app, approved_state(tenant=TA))
-    owner.execute("UPDATE kb_chunks SET body = 'changed' WHERE source_id = 'KB-TC0'")   # as if load_kb rewrote it
-    assert get(app) is None
-    assert hasattr(lk, "UPSERT")                                                         # the upsert goes through the same trigger
+    put(app, approved_state(tenant=TA, topic=OTHER_TOPIC))
+    for c in same + same:                                             # no-op upsert, twice
+        owner.execute(lk.UPSERT, c)
+    assert get(app, tenant=TA) is not None and get(app, tenant=TA, topic=OTHER_TOPIC) is not None
+    before = owner.execute("SELECT updated_at FROM kb_chunks WHERE source_id = 'KB-TC0'").fetchone()[0]
+    owner.execute(lk.UPSERT, same[0])
+    assert owner.execute("SELECT updated_at FROM kb_chunks WHERE source_id = 'KB-TC0'").fetchone()[0] == before   # only a real change moves it
+    # a real edit through the same upsert flushes that topic only
+    owner.execute(lk.UPSERT, _chunk(0, TOPIC, "Open People, click Add, then Save."))
+    assert get(app, tenant=TA) is None
+    assert get(app, tenant=TA, topic=OTHER_TOPIC) is not None
+    # a genuinely new chunk for a topic flushes that topic
+    owner.execute(lk.UPSERT, _chunk(1, OTHER_TOPIC, "A second paragraph.", idx=1))
+    assert get(app, tenant=TA, topic=OTHER_TOPIC) is None
+
+
+def test_full_load_kb_rerun_is_a_noop_for_the_cache(app, owner):
+    from solution.ingest import load_kb as lk
+    lk.load_kb(owner)                                                  # make sure the real KB is loaded (may flush)
+    put(app, approved_state(tenant=TA))
+    put(app, approved_state(tenant=TB, topic=OTHER_TOPIC))
+    lk.load_kb(owner)                                                  # unchanged data, no embedder: the real --no-embed path
+    assert get(app, tenant=TA) is not None and get(app, tenant=TB, topic=OTHER_TOPIC) is not None
 
 
 # ---------------------------------------------------------------- node

@@ -4,7 +4,9 @@
   * Default OFF. A missing row, a DB error or no connection = OFF (fail closed).
   * Env A7_AUTO_SEND can only force OFF: a falsy value (0/false/no/off) overrides the DB flag; any other value,
     including "true", is ignored. It can never turn the flag ON. A7_KILL_SWITCH=1/true also forces OFF.
-  * Only the reviewer API POST /admin/flags (admin token) writes the flag. Head of Support is our unsourced default role.
+  * Only the reviewer API POST /admin/flags (admin token) writes the flag, and it does so over the a7_admin DB login:
+    app_user (the worker) has SELECT only on feature_flags, so the switch cannot be flipped from a compromised worker.
+  * Head of Support is our unsourced default role.
 """
 from __future__ import annotations
 

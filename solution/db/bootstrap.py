@@ -5,6 +5,7 @@
 Passwords (never printed):
   app_user : A7_APP_USER_PASSWORD, else the Secrets Manager secret in A7_APP_USER_SECRET_ARN (JSON {"password": ...})
   a7_act   : A7_ACT_PASSWORD,      else the secret in A7_ACT_SECRET_ARN
+  a7_admin : A7_ADMIN_PASSWORD,    else the secret in A7_ADMIN_SECRET_ARN   (the only role that writes feature_flags)
   Only when A7_ENV is unset or "local" and neither is given do the dev defaults (app_user_dev / a7_act_dev) apply.
   On AWS (A7_ENV=dev/prod/...) a missing credential is an error: the dev password is never set there.
 """
@@ -18,9 +19,10 @@ from psycopg import sql
 
 from solution.a7 import db
 
-DEV_DEFAULTS = {"app_user": "app_user_dev", "a7_act": "a7_act_dev"}
+DEV_DEFAULTS = {"app_user": "app_user_dev", "a7_act": "a7_act_dev", "a7_admin": "a7_admin_dev"}
 SOURCES = {"app_user": ("A7_APP_USER_PASSWORD", "A7_APP_USER_SECRET_ARN"),
-           "a7_act": ("A7_ACT_PASSWORD", "A7_ACT_SECRET_ARN")}
+           "a7_act": ("A7_ACT_PASSWORD", "A7_ACT_SECRET_ARN"),
+           "a7_admin": ("A7_ADMIN_PASSWORD", "A7_ADMIN_SECRET_ARN")}
 CHECKPOINT_TABLES = ("checkpoint_migrations", "checkpoints", "checkpoint_blobs", "checkpoint_writes")
 
 
@@ -49,7 +51,7 @@ def bootstrap(owner_dsn: str | None = None) -> None:
     owner_dsn = owner_dsn or db.dsn()
     with psycopg.connect(owner_dsn, autocommit=True) as conn:
         db.apply_schema(conn)
-        for role in ("app_user", "a7_act"):
+        for role in ("app_user", "a7_act", "a7_admin"):
             conn.execute(sql.SQL("ALTER ROLE {} PASSWORD {}").format(sql.Identifier(role), sql.Literal(resolve_password(role))))
     from langgraph.checkpoint.postgres import PostgresSaver     # needs CREATE on the DB: owner only
     with PostgresSaver.from_conn_string(owner_dsn) as saver:

@@ -22,7 +22,7 @@ from psycopg.rows import dict_row
 from psycopg_pool import ConnectionPool
 from pydantic import BaseModel
 
-from .. import db, shadow_review
+from .. import db, human_db, shadow_review
 from ..nodes.human_approval import validate_decision
 
 TEMPLATES = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
@@ -51,15 +51,21 @@ def default_graph_factory(checkpointer):
 
 
 def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str | None = None, dsn: str | None = None,
-               admin_token: str | None = None, embedder: Callable[..., list[list[float]]] | None = None) -> FastAPI:
+               admin_dsn: str | None = None, admin_token: str | None = None, embedder: Callable[..., list[list[float]]] | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         pool = ConnectionPool(dsn or db.app_dsn(), min_size=1, max_size=8, open=False,
                               kwargs={"autocommit": True, "row_factory": dict_row, "prepare_threshold": 0})
         pool.open()
+        # The kill-switch writer: its own login (a7_admin), used by /admin/flags only. app_user can only read feature_flags.
+        admin_pool = ConnectionPool(admin_dsn or human_db.admin_dsn(), min_size=0, max_size=2, open=False,
+                                    kwargs={"autocommit": True, "row_factory": dict_row, "prepare_threshold": 0})
+        admin_pool.open(wait=False)
         app.state.pool = pool
+        app.state.admin_pool = admin_pool
         app.state.graph = None
         yield
+        admin_pool.close()
         pool.close()
 
     app = FastAPI(title="PayNest A7 reviewer API", lifespan=lifespan)
@@ -109,7 +115,7 @@ def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str 
     @app.get("/admin/flags")
     def get_flags(request: Request, _: None = Depends(admin_auth)):
         from .. import flags
-        with request.app.state.pool.connection() as conn:
+        with request.app.state.admin_pool.connection() as conn:
             return {"flags": {n: flags.get_flag(conn, n) for n in sorted(flags.KNOWN)},
                     "env_forces_off": flags.env_forces_off(),
                     "auto_send_effective": flags.auto_send_enabled(conn)}
@@ -121,7 +127,7 @@ def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str 
             raise HTTPException(422, f"unknown flag {body.name!r}")
         if not body.updated_by.strip():
             raise HTTPException(422, "updated_by required")
-        with request.app.state.pool.connection() as conn, conn.transaction():
+        with request.app.state.admin_pool.connection() as conn, conn.transaction():
             flags.set_flag(conn, body.name, body.enabled, body.updated_by.strip())
             eff = flags.auto_send_enabled(conn)
         return {"name": body.name, "enabled": body.enabled, "auto_send_effective": eff,

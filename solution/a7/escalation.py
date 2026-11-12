@@ -1,7 +1,8 @@
 """Escalation timers (sourced, SLA 3.1 + ESC) with a DB-polled runner.
 
 Timer table (elapsed calendar hours from the ticket's received_at; a human decision stops all but the privacy one):
-  l1_to_l2             P1 -> 1 h;  otherwise 4 h                         (only for lanes that wait for a human)
+  l1_to_l2             P1 -> 1 h;  otherwise 4 h   (ESC, every ticket that reaches L1: all lanes except block,
+                       including route_queue and auto_answer; a block ticket is held for review, no L1 clock)
   privacy_dpo_security privacy/PII-exposure concern -> DPO + Security within 1 h
   p1_first_response    P1 only. Enterprise 1 h, Business 2 h; halved in payroll week (Enterprise 30 min).
                        Standard tier is best effort: no timer.
@@ -25,7 +26,8 @@ UTC = dt.timezone.utc
 HOUR = dt.timedelta(hours=1)
 
 P1_FIRST_RESPONSE = {"enterprise": 60, "business": 120}      # minutes, SLA 3.1; Standard = best effort
-HUMAN_LANES = {"draft_for_agent", "human_review", "incident"}
+HUMAN_LANES = {"draft_for_agent", "human_review", "incident"}     # lanes that wait on an approval
+NO_L1_TIMER_LANES = {"block", None, ""}                             # block: injection, held for a person; no lane yet: nothing routed
 
 
 def _parse(ts: Any, default: dt.datetime) -> dt.datetime:
@@ -49,7 +51,7 @@ def timers_for(state: dict, tier: str | None, now: dt.datetime | None = None) ->
     base = _parse(state.get("received_at"), now)
     p1 = str(state.get("priority", "")).upper() == "P1"
     out: list[dict] = []
-    if state.get("lane") in HUMAN_LANES:
+    if state.get("lane") not in NO_L1_TIMER_LANES:
         h = 1 if p1 else 4
         out.append(dict(kind="l1_to_l2", level="L2", due_at=base + h * HOUR,
                         reason=f"L1 to L2 within {h} h ({'P1' if p1 else 'not P1'})"))

@@ -17,16 +17,17 @@ def dec(choice: str, conf: float = 0.95, backend: str = "fake") -> Decision:
 class FakeDecider:
     """decide_multi answers by name; decide() answers the guard's yes/no question."""
 
-    def __init__(self, category="statutory", conf=0.95, urgency="urgent", injection="no", answers="yes", suggest=None):
+    def __init__(self, category="statutory", conf=0.95, urgency="urgent", injection="no", answers="yes", suggest=None, privacy="no"):
         self.category, self.conf, self.urgency, self.injection, self.answers = category, conf, urgency, injection, answers
         self.suggest = suggest
+        self.privacy = privacy
         self.name = "fake"
         self.calls = 0
 
     def decide_multi(self, items):
         self.calls += 1
         return {"category": dec(self.suggest or self.category, self.conf), "urgency": dec(self.urgency, 0.9),
-                "is_injection": dec(self.injection, 0.9)}
+                "is_injection": dec(self.injection, 0.9), "privacy_concern": dec(self.privacy, 0.9)}
 
     def decide(self, question, options, *, context=None):
         return dec(self.answers)

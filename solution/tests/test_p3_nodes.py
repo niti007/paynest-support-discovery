@@ -68,7 +68,7 @@ def test_classify_priority_comes_from_the_model_with_the_sla_definition():
     from solution.a7.nodes.classify import PRIORITY_QUESTION, SLA_P1, classify_items
     assert "payroll cannot be run, or employees will not be paid on time, or statutory filing will be missed" == SLA_P1
     assert SLA_P1 in PRIORITY_QUESTION and "NOT from how urgent the customer sounds" in PRIORITY_QUESTION
-    assert [i.name for i in classify_items(base_state())] == ["category", "urgency", "is_injection", "priority"]
+    assert [i.name for i in classify_items(base_state())] == ["category", "urgency", "is_injection", "priority", "privacy_concern"]
 
     class WithPriority(FakeDecider):
         def decide_multi(self, items):
@@ -134,7 +134,7 @@ def test_route_rules(kw, lane, queue):
 
 def test_route_node_logs_reasons_and_never_sends():
     out = route(R())
-    assert out["lane"] == "auto_answer" and any("AUTO_SEND=false" in r for r in out["route_reasons"])
+    assert out["lane"] == "auto_answer" and any("auto_send_effective=false" in r for r in out["route_reasons"])
     assert out["trace"][-1]["node"] == "route"
 
 

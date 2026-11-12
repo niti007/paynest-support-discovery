@@ -31,6 +31,15 @@ BEGIN
   END IF;
 END $$;
 
+-- a7_admin: the ONLY role that can write feature_flags (the kill switch). Only POST /admin/flags connects with it.
+-- app_user (the worker) has SELECT only, so a compromised worker cannot flip the switch in the DB.
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'a7_admin') THEN
+    CREATE ROLE a7_admin LOGIN PASSWORD 'a7_admin_dev' NOSUPERUSER NOBYPASSRLS;
+  END IF;
+END $$;
+
 -- ---------------------------------------------------------------- tenant helper
 CREATE SCHEMA IF NOT EXISTS a7;
 
@@ -403,10 +412,6 @@ BEGIN
   IF TG_OP = 'DELETE' THEN
     PERFORM a7.flush_answer_cache(OLD.topic);
     RETURN OLD;
-  ELSIF TG_OP = 'INSERT' THEN
-    NEW.updated_at := now();
-    PERFORM a7.flush_answer_cache(NEW.topic);
-    RETURN NEW;
   END IF;
   IF (OLD.topic, OLD.region, OLD.title, OLD.body, OLD.effective_from, OLD.effective_to, OLD.superseded_by, OLD.last_reviewed, OLD.tenant_scope)
      IS DISTINCT FROM
@@ -420,9 +425,21 @@ BEGIN
   RETURN NEW;
 END $$;
 
+-- A genuinely new chunk flushes its topic. This is an AFTER INSERT trigger on purpose: a BEFORE INSERT trigger also fires for
+-- the INSERT half of INSERT ... ON CONFLICT DO UPDATE (the loader's upsert), which flushed the whole cache on a no-op re-run.
+-- AFTER INSERT fires only for rows really inserted; a conflict becomes an UPDATE, handled by the BEFORE UPDATE branch above.
+CREATE OR REPLACE FUNCTION a7.kb_chunks_inserted() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  PERFORM a7.flush_answer_cache(NEW.topic);
+  RETURN NULL;
+END $$;
+
 DROP TRIGGER IF EXISTS kb_chunks_touch ON kb_chunks;
-CREATE TRIGGER kb_chunks_touch BEFORE INSERT OR UPDATE OR DELETE ON kb_chunks
+CREATE TRIGGER kb_chunks_touch BEFORE UPDATE OR DELETE ON kb_chunks
   FOR EACH ROW EXECUTE FUNCTION a7.kb_chunks_touch();
+DROP TRIGGER IF EXISTS kb_chunks_inserted ON kb_chunks;
+CREATE TRIGGER kb_chunks_inserted AFTER INSERT ON kb_chunks
+  FOR EACH ROW EXECUTE FUNCTION a7.kb_chunks_inserted();
 
 -- only the flush function (app.runner = 'kb_flush', transaction-local) sees all tenants' cache rows for DELETE
 DROP POLICY IF EXISTS kb_flush ON answer_cache;
@@ -438,4 +455,10 @@ CREATE TABLE IF NOT EXISTS feature_flags (
 );
 INSERT INTO feature_flags (name, enabled, updated_by) VALUES ('auto_send_enabled', false, 'schema-default')
   ON CONFLICT (name) DO NOTHING;
-GRANT SELECT, INSERT, UPDATE ON feature_flags TO app_user;
+-- Least privilege: app_user may only READ the flag; a7_admin (admin endpoint) writes it. REVOKEs fix older databases on re-run.
+REVOKE ALL ON feature_flags FROM PUBLIC;
+REVOKE ALL ON feature_flags FROM app_user;
+REVOKE ALL ON feature_flags FROM a7_admin;
+GRANT SELECT ON feature_flags TO app_user;
+GRANT USAGE ON SCHEMA public TO a7_admin;
+GRANT SELECT, INSERT, UPDATE ON feature_flags TO a7_admin;

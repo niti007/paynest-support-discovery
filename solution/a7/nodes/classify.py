@@ -6,10 +6,13 @@
 - The injection guard and any is_injection = yes still force a human (policy.route_decision).
 - Priority is asked of the model with the SLA 3.2 definitions (not the customer's urgency wording). If the model gives no
   valid priority, the code falls back to derive_priority (urgency + category). No keyword rules.
+- Privacy flag (escalation timer "DPO + Security within 1 h"): asked in the same call with the ESC wording. A plain-code
+  fallback also sets it (pii_gate blocked, or the ticket names another customer's id). It only arms a notification timer.
 - The Strands Decider is no longer on the runtime path (its code stays as teaching material; backend name "decider").
 """
 from __future__ import annotations
 
+import re
 from typing import Any, Callable, Mapping
 
 from .. import config
@@ -30,6 +33,27 @@ PRIORITY_QUESTION = ("What is the priority of this ticket by the SLA definition 
                      f"P1: {SLA_P1}. P2: {SLA_P2}. P3: {SLA_P3}.")
 
 
+Q_PRIVACY = "privacy_concern"
+# data-room/process/escalation_policy.md, row "Security or privacy concern (data shown to the wrong user, PII exposure)"
+PRIVACY_QUESTION = ("Does this ticket report a security or privacy concern, meaning data shown to the wrong user "
+                    "(for example one customer's data sent to or seen by another customer or person) or PII exposure? "
+                    "Answer no for an ordinary support problem, even if it contains personal data.")
+CUSTOMER_ID_RE = re.compile(r"\bC-\d{4}\b")
+
+
+def privacy_fallback(state: Mapping[str, Any]) -> str | None:
+    """Plain-code signals, independent of the model. There is no per-tenant owner on a vault entry (pii_vault is keyed by ticket),
+    so the checks use what the gate and the text give: masking left PII behind (gate blocked), or the ticket names a
+    customer id that is not the resolved tenant (data of another tenant in this ticket)."""
+    if state.get("pii_gate_status") == "blocked":
+        return "pii_gate_blocked"
+    own = {x for x in (state.get("tenant_id"), state.get("customer_ref")) if x}
+    others = set(CUSTOMER_ID_RE.findall(state.get("masked_text") or "")) - own
+    if others and state.get("tenant_id"):
+        return "other_tenant_id_in_text"
+    return None
+
+
 def derive_priority(category: str | None, urgency: str, is_payroll_window: bool = False) -> str:
     """Fallback only (the model gave no valid priority)."""
     if urgency == "urgent" and category in P1_CATEGORIES:
@@ -41,7 +65,8 @@ def derive_priority(category: str | None, urgency: str, is_payroll_window: bool 
 
 def classify_items(state: Mapping[str, Any], text: str | None = None) -> list[DecideItem]:
     items = classify_questions(dict(state), text=text)
-    return items + [DecideItem(Q_PRIORITY, PRIORITY_QUESTION, list(PRIORITY_LEVELS), items[0].context, None)]
+    return items + [DecideItem(Q_PRIORITY, PRIORITY_QUESTION, list(PRIORITY_LEVELS), items[0].context, None),
+                    DecideItem(Q_PRIVACY, PRIVACY_QUESTION, ["yes", "no"], items[0].context, None)]
 
 
 def default_deciders(policy: dict | None = None) -> dict[str, Any]:
@@ -99,8 +124,13 @@ def make_classify(deciders: Mapping[str, Any] | None = None, policy: dict | None
             priority, prio_by = prio.choice, "model"
         else:
             priority, prio_by = derive_priority(category or rd.suggested_category, urg, bool(state.get("is_payroll_window"))), "fallback_code"
+        priv = res.get(Q_PRIVACY) if used else None
+        priv_by = "model" if priv is not None and priv.choice == "yes" else privacy_fallback(state)
+        if priv_by:
+            reasons.append(f"privacy_concern:{priv_by}")
         out: TicketState = dict(state)  # type: ignore[assignment]
         out.update(
+            privacy_concern=bool(priv_by) or bool(state.get("privacy_concern", False)),
             category=category,
             category_confidence=float(cat.confidence) if cat is not None and cat.choice != INVALID else 0.0,
             suggested_category=rd.suggested_category,
@@ -110,7 +140,7 @@ def make_classify(deciders: Mapping[str, Any] | None = None, policy: dict | None
             priority=priority,
             route_reasons=reasons,
             trace=list(state.get("trace", [])) + [{"node": "classify", "lane": rd.lane, "category": category, "backend": used,
-                                                    "tried": tried, "priority_by": prio_by, "urgency": urg, "reasons": reasons}],
+                                                    "tried": tried, "priority_by": prio_by, "privacy_concern": priv_by, "urgency": urg, "reasons": reasons}],
         )
         return out
 
