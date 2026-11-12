@@ -28,6 +28,7 @@ dependencies = [
     "langchain-core>=1.7.6",
     "jsonschema>=4.23",
     "pyyaml>=6",
+    "numpy>=2",
 ]
 
 [tool.uv]
