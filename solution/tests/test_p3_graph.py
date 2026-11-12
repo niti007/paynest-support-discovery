@@ -79,10 +79,13 @@ def test_ambiguous_tenant_goes_to_human_without_retrieval_or_llm():
     assert snap.next == () and snap.values["approval"]["status"] == "pending_tenant_resolution"
 
 
-def test_low_confidence_human_review_still_drafts_on_hard_tier():
-    _, _, snap, _, llm = run(base_state(), auto=FakeDecider("payroll", 0.3), sug=FakeDecider("statutory", 0.9))
+def test_both_classifier_backends_failing_goes_to_human_review_and_still_drafts_on_hard_tier():
+    class Boom(FakeDecider):
+        def decide_multi(self, items):
+            raise RuntimeError("down")
+    _, _, snap, _, llm = run(base_state(), auto=Boom(), sug=Boom())
     v = snap.values
-    assert v["lane"] == "human_review" and v["suggested_category"] == "statutory" and v["category"] == ""
+    assert v["lane"] == "human_review" and v["category"] == ""
     assert llm.tiers == ["hard"] and v["draft"]
 
 

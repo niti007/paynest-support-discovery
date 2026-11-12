@@ -34,7 +34,8 @@ class FakeDecider:
 
 def deciders(auto: FakeDecider | None = None, sug: FakeDecider | None = None) -> dict:
     a = auto or FakeDecider()
-    return {"decider": a, "bedrock_nova": sug or FakeDecider(category=a.suggest or a.category)}
+    """auto = the primary backend (Nova), sug = the fallback (Qwen3-32B)."""
+    return {"bedrock_nova": a, "bedrock_qwen32b": sug or FakeDecider(category=a.suggest or a.category)}
 
 
 class FakeChat:

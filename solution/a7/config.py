@@ -68,4 +68,11 @@ PLAN = {"type": "FREE", "credits_usd": 140.0, "expires": "2027-05-07"}
 # human triages with the suggest_backend's category attached. The injection guard and is_injection flags always go to a human.
 # The threshold is a user-set value, NOT chosen on the calib split.
 # user decision 2026-11-09: 0.90 (was 0.80; 0.80 gave 81.8% auto-lane accuracy)
-ROUTING_POLICY = {"auto_backend": "decider", "auto_threshold": 0.90, "suggest_backend": "bedrock_nova"}
+
+# user decision 2026-11-12: route with a small LLM, not the Strands Decider. Nova Lite (Gate 2 bake-off winner: category 82.0%,
+# ECE 0.084) auto-routes every ticket (auto_threshold 0.0, key kept so it can be raised); Qwen3-32B answers when Nova throttles
+# (10 RPM) or errors; both failing sends the ticket to human_review. The injection guard / is_injection still go to a human.
+# The old hybrid (Decider >= 0.90) auto-routed 12.5% at 100% accuracy; it is documented in bakeoff.md.
+HYBRID_POLICY_2026_11_09 = {"auto_backend": "decider", "auto_threshold": 0.90, "suggest_backend": "bedrock_nova"}
+ROUTING_POLICY = {"auto_backend": "bedrock_nova", "fallback_backend": "bedrock_qwen32b", "auto_threshold": 0.0,
+                  "suggest_backend": "bedrock_nova"}

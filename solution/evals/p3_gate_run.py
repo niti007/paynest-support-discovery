@@ -19,7 +19,7 @@ from pathlib import Path
 from langgraph.types import Command
 
 ORACLE = "--oracle" in sys.argv
-REPORT = Path(__file__).parent / "reports" / ("phase3_gate_run_oracle.md (merge into phase3_gate_run.md)" if ORACLE else "phase3_gate_run.md")
+REPORT = Path(__file__).parent / "reports" / ("phase34_gate_run_oracle.md" if ORACLE else "phase34_gate_run.md")
 TICKETS = ["PN-100402", "PN-101055", "PN-101333", "PN-101129"]
 EXPECT = {"PN-100402": "draft_for_agent + P1, cites R-UAE-WPS-2026-07 (15 Jul 2026)",
           "PN-101055": "route_queue Payroll-Ops, status tool called",
@@ -81,9 +81,10 @@ def main() -> None:
     try:
         bootstrap.bootstrap()
         nova = get_decider("bedrock_nova")
-        auto = Oracle() if ORACLE else get_decider("decider")
-        backends = [nova, auto]
-        mk = lambda cp: build_graph(cp, deciders={"decider": auto, "bedrock_nova": nova}, output_decider=nova)
+        qwen = get_decider("bedrock_qwen32b")
+        auto = Oracle() if ORACLE else nova                 # real run: Nova routes (Qwen3-32B fallback); the Decider is not used
+        backends = [nova, qwen] + ([auto] if ORACLE else [])
+        mk = lambda cp: build_graph(cp, deciders={"bedrock_nova": auto, "bedrock_qwen32b": qwen}, output_decider=nova)
         rows, notes = [], []
         with db.connect(autocommit=True) as vconn, postgres_checkpointer() as cp:
             gate = make_pii_gate(Vault(PostgresVaultStore(vconn), LocalKeyProvider()))
@@ -110,6 +111,8 @@ def main() -> None:
                              "lat": dt, "paused": v.get("__interrupt__"), "approval": (v.get("approval") or {}).get("status"),
                              "actions": [(a.get("type"), a.get("status")) for a in v.get("actions") or []],
                              "reasons": v.get("route_reasons"), "draft": draft,
+                             "steps": [x.get("node") for x in v.get("trace", [])],
+                             "backend": next((x.get("backend") for x in v.get("trace", []) if x.get("node") == "classify"), None),
                              "tok": (agent_tok[0] + a_in - b_in, agent_tok[1] + a_out - b_out), "cost": agent_cost + (a_cost - b_cost)})
                 print(t, rows[-1]["lane"], rows[-1]["prio"], rows[-1]["cites"], rows[-1]["tools"], round(dt, 1), flush=True)
 
@@ -133,7 +136,7 @@ def main() -> None:
 
         tot = sum(r["cost"] for r in rows)
         out = ["# Phase 3 gate run (real graph, real Bedrock, mock payroll API)", "",
-               f"Classifier: {'ORACLE (test-only labels a human would give; boxes 6-10 proof)' if ORACLE else 'REAL Decider (honest run)'}. "
+               f"Classifier: {'ORACLE (test-only labels a human would give; boxes 6-10 proof)' if ORACLE else 'REAL: Nova Lite routes every ticket, Qwen3-32B fallback (honest run)'}. "
                f"Run {time.strftime('%Y-%m-%d %H:%M')} local. Region eu-north-1, profile paynest, routing threshold "
                f"0.90, AUTO_SEND=false. Masked text only.", "",
                "| ticket | expected | lane | queue | priority | tenant | category (conf) | tier | citations | tool calls | guard | latency s | tokens in/out | USD |",
@@ -144,7 +147,7 @@ def main() -> None:
         out += ["", f"Total Bedrock cost (classifier + agent + guard): USD {tot:.5f}", "", "## Per ticket", ""]
         for r in rows:
             out += [f"### {r['t']}", f"- approval: {r['approval']}; actions: {r['actions']}; paused at interrupt: {r['paused']}",
-                    f"- route reasons: {r['reasons']}", "- draft (masked):", "", "```", r["draft"] or "(none)", "```", ""]
+                    f"- route reasons: {r['reasons']}", f"- classify backend: {r['backend']}; steps: {r['steps']}", "- draft (masked):", "", "```", r["draft"] or "(none)", "```", ""]
         out += ["## Interrupt, resume and restart", ""] + [f"- {n}" for n in notes] + [f"- restart resumes same draft: {same}", ""]
         REPORT.write_text("\n".join(out))
         print("\n".join(notes))

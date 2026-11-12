@@ -14,7 +14,7 @@ from solution.a7.nodes.output_guard import (code_checks, date_shown, evidence_nu
 from solution.a7.nodes.resolve_tenant import make_resolve_tenant
 from solution.a7.nodes.retrieve import make_retrieve
 from solution.a7.nodes.route import decide_lane, route
-from solution.tests.p3_fakes import (KB, PF, RULE, FakeDecider, FakeLLM, FakeLookup, base_state, deciders, retriever_of, tool_call,
+from solution.tests.p3_fakes import (KB, PF, RULE, dec,FakeDecider, FakeLLM, FakeLookup, base_state, deciders, retriever_of, tool_call,
                                      tools_factory)
 
 
@@ -48,11 +48,37 @@ def test_classify_auto_and_priority():
     assert out["category"] == "statutory" and out["classify_lane"] == "auto" and out["priority"] == "P1" and not out["is_injection"]
 
 
-def test_classify_low_confidence_goes_to_human_with_suggestion():
-    ds = deciders(FakeDecider("payroll", 0.40, "normal"), FakeDecider("statutory", 0.9))
-    out = make_classify(ds)(base_state())
-    assert out["category"] == "" and out["classify_lane"] == "human" and out["suggested_category"] == "statutory"
-    assert any(r.startswith("low_confidence") for r in out["route_reasons"])
+def test_classify_every_ticket_is_auto_routed_by_nova_even_at_low_confidence():
+    out = make_classify(deciders(FakeDecider("payroll", 0.10, "normal")))(base_state())     # threshold 0.0
+    assert out["category"] == "payroll" and out["classify_lane"] == "auto"
+    assert out["trace"][-1]["backend"] == "bedrock_nova"
+
+
+def test_classify_falls_back_to_qwen_when_nova_fails_and_records_it():
+    class Boom(FakeDecider):
+        def decide_multi(self, items):
+            raise RuntimeError("ThrottlingException")
+    out = make_classify(deciders(Boom(), FakeDecider("access", 0.8, "normal")))(base_state())
+    assert out["category"] == "access" and out["classify_lane"] == "auto"
+    assert out["trace"][-1]["backend"] == "bedrock_qwen32b" and out["trace"][-1]["tried"] == ["bedrock_nova", "bedrock_qwen32b"]
+    assert "classify_fallback:bedrock_qwen32b" in out["route_reasons"]
+
+
+def test_classify_priority_comes_from_the_model_with_the_sla_definition():
+    from solution.a7.nodes.classify import PRIORITY_QUESTION, SLA_P1, classify_items
+    assert "payroll cannot be run, or employees will not be paid on time, or statutory filing will be missed" == SLA_P1
+    assert SLA_P1 in PRIORITY_QUESTION and "NOT from how urgent the customer sounds" in PRIORITY_QUESTION
+    assert [i.name for i in classify_items(base_state())] == ["category", "urgency", "is_injection", "priority"]
+
+    class WithPriority(FakeDecider):
+        def decide_multi(self, items):
+            r = super().decide_multi(items)
+            r["priority"] = dec("P3", 0.9)
+            return r
+    out = make_classify(deciders(WithPriority("statutory", 0.9, "urgent")))(base_state())
+    assert out["priority"] == "P3" and out["trace"][-1]["priority_by"] == "model"      # model wins over urgency wording
+    out2 = make_classify(deciders(FakeDecider("statutory", 0.9, "urgent")))(base_state())
+    assert out2["priority"] == "P1" and out2["trace"][-1]["priority_by"] == "fallback_code"
 
 
 def test_classify_injection_from_backend_and_from_guard():
@@ -67,8 +93,9 @@ def test_classify_backend_failure_goes_to_human():
     class Boom(FakeDecider):
         def decide_multi(self, items):
             raise RuntimeError("down")
-    out = make_classify({"decider": Boom(), "bedrock_nova": Boom()})(base_state())
+    out = make_classify({"bedrock_nova": Boom(), "bedrock_qwen32b": Boom()})(base_state())
     assert out["classify_lane"] == "human" and out["category"] == ""
+    assert any(r.startswith("classify_failed") for r in out["route_reasons"])
 
 
 def test_priority_rules():
@@ -137,7 +164,7 @@ def test_choose_tier():
     assert choose_tier({**base, "category": "statutory"})[0] == "hard"
     assert choose_tier({**base, "language": "ar"})[0] == "hard"
     assert choose_tier({**base, "language": "hi"})[0] == "hard"
-    assert choose_tier({**base, "category_confidence": 0.5})[0] == "hard"
+    assert choose_tier({**base, "category": ""})[0] == "hard"
     assert choose_tier({**base, "guard": {"retries": 1}})[0] == "hard"
 
 
