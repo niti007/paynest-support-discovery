@@ -1,0 +1,94 @@
+{
+  "cache_e2e": {
+    "ticket1": {
+      "lane": "draft_for_agent",
+      "topic": "payslip",
+      "region": "UAE",
+      "cache_step": {
+        "status": "miss"
+      },
+      "tools": [
+        "search_kb",
+        "get_tenant_profile",
+        "search_kb",
+        "get_statutory_rule",
+        "search_kb",
+        "get_tenant_profile",
+        "search_kb",
+        "get_statutory_rule"
+      ],
+      "guard_passed": true,
+      "guard_failures": [],
+      "attempts": 1,
+      "approval": "approved",
+      "act_cache_action": [
+        {
+          "type": "cache",
+          "status": "stored",
+          "reason": null
+        }
+      ],
+      "answer_cache_rows": {
+        "n": 1,
+        "topic": "payslip",
+        "region": "UAE"
+      }
+    },
+    "ticket2": {
+      "lane": "auto_answer",
+      "cache": {
+        "status": "hit",
+        "similarity": 0.9999,
+        "entry_id": 61
+      },
+      "cache_hit": true,
+      "cached_from": "PN-101333",
+      "agent_ran": false,
+      "output_guard_ran": true,
+      "steps": [
+        "pii_gate",
+        "normalise",
+        "resolve_tenant",
+        "classify",
+        "dedupe_cluster",
+        "route",
+        "retrieve",
+        "cache_lookup",
+        "output_guard"
+      ],
+      "guard_passed": true,
+      "approval": "not_required",
+      "actions": [
+        [
+          "reply",
+          "shadow"
+        ]
+      ],
+      "outbox": [
+        [
+          "reply",
+          "shadow",
+          true
+        ]
+      ],
+      "draft_equals_cached": true
+    },
+    "kill_switch_off_only_shadow": true
+  },
+  "meridian": {
+    "tickets_replayed": 9,
+    "incident_set_5th": "PN-101239",
+    "first_incident_lane_ticket": "PN-101239",
+    "lane_of_5th": "incident",
+    "lanes_of_first_5": [
+      "route_queue",
+      "route_queue",
+      "route_queue",
+      "route_queue",
+      "incident"
+    ],
+    "incident_rows": 1,
+    "incident_ticket_count": 8,
+    "pass": true
+  }
+}

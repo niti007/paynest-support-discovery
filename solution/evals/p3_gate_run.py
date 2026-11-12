@@ -138,7 +138,7 @@ def main() -> None:
         out = ["# Phase 3 gate run (real graph, real Bedrock, mock payroll API)", "",
                f"Classifier: {'ORACLE (test-only labels a human would give; boxes 6-10 proof)' if ORACLE else 'REAL: Nova Lite routes every ticket, Qwen3-32B fallback (honest run)'}. "
                f"Run {time.strftime('%Y-%m-%d %H:%M')} local. Region eu-north-1, profile paynest, routing threshold "
-               f"0.90, AUTO_SEND=false. Masked text only.", "",
+               f"0.0 (Nova auto-routes all), AUTO_SEND=false. Masked text only.", "",
                "| ticket | expected | lane | queue | priority | tenant | category (conf) | tier | citations | tool calls | guard | latency s | tokens in/out | USD |",
                "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for r in rows:
