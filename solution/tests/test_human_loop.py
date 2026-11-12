@@ -157,10 +157,17 @@ def test_d_auto_answer_shadow(owner, monkeypatch):
     # unmasked PII in a reply is refused
     with pytest.raises(ActRefused):
         act(base(lane="auto_answer", draft=f"Your account {iban(3)}"))
-    # kill switch semantics: AUTO_SEND=true is queued (still never sent by this code)
+    # kill switch semantics (Phase 4B): env alone cannot turn it on; the DB flag does (queued, still never sent here)
     monkeypatch.setenv("A7_AUTO_SEND", "true")
     act(base(lane="auto_answer", priority="P3"))
-    assert rows(owner, "SELECT shadow, status, sent_at FROM outbox") == [(False, "queued", None)]
+    assert rows(owner, "SELECT shadow, status FROM outbox") == [(True, "shadow")]
+    owner.execute("TRUNCATE outbox")
+    owner.execute("UPDATE feature_flags SET enabled = true WHERE name = 'auto_send_enabled'")
+    try:
+        act(base(lane="auto_answer", priority="P3"))
+        assert rows(owner, "SELECT shadow, status, sent_at FROM outbox") == [(False, "queued", None)]
+    finally:
+        owner.execute("UPDATE feature_flags SET enabled = false WHERE name = 'auto_send_enabled'")
 
 
 # ---------------------------------------------------------------- (e) audit rejects PII

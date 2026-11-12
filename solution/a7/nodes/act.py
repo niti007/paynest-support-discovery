@@ -39,9 +39,11 @@ class ActRefused(RuntimeError):
     """act was invoked for something the allow-list does not permit."""
 
 
-def auto_send() -> bool:
-    """Kill switch / shadow-mode flag. Default false: auto_answer is recorded as shadow only."""
-    return os.environ.get("A7_AUTO_SEND", "false").strip().lower() in {"1", "true", "yes", "on"}
+def auto_send(conn=None) -> bool:
+    """Kill switch. True only when the feature_flags row auto_send_enabled is on AND the env does not force it off
+    (A7_AUTO_SEND=false / A7_KILL_SWITCH=1). Env can never turn it on. No connection or any error = OFF (shadow only)."""
+    from .. import flags
+    return flags.auto_send_enabled(conn)
 
 
 def _guard_ok(guard: Any) -> bool:
@@ -73,7 +75,7 @@ def _outbox(conn, state: dict, *, kind: str, key: str, body: str, status: str, c
     return conn.execute("SELECT id FROM outbox WHERE idempotency_key = %s", (f"{state['ticket_id']}:{key}",)).fetchone()[0]
 
 
-def make_act(conn_factory: Callable[[], Any] | None = None):
+def make_act(conn_factory: Callable[[], Any] | None = None, embedder: Callable[..., list[list[float]]] | None = None):
     def act(state: dict) -> dict:
         lane, tenant, tid = state.get("lane"), state.get("tenant_id"), state.get("ticket_id")
         if lane not in ALLOW:
@@ -104,7 +106,7 @@ def make_act(conn_factory: Callable[[], Any] | None = None):
                     res.append({"type": "refused", "status": "refused",
                                 "reason": "P1 never auto-answered" if p1 else "output_guard did not pass"})
                 else:
-                    shadow = not auto_send()
+                    shadow = not auto_send(conn)
                     oid = _outbox(conn, state, kind="reply", key="reply", body=body, channel="auto_answer",
                                   status="shadow" if shadow else "queued", shadow=shadow)
                     res.append({"type": "reply", "status": "shadow" if shadow else "queued", "outbox_id": oid, "shadow": shadow})
@@ -112,6 +114,7 @@ def make_act(conn_factory: Callable[[], Any] | None = None):
                 oid = _outbox(conn, state, kind="draft", key="draft", body=body, channel="agent", status="awaiting_agent_send",
                               restore_pii=restore, approved_by=reviewer, payload={"vault_key": state.get("vault_key") or tid})
                 res.append({"type": "draft", "status": "awaiting_agent_send", "outbox_id": oid})
+                res.append(_cache_approved(conn, state, embedder))
             elif lane == "route_queue":
                 q = state.get("queue")
                 payload = {k: state[k] for k in ("queue", "parent_ticket_id", "linked_jira") if state.get(k)}
@@ -153,6 +156,28 @@ def make_act(conn_factory: Callable[[], Any] | None = None):
         return {"actions": prior + res}
 
     return act
+
+
+def _cache_approved(conn, state: dict, embedder) -> dict:
+    """Box 7 write side: a human-approved, masked, cacheable How-To draft goes into answer_cache (tenant-scoped).
+    A cache failure never fails act; the reason is recorded in the action list (masked, no text)."""
+    from .. import cache
+    ap = state.get("approval") or {}
+    if ap.get("status") not in APPROVED or not state.get("masked_text"):
+        return {"type": "cache", "status": "skipped", "reason": "not approved or no question text"}
+    try:
+        pre = cache.never_cache_reason(priority=state.get("priority"), category=state.get("category"), lane=state.get("lane"),
+                                       citations=state.get("citations"), route_reasons=state.get("route_reasons"),
+                                       draft=_final_text(state), approval_status=ap.get("status"), guard=state.get("guard"))
+        if pre:
+            return {"type": "cache", "status": "skipped", "reason": pre}
+        from ..cache import _default_embedder
+        emb = (embedder or _default_embedder)([state["masked_text"]], "search_query")[0]
+        with conn.transaction():                       # savepoint inside scoped(): a cache error must not poison act
+            stored, reason = cache.store_approved(conn, state, emb)
+        return {"type": "cache", "status": "stored" if stored else "skipped", "reason": reason}
+    except Exception as e:  # noqa: BLE001
+        return {"type": "cache", "status": "error", "reason": type(e).__name__}
 
 
 act = make_act()
