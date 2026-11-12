@@ -18,3 +18,4 @@ trainer/
 infra/cdk.out*/
 infra/.venv/
 infra/cdk.context.json
+solution/evals/cache/

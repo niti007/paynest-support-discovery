@@ -240,6 +240,19 @@ CREATE TABLE IF NOT EXISTS answer_cache (
   created_at   timestamptz NOT NULL DEFAULT now()
 );
 
+-- box 5 dedupe_cluster: one row per ticket (embedding of the MASKED text only; no text stored).
+CREATE TABLE IF NOT EXISTS ticket_embeddings (
+  tenant_id        text NOT NULL,
+  ticket_id        text NOT NULL,
+  received_at      timestamptz NOT NULL,         -- event time (ticket created), drives the rolling window
+  embedding        vector(1024) NOT NULL,
+  parent_ticket_id text,                         -- resubmit link
+  incident_id      bigint,                       -- incidents.id when the ticket belongs to an incident
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (tenant_id, ticket_id)
+);
+CREATE INDEX IF NOT EXISTS ticket_embeddings_tenant_time ON ticket_embeddings (tenant_id, received_at);
+
 -- ---------------------------------------------------------------- RLS
 ALTER TABLE customers    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE customers    FORCE ROW LEVEL SECURITY;
@@ -253,6 +266,8 @@ ALTER TABLE incidents    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE incidents    FORCE ROW LEVEL SECURITY;
 ALTER TABLE answer_cache ENABLE ROW LEVEL SECURITY;
 ALTER TABLE answer_cache FORCE ROW LEVEL SECURITY;
+ALTER TABLE ticket_embeddings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ticket_embeddings FORCE ROW LEVEL SECURITY;
 ALTER TABLE approvals    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE approvals    FORCE ROW LEVEL SECURITY;
 ALTER TABLE escalations  ENABLE ROW LEVEL SECURITY;
@@ -292,6 +307,11 @@ CREATE POLICY tenant_isolation ON answer_cache
   USING (tenant_id = current_setting('app.tenant_id', true))
   WITH CHECK (tenant_id = current_setting('app.tenant_id', true));
 
+DROP POLICY IF EXISTS tenant_isolation ON ticket_embeddings;
+CREATE POLICY tenant_isolation ON ticket_embeddings
+  USING (tenant_id = current_setting('app.tenant_id', true))
+  WITH CHECK (tenant_id = current_setting('app.tenant_id', true));
+
 DROP POLICY IF EXISTS tenant_isolation ON approvals;
 CREATE POLICY tenant_isolation ON approvals
   USING (tenant_id = current_setting('app.tenant_id', true))
@@ -321,7 +341,7 @@ GRANT USAGE ON SCHEMA public, a7 TO app_user;
 GRANT EXECUTE ON FUNCTION a7.set_tenant(text, boolean) TO app_user;
 GRANT SELECT ON customers, partner_customer_map, agents, statutory_rules, kb_chunks TO app_user;
 GRANT SELECT, INSERT, UPDATE, DELETE ON outbox, audit_log, incidents, answer_cache,
-      approvals, escalations, kb_suggestions, partner_map_suggestions TO app_user;
+      approvals, escalations, kb_suggestions, partner_map_suggestions, ticket_embeddings TO app_user;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO app_user;
 
 -- pii_vault: app_user (the gate) may only write. Only a7_act may read (ciphertext; the KMS key policy
