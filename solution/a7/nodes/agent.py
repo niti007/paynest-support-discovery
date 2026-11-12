@@ -136,11 +136,16 @@ def make_agent(llm: Callable[[str], Any], tools_factory: Callable[[str], list]) 
             nums += [n for n in numbers_in(str(r.content)) if len(n) <= 9]
         final = next((m for m in reversed(messages) if isinstance(m, AIMessage)), None)
         draft = text_of(final.content) if final is not None else ""
+        tin = sum((getattr(m, "usage_metadata", None) or {}).get("input_tokens", 0) for m in messages if isinstance(m, AIMessage))
+        tout = sum((getattr(m, "usage_metadata", None) or {}).get("output_tokens", 0) for m in messages if isinstance(m, AIMessage))
+        model_id = config.MODEL_HARD if tier == "hard" else config.MODEL_CHEAP
+        price = config.PRICE_PER_1M_TOKENS.get(model_id) or (0.0, 0.0)
+        usage = {"model": model_id, "tokens_in": tin, "tokens_out": tout, "cost_usd": round((tin * price[0] + tout * price[1]) / 1e6, 6)}
         out.update(draft=draft, citations=extract_citations(draft, state.get("retrieved", [])),
                    tool_calls=records,   # DELTA: TicketState.tool_calls has an operator.add reducer
                    tool_numbers=sorted(set(nums) | set(state.get("tool_numbers", []))),
                    llm_tier=tier,
-                   trace=list(state.get("trace", [])) + [{"node": "agent", "tier": tier, "why": why, "tool_calls": len(records)}])
+                   trace=list(state.get("trace", [])) + [{"node": "agent", "tier": tier, "why": why, "tool_calls": len(records), "usage": usage}])
         return out
 
     return agent
