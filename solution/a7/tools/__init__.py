@@ -37,6 +37,45 @@ def _out(payload: dict) -> str:
     return json.dumps(mask_obj(payload), ensure_ascii=False)
 
 
+# ---- 30 s status/profile cache (box 7, Valkey). Off unless a ToolCache is installed (graph.build_graph does it). ----------
+_tool_cache: Any = None
+
+
+def set_tool_cache(tc: Any) -> None:
+    global _tool_cache
+    _tool_cache = tc
+
+
+class _Uncached(Exception):
+    """Carries a failed tool output out of ToolCache.call so errors (429, 404) are never cached."""
+
+    def __init__(self, out: str):
+        self.out = out
+
+
+def _cached(tenant_id: str, tool_name: str, args: dict, fn: Callable[[], str]) -> str:
+    """Read-only status/profile tools only. Any Valkey problem falls through to the live call. Only ok:true is stored."""
+    tc = _tool_cache
+    if tc is None:
+        return fn()
+
+    def live() -> str:
+        out = fn()
+        try:
+            ok = json.loads(out).get("ok", True) is not False
+        except (ValueError, TypeError, AttributeError):
+            ok = False
+        if not ok:
+            raise _Uncached(out)
+        return out
+    try:
+        return tc.call(tenant_id, tool_name, args, live)
+    except _Uncached as u:
+        return u.out
+    except Exception:  # noqa: BLE001 - cache down: serve live
+        return fn()
+
+
 def _call(fn: Callable[[], dict]) -> str:
     try:
         return _out({"ok": True, **fn()})
@@ -58,14 +97,14 @@ def _as_of(received_at: str | None) -> str:
 @tool
 def get_tenant_profile(tenant_id: TenantId) -> str:
     """Get the current customer's profile: company name, region (IN or UAE), contract tier, employee count."""
-    return _call(lambda: get_client().get(f"/tenants/{tenant_id}", tenant_id))
+    return _cached(tenant_id, "get_tenant_profile", {}, lambda: _call(lambda: get_client().get(f"/tenants/{tenant_id}", tenant_id)))
 
 
 @tool
 def list_payroll_runs(tenant_id: TenantId, month: str | None = None) -> str:
     """List the current customer's payroll runs, newest first. Optional month filter as YYYY-MM."""
-    return _call(lambda: get_client().get(f"/tenants/{tenant_id}/payroll-runs", tenant_id,
-                                          {"month": month} if month else None))
+    return _cached(tenant_id, "list_payroll_runs", {"month": month}, lambda: _call(lambda: get_client().get(
+        f"/tenants/{tenant_id}/payroll-runs", tenant_id, {"month": month} if month else None)))
 
 
 @tool
@@ -80,14 +119,15 @@ def get_payroll_run_status(tenant_id: TenantId, run_id: str | None = None, month
                 return {"found": False}
             rid = runs["items"][0]["run_id"]
         return {"found": True, **c.get(f"/payroll-runs/{rid}/status", tenant_id)}
-    return _call(go)
+    return _cached(tenant_id, "get_payroll_run_status", {"run_id": run_id, "month": month}, lambda: _call(go))
 
 
 @tool
 def get_employee_payslip_status(tenant_id: TenantId, run_id: str, employee_id: str) -> str:
     """Check whether an employee's payslip exists for a run (generated or pending). Returns status only:
     never names, amounts or bank details."""
-    return _call(lambda: get_client().get(f"/payroll-runs/{run_id}/employees/{employee_id}/payslip", tenant_id))
+    return _cached(tenant_id, "get_employee_payslip_status", {"run_id": run_id, "employee_id": employee_id},
+                   lambda: _call(lambda: get_client().get(f"/payroll-runs/{run_id}/employees/{employee_id}/payslip", tenant_id)))
 
 
 @tool

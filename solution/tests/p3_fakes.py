@@ -115,3 +115,9 @@ def base_state(**kw) -> dict[str, Any]:
              customer_ref_how="given", category_raw="Statutory", category="statutory", language="en", is_payroll_window=True, trace=[])
     s.update(kw)
     return s
+
+
+def fake_dedupe(state):
+    """Stand-in for dedupe_cluster (the real one embeds with Bedrock): no link, no incident."""
+    return {"parent_ticket_id": None, "incident_id": None, "lane_hint": None, "dedupe": {"skipped": "fake"},
+            "trace": list(state.get("trace", [])) + [{"node": "dedupe_cluster", "skipped": "fake"}]}

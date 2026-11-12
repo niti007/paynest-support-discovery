@@ -10,7 +10,7 @@ from langgraph.types import Command
 
 from solution.a7.graph import build_graph, thread_config
 from solution.tests.p3_fakes import (KB, RULE, FakeDecider, FakeLLM, FakeLookup, base_state, deciders, retriever_of, tool_call,
-                                     tools_factory)
+                                     tools_factory, fake_dedupe)
 
 pytestmark = pytest.mark.db
 
@@ -23,7 +23,7 @@ def run(state, *, auto=None, sug=None, script=None, chunks=(RULE, KB), guard_ans
     llm = FakeLLM(script or [AIMessage(content=GOOD)])
     ds = deciders(auto, sug)
     g = build_graph(saver or MemorySaver(), deciders=ds, llm=llm, tools_factory=tools, tenant_lookup=FakeLookup(),
-                    retriever=retriever_of(*chunks), output_decider=FakeDecider(answers=guard_answer))
+                    retriever=retriever_of(*chunks), output_decider=FakeDecider(answers=guard_answer), dedupe_node=fake_dedupe)
     cfg = thread_config(state["ticket_id"])
     res = g.invoke(state, cfg)
     return g, cfg, g.get_state(cfg), res, llm
@@ -39,7 +39,7 @@ def test_draft_for_agent_path_pauses_at_approval_then_resumes():
     assert v["lane"] == "draft_for_agent" and v["priority"] == "P1" and v["tenant_id"] == "C-1003"
     assert v["citations"] == [{"source_id": "R-UAE-WPS-2026-07", "effective_from": "2026-07-15"}]
     assert v["guard"]["passed"] and v["llm_tier"] == "hard" and v["as_of"] == "2026-07-29"
-    assert nodes_run(snap) == ["resolve_tenant", "classify", "route", "retrieve", "agent", "output_guard"]
+    assert nodes_run(snap) == ["resolve_tenant", "classify", "dedupe_cluster", "route", "retrieve", "cache_lookup", "agent", "output_guard"]
     assert snap.next == ("human_approval",) and res["__interrupt__"]
     g.invoke(Command(resume={"status": "approved", "reviewer": "r1"}), cfg)
     after = g.get_state(cfg)
@@ -92,7 +92,7 @@ def test_block_lane_no_agent_no_tools_goes_to_log():
     v = snap.values
     assert v["lane"] == "block" and not v.get("tool_calls") and not v.get("draft") and llm.tiers == [] and llm.chat.seen == []
     assert "attach_human_review" in v["route_reasons"]
-    assert nodes_run(snap) == ["resolve_tenant", "classify", "route"] and snap.next == ()
+    assert nodes_run(snap) == ["resolve_tenant", "classify", "dedupe_cluster", "route"] and snap.next == ()
     assert v["actions"][0]["status"] == "refused"
     assert v["approval"]["status"] == "not_required"
     assert "__interrupt__" not in res
@@ -134,7 +134,7 @@ def test_postgres_checkpointer_restart_resumes_same_draft(owner):
     state = base_state(ticket_id="PN-RESTART-1")
     ds = deciders(FakeDecider("statutory", 0.95, "urgent"))
     mk = lambda cp: build_graph(cp, deciders=ds, llm=FakeLLM([AIMessage(content=GOOD)]), tools_factory=tools_factory,
-                                 tenant_lookup=FakeLookup(), retriever=retriever_of(RULE, KB), output_decider=FakeDecider())
+                                 tenant_lookup=FakeLookup(), retriever=retriever_of(RULE, KB), output_decider=FakeDecider(), dedupe_node=fake_dedupe)
     with postgres_checkpointer(db.dsn()) as cp:
         cp.delete_thread("PN-RESTART-1")
         g = mk(cp)

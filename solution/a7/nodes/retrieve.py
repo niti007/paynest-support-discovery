@@ -64,6 +64,9 @@ def make_retrieve(retriever: Retriever | None = None) -> Callable[[TicketState],
                              "score": round(float(h.get("score", 0.0)), 5)} for h in hits]
         out["context_chunks"] = [{"source_id": h["source_id"], "title": h.get("title"), "body": h.get("body", ""),
                                   "effective_from": _iso(h.get("effective_from"))} for h in hits]
+        # answer_cache key (box 7): the topic of the best KB chunk (kb_chunks.topic, the same value the flush trigger uses)
+        out["topic"] = next((h.get("topic") for h in hits if (h.get("source") or h.get("kind")) == "kb" and h.get("topic")), None)
+        out["region"] = state.get("tenant_region")
         out["trace"] = list(state.get("trace", [])) + [{"node": "retrieve", "as_of": as_of, "n": len(hits),
                                                          "ids": [h["source_id"] for h in hits]}]
         return out

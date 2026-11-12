@@ -26,7 +26,7 @@ from synth import iban
 from langchain_core.messages import AIMessage
 
 from solution.a7.graph import build_graph
-from solution.tests.p3_fakes import KB, RULE, FakeDecider, FakeLLM, base_state, deciders, retriever_of, tools_factory
+from solution.tests.p3_fakes import KB, RULE, FakeDecider, FakeLLM, base_state, deciders, fake_dedupe, retriever_of, tools_factory
 
 DRAFTS: dict[str, str] = {}      # ticket id -> text the scripted model writes (the marker TKT:<id> is in the masked ticket text)
 GOOD = ("From 15 Jul 2026 the SIF file uses v3 with 16 columns and a mandatory establishment-reference column "
@@ -53,7 +53,7 @@ def build_real_graph(checkpointer=None, **_):
     """The REAL graph (real resolve_tenant/route/guard/human_approval/act/log_and_learn); only the model, classifier, retriever are scripted."""
     return build_graph(checkpointer, deciders=deciders(FakeDecider("statutory", 0.95, "urgent")), llm=FakeLLM([_write_draft]),
                        tools_factory=tools_factory, tenant_lookup=TenantLookup(), retriever=retriever_of(RULE, KB),
-                       output_decider=FakeDecider(answers="yes"))
+                       output_decider=FakeDecider(answers="yes"), dedupe_node=fake_dedupe)
 
 
 def graph_input(tid_, draft, tenant="T-ENT"):

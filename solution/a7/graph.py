@@ -1,4 +1,4 @@
-"""The A7 graph: resolve_tenant -> classify -> route -> (block -> log) | retrieve -> agent -> output_guard
+"""The A7 graph: resolve_tenant -> classify -> dedupe_cluster -> route -> (block -> log) | retrieve -> cache_lookup -> (agent) -> output_guard
 -> human_approval -> act -> log_and_learn.
 
 - pii_gate + normalise run OUTSIDE the graph (worker.py). The graph input is the masked record plus vault refs only.
@@ -20,6 +20,7 @@ from langgraph.graph import END, START, StateGraph  # noqa: E402
 from . import db  # noqa: E402
 from .nodes.agent import make_agent  # noqa: E402
 from .nodes.classify import make_classify  # noqa: E402
+from .nodes.dedupe_cluster import make_dedupe_cluster  # noqa: E402
 from .nodes.output_guard import make_output_guard  # noqa: E402
 from .nodes.resolve_tenant import make_resolve_tenant  # noqa: E402
 from .nodes.retrieve import make_retrieve  # noqa: E402
@@ -40,6 +41,39 @@ def delta(fn: Callable, keep_tool_calls: bool = False) -> Callable:
                 (k != "tool_calls" and (k not in state or state[k] != v))}
     wrapped.__name__ = getattr(fn, "__name__", "node")
     return wrapped
+
+
+def dedupe_delta(fn: Callable) -> Callable:
+    """dedupe_cluster writes parent_ticket_id/incident_id/lane_hint/dedupe/trace. Its non-null parent wins; a None result never
+    clobbers a non-null value that resolve_tenant (or the input) already put in state."""
+    def wrapped(state: TicketState) -> dict:
+        res = dict(fn(state))
+        if res.get("parent_ticket_id") is None and state.get("parent_ticket_id"):
+            res.pop("parent_ticket_id", None)
+        return {k: v for k, v in res.items() if k not in state or state[k] != v}
+    wrapped.__name__ = "dedupe_cluster"
+    return wrapped
+
+
+CACHEABLE_LANES = ("auto_answer", "draft_for_agent")
+
+
+def cache_delta(fn: Callable) -> Callable:
+    """cache_lookup only serves lanes that may carry a cached How-To answer; it never changes lane."""
+    def wrapped(state: TicketState) -> dict:
+        if state.get("lane") not in CACHEABLE_LANES:
+            res = {"cache": {"status": "skipped", "reason": f"lane {state.get('lane')}"}}
+        else:
+            res = dict(fn(state))
+        res["trace"] = list(state.get("trace", [])) + [{"node": "cache_lookup", **{k: v for k, v in res.get("cache", {}).items()
+                                                                               if k in ("status", "similarity", "reason")}}]
+        return {k: v for k, v in res.items() if k not in state or state[k] != v}
+    wrapped.__name__ = "cache_lookup"
+    return wrapped
+
+
+def after_cache(s: TicketState) -> str:
+    return "output_guard" if s.get("cache_hit") else "agent"
 
 
 def after_route(s: TicketState) -> str:
@@ -64,16 +98,37 @@ def after_guard(s: TicketState) -> str:
 def build_graph(checkpointer: Any = None, *, deciders: dict | None = None, llm: Callable[[str], Any] | None = None,
                 tools_factory: Callable[[str], list] | None = None, tenant_lookup: Any = None, retriever: Any = None,
                 output_decider: Any = None, human_approval_node: Callable | None = None, act_node: Callable | None = None,
-                log_node: Callable | None = None):
+                log_node: Callable | None = None, dedupe_node: Callable | None = None, cache_node: Callable | None = None,
+                tool_cache: Any = None):
     if llm is None:
         from .llm import llm as default_llm
         llm = default_llm
+    if tool_cache is None and tools_factory is None and os.environ.get("A7_TOOL_CACHE", "1") != "0":
+        from .cache import ToolCache
+        tool_cache = ToolCache()            # lazy Valkey client; any Valkey error falls through to the live call
+    if tool_cache is not None and tool_cache is not False:
+        from .tools import set_tool_cache
+        set_tool_cache(tool_cache)
+    if dedupe_node is None:
+        dedupe_node = make_dedupe_cluster()
+    if cache_node is None:
+        from .cache import make_cache_lookup
+        cache_node = make_cache_lookup(lambda: db.connect(app=True, autocommit=True))
+    agent_fn = make_agent(llm, tools_factory or get_tools)
+
+    def agent_node(state: TicketState) -> dict:
+        res = agent_fn(state)
+        res["cache_hit"] = False         # a guard-failed cached draft is rewritten by the agent: no longer a cache answer
+        return res
+
     g = StateGraph(TicketState)
     g.add_node("resolve_tenant", delta(make_resolve_tenant(tenant_lookup)))
     g.add_node("classify", delta(make_classify(deciders)))
+    g.add_node("dedupe_cluster", dedupe_delta(dedupe_node))
     g.add_node("route", delta(route))
     g.add_node("retrieve", delta(make_retrieve(retriever)))
-    g.add_node("agent", delta(make_agent(llm, tools_factory or get_tools), keep_tool_calls=True))
+    g.add_node("cache_lookup", cache_delta(cache_node))
+    g.add_node("agent", delta(agent_node, keep_tool_calls=True))
     g.add_node("output_guard", delta(make_output_guard(output_decider)))
     g.add_node("human_approval", delta(human_approval_node or human_approval))
     g.add_node("act", delta(act_node or act))
@@ -82,9 +137,11 @@ def build_graph(checkpointer: Any = None, *, deciders: dict | None = None, llm: 
     g.add_edge("hold_for_tenant", END)
     g.add_edge(START, "resolve_tenant")
     g.add_edge("resolve_tenant", "classify")
-    g.add_edge("classify", "route")
+    g.add_edge("classify", "dedupe_cluster")
+    g.add_edge("dedupe_cluster", "route")
     g.add_conditional_edges("route", after_route, ["hold_for_tenant", "human_approval", "retrieve"])
-    g.add_edge("retrieve", "agent")
+    g.add_edge("retrieve", "cache_lookup")
+    g.add_conditional_edges("cache_lookup", after_cache, ["agent", "output_guard"])
     g.add_edge("agent", "output_guard")
     g.add_conditional_edges("output_guard", after_guard, ["human_approval", "agent"])
     g.add_edge("human_approval", "act")

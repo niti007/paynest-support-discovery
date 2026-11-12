@@ -165,6 +165,8 @@ def _cache_approved(conn, state: dict, embedder) -> dict:
     ap = state.get("approval") or {}
     if ap.get("status") not in APPROVED or not state.get("masked_text"):
         return {"type": "cache", "status": "skipped", "reason": "not approved or no question text"}
+    if state.get("cache_hit") and ap.get("status") != "edited":
+        return {"type": "cache", "status": "skipped", "reason": "served from cache, unchanged"}
     try:
         pre = cache.never_cache_reason(priority=state.get("priority"), category=state.get("category"), lane=state.get("lane"),
                                        citations=state.get("citations"), route_reasons=state.get("route_reasons"),

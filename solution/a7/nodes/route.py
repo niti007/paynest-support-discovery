@@ -33,8 +33,8 @@ def decide_lane(s: TicketState) -> tuple[str, str | None, list[str]]:
         return "block", None, reasons + ["rule1:injection->block", "attach_human_review"]
     if s.get("tenant_how") == "ambiguous" or not s.get("tenant_id"):
         return "human_review", None, reasons + ["rule2:tenant_ambiguous->human_review"]
-    if s.get("incident_signal"):
-        return "incident", None, reasons + ["rule3:incident_signal->incident"]
+    if s.get("incident_signal") or s.get("lane_hint") == "incident":
+        return "incident", None, reasons + ["rule3:incident->incident"]
     if s.get("classify_lane") == "human" or not cat:
         return "human_review", None, reasons + ["rule4:classify_human->human_review"]
     if cat == "statutory":

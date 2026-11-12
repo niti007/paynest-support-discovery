@@ -60,10 +60,20 @@ class TicketState(TypedDict, total=False):
     classify_lane: Literal["auto", "human"]   # box 4 verdict from decide/policy
     route_reasons: list[str]
     incident_signal: bool           # set by Phase 4 clustering; box 6 only reads it
+    # box 5: dedupe_cluster
+    lane_hint: str | None           # "incident" when dedupe opened/joined an incident; route maps it to lane=incident
+    incident_id: int | None
+    dedupe: dict[str, Any]          # ids/counts only
     # box 8: retrieve
     as_of: str                      # YYYY-MM-DD, the ticket's received date
     retrieved: list[dict[str, Any]]         # {source_id, kind, effective_from, effective_to, score}
     context_chunks: list[dict[str, Any]]    # {source_id, title, body, effective_from}: global KB text, no PII
+    topic: str | None               # KB topic of the best retrieved KB chunk (the answer_cache key)
+    region: str | None              # tenant region IN | UAE (the answer_cache key)
+    # box 7: cache_lookup
+    cache: dict[str, Any]           # {status: hit|miss|skipped, similarity?, entry_id?, reason?}
+    cache_hit: bool
+    cached_from: str | None
     # box 9: agent
     llm_tier: Literal["cheap", "hard"]
     draft: str
