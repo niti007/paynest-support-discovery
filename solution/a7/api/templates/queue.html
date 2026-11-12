@@ -21,4 +21,28 @@
 <tr><td colspan="7">Nothing waiting.</td></tr>
 {% endfor %}
 </tbody></table>
+
+<h2>Shadow auto-answers to grade</h2>
+<p>Grading only. Approve fills the answer cache when the draft is cacheable; nothing is sent or queued.</p>
+<table>
+<thead><tr><th>Ticket</th><th>Priority</th><th>Category</th><th>Created</th><th>Masked draft</th><th>Grade</th></tr></thead>
+<tbody>
+{% for s in shadow %}
+<tr><td>{{ s.ticket_id }}</td><td>{{ s.priority or '' }}</td><td>{{ s.category or '' }}</td><td>{{ s.created_at.isoformat() }}</td>
+<td>{{ (s.draft_masked or '')[:300] }}</td>
+<td><button data-t="{{ s.ticket_id }}" data-s="approved">Approve</button> <button data-t="{{ s.ticket_id }}" data-s="rejected">Reject</button></td></tr>
+{% else %}
+<tr><td colspan="6">No shadow drafts waiting.</td></tr>
+{% endfor %}
+</tbody></table>
+<script>
+document.querySelectorAll("button[data-t]").forEach(b => b.onclick = async () => {
+  const token = prompt("Reviewer token"), reviewer = prompt("Reviewer name");
+  if (!token || !reviewer) return;
+  const r = await fetch("/shadow/" + encodeURIComponent(b.dataset.t) + "/review", {method: "POST",
+    headers: {"Authorization": "Bearer " + token, "X-Tenant-Id": {{ tenant|tojson }}, "Content-Type": "application/json"},
+    body: JSON.stringify({status: b.dataset.s, reviewer})});
+  alert(r.status + " " + await r.text()); location.reload();
+});
+</script>
 </body></html>

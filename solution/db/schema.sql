@@ -253,6 +253,21 @@ CREATE TABLE IF NOT EXISTS ticket_embeddings (
 );
 CREATE INDEX IF NOT EXISTS ticket_embeddings_tenant_time ON ticket_embeddings (tenant_id, received_at);
 
+-- Shadow-review grades: a reviewer grades a shadow auto_answer outbox row approved/rejected. This only GRADES (and, when
+-- approved and cacheable, fills answer_cache). It never sends: the outbox row stays status='shadow'. One grade per ticket.
+CREATE TABLE IF NOT EXISTS shadow_reviews (
+  id            bigserial PRIMARY KEY,
+  tenant_id     text NOT NULL,
+  ticket_id     text NOT NULL,
+  outbox_id     bigint,
+  decision      text NOT NULL CHECK (decision IN ('approved','rejected')),
+  reviewer      text NOT NULL,
+  cache_status  text,                           -- stored | skipped | error | none (rejected)
+  cache_reason  text,                           -- why it was not cached (no text)
+  decided_at    timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (tenant_id, ticket_id)
+);
+
 -- ---------------------------------------------------------------- RLS
 ALTER TABLE customers    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE customers    FORCE ROW LEVEL SECURITY;
@@ -270,6 +285,8 @@ ALTER TABLE ticket_embeddings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ticket_embeddings FORCE ROW LEVEL SECURITY;
 ALTER TABLE approvals    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE approvals    FORCE ROW LEVEL SECURITY;
+ALTER TABLE shadow_reviews ENABLE ROW LEVEL SECURITY;
+ALTER TABLE shadow_reviews FORCE ROW LEVEL SECURITY;
 ALTER TABLE escalations  ENABLE ROW LEVEL SECURITY;
 ALTER TABLE escalations  FORCE ROW LEVEL SECURITY;
 ALTER TABLE kb_suggestions ENABLE ROW LEVEL SECURITY;
@@ -312,6 +329,11 @@ CREATE POLICY tenant_isolation ON ticket_embeddings
   USING (tenant_id = current_setting('app.tenant_id', true))
   WITH CHECK (tenant_id = current_setting('app.tenant_id', true));
 
+DROP POLICY IF EXISTS tenant_isolation ON shadow_reviews;
+CREATE POLICY tenant_isolation ON shadow_reviews
+  USING (tenant_id = current_setting('app.tenant_id', true))
+  WITH CHECK (tenant_id = current_setting('app.tenant_id', true));
+
 DROP POLICY IF EXISTS tenant_isolation ON approvals;
 CREATE POLICY tenant_isolation ON approvals
   USING (tenant_id = current_setting('app.tenant_id', true))
@@ -341,7 +363,7 @@ GRANT USAGE ON SCHEMA public, a7 TO app_user;
 GRANT EXECUTE ON FUNCTION a7.set_tenant(text, boolean) TO app_user;
 GRANT SELECT ON customers, partner_customer_map, agents, statutory_rules, kb_chunks TO app_user;
 GRANT SELECT, INSERT, UPDATE, DELETE ON outbox, audit_log, incidents, answer_cache,
-      approvals, escalations, kb_suggestions, partner_map_suggestions, ticket_embeddings TO app_user;
+      approvals, escalations, kb_suggestions, partner_map_suggestions, ticket_embeddings, shadow_reviews TO app_user;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO app_user;
 
 -- pii_vault: app_user (the gate) may only write. Only a7_act may read (ciphertext; the KMS key policy

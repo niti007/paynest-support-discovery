@@ -320,11 +320,12 @@ def _lane_stats(items) -> dict:
 
 
 def hybrid_policy(sets_dir=SETS_DIR, reports=REPORTS) -> dict:
-    """User-decided hybrid policy (config.ROUTING_POLICY), evaluated on the routing eval split (calib split for reference only)."""
+    """User-decided hybrid policy of 2026-11-09 (config.HYBRID_POLICY_2026_11_09, pinned: the live ROUTING_POLICY is now Nova-only and is
+    reported in the routing-policy section), evaluated on the routing eval split (calib split for reference only)."""
     from solution.a7 import config
     from solution.a7.decide.policy import route_decision
 
-    pol = config.ROUTING_POLICY
+    pol = config.HYBRID_POLICY_2026_11_09
     bs = [pol["auto_backend"], pol["suggest_backend"]]
     res: dict = {"policy": pol}
     try:
@@ -454,6 +455,33 @@ GATE2_EXCEPTIONS = [
 ]
 
 
+MITIGATIONS = ("Mitigation: AUTO_SEND=false and the DB kill switch (feature_flags.auto_send_enabled) default OFF, so nothing is sent; tools are "
+               "read-only and tenant-locked; a human approves every draft_for_agent; auto_answer is shadow-only (a reviewer grading it sends nothing).")
+
+# Gate 3 exceptions, same mechanism as GATE2_EXCEPTIONS. Numbers come from routing_policy_eval.jsonl (the section above);
+# the ids are from the Gate 3 real-model run (phase34_gate_run.md). Seed for the safety sample: 20261108.
+GATE3_EXCEPTIONS = [
+    "", "## Gate 3 exceptions (user-accepted 2026-11-12)", "",
+    "Accepted by the user on 2026-11-12, together with Nova-only routing as it is.", "",
+    "- (i) P1 under-detection. Ticket A, PN-100402, comes out P2 (the Gate 3 expectation is P1). P1 recall is 0 of 2 against the SLA-breach labels "
+    "(the only P1/P2/P3 labels in the data) and 2 of 10 against the old-code proxy. " + MITIGATIONS,
+    "- (ii) PN-101333 (a How-To) goes to route_queue Payroll-Ops, not to auto_answer: Nova labels it payroll. A misrouted How-To lands with a person, "
+    "never with the customer. " + MITIGATIONS,
+    "- (iii) 10 of 60 sampled injection tickets are auto-routed, and 2 of 20 benign sampled tickets are false positives. This is a SAMPLE "
+    "(all 60 injection rows plus 20 benign rows drawn with seed 20261108), not the full safety set. Auto-routing only picks the queue. " + MITIGATIONS,
+]
+
+
+def routing_policy_markdown(reports: Path, sets_dir: Path) -> list[str]:
+    """The 'Routing policy change (user decision 2026-11-12)' section, rebuilt from routing_policy_eval.jsonl on every regeneration
+    (it used to be appended by hand and was lost whenever bakeoff.py ran). Empty when the eval file is absent."""
+    f = reports / "routing_policy_eval.jsonl"
+    if not f.exists():
+        return []
+    from solution.evals import routing_policy_eval as rpe
+    return [""] + rpe.build_section(f, sets_dir)
+
+
 def hybrid_markdown(h: dict) -> list[str]:
     if not h or "eval" not in h:
         return []
@@ -482,7 +510,7 @@ def hybrid_markdown(h: dict) -> list[str]:
     return L + [""]
 
 
-def to_markdown(r: dict) -> str:
+def to_markdown(r: dict, extra: list[str] | None = None) -> str:
     L = ["# Decision-layer bake-off", "", f"Backends: {', '.join(r['backends'])}. Volume assumption: {r['assumptions']['tickets_per_month']} tickets/month.", ""]
     L += hybrid_markdown(r.get("hybrid"))
     w = r["winner"]
@@ -562,6 +590,7 @@ def to_markdown(r: dict) -> str:
             x, g = ev["injection"], ev["injection_with_guard"]
             L.append(f"| {b} | {x['n']} | {x['n_pos']} | {x['n_neg']} | {pct(x['recall'])} | {pct(x['fpr'])} | {x['pn_original_caught']} (n={x['pn_original_n']}) | "
                      f"{pct(x['pn_variants_recall'])} (n={x['pn_variants_n']}) | {pct(g['recall'])} | {pct(g['variants_recall'])} | {pct(g['benign_flagged_or_human'])} |")
+    L += extra or []
     return "\n".join(L) + "\n"
 
 
@@ -577,7 +606,7 @@ def main() -> None:
     res = run_bakeoff(a.backends.split(","), a.sets.split(","), a.reuse_preds, a.sets_dir, a.reports_dir, a.limit)
     a.reports_dir.mkdir(parents=True, exist_ok=True)
     (a.reports_dir / "bakeoff.json").write_text(json.dumps(res, indent=2, default=str))
-    (a.reports_dir / "bakeoff.md").write_text(to_markdown(res))
+    (a.reports_dir / "bakeoff.md").write_text(to_markdown(res, routing_policy_markdown(a.reports_dir, a.sets_dir) + GATE3_EXCEPTIONS))
     print(f"winner: {res['winner']['winner']}; wrote {a.reports_dir}/bakeoff.md and bakeoff.json")
 
 

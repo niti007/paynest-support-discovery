@@ -22,7 +22,7 @@ from psycopg.rows import dict_row
 from psycopg_pool import ConnectionPool
 from pydantic import BaseModel
 
-from .. import db
+from .. import db, shadow_review
 from ..nodes.human_approval import validate_decision
 
 TEMPLATES = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
@@ -32,6 +32,11 @@ class FlagUpdate(BaseModel):
     name: str
     enabled: bool
     updated_by: str
+
+
+class ShadowDecision(BaseModel):
+    status: str          # approved | rejected
+    reviewer: str
 
 
 class Decision(BaseModel):
@@ -46,7 +51,7 @@ def default_graph_factory(checkpointer):
 
 
 def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str | None = None, dsn: str | None = None,
-               admin_token: str | None = None) -> FastAPI:
+               admin_token: str | None = None, embedder: Callable[..., list[list[float]]] | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         pool = ConnectionPool(dsn or db.app_dsn(), min_size=1, max_size=8, open=False,
@@ -61,6 +66,7 @@ def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str 
     app.state.graph_factory = graph_factory or default_graph_factory
     app.state.token = token
     app.state.admin_token = admin_token
+    app.state.embedder = embedder
 
     def auth(authorization: str | None = Header(default=None)) -> None:
         expected = app.state.token if app.state.token is not None else os.environ.get("A7_REVIEWER_TOKEN", "")
@@ -128,7 +134,31 @@ def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str 
                      "(SELECT min(due_at) FROM escalations e WHERE e.ticket_id = a.ticket_id AND e.fired_at IS NULL "
                      " AND e.resolved_at IS NULL) AS next_due FROM approvals a WHERE a.status = 'pending' "
                      "ORDER BY (a.priority = 'P1') DESC, a.requested_at")
-        return TEMPLATES.TemplateResponse(request, "queue.html", {"rows": rows, "tenant": tenant_id})
+        with request.app.state.pool.connection() as conn, conn.transaction():
+            conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+            shadow = shadow_review.list_pending(conn)
+        return TEMPLATES.TemplateResponse(request, "queue.html", {"rows": rows, "tenant": tenant_id, "shadow": shadow})
+
+    @app.get("/shadow")
+    def shadow_list(request: Request, _: None = Depends(auth), tenant_id: str = Depends(tenant_of)):
+        with request.app.state.pool.connection() as conn, conn.transaction():
+            conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+            return JSONResponse(content=_jsonable({"pending": shadow_review.list_pending(conn)}))
+
+    @app.post("/shadow/{ticket_id}/review")
+    def shadow_decide(ticket_id: str, body: ShadowDecision, request: Request, _: None = Depends(auth),
+                      tenant_id: str = Depends(tenant_of)):
+        """Grade a shadow auto_answer draft. Never sends or queues anything; approved + cacheable fills answer_cache."""
+        try:
+            with request.app.state.pool.connection() as conn, conn.transaction():
+                conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+                return shadow_review.review(conn, tenant_id, ticket_id, body.status, body.reviewer, request.app.state.embedder)
+        except ValueError as e:
+            raise HTTPException(422, str(e))
+        except shadow_review.NotFound:
+            raise HTTPException(404, "no shadow draft for this ticket")
+        except shadow_review.AlreadyReviewed:
+            raise HTTPException(409, "already reviewed")
 
     @app.get("/tickets/{ticket_id}")
     def ticket(ticket_id: str, request: Request, _: None = Depends(auth), tenant_id: str = Depends(tenant_of)):

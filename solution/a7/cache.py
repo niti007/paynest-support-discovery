@@ -35,7 +35,9 @@ HIT_THRESHOLD = 0.92          # ours (plan Phase 4 decisions)
 TTL_DAYS = 7                  # ours; the sources specify no TTL for the approved-answer cache
 STATUS_TTL_S = 30             # sourced: S4 p.7, plan box 7
 CACHEABLE_CATEGORY = "howto"  # sourced: the semantic cache holds approved How-To answers (S4 p.7)
-CACHEABLE_LANES = {"draft_for_agent", "auto_answer"}   # a human-approved draft arrives through draft_for_agent
+# A human-approved draft arrives through draft_for_agent; a reviewer-graded shadow auto_answer draft and a reviewer-approved
+# human_review How-To are approved too (user decision 2026-11-12). Every never-cache rule below still applies to all three.
+CACHEABLE_LANES = {"draft_for_agent", "auto_answer", "human_review"}
 APPROVED = {"approved", "edited"}
 
 UTC = timezone.utc
@@ -55,19 +57,26 @@ def has_tenant_figures(text: str) -> bool:
     return bool(_MONEY.search(t) or _DATE.search(t) or _BIGNUM.search(t))
 
 
+def _cite_id(c: Any) -> str:
+    """Graph citations are dicts ({"source_id": ...}); older callers pass plain ids."""
+    return str(c.get("source_id", "")) if isinstance(c, dict) else str(c)
+
+
 def never_cache_reason(*, priority: str | None, category: str | None, lane: str | None, citations: list | None,
                        route_reasons: list | None, draft: str | None, approval_status: str | None,
-                       guard: Any = None) -> str | None:
+                       guard: Any = None, is_injection: bool = False) -> str | None:
     """None = cacheable, else the reason it must not be cached."""
     if approval_status not in APPROVED:
         return "not human-approved"
+    if is_injection:
+        return "injection flagged"
     if str(priority or "").upper() == "P1":
         return "P1"
     if category != CACHEABLE_CATEGORY:
         return "not How-To" if category != "statutory" else "statutory"
     if lane not in CACHEABLE_LANES:
         return f"lane {lane}"
-    if any(str(c).startswith("R-") for c in (citations or [])) or any("statutory" in str(r) or "rule:" in str(r) for r in (route_reasons or [])):
+    if any(_cite_id(c).startswith("R-") for c in (citations or [])) or any("statutory" in str(r) or "rule:" in str(r) for r in (route_reasons or [])):
         return "statutory (rule citation)"
     if isinstance(guard, dict) and (guard.get("ok") is False or guard.get("passed") is False):
         return "output_guard did not pass"
@@ -111,7 +120,8 @@ def store_approved(conn, state: dict, embedding: list[float], *, now: datetime |
     final = ap.get("edited_draft") if ap.get("status") == "edited" and ap.get("edited_draft") else state.get("draft")
     reason = never_cache_reason(priority=state.get("priority"), category=state.get("category"), lane=state.get("lane"),
                                 citations=state.get("citations"), route_reasons=state.get("route_reasons"), draft=final,
-                                approval_status=ap.get("status"), guard=state.get("guard"))
+                                approval_status=ap.get("status"), guard=state.get("guard"),
+                                is_injection=bool(state.get("is_injection")))
     topic, region, question = state.get("topic"), state.get("region"), state.get("masked_text")
     if reason is None and not (topic and region and question):
         reason = "missing topic/region/question"

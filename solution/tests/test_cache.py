@@ -130,7 +130,7 @@ def test_tenant_isolation(app):
     (dict(approval={"status": "rejected"}), "not human-approved"),
     (dict(category="payroll"), "not How-To"),
     (dict(guard={"ok": False}), "output_guard did not pass"),
-    (dict(lane="human_review"), "lane human_review"),
+    (dict(lane="route_queue"), "lane route_queue"),
 ])
 def test_never_cache(app, kw, reason):
     ok, why = put(app, approved_state(**kw))

@@ -108,7 +108,8 @@ def make_act(conn_factory: Callable[[], Any] | None = None, embedder: Callable[.
                 else:
                     shadow = not auto_send(conn)
                     oid = _outbox(conn, state, kind="reply", key="reply", body=body, channel="auto_answer",
-                                  status="shadow" if shadow else "queued", shadow=shadow)
+                                  status="shadow" if shadow else "queued", shadow=shadow,
+                                  payload=_shadow_ctx(state) if shadow else None)
                     res.append({"type": "reply", "status": "shadow" if shadow else "queued", "outbox_id": oid, "shadow": shadow})
             elif lane == "draft_for_agent":
                 oid = _outbox(conn, state, kind="draft", key="draft", body=body, channel="agent", status="awaiting_agent_send",
@@ -138,7 +139,9 @@ def make_act(conn_factory: Callable[[], Any] | None = None, embedder: Callable[.
                 if not any(a.get("type") == "jira" for a in proposals):
                     proposals.append({"type": "jira", "status": "proposed", "summary": f"Incident {inc_id}: {state.get('category')}",
                                       "_key": f"jira:incident:{inc_id}"})
-            # human_review: nothing is recorded; the person's decision is the outcome
+            elif lane == "human_review" and status in APPROVED:
+                # Nothing is sent or queued. A reviewer-approved How-To is cached under the same never-cache rules.
+                res.append(_cache_approved(conn, state, embedder))
 
             for a in proposals:                                       # Jira / refund / credit: intent rows only
                 t = a.get("type")
@@ -158,6 +161,13 @@ def make_act(conn_factory: Callable[[], Any] | None = None, embedder: Callable[.
     return act
 
 
+def _shadow_ctx(state: dict) -> dict:
+    """Masked context kept on a shadow auto_answer outbox row so a later reviewer grade can fill the cache
+    (see shadow_review). Masked question and ids only; no raw values."""
+    return {"cache_ctx": {k: state.get(k) for k in ("masked_text", "topic", "region", "category", "priority", "citations",
+                                                    "route_reasons", "guard", "cache_hit", "cached_from", "is_injection")}}
+
+
 def _cache_approved(conn, state: dict, embedder) -> dict:
     """Box 7 write side: a human-approved, masked, cacheable How-To draft goes into answer_cache (tenant-scoped).
     A cache failure never fails act; the reason is recorded in the action list (masked, no text)."""
@@ -170,7 +180,7 @@ def _cache_approved(conn, state: dict, embedder) -> dict:
     try:
         pre = cache.never_cache_reason(priority=state.get("priority"), category=state.get("category"), lane=state.get("lane"),
                                        citations=state.get("citations"), route_reasons=state.get("route_reasons"),
-                                       draft=_final_text(state), approval_status=ap.get("status"), guard=state.get("guard"))
+                                       draft=_final_text(state), approval_status=ap.get("status"), guard=state.get("guard"), is_injection=bool(state.get("is_injection")))
         if pre:
             return {"type": "cache", "status": "skipped", "reason": pre}
         from ..cache import _default_embedder
