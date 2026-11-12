@@ -120,4 +120,4 @@ def test_gate_oracle_classifier(mock_api):
     assert a["lane"] == "draft_for_agent" and a["priority"] == "P1"
     assert any(c["source_id"] == "R-UAE-WPS-2026-07" and c["effective_from"] == "2026-07-15" for c in a["citations"])
     assert "15 Jul 2026" in a["draft"] or "2026-07-15" in a["draft"]
-    assert res["PN-101333"]["lane"] == "auto_answer" and not res["PN-101333"].get("actions")
+    assert res["PN-101333"]["lane"] == "auto_answer" and [(a["type"], a["status"]) for a in res["PN-101333"]["actions"]] == [("reply", "shadow")]

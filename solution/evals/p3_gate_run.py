@@ -151,6 +151,8 @@ def main() -> None:
         print(f"total cost USD {tot:.5f}; report -> {REPORT}")
     finally:
         mock.terminate()
+        with db.connect(autocommit=True) as c:      # leave no vault rows behind (the test-suite vault tests assume their own key)
+            c.execute("DELETE FROM pii_vault WHERE ticket_id = ANY(%s)", (TICKETS,))
 
 
 if __name__ == "__main__":
