@@ -211,3 +211,11 @@ def test_route_reason_reports_effective_auto_send(fxdb, monkeypatch):
         assert _reason() == ["rule7:howto_P3->auto_answer(auto_send_effective=false)"]
     finally:
         fxdb.execute("UPDATE feature_flags SET enabled = false WHERE name = 'auto_send_enabled'")
+
+
+def test_privacy_question_keeps_source_wording_and_excludes_own_identifiers():
+    from solution.a7.nodes.classify import PRIVACY_QUESTION
+    assert "security or privacy concern (data shown to the wrong user, PII exposure)" in PRIVACY_QUESTION
+    assert "OWN identifiers" in PRIVACY_QUESTION and "restrict access" in PRIVACY_QUESTION
+    # the code fallback does not fire on a customer's own ticket/identifier mentions
+    assert privacy_fallback({"tenant_id": "C-1009", "customer_ref": "C-1009", "masked_text": "my id <AADHAAR_1>, ticket PN-100203, CL-202413"}) is None

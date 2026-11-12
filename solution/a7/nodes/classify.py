@@ -35,9 +35,14 @@ PRIORITY_QUESTION = ("What is the priority of this ticket by the SLA definition 
 
 Q_PRIVACY = "privacy_concern"
 # data-room/process/escalation_policy.md, row "Security or privacy concern (data shown to the wrong user, PII exposure)"
-PRIVACY_QUESTION = ("Does this ticket report a security or privacy concern, meaning data shown to the wrong user "
-                    "(for example one customer's data sent to or seen by another customer or person) or PII exposure? "
-                    "Answer no for an ordinary support problem, even if it contains personal data.")
+PRIVACY_QUESTION = ("Does this ticket report a security or privacy concern (data shown to the wrong user, PII exposure)? "
+                    "Answer yes only if data was or may have been exposed to someone who should not see it: one customer's data "
+                    "sent to or visible to another customer or person, another tenant's data visible to the customer, or a "
+                    "suspected leak or breach. Answer no when the customer merely shares their OWN identifiers or personal data in the "
+                    "ticket, for example their own ID, tax or account numbers (shown as placeholders like <AADHAAR_1> or <PAN_1>), "
+                    "even when asking us to verify them: that is not exposure and is handled separately. "
+                    "Also answer no when the customer asks how to configure or restrict access or permissions, or has any "
+                    "ordinary support problem, even if it contains personal data.")
 CUSTOMER_ID_RE = re.compile(r"\bC-\d{4}\b")
 
 
