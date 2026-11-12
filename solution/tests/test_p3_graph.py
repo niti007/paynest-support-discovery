@@ -1,4 +1,4 @@
-"""Graph tests with fake LLM / deciders / tools / retriever: every lane path, guard retry, interrupt + resume."""
+"""Graph tests: fake LLM / deciders / tools / retriever, but the REAL tenant-scoped C nodes (needs the compose postgres)."""
 from __future__ import annotations
 
 import os
@@ -9,8 +9,10 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.types import Command
 
 from solution.a7.graph import build_graph, thread_config
-from solution.tests.p3_fakes import (FAKE_C, KB, RULE, FakeDecider, FakeLLM, FakeLookup, base_state, deciders, retriever_of, tool_call,
+from solution.tests.p3_fakes import (KB, RULE, FakeDecider, FakeLLM, FakeLookup, base_state, deciders, retriever_of, tool_call,
                                      tools_factory)
+
+pytestmark = pytest.mark.db
 
 GOOD = "Yes. From 15 Jul 2026 the SIF file uses v3 with 16 columns and a mandatory establishment-reference column [R-UAE-WPS-2026-07, effective 15 Jul 2026]."
 BAD = "Use the v2 layout with 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]."
@@ -21,7 +23,7 @@ def run(state, *, auto=None, sug=None, script=None, chunks=(RULE, KB), guard_ans
     llm = FakeLLM(script or [AIMessage(content=GOOD)])
     ds = deciders(auto, sug)
     g = build_graph(saver or MemorySaver(), deciders=ds, llm=llm, tools_factory=tools, tenant_lookup=FakeLookup(),
-                    retriever=retriever_of(*chunks), output_decider=FakeDecider(answers=guard_answer), **FAKE_C)
+                    retriever=retriever_of(*chunks), output_decider=FakeDecider(answers=guard_answer))
     cfg = thread_config(state["ticket_id"])
     res = g.invoke(state, cfg)
     return g, cfg, g.get_state(cfg), res, llm
@@ -41,7 +43,7 @@ def test_draft_for_agent_path_pauses_at_approval_then_resumes():
     assert snap.next == ("human_approval",) and res["__interrupt__"]
     g.invoke(Command(resume={"status": "approved", "reviewer": "r1"}), cfg)
     after = g.get_state(cfg)
-    assert after.next == () and after.values["approval"]["status"] == "approved" and after.values["audit"]
+    assert after.next == () and after.values["approval"]["status"] == "approved" and after.values["actions"]
     assert after.values["draft"] == v["draft"]          # resume keeps the same draft
 
 
@@ -50,7 +52,7 @@ def test_auto_answer_assigned_not_sent():
     _, _, snap, _, llm = run(s, auto=FakeDecider("howto", 0.95, "normal"), script=[AIMessage(content=HOWTO)], chunks=(KB,))
     assert snap.next == () and snap.values["approval"]["status"] == "not_required"
     assert snap.values["lane"] == "auto_answer" and snap.values["llm_tier"] == "cheap" and llm.tiers == ["cheap"]
-    assert not snap.values.get("actions")          # nothing sent by this graph; AUTO_SEND=false is honoured by route/act
+    assert [(a["type"], a["status"], a["shadow"]) for a in snap.values["actions"]] == [("reply", "shadow", True)]   # shadow row, never sent
     assert os.environ.get("AUTO_SEND", "false") == "false"
 
 
@@ -74,7 +76,7 @@ def test_ambiguous_tenant_goes_to_human_without_retrieval_or_llm():
     _, _, snap, res, llm = run(s, auto=FakeDecider("payroll", 0.97))
     assert snap.values["lane"] == "human_review" and snap.values["tenant_how"] == "ambiguous" and snap.values["tenant_id"] is None
     assert "retrieve" not in nodes_run(snap) and "agent" not in nodes_run(snap) and llm.tiers == []
-    assert snap.next == ("human_approval",)
+    assert snap.next == () and snap.values["approval"]["status"] == "pending_tenant_resolution"
 
 
 def test_low_confidence_human_review_still_drafts_on_hard_tier():
@@ -90,7 +92,8 @@ def test_block_lane_no_agent_no_tools_goes_to_log():
     v = snap.values
     assert v["lane"] == "block" and not v.get("tool_calls") and not v.get("draft") and llm.tiers == [] and llm.chat.seen == []
     assert "attach_human_review" in v["route_reasons"]
-    assert nodes_run(snap) == ["resolve_tenant", "classify", "route"] and snap.next == () and v["audit"]
+    assert nodes_run(snap) == ["resolve_tenant", "classify", "route"] and snap.next == ()
+    assert v["actions"][0]["status"] == "refused"
     assert v["approval"]["status"] == "not_required"
     assert "__interrupt__" not in res
 
@@ -123,7 +126,6 @@ def test_no_raw_values_or_messages_in_checkpoint_state():
     assert "messages" not in snap.values and "raw_record" not in snap.values
 
 
-@pytest.mark.db
 def test_postgres_checkpointer_restart_resumes_same_draft(owner):
     from solution.a7 import db
     from solution.a7.graph import postgres_checkpointer
@@ -132,7 +134,7 @@ def test_postgres_checkpointer_restart_resumes_same_draft(owner):
     state = base_state(ticket_id="PN-RESTART-1")
     ds = deciders(FakeDecider("statutory", 0.95, "urgent"))
     mk = lambda cp: build_graph(cp, deciders=ds, llm=FakeLLM([AIMessage(content=GOOD)]), tools_factory=tools_factory,
-                                 tenant_lookup=FakeLookup(), retriever=retriever_of(RULE, KB), output_decider=FakeDecider(), **FAKE_C)
+                                 tenant_lookup=FakeLookup(), retriever=retriever_of(RULE, KB), output_decider=FakeDecider())
     with postgres_checkpointer(db.dsn()) as cp:
         cp.delete_thread("PN-RESTART-1")
         g = mk(cp)

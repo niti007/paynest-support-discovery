@@ -23,44 +23,43 @@ from solution.a7.vault import LocalKeyProvider, PostgresVaultStore, Vault
 from solution.db import bootstrap
 from synth import iban
 
-from typing import Any, TypedDict
+from langchain_core.messages import AIMessage
 
-from langgraph.graph import END, START, StateGraph
-from solution.a7.nodes.human_approval import human_approval
-from solution.a7.nodes.act import act
-class StubState(TypedDict, total=False):
-    ticket_id: str
-    tenant_id: str
-    vault_key: str
-    lane: str
-    priority: str
-    category: str
-    language: str
-    received_at: str
-    is_payroll_window: bool
-    draft: str
-    citations: list
-    guard: dict
-    route_reasons: list
-    tool_calls: list
-    approval: dict
-    actions: list
-    audit: list
-    tenant_resolution: dict
-    queue: str
-    privacy_concern: bool
+from solution.a7.graph import build_graph
+from solution.tests.p3_fakes import KB, RULE, FakeDecider, FakeLLM, base_state, deciders, retriever_of, tools_factory
+
+DRAFTS: dict[str, str] = {}      # ticket id -> text the scripted model writes (the marker TKT:<id> is in the masked ticket text)
+GOOD = ("From 15 Jul 2026 the SIF file uses v3 with 16 columns and a mandatory establishment-reference column "
+        "[R-UAE-WPS-2026-07, effective 15 Jul 2026].")
 
 
-def build_stub_graph(checkpointer=None, **_: Any):
-    g = StateGraph(StubState)
-    g.add_node("human_approval", human_approval)
-    g.add_node("act", act)
-    g.add_node("log_and_learn", log_and_learn)
-    g.add_edge(START, "human_approval")
-    g.add_edge("human_approval", "act")
-    g.add_edge("act", "log_and_learn")
-    g.add_edge("log_and_learn", END)
-    return g.compile(checkpointer=checkpointer)
+class TenantLookup:
+    """Customers of this test module (T-ENT/T-BUS/T-STD live in the customers table); resolution itself is covered in test_p3_nodes."""
+    def partner(self, name):
+        return []
+
+    def customer(self, cid):
+        tier = {"T-ENT": "Enterprise", "T-BUS": "Business", "T-STD": "Standard"}.get(cid)
+        return {"customer_id": cid, "name": cid, "tier": tier, "region": "IN"} if tier else None
+
+
+def _write_draft(messages):
+    text = " ".join(str(m.content) for m in messages)
+    tid_ = next(t for t in DRAFTS if f"TKT:{t}" in text)
+    return AIMessage(content=DRAFTS[tid_])
+
+
+def build_real_graph(checkpointer=None, **_):
+    """The REAL graph (real resolve_tenant/route/guard/human_approval/act/log_and_learn); only the model, classifier, retriever are scripted."""
+    return build_graph(checkpointer, deciders=deciders(FakeDecider("statutory", 0.95, "urgent")), llm=FakeLLM([_write_draft]),
+                       tools_factory=tools_factory, tenant_lookup=TenantLookup(), retriever=retriever_of(RULE, KB),
+                       output_decider=FakeDecider(answers="yes"))
+
+
+def graph_input(tid_, draft, tenant="T-ENT"):
+    DRAFTS[tid_] = draft
+    return base_state(ticket_id=tid_, vault_key=tid_, customer_ref=tenant, record={"ticket_id": tid_, "customer_id": tenant},
+                      masked_text=f"TKT:{tid_} WPS SIF file rejected. Did the format change?")
 
 
 pytestmark = pytest.mark.db
@@ -276,16 +275,16 @@ def pool():
 
 
 def start(pool, state):
-    g = build_stub_graph(PostgresSaver(pool))
+    g = build_real_graph(PostgresSaver(pool))
     cfg = {"configurable": {"thread_id": state["ticket_id"]}}
-    out = g.invoke(state, cfg, durability="sync")
+    out = g.invoke(graph_input(state["ticket_id"], state["draft"], state["tenant_id"]), cfg, durability="sync")
     assert out["__interrupt__"]
     return out
 
 
 @pytest.fixture()
 def client():
-    app = create_app(graph_factory=build_stub_graph, token=TOKEN)
+    app = create_app(graph_factory=build_real_graph, token=TOKEN)
     with TestClient(app) as c:
         yield c
 
@@ -294,13 +293,13 @@ H = {"Authorization": f"Bearer {TOKEN}", "X-Tenant-Id": ENT}
 
 
 def test_a_restart_during_approval_resumes_same_draft(pool, owner):
-    s = base(priority="P1", ticket_id="TST-R1", draft="Draft v1 citing R-UAE-WPS-2026-07 (15 Jul 2026).")
+    s = base(priority="P1", ticket_id="TST-R1", draft=GOOD)
     out = start(pool, s)
     assert out["__interrupt__"][0].value["draft"] == s["draft"]
     n_esc = rows(owner, "SELECT count(*) FROM escalations")[0][0]
     pool.close()                                           # "crash": pool and graph object gone
     del out
-    app = create_app(graph_factory=build_stub_graph, token=TOKEN)    # fresh process: new pool, new graph from PostgresSaver
+    app = create_app(graph_factory=build_real_graph, token=TOKEN)    # fresh process: new pool, new graph from PostgresSaver
     with TestClient(app) as c:
         assert c.get("/tickets/TST-R1", headers=H).json()["status"] == "pending"
         r = c.post("/tickets/TST-R1/decision", headers=H, json={"status": "approved", "reviewer": "rev1"})
@@ -318,7 +317,7 @@ def test_a2_restart_then_edit_uses_edited_draft(pool, owner):
     s = base(ticket_id="TST-R2")
     start(pool, s)
     pool.close()
-    app = create_app(graph_factory=build_stub_graph, token=TOKEN)
+    app = create_app(graph_factory=build_real_graph, token=TOKEN)
     with TestClient(app) as c:
         bad = c.post("/tickets/TST-R2/decision", headers=H,
                      json={"status": "edited", "reviewer": "rev1", "edited_draft": f"send to {iban(9)}"})

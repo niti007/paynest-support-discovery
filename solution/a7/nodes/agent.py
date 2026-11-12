@@ -79,16 +79,7 @@ class LoopState(TicketState, total=False):
     messages: Annotated[list, add_messages]
 
 
-def _fallback_records(messages: list) -> list[dict]:
-    calls = {tc["id"]: tc for m in messages if isinstance(m, AIMessage) for tc in m.tool_calls}
-    return [{"name": calls[m.tool_call_id]["name"], "args_masked": _mask_args(calls[m.tool_call_id].get("args", {})),
-             "ok": getattr(m, "status", "success") != "error"} for m in messages if isinstance(m, ToolMessage) and m.tool_call_id in calls]
-
-
-try:
-    from ..tools import records_from_messages  # Builder B
-except ImportError:  # pragma: no cover - until integration
-    records_from_messages = _fallback_records
+from ..tools import records_from_messages  # noqa: E402
 
 
 def _mask_args(args: dict[str, Any]) -> dict[str, Any]:

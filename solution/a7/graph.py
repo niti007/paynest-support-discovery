@@ -46,8 +46,14 @@ def after_route(s: TicketState) -> str:
     if s.get("lane") == "block":        # no draft, no tools; human_approval records "not_required", log_and_learn audits it
         return "human_approval"
     if not s.get("tenant_id"):          # ambiguous tenant: nothing tenant-scoped can run; a person decides
-        return "human_approval"
+        return "hold_for_tenant"
     return "retrieve"
+
+
+def hold_for_tenant(state: TicketState) -> dict:
+    """Ambiguous tenant: every C node is tenant-scoped (RLS, approvals.tenant_id), so none can run. The graph ends here with an
+    explicit status; a person resolves the customer (out-of-band) and the ticket is re-submitted."""
+    return {"approval": {"status": "pending_tenant_resolution", "reviewer": None, "decided_at": None, "edited_draft": None}}
 
 
 def after_guard(s: TicketState) -> str:
@@ -72,10 +78,12 @@ def build_graph(checkpointer: Any = None, *, deciders: dict | None = None, llm: 
     g.add_node("human_approval", delta(human_approval_node or human_approval))
     g.add_node("act", delta(act_node or act))
     g.add_node("log_and_learn", delta(log_node or log_and_learn))
+    g.add_node("hold_for_tenant", hold_for_tenant)
+    g.add_edge("hold_for_tenant", END)
     g.add_edge(START, "resolve_tenant")
     g.add_edge("resolve_tenant", "classify")
     g.add_edge("classify", "route")
-    g.add_conditional_edges("route", after_route, ["log_and_learn", "human_approval", "retrieve"])
+    g.add_conditional_edges("route", after_route, ["hold_for_tenant", "human_approval", "retrieve"])
     g.add_edge("retrieve", "agent")
     g.add_edge("agent", "output_guard")
     g.add_conditional_edges("output_guard", after_guard, ["human_approval", "agent"])
