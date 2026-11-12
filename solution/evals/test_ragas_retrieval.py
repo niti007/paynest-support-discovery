@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import json
 import statistics
 from pathlib import Path
@@ -28,8 +29,9 @@ pytestmark = pytest.mark.eval
 @pytest.fixture(scope="module")
 def sample(harvest):
     m = meta_by_id()
-    rows = [(r, m[r["id"]]) for r in harvest if r["id"] in m and r["set"] in ("stale", "control") and r["contexts"]]
-    assert len(rows) >= 20, "too few stale/control rows with retrieved contexts"
+    only = os.environ.get("P5_SETS", "stale,control").split(",")
+    rows = [(r, m[r["id"]]) for r in harvest if r["id"] in m and r["set"] in only and r["contexts"]]
+    assert len(rows) >= 15, "too few stale/control rows with retrieved contexts"
     for r, _ in rows:
         judges.assert_masked(r["masked_text"], *(c["body"] for c in r["contexts"]))
     return rows

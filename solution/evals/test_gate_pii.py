@@ -44,6 +44,8 @@ def live_valkey_run():
         return gather(), v
     finally:
         mock.terminate()
+        with db.connect(autocommit=True) as c:      # leave no vault rows behind (solution/tests vault tests assume their own key)
+            c.execute("DELETE FROM pii_vault WHERE ticket_id = %s", (LIVE_TOOL_TICKET,))
 
 
 def test_zero_pii_leaks_after_run(harvest, live_valkey_run):

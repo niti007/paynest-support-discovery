@@ -152,6 +152,8 @@ def main() -> None:
                 print(f"{n}/{len(todo)} {tid} {setname} lane={rec['lane']} {rec['latency_s']}s ${cost:.5f} total_harvest=${spent:.4f}", flush=True)
     finally:
         mock.terminate()
+        with db.connect(autocommit=True) as c:      # leave no vault rows behind (solution/tests vault tests assume their own key)
+            c.execute("DELETE FROM pii_vault WHERE ticket_id = ANY(%s)", ([t for _, t in todo],))
 
 
 if __name__ == "__main__":
