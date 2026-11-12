@@ -138,3 +138,25 @@ def test_node_skips_without_tenant_and_stores_no_text(pg):
     assert out["lane_hint"] is None and out["dedupe"] == {"skipped": "no tenant"}
     cols = [r[0] for r in pg.execute("SELECT column_name FROM information_schema.columns WHERE table_name='ticket_embeddings'")]
     assert not {"text", "masked_text", "body"} & set(cols)
+
+
+# ---------------------------------------------------------------- gate 4 on real (cached) embeddings
+@pytest.mark.db
+def test_gate4_meridian_opens_by_fifth_ticket(pg):
+    import json
+    from pathlib import Path
+
+    import numpy as np
+    cache = Path(__file__).resolve().parents[1] / "evals" / "cache"
+    if not (cache / "dedupe_vecs.npy").exists():
+        pytest.skip("embedding cache missing: uv run python solution/evals/dedupe_corpus.py --embed")
+    corpus, vecs = json.loads((cache / "dedupe_corpus.json").read_text()), np.load(cache / "dedupe_vecs.npy")
+    by_text = {r["text"]: vecs[i].tolist() for i, r in enumerate(corpus)}
+    pg.execute("INSERT INTO customers VALUES ('C-1002','Test Meridian','Standard','IN',1,1) ON CONFLICT DO NOTHING")
+    node = make_dedupe_cluster(VecEmbedder(by_text))
+    mer = [r for r in corpus if r["tenant"] == "C-1002" and r["received_at"].startswith("2026-09-25")]
+    flagged = [r["id"] for r in mer if node({"ticket_id": r["id"], "tenant_id": "C-1002", "masked_text": r["text"],
+                                              "received_at": r["received_at"], "category": "payroll"})["lane_hint"] == "incident"]
+    inc_set = [r["id"] for r in mer if r["incident"]]
+    assert flagged[0] == inc_set[4] == "PN-101239"
+    assert pg.execute("SELECT count(*) FROM incidents WHERE tenant_id='C-1002'").fetchone()[0] == 1

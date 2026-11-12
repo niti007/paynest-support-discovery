@@ -22,8 +22,8 @@ from ..embed import embed as bedrock_embed
 from ..state import TicketState
 
 # Chosen on the tuning split; see solution/evals/reports/phase4_dedupe.md.
-T_LINK = 0.85
-T_INC = 0.80
+T_LINK = 0.75
+T_INC = 0.55
 WINDOW_HOURS = 2.0
 LINK_DAYS = 2.0
 MIN_CLUSTER = 5

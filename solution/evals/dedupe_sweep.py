@@ -120,6 +120,28 @@ def metrics(corpus, decisions, scored: set, sets: dict) -> dict:
     return m
 
 
+def near_miss(corpus, idx, nv, stream_ids, scored, W, ti):
+    """Max number of similar same-tenant tickets inside W seen by any scored routing ticket (incident needs min_cluster)."""
+    from collections import defaultdict as dd
+    by_t = dd(list)
+    for r in corpus:
+        if r["id"] in stream_ids and r["tenant"]:
+            by_t[r["tenant"]].append(r)
+    best = 0
+    for rows in by_t.values():
+        for k, r in enumerate(rows):
+            if r["id"] not in scored or r["incident"]:
+                continue
+            ts = parse_ts(r["received_at"])
+            n = 1
+            for j in range(k - 1, -1, -1):
+                if (ts - parse_ts(rows[j]["received_at"])).total_seconds() / 3600 > W:
+                    break
+                n += float(nv[idx[rows[j]["id"]]] @ nv[idx[r["id"]]]) >= ti
+            best = max(best, int(n))
+    return best
+
+
 def main() -> int:
     corpus, vecs = load()
     sp = splits(corpus)
@@ -129,9 +151,9 @@ def main() -> int:
     rs = [(i, float(nv[idx[i]] @ nv[idx[byid[i]["parent"]]])) for i in sorted(sp["sets"]["resub"])]
     print("resubmit->parent cosine: min %.3f median %.3f max %.3f" % (min(s for _, s in rs), np.median([s for _, s in rs]), max(s for _, s in rs)))
 
-    Wg = [1, 2, 4, 6, 12, 24, 48, 72, 168]
-    Ti = [0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
-    Tl = [0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
+    Wg = [1, 2, 4, 6, 12, 24, 72, 168]
+    Ti = [0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
+    Tl = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
     rows = []
     for W, ti in itertools.product(Wg, Ti):
         d = replay(corpus, idx, nv, sp["tuning"]["stream"], Params(t_inc=ti, window_hours=W, t_link=2.0))
@@ -146,7 +168,23 @@ def main() -> int:
         m = metrics(corpus, d, sp["tuning"]["scored"], sp["sets"])
         lrows.append({"t_link": tl, "false_links_routing": m["false_links_routing"], "kestrel_false_links": m["kestrel_false_links"]})
         print("LINK", tl, m["false_links_routing"], m["kestrel_false_links"])
-    json.dump({"inc": rows, "link": lrows}, open(HERE.parent / "cache" / "dedupe_sweep.json", "w"), indent=1)
+    print("NEAR-MISS (tuning, routing only): max similar-count incl. self, W=2h")
+    nm = {}
+    for ti in Ti:
+        nm[ti] = near_miss(corpus, idx, nv, sp["tuning"]["stream"], sp["sets"]["routing_A"], 2.0, ti)
+        print(ti, nm[ti])
+    chosen = Params(t_link=0.75, t_inc=0.55, window_hours=2.0)
+    res = {}
+    for name in ("tuning", "eval", "all"):
+        d = replay(corpus, idx, nv, sp[name]["stream"], chosen)
+        res[name] = metrics(corpus, d, sp[name]["scored"], sp["sets"])
+        print(name, json.dumps(res[name]))
+    print("EVAL sensitivity (informational, not used to choose):")
+    for W, ti, tl in [(1, .55, .75), (2, .55, .75), (6, .55, .75), (24, .55, .75), (2, .5, .75), (2, .6, .75), (2, .65, .75), (2, .8, .75), (2, .55, .65), (2, .55, .7), (2, .55, .8), (2, .55, .85), (2, .55, .9)]:
+        d = replay(corpus, idx, nv, sp["eval"]["stream"], Params(t_inc=ti, window_hours=W, t_link=tl))
+        m = metrics(corpus, d, sp["eval"]["scored"], sp["sets"])
+        print(W, ti, tl, {k: m[k] for k in ("false_incident_tickets", "meridian_in_incident", "meridian_first_flagged_rank", "false_links_routing", "resubmits_linked_correct", "resubmits_linked_wrong_parent", "meridian_false_links")})
+    json.dump({"inc": rows, "link": lrows, "near_miss": nm, "chosen": res, "resub_cos": rs}, open(HERE.parent / "cache" / "dedupe_sweep.json", "w"), indent=1)
     return 0
 
 
