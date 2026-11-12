@@ -43,3 +43,9 @@ markers = [
     "aws: calls AWS (Bedrock); profile paynest, Region eu-north-1",
     "model: loads a real local model (Laya on MPS/CPU, Strands Decider on MLX; first run downloads weights)",
 ]
+
+[dependency-groups]
+evalb = [
+    "aiobotocore>=3.10.0",
+    "deepeval==4.3.3",
+]
