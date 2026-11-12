@@ -352,3 +352,68 @@ REVOKE ALL ON pii_vault FROM a7_act;
 GRANT INSERT, UPDATE, DELETE ON pii_vault TO app_user;
 GRANT USAGE ON SCHEMA public TO a7_act;
 GRANT SELECT ON pii_vault TO a7_act;
+
+-- ---------------------------------------------------------------- Phase 4B: answer cache (box 7), kill switch
+-- answer_cache holds ONLY human-approved, masked drafts, keyed by (tenant, topic, region) + embedding.
+-- Hit rule (solution/a7/cache.py): cosine >= 0.92 AND same topic AND same region AND not expired. RLS = tenant filter.
+ALTER TABLE answer_cache ADD COLUMN IF NOT EXISTS region           text;
+ALTER TABLE answer_cache ADD COLUMN IF NOT EXISTS citations        jsonb NOT NULL DEFAULT '[]';
+ALTER TABLE answer_cache ADD COLUMN IF NOT EXISTS source_ticket_id text;
+ALTER TABLE answer_cache ADD COLUMN IF NOT EXISTS approved_by      text;
+ALTER TABLE answer_cache ADD COLUMN IF NOT EXISTS expires_at       timestamptz;   -- 7 days default (ours, unsourced)
+CREATE INDEX IF NOT EXISTS answer_cache_lookup ON answer_cache (tenant_id, topic, region);
+CREATE UNIQUE INDEX IF NOT EXISTS answer_cache_ticket ON answer_cache (tenant_id, source_ticket_id);
+
+-- kb_chunks.updated_at moves only when content/validity actually changes, so a no-op load_kb re-run flushes nothing.
+ALTER TABLE kb_chunks ADD COLUMN IF NOT EXISTS updated_at timestamptz NOT NULL DEFAULT now();
+
+CREATE OR REPLACE FUNCTION a7.flush_answer_cache(p_topic text) RETURNS void
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_temp AS $$
+DECLARE prev text := current_setting('app.runner', true);
+BEGIN
+  PERFORM set_config('app.runner', 'kb_flush', true);      -- lets the kb_flush policy below see every tenant's rows
+  DELETE FROM answer_cache WHERE topic = p_topic;
+  PERFORM set_config('app.runner', coalesce(prev, ''), true);
+END $$;
+
+CREATE OR REPLACE FUNCTION a7.kb_chunks_touch() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF TG_OP = 'DELETE' THEN
+    PERFORM a7.flush_answer_cache(OLD.topic);
+    RETURN OLD;
+  ELSIF TG_OP = 'INSERT' THEN
+    NEW.updated_at := now();
+    PERFORM a7.flush_answer_cache(NEW.topic);
+    RETURN NEW;
+  END IF;
+  IF (OLD.topic, OLD.region, OLD.title, OLD.body, OLD.effective_from, OLD.effective_to, OLD.superseded_by, OLD.last_reviewed, OLD.tenant_scope)
+     IS DISTINCT FROM
+     (NEW.topic, NEW.region, NEW.title, NEW.body, NEW.effective_from, NEW.effective_to, NEW.superseded_by, NEW.last_reviewed, NEW.tenant_scope) THEN
+    NEW.updated_at := now();
+    PERFORM a7.flush_answer_cache(OLD.topic);
+    IF NEW.topic IS DISTINCT FROM OLD.topic THEN PERFORM a7.flush_answer_cache(NEW.topic); END IF;
+  ELSE
+    NEW.updated_at := OLD.updated_at;
+  END IF;
+  RETURN NEW;
+END $$;
+
+DROP TRIGGER IF EXISTS kb_chunks_touch ON kb_chunks;
+CREATE TRIGGER kb_chunks_touch BEFORE INSERT OR UPDATE OR DELETE ON kb_chunks
+  FOR EACH ROW EXECUTE FUNCTION a7.kb_chunks_touch();
+
+-- only the flush function (app.runner = 'kb_flush', transaction-local) sees all tenants' cache rows for DELETE
+DROP POLICY IF EXISTS kb_flush ON answer_cache;
+CREATE POLICY kb_flush ON answer_cache FOR DELETE USING (current_setting('app.runner', true) = 'kb_flush');
+
+-- Kill switch (box 11-12): `auto_send_enabled` row. Missing row or any read error = OFF (fail closed).
+-- Flipped only through the reviewer API POST /admin/flags (admin token). Env A7_AUTO_SEND=false can force OFF, never ON.
+CREATE TABLE IF NOT EXISTS feature_flags (
+  name        text PRIMARY KEY,
+  enabled     boolean NOT NULL DEFAULT false,
+  updated_by  text,
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+INSERT INTO feature_flags (name, enabled, updated_by) VALUES ('auto_send_enabled', false, 'schema-default')
+  ON CONFLICT (name) DO NOTHING;
+GRANT SELECT, INSERT, UPDATE ON feature_flags TO app_user;

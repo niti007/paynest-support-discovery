@@ -28,6 +28,12 @@ from ..nodes.human_approval import validate_decision
 TEMPLATES = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 
 
+class FlagUpdate(BaseModel):
+    name: str
+    enabled: bool
+    updated_by: str
+
+
 class Decision(BaseModel):
     status: str
     reviewer: str
@@ -39,7 +45,8 @@ def default_graph_factory(checkpointer):
     return build_graph(checkpointer)
 
 
-def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str | None = None, dsn: str | None = None) -> FastAPI:
+def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str | None = None, dsn: str | None = None,
+               admin_token: str | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         pool = ConnectionPool(dsn or db.app_dsn(), min_size=1, max_size=8, open=False,
@@ -53,12 +60,21 @@ def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str 
     app = FastAPI(title="PayNest A7 reviewer API", lifespan=lifespan)
     app.state.graph_factory = graph_factory or default_graph_factory
     app.state.token = token
+    app.state.admin_token = admin_token
 
     def auth(authorization: str | None = Header(default=None)) -> None:
         expected = app.state.token if app.state.token is not None else os.environ.get("A7_REVIEWER_TOKEN", "")
         given = authorization[7:] if authorization and authorization.lower().startswith("bearer ") else ""
         if not expected or not secrets.compare_digest(given.encode(), expected.encode()):
             raise HTTPException(401, "invalid or missing bearer token", headers={"WWW-Authenticate": "Bearer"})
+
+    def admin_auth(authorization: str | None = Header(default=None)) -> None:
+        """Kill-switch admin token (A7_ADMIN_TOKEN), separate from the reviewer token: a reviewer token cannot flip flags.
+        Role that holds it: Head of Support (our default; the sources name no one)."""
+        expected = app.state.admin_token if app.state.admin_token is not None else os.environ.get("A7_ADMIN_TOKEN", "")
+        given = authorization[7:] if authorization and authorization.lower().startswith("bearer ") else ""
+        if not expected or not secrets.compare_digest(given.encode(), expected.encode()):
+            raise HTTPException(401, "invalid or missing admin token", headers={"WWW-Authenticate": "Bearer"})
 
     def tenant_of(x_tenant_id: str | None = Header(default=None), tenant: str | None = None) -> str:
         t = x_tenant_id or tenant
@@ -83,6 +99,27 @@ def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str 
         with request.app.state.pool.connection() as conn:
             conn.execute("SELECT 1")
         return {"status": "ok"}
+
+    @app.get("/admin/flags")
+    def get_flags(request: Request, _: None = Depends(admin_auth)):
+        from .. import flags
+        with request.app.state.pool.connection() as conn:
+            return {"flags": {n: flags.get_flag(conn, n) for n in sorted(flags.KNOWN)},
+                    "env_forces_off": flags.env_forces_off(),
+                    "auto_send_effective": flags.auto_send_enabled(conn)}
+
+    @app.post("/admin/flags")
+    def set_flags(body: FlagUpdate, request: Request, _: None = Depends(admin_auth)):
+        from .. import flags
+        if body.name not in flags.KNOWN:
+            raise HTTPException(422, f"unknown flag {body.name!r}")
+        if not body.updated_by.strip():
+            raise HTTPException(422, "updated_by required")
+        with request.app.state.pool.connection() as conn, conn.transaction():
+            flags.set_flag(conn, body.name, body.enabled, body.updated_by.strip())
+            eff = flags.auto_send_enabled(conn)
+        return {"name": body.name, "enabled": body.enabled, "auto_send_effective": eff,
+                "env_forces_off": flags.env_forces_off()}
 
     @app.get("/queue", response_class=HTMLResponse)
     def queue(request: Request, _: None = Depends(auth), tenant_id: str = Depends(tenant_of)):
