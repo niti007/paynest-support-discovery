@@ -1,0 +1,245 @@
+{
+ "n": 23,
+ "n_scored_by_both": 23,
+ "seed": 20261108,
+ "primary": "qwen.qwen3-235b-a22b-2507-v1:0",
+ "cross": "eu.amazon.nova-lite-v1:0",
+ "primary_mode": "AmazonBedrockModel (native Converse)",
+ "cross_mode": "AmazonBedrockModel (native Converse)",
+ "mean_primary": 1.0,
+ "mean_cross": 0.897,
+ "mean_abs_diff": 0.103,
+ "agree_within_0.2": 17,
+ "differ_over_0.2": [
+  {
+   "id": "PN-100394",
+   "set": "control",
+   "lang": "hinglish",
+   "primary": 1.0,
+   "cross": 0.3333333333333333
+  },
+  {
+   "id": "PN-100061",
+   "set": "control",
+   "lang": "en",
+   "primary": 1.0,
+   "cross": 0.75
+  },
+  {
+   "id": "PN-100753",
+   "set": "stale",
+   "lang": "hinglish",
+   "primary": 1.0,
+   "cross": 0.6666666666666666
+  },
+  {
+   "id": "PN-101462",
+   "set": "stale",
+   "lang": "hinglish",
+   "primary": 1.0,
+   "cross": 0.75
+  },
+  {
+   "id": "PN-100446",
+   "set": "control",
+   "lang": "hi",
+   "primary": 1.0,
+   "cross": 0.6666666666666666
+  },
+  {
+   "id": "PN-101342",
+   "set": "stale",
+   "lang": "en",
+   "primary": 1.0,
+   "cross": 0.6666666666666666
+  }
+ ],
+ "pass_fail_agreement_at_0.9": "16/23",
+ "pearson": null,
+ "rows": [
+  {
+   "id": "PN-100608",
+   "set": "stale",
+   "lang": "en",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100898",
+   "set": "stale",
+   "lang": "en",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100394",
+   "set": "control",
+   "lang": "hinglish",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 0.3333333333333333
+  },
+  {
+   "id": "PN-100460",
+   "set": "control",
+   "lang": "hinglish",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100763",
+   "set": "stale",
+   "lang": "en",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-101314",
+   "set": "stale",
+   "lang": "hinglish",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100007",
+   "set": "control",
+   "lang": "en",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-101415",
+   "set": "stale",
+   "lang": "ar",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100852",
+   "set": "stale",
+   "lang": "en",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 0.8
+  },
+  {
+   "id": "PN-100061",
+   "set": "control",
+   "lang": "en",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 0.75
+  },
+  {
+   "id": "PN-101352",
+   "set": "stale",
+   "lang": "en",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100102",
+   "set": "control",
+   "lang": "en",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100003",
+   "set": "control",
+   "lang": "en",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100753",
+   "set": "stale",
+   "lang": "hinglish",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 0.6666666666666666
+  },
+  {
+   "id": "PN-101462",
+   "set": "stale",
+   "lang": "hinglish",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 0.75
+  },
+  {
+   "id": "PN-100794",
+   "set": "stale",
+   "lang": "en",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100920",
+   "set": "stale",
+   "lang": "en",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-101349",
+   "set": "stale",
+   "lang": "en",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100446",
+   "set": "control",
+   "lang": "hi",
+   "lane": "human_review",
+   "primary": 1.0,
+   "cross": 0.6666666666666666
+  },
+  {
+   "id": "PN-101320",
+   "set": "stale",
+   "lang": "ar",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-101342",
+   "set": "stale",
+   "lang": "en",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 0.6666666666666666
+  },
+  {
+   "id": "PN-101329",
+   "set": "stale",
+   "lang": "hinglish",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  },
+  {
+   "id": "PN-100903",
+   "set": "stale",
+   "lang": "ar",
+   "lane": "draft_for_agent",
+   "primary": 1.0,
+   "cross": 1.0
+  }
+ ]
+}
