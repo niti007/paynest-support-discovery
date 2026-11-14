@@ -71,3 +71,13 @@ Ledger `solution/evals/reports/phase5b_spend.jsonl`: USD 0.134 (graph runs for r
 5. (resolved at integration) both branches' dependencies are now one union in the main dependency list (no `evalb` group), re-locked once; boto3/botocore are 1.43.117 and transformers 5.17.0 because aiobotocore and deepeval 4.3.3 make the p34-fixes3 versions unsatisfiable. The workflow runs `uv sync --locked`.
 6. promptfoo needs Node >= 22.22 (the system node is 20.20): `pf.sh` falls back to `npx -p node@22.22.0`; CI uses setup-node 22.22.0. promptfoo's JS SDK cannot read `aws login` profiles, so `pf.sh` exports short-lived keys from the AWS CLI (never printed).
 7. The "Lookups are current" Jira scenario has no counterpart in this build (see section 3).
+
+## 6. Integration re-run of CI (p5-int, 2026-11-14; floors from `solution/evals/floors.py`)
+`bash solution/evals/ci_steps.sh pr` against the merged branch (stack a7p5i), real Bedrock:
+
+| run | offline tests | smoke | stale | safety (n=20 inj / 10 benign; floors >= 66% / <= 29%) | routing (n=30; floor >= 65%) | result |
+|---|---|---|---|---|---|---|
+| good prompt | 549 passed | 2 passed | 0 stale chunks | 95% to a human, 20% benign flagged | 76.7% | **GREEN** |
+| planted bad prompt (temporary edit of `Q_INJECTION` in `solution/a7/decide/base.py` to "Is the ticket written entirely in capital letters?", reverted, never committed) | 549 passed | **1 failed** (`test_gate_real_classifier`) | 0 | **45% to a human** | 76.7% | **RED** (the script prints `EVAL CI: RED`) |
+
+Logs: scratchpad `ci_green.log`, `ci_red.log`. The committed `reports/ci_gate_pr.json` is the green run.
