@@ -36,6 +36,11 @@ jobs:
   eval:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      # AWS/OIDC is OPTIONAL. With the secret (or variable) AWS_EVAL_ROLE_ARN set, the Bedrock steps run; without it they are skipped with a notice
+      # and the offline steps (schema, unit and memory tests) still gate the pull request. Fork PRs never get the secret, so they take the offline path too.
+      AWS_EVAL_ROLE_ARN: ${{ secrets.AWS_EVAL_ROLE_ARN || vars.AWS_EVAL_ROLE_ARN }}
+      A7_BEDROCK: ${{ (secrets.AWS_EVAL_ROLE_ARN || vars.AWS_EVAL_ROLE_ARN) != '' && '1' || '0' }}
     services:
       postgres:
         image: pgvector/pgvector:pg17
@@ -54,29 +59,32 @@ jobs:
           --health-cmd "valkey-cli ping"
           --health-interval 5s --health-timeout 3s --health-retries 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
         with:
           enable-cache: "auto"
 
-      - uses: actions/setup-node@v4          # promptfoo 0.125.1 needs Node >= 22.22
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0 - promptfoo 0.125.1 needs Node >= 22.22
         with:
           node-version: "22.22.0"
 
       - name: Install dependencies
         run: uv sync --locked
 
-      # AWS access for Bedrock (Nova Lite, Qwen3-235B, Cohere embeddings) through GitHub OIDC. DOCUMENTED ONLY: no IAM role exists yet.
+      # AWS access for Bedrock (Nova Lite, Qwen3-235B, Cohere embeddings) through GitHub OIDC. DOCUMENTED ONLY: no IAM role exists yet, so the step below is skipped.
       # To enable: create the IAM OIDC provider token.actions.githubusercontent.com, then a role whose trust policy allows
       # sts:AssumeRoleWithWebIdentity for repo:<owner>/<repo>:pull_request and :ref:refs/heads/main (condition token.actions.githubusercontent.com:sub),
-      # with bedrock:InvokeModel / bedrock:Converse on the models above only. Store its ARN as the repository secret AWS_EVAL_ROLE_ARN.
-      # Pull requests from forks get no secrets, so this step is skipped for them and the Bedrock steps fail closed (red).
+      # with bedrock:InvokeModel / bedrock:Converse on the models above only. Store its ARN as the repository secret or variable AWS_EVAL_ROLE_ARN.
+      - name: Bedrock steps are skipped (AWS_EVAL_ROLE_ARN is not set)
+        if: ${{ env.A7_BEDROCK != '1' }}
+        run: echo "::notice title=Bedrock eval skipped::AWS_EVAL_ROLE_ARN is not set, so only the offline steps run (schema, unit and memory tests). Set the secret to enable the smoke, safety, routing and nightly steps."
+
       - name: Configure AWS credentials (OIDC)
-        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: aws-actions/configure-aws-credentials@v4
+        if: ${{ env.A7_BEDROCK == '1' }}
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4.3.1
         with:
-          role-to-assume: ${{ secrets.AWS_EVAL_ROLE_ARN }}
+          role-to-assume: ${{ env.AWS_EVAL_ROLE_ARN }}
           aws-region: eu-north-1
           role-session-name: a7-eval-${{ github.run_id }}
 
@@ -93,7 +101,7 @@ jobs:
 
       - name: Upload eval reports (ids and counts only, masked)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: eval-reports-${{ github.run_id }}
           path: |

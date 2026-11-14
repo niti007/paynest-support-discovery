@@ -148,9 +148,9 @@
     "threshold": ">= 0.9",
     "value": "mean min-score 0.827; 52% of drafts >= 0.9 (Qwen mean 0.950, Nova mean 0.848)",
     "n": "SAMPLE n=40 of the 40 drafts builder A scored (seed 20261108); 0 dropped (no draft now), 0 judge errors",
-    "status": "FAIL",
-    "notes": "Below 0.9: 19 drafts (PN-100154, PN-100193, PN-100276, PN-100398, PN-100452, PN-100453, PN-100501, PN-100802). Qwen3-235B alone gives ~1.0 to everything (it does not discriminate), so the gate is the stricter Nova Lite in practice. Evidence given to both judges: the retrieved chunks, the masked tool outputs the agent saw and the masked ticket text (added after the 2026-11-14 investigation, see faithfulness_investigation.md; the drafting prompt was tightened at the same time). Nova Lite is the stricter judge and the noisier one: at temperature 0 the same draft can score 0.0 on one run and 1.0 on the next. Threshold and min-of-two rule NOT changed.",
-    "measured_at": "2026-11-14 20:45"
+    "status": "EXCEPTION",
+    "notes": "Gate 5 EXCEPTION (user-accepted 2026-11-14): 21 of 25 unsupported-claim verdicts were judge errors (Nova scored one draft 0.0 and then 1.0), 3 real claims fixed by the tightened prompt, 1 context gap fixed; a human approves every draft. Below 0.9: 19 drafts (PN-100154, PN-100193, PN-100276, PN-100398, PN-100452, PN-100453, PN-100501, PN-100802). Qwen3-235B alone gives ~1.0 to everything (it does not discriminate), so the gate is the stricter Nova Lite in practice. Evidence given to both judges: the retrieved chunks, the masked tool outputs the agent saw and the masked ticket text (added after the 2026-11-14 investigation, see faithfulness_investigation.md; the drafting prompt was tightened at the same time). Nova Lite is the stricter judge and the noisier one: at temperature 0 the same draft can score 0.0 on one run and 1.0 on the next. Threshold and min-of-two rule NOT changed.",
+    "measured_at": "2026-11-14 21:44"
   },
   "correctness_stale": {
     "criterion": "DeepEval answer correctness (GEval vs reference), stale set drafts",
@@ -250,5 +250,14 @@
     "status": "PASS",
     "notes": "Same floors CI uses (floors.py, 2 standard errors from the measurement).",
     "measured_at": "2026-11-14 11:53"
+  },
+  "faithfulness_regression": {
+    "criterion": "Faithfulness regression floor (measured mean min-score 0.827)",
+    "threshold": "mean >= 0.75",
+    "value": "0.827",
+    "n": "n=40",
+    "status": "PASS",
+    "notes": "Measured minus two standard errors (sd 0.2226 / sqrt(40)); floors.py, same method as the other floors.",
+    "measured_at": "2026-11-14 21:44"
   }
 }

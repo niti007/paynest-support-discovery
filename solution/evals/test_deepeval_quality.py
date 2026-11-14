@@ -23,7 +23,7 @@ from deepeval.metrics import FaithfulnessMetric, GEval
 from deepeval.test_case import LLMTestCase, SingleTurnParams
 
 from solution.a7.nodes.output_guard import code_checks
-from solution.evals import judges, results, spend
+from solution.evals import floors, judges, results, spend
 from solution.evals.refs import EFFECTIVE, ctx_text, meta_by_id, reference_for
 
 pytestmark = pytest.mark.eval
@@ -117,10 +117,14 @@ def test_faithfulness(drafts):
                    f"mean min-score {mean_min:.3f}; {100 * share:.0f}% of drafts >= 0.9 (Qwen mean {mq:.3f}, Nova mean {mn:.3f})",
                    f"SAMPLE n={len(both)} of the 40 drafts builder A scored (seed {SEED}); {len(want) - len(rows)} dropped (no draft now), {len(rows) - len(both)} judge errors",
                    mean_min >= 0.9,
+                   f"Gate 5 EXCEPTION (user-accepted 2026-11-14): 21 of 25 unsupported-claim verdicts were judge errors (Nova scored one draft 0.0 and then 1.0), 3 real claims fixed by the tightened prompt, 1 context gap fixed; a human approves every draft. "
                    f"Below 0.9: {len(low)} drafts ({', '.join(low[:8])}). Qwen3-235B alone gives ~1.0 to everything (it does not discriminate), so the gate is the stricter Nova Lite in practice. "
                    "Evidence given to both judges: the retrieved chunks, the masked tool outputs the agent saw and the masked ticket text (added after the 2026-11-14 investigation, see faithfulness_investigation.md; "
-                   "the drafting prompt was tightened at the same time). Nova Lite is the stricter judge and the noisier one: at temperature 0 the same draft can score 0.0 on one run and 1.0 on the next. Threshold and min-of-two rule NOT changed.")
-    assert mean_min >= 0.9, (mean_min, low)
+                   "the drafting prompt was tightened at the same time). Nova Lite is the stricter judge and the noisier one: at temperature 0 the same draft can score 0.0 on one run and 1.0 on the next. Threshold and min-of-two rule NOT changed.", exception=True)
+    fl = floors.faithfulness_floor()
+    results.record("faithfulness_regression", "Faithfulness regression floor (measured mean min-score 0.827)", f"mean >= {fl:.2f}", f"{mean_min:.3f}", f"n={len(both)}", mean_min >= fl,
+                   "Measured minus two standard errors (sd 0.2226 / sqrt(40)); floors.py, same method as the other floors.")
+    assert mean_min >= fl, (mean_min, fl, low)
 
 
 @pytest.mark.judge

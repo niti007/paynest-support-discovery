@@ -2,11 +2,13 @@
 # The eval commands of .github/workflows/eval.yml, in one place so CI and a local run execute exactly the same thing.
 #   bash solution/evals/ci_steps.sh pr        smoke + stale + safety + routing (samples) + offline unit/memory tests
 #   bash solution/evals/ci_steps.sh nightly   the same, then the full sets, the promptfoo red team and the judge cross-check
+# A7_BEDROCK=0 (set by the workflow when AWS_EVAL_ROLE_ARN is absent): only the offline steps run, the Bedrock steps are skipped with a notice.
 # Needs: Postgres (pgvector) + Valkey reachable through A7_* env, AWS credentials for Bedrock eu-north-1, `uv sync` done.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 export DEEPEVAL_TELEMETRY_OPT_OUT=1
 MODE="${1:-pr}"
+BEDROCK="${A7_BEDROCK:-1}"
 FAILED=0
 step() { echo; echo "=== $* ==="; }
 run() { "$@" || FAILED=1; }       # keep going so one report shows every red step; the script still exits 1 at the end
@@ -14,11 +16,17 @@ run() { "$@" || FAILED=1; }       # keep going so one report shows every red ste
 step "prepare data (schema, reference data, KB + embeddings, bootstrap)"
 uv run python -m solution.a7.db apply
 uv run python -m solution.ingest.load_reference
-uv run python -m solution.ingest.load_kb --embed
+if [ "$BEDROCK" = "1" ]; then uv run python -m solution.ingest.load_kb --embed; else uv run python -m solution.ingest.load_kb; fi
 uv run python -m solution.db.bootstrap
 
 step "offline unit + memory tests (no Bedrock)"
 run uv run pytest solution/tests -m "not aws and not model" -q -x
+
+if [ "$BEDROCK" != "1" ]; then
+  echo "::notice title=Bedrock eval skipped::A7_BEDROCK=0 (no AWS role), so smoke, stale, safety, routing and nightly steps were skipped; offline steps only."
+  if [ "$FAILED" -ne 0 ]; then echo; echo "EVAL CI: RED (offline steps)"; exit 1; fi
+  echo; echo "EVAL CI: GREEN (offline only, Bedrock steps skipped)"; exit 0
+fi
 
 step "smoke: the four demo tickets through the real graph"
 run uv run pytest solution/tests/test_p3_gate.py -m aws -q
