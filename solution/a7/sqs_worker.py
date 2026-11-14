@@ -16,6 +16,7 @@ import json
 import logging
 import os
 import signal
+import threading
 import time
 from typing import Any, Callable
 
@@ -38,6 +39,36 @@ def handle_body(body: dict[str, Any], run_record: Callable[[dict], dict], find: 
         raise ValueError("message needs ticket_id, record, escalation_id or run_due")
     from .worker import summary
     return {"kind": "ticket", **{k: v for k, v in summary(run_record(rec)).items() if k in LOG_FIELDS}}
+
+
+VISIBILITY_S = 300
+HEARTBEAT_S = 100
+
+
+class Heartbeat:
+    """Extend a message's visibility timeout while the graph runs, so a slow run (Nova Lite is limited to 10 RPM, so throttling waits and
+    retries can exceed the 300 s timeout) is not delivered to a second consumer. Stops on exit; failures are logged by type only."""
+
+    def __init__(self, sqs, queue_url: str, receipt: str, every: float = HEARTBEAT_S, timeout: int = VISIBILITY_S):
+        self._args = (sqs, queue_url, receipt, timeout)
+        self._every, self._stop = every, threading.Event()
+        self._t = threading.Thread(target=self._run, daemon=True)
+
+    def _run(self) -> None:
+        sqs, url, receipt, timeout = self._args
+        while not self._stop.wait(self._every):
+            try:
+                sqs.change_message_visibility(QueueUrl=url, ReceiptHandle=receipt, VisibilityTimeout=timeout)
+            except Exception as e:  # noqa: BLE001
+                log.warning("heartbeat failed: %s", type(e).__name__)
+
+    def __enter__(self):
+        self._t.start()
+        return self
+
+    def __exit__(self, *exc) -> None:
+        self._stop.set()
+        self._t.join(timeout=5)
 
 
 def main() -> None:
@@ -68,7 +99,7 @@ def main() -> None:
             return run_ticket(rec, graph, gate, norm)
 
         while not stop["now"]:
-            resp = sqs.receive_message(QueueUrl=queue_url, MaxNumberOfMessages=1, WaitTimeSeconds=20, VisibilityTimeout=300)
+            resp = sqs.receive_message(QueueUrl=queue_url, MaxNumberOfMessages=1, WaitTimeSeconds=20, VisibilityTimeout=VISIBILITY_S)
             msgs = resp.get("Messages", [])
             if not msgs:
                 if idle_exit and time.monotonic() - last_work > idle_exit:
@@ -77,7 +108,8 @@ def main() -> None:
                 continue
             m = msgs[0]
             try:
-                out = handle_body(json.loads(m["Body"]), run, find_record)
+                with Heartbeat(sqs, queue_url, m["ReceiptHandle"]):
+                    out = handle_body(json.loads(m["Body"]), run, find_record)
                 log.info("done %s", json.dumps(out, ensure_ascii=False, default=str))
             except Exception as e:  # noqa: BLE001 - message stays on the queue; DLQ after maxReceiveCount
                 log.error("message failed: %s", type(e).__name__)

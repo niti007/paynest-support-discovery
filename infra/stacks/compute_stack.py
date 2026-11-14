@@ -32,6 +32,7 @@ from config import (EMBED_MODEL, GEO_FM_REGIONS, MODEL_CHEAP, MODEL_FALLBACK, MO
                     bootstrap_role_name, mock_role_name, worker_role_name)
 from stacks.network_stack import API_PORT, MOCK_LISTENER_PORT, MOCK_PORT
 
+WORKER_MAX_TASKS = 1       # see the scaling comment: total Nova Lite calls must stay under 10 RPM
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ARM = ecs.RuntimePlatform(cpu_architecture=ecs.CpuArchitecture.ARM64, operating_system_family=ecs.OperatingSystemFamily.LINUX)
 
@@ -212,7 +213,9 @@ class ComputeStack(Stack):
         self.api_service = service("ApiService", api_td, net.api_sg, 1, f"paynest-a7-{env_name}-api")
         self.api_tg = main_listener.add_targets(
             "ApiTargets", port=API_PORT, protocol=elbv2.ApplicationProtocol.HTTP, targets=[self.api_service],
-            health_check=elbv2.HealthCheck(path="/health", healthy_http_codes="200", interval=Duration.seconds(30),
+            # /livez has NO database call: on a first deploy the DB is empty (app_user has no valid login until the bootstrap task has run),
+            # so a DB-backed check would never turn healthy and the stack would fail. /readyz (DB) is for the smoke task.
+            health_check=elbv2.HealthCheck(path="/livez", healthy_http_codes="200", interval=Duration.seconds(30),
                                            healthy_threshold_count=2, unhealthy_threshold_count=3),
             deregistration_delay=Duration.seconds(10))
 
@@ -241,11 +244,13 @@ class ComputeStack(Stack):
             expression="FILL(v, 0) + FILL(n, 0)", period=Duration.minutes(1),
             using_metrics={"v": data.ingest_queue.metric_approximate_number_of_messages_visible(),
                            "n": data.ingest_queue.metric_approximate_number_of_messages_not_visible()})
-        scaling = self.worker_service.auto_scale_task_count(min_capacity=0, max_capacity=2)
+        # MAX 1 worker task (WORKER_MAX_TASKS): Nova Lite is limited to 10 requests per minute on-demand and each worker rate-limits itself to
+        # 0.85 x 10 RPM, so two workers would together send about 17 RPM and be throttled. One worker stays under the quota; the p5-fin stale
+        # check adds one LLM call per statutory draft. A second worker needs a shared (cross-task) rate limit first.
+        scaling = self.worker_service.auto_scale_task_count(min_capacity=0, max_capacity=WORKER_MAX_TASKS)
         scaling.scale_on_metric(
             "QueueDepth", metric=depth, adjustment_type=appscaling.AdjustmentType.EXACT_CAPACITY,
-            scaling_steps=[appscaling.ScalingInterval(upper=0, change=0), appscaling.ScalingInterval(lower=1, upper=10, change=1),
-                           appscaling.ScalingInterval(lower=10, change=2)],
+            scaling_steps=[appscaling.ScalingInterval(upper=0, change=0), appscaling.ScalingInterval(lower=1, change=WORKER_MAX_TASKS)],
             cooldown=Duration.minutes(2), evaluation_periods=2)
 
         # ---- act (RunTask only; the one place that decrypts)

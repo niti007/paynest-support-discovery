@@ -32,12 +32,12 @@ CloudWatch Logs at demo volume (ingestion about 0.57 per GB, data protection sca
 | Valkey cache.t4g.micro | 0.016 |
 | Fargate api (0.5 vCPU, 2 GB) | 0.026 |
 | Fargate mock-payroll (0.25 vCPU, 0.5 GB) | 0.011 |
-| Fargate worker (1 vCPU, 3 GB, 0 to 2 tasks; 0.047 per task) | about 0.012 average at 25% duty, 0.095 worst case |
+| Fargate worker (1 vCPU, 3 GB, 0 to 1 task (capped for Nova's 10 RPM); 0.047 per task) | about 0.012 average at 25% duty, 0.047 worst case |
 | KMS, 8 secrets, 7 alarms, dashboard (pro-rated) | about 0.009 |
 | **Fixed total** | **about 0.21 per hour** |
 | One-off tasks (bootstrap 0.5 vCPU, act 0.5 vCPU, smoke 0.25 vCPU) | cents per run |
 
-**About USD 0.21 per hour, USD 5.0 per day, USD 150 per 30 days if forgotten.** Worst case with two busy workers: about 0.29 per hour.
+**About USD 0.21 per hour, USD 5.0 per day, USD 150 per 30 days if forgotten.** Worst case with the (single) worker busy all hour: about 0.24 per hour.
 `sizing=doc` (db.t4g.medium, cache.t4g.small, endpoints in 2 AZs) is about 0.38 per hour (USD 9 per day).
 
 Bedrock is per use, not per hour: at most USD 0.02 per draft (Gate 5 limit), so a 50-ticket Gate 6 run is about USD 1 and the

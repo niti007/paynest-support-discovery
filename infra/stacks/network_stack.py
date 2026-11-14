@@ -82,7 +82,7 @@ class NetworkStack(Stack):
         for name, svc in INTERFACE_ENDPOINTS.items():
             self.endpoints[name] = self.vpc.add_interface_endpoint(
                 f"Ep-{name}", service=svc, subnets=ep_subnets, security_groups=[self.endpoint_sg],
-                private_dns_enabled=True)
+                private_dns_enabled=True, open=False)      # open=False: no automatic 443-from-VPC-CIDR rule; only the task SGs above
 
         CfnOutput(self, "VpcId", value=self.vpc.vpc_id)
         Tags.of(self).add("stack", "network")

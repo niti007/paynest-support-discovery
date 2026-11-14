@@ -86,3 +86,22 @@ def test_dispatch(monkeypatch):
     assert "SECRET-BODY" not in json.dumps(out)
     with pytest.raises(ValueError):
         sqs_worker.handle_body({"nope": 1}, run, lambda t: {})
+
+
+def test_heartbeat_extends_visibility_while_running_and_stops():
+    import time
+
+    class FakeSqs:
+        def __init__(self):
+            self.calls = []
+
+        def change_message_visibility(self, **kw):
+            self.calls.append(kw)
+
+    f = FakeSqs()
+    with sqs_worker.Heartbeat(f, "q", "rh", every=0.05, timeout=300):
+        time.sleep(0.3)
+    n = len(f.calls)
+    assert n >= 2 and all(c == {"QueueUrl": "q", "ReceiptHandle": "rh", "VisibilityTimeout": 300} for c in f.calls)
+    time.sleep(0.15)
+    assert len(f.calls) == n            # stopped with the context

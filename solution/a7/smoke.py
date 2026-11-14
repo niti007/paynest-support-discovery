@@ -32,7 +32,7 @@ def call(method: str, url: str, headers: dict[str, str], body: dict | None = Non
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["health", "queue", "ticket", "decide", "flags", "payroll"])
+    ap.add_argument("cmd", choices=["live", "health", "queue", "ticket", "decide", "flags", "payroll"])
     ap.add_argument("--tenant")
     ap.add_argument("--ticket")
     ap.add_argument("--status", default="approved")
@@ -40,8 +40,10 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     base = os.environ.get("A7_ALB_URL", "").rstrip("/")
     rev = {"Authorization": f"Bearer {os.environ.get('A7_REVIEWER_TOKEN', '')}", "X-Tenant-Id": a.tenant or ""}
-    if a.cmd == "health":
-        code, text = call("GET", f"{base}/health", {})
+    if a.cmd == "live":
+        code, text = call("GET", f"{base}/livez", {})
+    elif a.cmd == "health":              # readiness: the API can reach the database (503 until the bootstrap task has run)
+        code, text = call("GET", f"{base}/readyz", {})
     elif a.cmd == "queue":
         code, text = call("GET", f"{base}/shadow", rev)
     elif a.cmd == "ticket":

@@ -24,12 +24,15 @@ CUSTOM_IDENTIFIERS = {
     "IbanAny": r"\b[A-Z]{2}[0-9]{2}[ -]?[A-Z0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{1,4}\b",
     # Emirates ID 784-YYYY-NNNNNNN-C, separators optional.
     "EmiratesId": r"\b784[ -]?[0-9]{4}[ -]?[0-9]{7}[ -]?[0-9]\b",
-    # Aadhaar: 4-4-4 grouped by space or hyphen, or 12 contiguous digits starting 2-9.
+    # Aadhaar: 4-4-4 grouped by space or hyphen, or 12 contiguous digits starting 2-9. KNOWN OVER-MASK: a 12-digit AWS account id that starts
+    # 2-9 (e.g. inside an ARN) is masked too. Accepted: excluding an ARN prefix needs a lookbehind, i.e. parentheses, which CloudWatch Logs
+    # does not allow; masking an account id in a log line is harmless.
     "AadhaarIN": r"\b[0-9]{4}[ -][0-9]{4}[ -][0-9]{4}\b|\b[2-9][0-9]{11}\b",
     # Indian PAN: 5 letters, 4 digits, 1 letter.
     "PanIN": r"\b[A-Z]{5}[0-9]{4}[A-Z]\b",
-    # Indian bank account (A/C 9-18 digits) and IFSC.
-    "BankAcctIfscIN": r"A/C[ ]?[0-9]{9,18}|IFSC[: ]*[A-Z]{4}0[A-Z0-9]{6}",
+    # Indian bank account (A/C 9-18 digits) and IFSC. ':' is NOT an allowed character in a CloudWatch Logs custom identifier, so the
+    # separator after IFSC is 0-3 non-alphanumerics instead of [: ]*.
+    "BankAcctIfscIN": r"A/C[ ]?[0-9]{9,18}|IFSC[^A-Za-z0-9]{0,3}[A-Z]{4}0[A-Z0-9]{6}",
     # Phone: international +CC form, or Indian 10-digit mobile.
     "PhoneIntl": r"\+[0-9]{1,3}[ -]?[0-9]{1,5}[ -]?[0-9]{3,5}[ -]?[0-9]{3,5}|\b[6-9][0-9]{4}[ -]?[0-9]{5}\b",
 }

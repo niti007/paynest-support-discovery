@@ -1,6 +1,6 @@
 """Reviewer API: pending approvals (HTML queue), ticket detail, decision -> resumes the graph.
 
-Auth: `Authorization: Bearer $A7_REVIEWER_TOKEN` on everything except /health (no token configured = all 401).
+Auth: `Authorization: Bearer $A7_REVIEWER_TOKEN` on everything except /livez, /readyz and /health (no token configured = all 401).
 Tenant scope: every request names ONE tenant (header X-Tenant-Id or ?tenant=). Reads and writes run under RLS for that
 tenant, so another tenant's ticket is a 404, never a leak (the May-2026 incident was two tenants in one session).
 Only masked text is stored or shown.
@@ -106,8 +106,25 @@ def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str 
             conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
             return conn.execute(sql, params).fetchall()
 
+    @app.get("/livez")
+    def livez():
+        """Liveness, NO database: the ALB health check. The stack deploys with an empty DB (app_user has no valid login until the
+        bootstrap task has run), so the load balancer must not depend on it."""
+        return {"status": "ok"}
+
+    @app.get("/readyz")
+    def readyz(request: Request):
+        """Readiness: app_user can reach the database (used by the smoke task). 503 until the bootstrap has run."""
+        try:
+            with request.app.state.pool.connection(timeout=3) as conn:
+                conn.execute("SELECT 1")
+        except Exception:  # noqa: BLE001 - PoolTimeout / OperationalError: report, never leak the message
+            return JSONResponse({"status": "not_ready"}, status_code=503)
+        return {"status": "ok"}
+
     @app.get("/health")
     def health(request: Request):
+        """Kept for compatibility (local tests, humans): same as /readyz but raises on failure."""
         with request.app.state.pool.connection() as conn:
             conn.execute("SELECT 1")
         return {"status": "ok"}

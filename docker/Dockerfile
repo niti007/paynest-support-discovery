@@ -24,15 +24,20 @@ FROM runtime-deps AS runtime
 COPY solution/a7 /app/solution/a7
 COPY solution/db /app/solution/db
 COPY solution/ingest /app/solution/ingest
-COPY data-room /app/data-room
+# api and act get ONLY customers.csv (the PII layer's company-name allow-list); the rest of data-room (tickets, transcripts, incident notes)
+# is for the worker (demo replay by ticket id) and the bootstrap/ingest loaders.
+COPY data-room/data/customers.csv /app/data-room/data/customers.csv
 USER 10001
 
 FROM runtime AS worker
+USER root
+COPY data-room /app/data-room
+USER 10001
 CMD ["python", "-m", "solution.a7.sqs_worker"]
 
 FROM runtime AS api
 EXPOSE 8080
-# /health opens a DB connection, so it doubles as the ALB health check.
+# /livez (no DB) is the ALB health check; /readyz opens a DB connection (smoke task).
 CMD ["uvicorn", "solution.a7.api.app:app", "--host", "0.0.0.0", "--port", "8080", "--proxy-headers"]
 
 # Act: the only image that opens the PII vault. Same code, different task role and secrets.

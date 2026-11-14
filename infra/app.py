@@ -93,21 +93,36 @@ def _suppress_p6(ops, compute, monitoring):
                                          "and Budgets from publishing; TLS is enforced by the topic policy."),
     ])
     N.add_stack_suppressions(compute, [
-        S(id="AwsSolutions-SMG4", reason="Demo credentials, regenerated on every deploy; rotation needs a rotation Lambda (out of scope)."),
+        S(id="AwsSolutions-SMG4", reason="Demo credentials generated ONCE at stack creation (never in the template); rotation needs a rotation Lambda (out of scope). Bootstrap sets the DB passwords from them; destroy removes them."),
         S(id="AwsSolutions-ECS4", reason="Container Insights bills per metric/log volume; the demo uses the ALB/SQS/ECS alarms and "
                                          "dashboard in MonitoringStack instead."),
         S(id="AwsSolutions-ELB2", reason="ALB access logs need an S3 bucket (cost, extra resource to destroy). App logs go to CloudWatch."),
         S(id="AwsSolutions-ECS2", reason="Environment holds only non-secret settings (hostnames, ARNs, flags); every secret is an ECS secret."),
         S(id="AwsSolutions-EC23", reason="False positive: the ALB SG allows ingress only from the VPC CIDR (internal ALB) or, when "
                                          "public_alb=true, 443 only; the unit tests assert both."),
-        S(id="AwsSolutions-IAM5", reason="Wildcards are limited to: EU-region prefix of the Bedrock foundation-model ARN (geo inference "
-                                         "profile, pinned by bedrock:InferenceProfileArn); scheduler schedule/<group>/*; Secrets Manager "
-                                         "random ARN suffix; ECR/logs resource policies CDK generates for the execution roles."),
-        S(id="AwsSolutions-IAM4", reason="AWS-managed policies only on the CDK-created execution roles (ECS task execution policy)."),
     ])
-    N.add_stack_suppressions(monitoring, [
-        S(id="AwsSolutions-IAM5", reason="CDK-generated metric-filter/dashboard permissions use resource wildcards."),
-    ])
+    # IAM5 is suppressed per ROLE and per RESOURCE (applies_to), never stack-wide, so any new wildcard still fails the nag run.
+    # (The earlier IAM4 and monitoring-stack IAM5 suppressions were stale: no managed policy and no IAM wildcard exist there. Removed.)
+    # The internal ALB listens on plain HTTP (no nag rule fires): accepted demo risk, bearer tokens and masked ticket text stay inside the VPC
+    # (isolated subnets, no IGW/NAT, SG-restricted); a public ALB requires an ACM certificate and HTTPS (enforced in ComputeStack).
+    base = compute.node.path
+    bedrock_why = {"amazon.nova-lite-v1:0": "EU geo inference profile (Nova Lite)", "cohere.embed-v4:0": "EU geo inference profile (Cohere embeddings)"}
+    for role, models in (("WorkerRole", bedrock_why), ("ApiRole", {"cohere.embed-v4:0": bedrock_why["cohere.embed-v4:0"]}),
+                         ("BootstrapRole", {"cohere.embed-v4:0": bedrock_why["cohere.embed-v4:0"]})):
+        N.add_resource_suppressions_by_path(compute, f"/{base}/{role}/DefaultPolicy/Resource", [
+            S(id="AwsSolutions-IAM5", applies_to=[f"Resource::arn:aws:bedrock:eu-*::foundation-model/{m}"],
+              reason=f"{why}: the underlying foundation model is served from several EU Regions, so the Region is wildcarded to eu-* "
+                     "and the statement is conditioned on bedrock:InferenceProfileArn (calls must come through that profile).")
+            for m, why in models.items()])
+    for role in ("WorkerRole", "ApiRole"):
+        N.add_resource_suppressions_by_path(compute, f"/{base}/{role}/DefaultPolicy/Resource", [
+            S(id="AwsSolutions-IAM5", applies_to=[{"regex": "/^Resource::arn:aws:scheduler:[a-z0-9-]+:[0-9]+:schedule\\/paynest-a7-[a-z0-9-]+\\/\\*$/"}],
+              reason="One-time escalation schedules get a generated name (a7-esc-<id>) inside the single paynest-a7-<env> schedule group; "
+                     "CreateSchedule cannot be scoped tighter than the group.")])
+    for task in ("ApiTask", "MockTask", "WorkerTask", "ActTask", "SmokeTask", "BootstrapTask"):
+        N.add_resource_suppressions_by_path(compute, f"/{base}/{task}/ExecutionRole/DefaultPolicy/Resource", [
+            S(id="AwsSolutions-IAM5", applies_to=["Resource::*"],
+              reason="ecr:GetAuthorizationToken does not support resource-level permissions (AWS requires Resource *); it is the only wildcard here.")])
 
 
 if __name__ == "__main__":

@@ -90,8 +90,11 @@ def test_all_tasks_arm64_fargate_and_health_check(t):
     for td in _res(t["compute"], "AWS::ECS::TaskDefinition").values():
         assert td["Properties"]["RuntimePlatform"]["CpuArchitecture"] == "ARM64"
         assert td["Properties"]["RequiresCompatibilities"] == ["FARGATE"]
+    # api: DB-free liveness (the DB is empty until the bootstrap task has run); mock payroll has no DB either
     t["compute"].has_resource_properties("AWS::ElasticLoadBalancingV2::TargetGroup",
-                                         {"HealthCheckPath": "/health", "Port": 8080, "TargetType": "ip"})
+                                         {"HealthCheckPath": "/livez", "Port": 8080, "TargetType": "ip"})
+    paths = sorted(g["Properties"]["HealthCheckPath"] for g in _res(t["compute"], "AWS::ElasticLoadBalancingV2::TargetGroup").values())
+    assert paths == ["/health", "/livez"]
 
 
 def test_services_and_run_task_definitions(t):
@@ -101,7 +104,7 @@ def test_services_and_run_task_definitions(t):
     assert "-api" in names and "-worker" in names and "-mock-payroll" in names and "decider" not in names
     assert len(_res(t["compute"], "AWS::ECS::TaskDefinition")) == 6                                              # api, mock, worker, act, bootstrap, smoke
     # worker scales 0..2 on queue depth
-    t["compute"].has_resource_properties("AWS::ApplicationAutoScaling::ScalableTarget", {"MinCapacity": 0, "MaxCapacity": 2})
+    t["compute"].has_resource_properties("AWS::ApplicationAutoScaling::ScalableTarget", {"MinCapacity": 0, "MaxCapacity": 1})
 
 
 # ---------------------------------------------------------------------------------------------------------- act role / KMS
@@ -121,10 +124,96 @@ def test_only_act_role_has_unconditioned_kms_decrypt(t):
     assert allowed_direct == 1                                 # exactly the act vault managed policy
 
 
-def test_vault_key_policy_denies_decrypt_except_act(t):
+def _glob(pattern: str, value: str) -> bool:
+    import fnmatch
+    return fnmatch.fnmatchcase(value, pattern)
+
+
+def _deny_applies(deny: dict, principal_arn: str | None, via_service: str | None) -> bool:
+    """Evaluate the key-policy Deny statement's Condition block for one caller (a tiny IAM evaluator for the three operators used)."""
+    cond = deny["Condition"]
+    arn_like = cond["ArnLike"]["aws:PrincipalArn"]
+    arn_not_like = cond["ArnNotLike"]["aws:PrincipalArn"]
+    via_list = cond["StringNotEquals"]["kms:ViaService"]
+    like = principal_arn is not None and any(_glob(p, principal_arn) for p in (arn_like if isinstance(arn_like, list) else [arn_like]))
+    not_like = principal_arn is None or not any(_glob(p, principal_arn) for p in (arn_not_like if isinstance(arn_not_like, list) else [arn_not_like]))
+    not_via = via_service is None or via_service not in via_list           # StringNotEquals is true when the key is absent
+    return like and not_like and not_via
+
+
+def _key_deny(t):
     key = next(iter(_res(t["data"], "AWS::KMS::Key").values()))
-    deny = [s for s in key["Properties"]["KeyPolicy"]["Statement"] if s["Effect"] == "Deny"][0]
-    assert deny["Action"] == "kms:Decrypt" and ACT in json.dumps(deny["Condition"])
+    stmts = key["Properties"]["KeyPolicy"]["Statement"]
+    return [s for s in stmts if s["Effect"] == "Deny"]
+
+
+def test_vault_key_policy_denies_decrypt_except_act_and_aws_services(t):
+    """The deny (a) covers every account role and user except act, (b) never applies to service principals or service-linked roles
+    (RDS/ElastiCache use the key through grants with their own identity), (c) lets rds/elasticache/sqs/secretsmanager/logs in eu-north-1
+    through kms:ViaService."""
+    denies = _key_deny(t)
+    assert len(denies) == 1                                    # the only Deny on the key
+    deny = denies[0]
+    assert deny["Action"] == "kms:Decrypt" and deny["Effect"] == "Deny" and deny["Principal"] == {"AWS": "*"}
+    cond = json.dumps(deny["Condition"])
+    assert ACT in cond and "aws-service-role" in cond
+    # the rendered account is a token-free literal at synth (CDK_DEFAULT_ACCOUNT dummy 000000000000)
+    acct = "000000000000"
+    via = {f"{svc}.eu-north-1.amazonaws.com" for svc in ("rds", "elasticache", "sqs", "secretsmanager", "logs")}
+    assert set(deny["Condition"]["StringNotEquals"]["kms:ViaService"]) == via
+    role = lambda n: f"arn:aws:iam::{acct}:role/{n}"           # noqa: E731
+    # blocked: humans and apps calling Decrypt directly (no ViaService), and via a service that is not on the list
+    for who in (role("paynest-a7-dev-worker-task"), role("paynest-a7-dev-api-task"), role("paynest-a7-dev-bootstrap-task"),
+                role("aws-reserved/sso.amazonaws.com/AWSReservedSSO_Admin_abc"), role("cdk-hnb659fds-cfn-exec-role-000000000000-eu-north-1"),
+                f"arn:aws:iam::{acct}:user/someone"):
+        assert _deny_applies(deny, who, None), who
+        assert _deny_applies(deny, who, "s3.eu-north-1.amazonaws.com"), who
+        assert _deny_applies(deny, who, "rds.eu-west-1.amazonaws.com"), who             # wrong Region
+    # allowed: the act role, service-linked roles (RDS/ElastiCache grants), service principals (no PrincipalArn), and ViaService calls
+    assert not _deny_applies(deny, role(ACT), None)
+    assert not _deny_applies(deny, role("aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS"), None)
+    assert not _deny_applies(deny, role("aws-service-role/elasticache.amazonaws.com/AWSServiceRoleForElastiCache"), None)
+    assert not _deny_applies(deny, None, None)                                           # rds.amazonaws.com / elasticache.amazonaws.com principals
+    for v in via:
+        assert not _deny_applies(deny, role("paynest-a7-dev-worker-task"), v), v
+        assert not _deny_applies(deny, f"arn:aws:iam::{acct}:user/someone", v), v
+
+
+def test_key_policy_keeps_account_admin_statement_and_no_other_allow_of_decrypt(t):
+    key = next(iter(_res(t["data"], "AWS::KMS::Key").values()))
+    allows = [s for s in key["Properties"]["KeyPolicy"]["Statement"] if s["Effect"] == "Allow"]
+    assert any(s["Action"] == "kms:*" and ":root" in json.dumps(s["Principal"]) for s in allows)       # CDK default: IAM policies apply
+    assert not [s for s in allows if "Decrypt" in json.dumps(s["Action"]) and "kms:*" != s["Action"]]  # no extra Decrypt allow in the key policy
+
+
+def test_rds_log_group_is_owned_by_cdk_and_removed_on_destroy(t):
+    lgs = [g for g in _res(t["data"], "AWS::Logs::LogGroup").values()]
+    assert len(lgs) == 1
+    g = lgs[0]
+    assert g["Properties"]["LogGroupName"] == f"/aws/rds/instance/paynest-a7-{ENV}-db/postgresql"
+    assert g["Properties"]["RetentionInDays"] == 7 and g["DeletionPolicy"] == "Delete" and "DataProtectionPolicy" in g["Properties"]
+    db = next(iter(_res(t["data"], "AWS::RDS::DBInstance").values()))
+    assert db["Properties"]["DBInstanceIdentifier"] == f"paynest-a7-{ENV}-db" and db["Properties"]["EnableCloudwatchLogsExports"] == ["postgresql"]
+    assert any("RdsPostgresLogs" in d for d in db["DependsOn"])        # the log group exists before RDS tries to create it
+
+
+def test_endpoint_sg_only_admits_task_security_groups(t):
+    net = t["network"]
+    eps = {r["Properties"]["SecurityGroupIds"][0]["Fn::GetAtt"][0] for r in _res(net, "AWS::EC2::VPCEndpoint").values()
+           if "SecurityGroupIds" in r["Properties"]}
+    assert len(eps) == 1
+    sg_id = next(iter(eps))
+    ingress = [r["Properties"] for r in _res(net, "AWS::EC2::SecurityGroupIngress").values()
+               if json.dumps(r["Properties"].get("GroupId")) == json.dumps({"Fn::GetAtt": [sg_id, "GroupId"]})]
+    inline = _res(net, "AWS::EC2::SecurityGroup")[sg_id]["Properties"].get("SecurityGroupIngress", [])
+    assert len(ingress) + len(inline) == 3                                                     # worker, api, mock
+    for r in [*ingress, *inline]:
+        assert "SourceSecurityGroupId" in r and "CidrIp" not in r and r.get("FromPort") == 443, r
+
+
+def test_worker_is_capped_at_one_task_for_the_nova_rpm_quota(t):
+    from stacks.compute_stack import WORKER_MAX_TASKS
+    assert WORKER_MAX_TASKS == 1
 
 
 def test_act_policy_attached_only_to_act_role_and_worker_has_no_decrypt(t):
@@ -257,19 +346,33 @@ def test_log_data_protection_policy(t):
         assert any("Deidentify" in json.dumps(s["Operation"]) for s in stmts)       # masks, not just audits
 
 
+# Characters CloudWatch Logs accepts in a custom data identifier regex (docs: "Custom data identifiers" constraints) and in its name.
+CWL_REGEX_ALLOWED = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" "_#=@/;,- '\"" "^$?[]{}|\\*+.")
+CWL_NAME_ALLOWED = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-")
+
+
 def test_custom_identifiers_match_and_obey_cloudwatch_limits():
     from stacks.ops_stack import CUSTOM_IDENTIFIERS as C
     assert len(C) <= 10
     for name, rx in C.items():
-        assert len(rx) <= 200, name
-        assert "(" not in rx and ")" not in rx, name         # parentheses are not in CloudWatch's allowed regex character set
+        assert len(rx) <= 200 and len(name) <= 128, name
+        assert set(name) <= CWL_NAME_ALLOWED, name
+        bad = sorted(set(rx) - CWL_REGEX_ALLOWED)
+        assert not bad, (name, bad)                          # e.g. ':' and '(' / ')' are NOT allowed (BankAcctIfscIN used ':' once)
+        re.compile(rx)                                       # and it is a valid regex
     ok = {"IbanAny": ["AE07 0331 2345 6789 0123 456", "AE070331234567890123456"], "EmiratesId": ["784-1990-1234567-1", "784199012345671"],
           "AadhaarIN": ["2345 6789 0123", "234567890123"], "PanIN": ["ABCDE1234F"],
-          "BankAcctIfscIN": ["A/C 123456789012, IFSC HDFC0001234"], "PhoneIntl": ["+971 50 123 4567", "98765 43210"]}
+          "BankAcctIfscIN": ["A/C 123456789012", "IFSC HDFC0001234", "IFSC: HDFC0001234", "IFSC-HDFC0001234"],
+          "PhoneIntl": ["+971 50 123 4567", "98765 43210"]}
     for name, samples in ok.items():
         for sm_ in samples:
             assert re.search(C[name], sm_), (name, sm_)
-    assert not re.search(C["PanIN"], "PN-101055") and not re.search(C["EmiratesId"], "PN-100402")
+    benign = ["PN-101055", "PN-100402", "CL-202413", "R-IN-PF-2026-08", "1f0d3c2a-7b9e-4c11-9a62-123456789012", "2026-11-14T09:30:00Z", "10.42.1.17"]
+    for text in benign:
+        for name, rx in C.items():
+            assert not re.search(rx, text), (name, text)
+    # documented over-mask: a 12-digit AWS account id starting 2-9 matches AadhaarIN (lookbehind needs parentheses, which are not allowed)
+    assert re.search(C["AadhaarIN"], "arn:aws:iam::554559231166:role/x")
 
 
 def test_alarms_present_with_sns_action(t):
