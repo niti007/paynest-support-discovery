@@ -63,7 +63,7 @@ def test_zero_pii_leaks_after_run(harvest, live_valkey_run):
                    f"{rep['leaks']} leaks ({sum(rep['canary_hits'].values())} canary, {sum(sum(v.values()) for v in rep['scanner_hits'].values())} scanner)",
                    f"n={len(harvest)} harvested tickets + 1 live tool ticket; {rep['canaries_checked']} raw PII values checked as canaries; "
                    f"{sum(rep['fragments'].values())} text fragments across {len(rep['fragments'])} stores ({keys} Valkey strings)",
-                   rep["leaks"] == 0, f"by store: scanner {rep['scanner_hits']} canary {rep['canary_hits']}" if rep["leaks"] else f"Scanner = Presidio + regex/legacy layers, NER off for names. Raw scanner hits lying entirely inside a UUID (LangGraph checkpoint ids) are counted apart, not as leaks: {sum(rep['uuid_false_positives'].values())} such hits {rep['uuid_false_positives']}; they are digit runs inside UUIDs / long hex ids read as Aadhaar/phone numbers (verified by shape, no values printed).")
+                   rep["leaks"] == 0, f"by store: scanner {rep['scanner_hits']} canary {rep['canary_hits']}" if rep["leaks"] else f"Scanner = Presidio + regex/legacy layers, NER off for names. UUID / long-hex ids (LangGraph checkpoint and run ids) are masked by solution.a7.pii.scanner.mask_ids before scanning: {sum(rep['id_spans_masked'].values())} id spans masked.")
     assert rep["leaks"] == 0, (rep["scanner_hits"], rep["canary_hits"])
 
 

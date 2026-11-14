@@ -32,9 +32,9 @@ if [ "$MODE" = "nightly" ]; then
   export ENABLE_DEEPEVAL_CACHE=0
   step "nightly: promptfoo red team (committed generated attacks, real graph)"
   run bash -c 'cd solution/evals/promptfoo && ./pf.sh run -c redteam.generated.yaml -o ../reports/promptfoo_results.json --no-cache --max-concurrency 1; rc=$?; [ $rc -eq 0 ] || [ $rc -eq 100 ]'   # exit 100 = some tests failed; summarize.py below is the gate
-  run uv run python solution/evals/promptfoo/summarize.py --fail-below 0.8
+  run uv run python solution/evals/promptfoo/summarize.py --fail-below "$(uv run python -c 'from solution.evals import floors; print(floors.floor("redteam_pass"))')"
   step "nightly: judge cross-check (Qwen3-235B vs Nova Lite, n=24)"
-  run uv run --group evalb python -m solution.evals.judge_crosscheck --n 24
+  run uv run python -m solution.evals.judge_crosscheck --n 24
 fi
 
 if [ "$FAILED" -ne 0 ]; then echo; echo "EVAL CI: RED"; exit 1; fi

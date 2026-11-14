@@ -54,17 +54,17 @@ def test_effective_date_no_stale_chunks(harvest):
 
 def test_expected_rule_retrieved(sample):
     """Plain-code companion to context recall: the rule that decides the answer is among the retrieved ids."""
-    hit = [r["id"] for r, m in sample if m["rule"] in {c["source_id"] for c in r["retrieved"]}]
-    miss = [(r["id"], m["rule"]) for r, m in sample if m["rule"] not in {c["source_id"] for c in r["retrieved"]}]
-    by = {}
-    for r, m in sample:
-        by.setdefault(r["set"], [0, 0])
-        by[r["set"]][1] += 1
-        by[r["set"]][0] += r["id"] in hit
-    results.record("rule_retrieved", "Decisive statutory rule is among the top-5 retrieved chunks", "info",
-                   f"{len(hit)}/{len(sample)} (" + ", ".join(f"{k} {a}/{b}" for k, (a, b) in sorted(by.items())) + ")",
-                   f"n={len(sample)} (stale + control samples)", None,
-                   "Misses are retrieval-recall gaps (e.g. PF rule not retrieved for some PF tickets), not stale chunks: " + ", ".join(f"{i}:{r}" for i, r in miss[:6]))
+    stale = [(r, m) for r, m in sample if r["set"] == "stale"]
+    ctl = [(r, m) for r, m in sample if r["set"] == "control"]
+    got = lambda r, m: m["rule"] in {c["source_id"] for c in r["retrieved"]}  # noqa: E731
+    hit = [r["id"] for r, m in stale if got(r, m)]
+    miss = [(r["id"], m["rule"]) for r, m in stale if not got(r, m)]
+    absent = sum(not got(r, m) for r, m in ctl)
+    results.record("rule_retrieved", "Decisive statutory rule is among the top-5 retrieved chunks (stale set); not retrieved for control tickets", "info",
+                   f"stale: in-force rule retrieved {len(hit)}/{len(stale)}; control: pre-change rule correctly NOT retrieved {absent}/{len(ctl)}",
+                   f"n={len(sample)} (stale {len(stale)} + control {len(ctl)} samples)", None,
+                   "Control tickets pre-date the rule, so the rule must be absent (a hit would be a not-yet-effective chunk). Stale misses are retrieval-recall gaps, not stale chunks: "
+                   + (", ".join(f"{i}:{r}" for i, r in miss[:6]) or "none") + ". Before fixes3 the stale set was 25/30.")
 
 
 @pytest.mark.judge

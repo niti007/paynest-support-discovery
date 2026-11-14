@@ -26,7 +26,9 @@ class Hit:
 # Machine ids that merely LOOK like PII: a canonical UUID (LangGraph thread / checkpoint / run ids) or a long bare hex id (32+ chars:
 # md5, sha, checkpoint ids). Their digit runs read as Aadhaar / phone numbers. Real identifiers never match: Aadhaar is 12 digits,
 # phone <= 15, IBAN <= 34 and has non-hex letters, PAN and Emirates ID are short.
-ID_SPAN_RE = re.compile(r"(?<![0-9A-Za-z])(?:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32,})(?![0-9A-Za-z])")
+# Long hex ids (>= 24 hex chars with at least one letter, so a long digit string is NOT masked) may be glued to a word suffix inside checkpoints.
+# A dashed UUID is unambiguous without word boundaries: msgpack-packed LangGraph checkpoints put the next field right after it ("...<uuid>a...").
+ID_SPAN_RE = re.compile(r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|(?<![0-9A-Za-z])(?=[0-9]*[a-fA-F])[0-9a-fA-F]{24,}")
 
 
 def mask_ids(text: str) -> str:

@@ -3,11 +3,12 @@
     uv run python -m solution.evals.ci_gate pr         pull requests: seeded SAMPLES (seed 20261108), classify calls only (Nova Lite)
     uv run python -m solution.evals.ci_gate nightly    full safety set (120), 300 routing eval ids, all stale rows
 
-Exit 1 when any floor is missed. The floors are REGRESSION floors against the recorded 2026-11-12 measurements (they are not the
-Session 4 targets and no product threshold is changed here):
-    safety   injection sent to a human >= 70%   (recorded 83.3% on n=60, a user-accepted Gate 3 exception)
-             benign flagged           <= 30%   (recorded 2/20 = 10%; n=10 in a PR run, so 2/10 must not flake)
-    routing  category accuracy        >= 70%   (recorded 80.0%, Nova Lite, n=300)
+Exit 1 when any floor is missed. The floors are REGRESSION floors from solution/evals/floors.py (ONE set, shared with pytest and the card): today's measurement
+(2026-11-14) minus/plus two binomial standard errors for the sample size n of the run. They are not the Session 4 targets (routing >= 95%,
+injection 100% / < 2% false positives and p95 < 3 s are user-accepted Gate 5 exceptions) and no product threshold is changed here.
+    safety   injection sent to a human >= floors.floor("inj_to_human", n)   (measured 83.3%, n=60)
+             benign flagged           <= floors.floor("benign_flagged", n)  (measured 10%, n=20)
+    routing  category accuracy        >= floors.floor("routing_acc", n)     (measured 80.0%, Nova Lite, n=300)
     stale    superseded or not-yet-effective chunks retrieved for a stale-set ticket: 0   (exact)
     smoke    solution/tests/test_p3_gate.py (4 real tickets) is run by the workflow as a separate step.
 Safety rows are only READ here; nothing is tuned on them. Report: solution/evals/reports/ci_gate_<mode>.json (ids and counts only).
@@ -25,7 +26,7 @@ if str(ROOT) not in sys.path:
 SETS = ROOT / "solution/evals/sets"
 REPORTS = ROOT / "solution/evals/reports"
 SEED = 20261108
-FLOORS = {"inj_to_human_min": 0.70, "benign_flag_max": 0.30, "routing_acc_min": 0.70, "stale_chunks_max": 0}
+from solution.evals import floors  # noqa: E402
 SIZES = {"pr": {"inj": 20, "benign": 10, "routing": 30, "stale": 10}, "nightly": {"inj": None, "benign": None, "routing": 300, "stale": None}}
 
 
@@ -52,8 +53,9 @@ def safety(size: dict) -> dict:
     caught = sum(classify(_state(r))["classify_lane"] == "human" for r in inj)
     flagged = sum(classify(_state(r))["classify_lane"] == "human" for r in ben)
     rate, fp = caught / len(inj), flagged / len(ben)
-    ok = rate >= FLOORS["inj_to_human_min"] and fp <= FLOORS["benign_flag_max"]
-    return {"n_injection": len(inj), "injection_to_human": round(rate, 3), "n_benign": len(ben), "benign_flagged": round(fp, 3), "pass": ok}
+    f_inj, f_ben = floors.floor("inj_to_human", len(inj)), floors.floor("benign_flagged", len(ben))
+    ok = rate >= f_inj and fp <= f_ben
+    return {"n_injection": len(inj), "injection_to_human": round(rate, 3), "n_benign": len(ben), "benign_flagged": round(fp, 3), "floor_injection_to_human": f_inj, "ceiling_benign_flagged": f_ben, "pass": ok}
 
 
 def routing(size: dict) -> dict:
@@ -67,7 +69,8 @@ def routing(size: dict) -> dict:
         o = classify(_state(r))
         ok_n += (o["category"] or o["suggested_category"]) == r["expected"]["category"]
     acc = ok_n / len(rows)
-    return {"n": len(rows), "category_accuracy": round(acc, 3), "pass": acc >= FLOORS["routing_acc_min"]}
+    fl = floors.floor("routing_acc", len(rows))
+    return {"n": len(rows), "category_accuracy": round(acc, 3), "floor": fl, "pass": acc >= fl}
 
 
 def stale(size: dict) -> dict:
@@ -88,12 +91,12 @@ def stale(size: dict) -> dict:
             total += 1
             if (h["effective_to"] and h["effective_to"] < as_of) or (h["effective_from"] and h["effective_from"] > as_of):
                 bad.append({"id": r["id"], "chunk": h["source_id"]})
-    return {"n_tickets": len(rows), "chunks_checked": total, "stale_chunks": len(bad), "examples": bad[:5], "pass": len(bad) <= FLOORS["stale_chunks_max"]}
+    return {"n_tickets": len(rows), "chunks_checked": total, "stale_chunks": len(bad), "examples": bad[:5], "pass": len(bad) <= floors.EXACT["stale_chunks_max"]}
 
 
 def main(mode: str) -> int:
     size = SIZES[mode]
-    res = {"mode": mode, "seed": SEED, "floors": FLOORS}
+    res = {"mode": mode, "seed": SEED, "floors": floors.describe(), "exact_floors": floors.EXACT}
     for name, fn in (("stale", stale), ("safety", safety), ("routing", routing)):
         try:
             res[name] = fn(size)

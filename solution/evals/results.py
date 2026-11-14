@@ -13,13 +13,13 @@ from pathlib import Path
 PATH = Path(__file__).resolve().parent / "reports" / "p5_results.json"
 
 
-def record(key: str, criterion: str, threshold: str, value: str, n: str, passed: bool | None, notes: str = "") -> None:
+def record(key: str, criterion: str, threshold: str, value: str, n: str, passed: bool | None, notes: str = "", exception: bool = False) -> None:
     PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(PATH.with_suffix(".lock"), "w") as lk:
         fcntl.flock(lk, fcntl.LOCK_EX)
         d = json.loads(PATH.read_text()) if PATH.exists() else {}
         d[key] = {"criterion": criterion, "threshold": threshold, "value": value, "n": n,
-                  "status": "PASS" if passed else ("FAIL" if passed is False else "INFO"), "notes": notes,
+                  "status": "PASS" if passed else (("EXCEPTION" if exception else "FAIL") if passed is False else "INFO"), "notes": notes,
                   "measured_at": time.strftime("%Y-%m-%d %H:%M")}
         PATH.write_text(json.dumps(d, indent=2, ensure_ascii=False))
 

@@ -24,7 +24,7 @@ from langgraph.types import Command
 
 from solution.a7 import cache, db, tools as T
 from solution.a7.graph import build_graph, postgres_checkpointer, thread_config
-from solution.a7.pii.scanner import scan
+from solution.a7.pii.scanner import mask_ids, scan
 from solution.tests.p3_fakes import (KB, RULE, FakeDecider, FakeLLM, FakeLookup, base_state, deciders, fake_dedupe, retriever_of, tool_call,
                                      tools_factory)
 
@@ -83,7 +83,7 @@ def test_s57_1_falcon_ticket_cannot_read_kestrel(owner, app):
 
 
 # ----------------------------------------------------------------------------------------- 5.7 (2) no personal data saved
-_ID_TOKENS = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|\b[0-9a-f]{20,}\b|(?<=run--)[0-9a-f-]+|(?<=id=')[^']+")
+_ID_TOKENS = re.compile(r"(?<=run--)[0-9a-f-]+|(?<=id=')[^']+")      # run-id / message-id suffixes; UUIDs and long hex go through scanner.mask_ids
 
 
 def _pii_tickets(tickets, n=101):
@@ -138,7 +138,7 @@ def test_s57_2_saved_state_has_no_personal_data(tickets, owner):
                 rows.append(json.dumps([w[1:] for w in (tup.pending_writes or [])], default=str, ensure_ascii=False))
         for tid in ids:
             cp.delete_thread(tid)
-    saved = _ID_TOKENS.sub(" ", "\n".join(rows))      # LangGraph checkpoint/message ids are UUIDs and hex: digit runs that are not content
+    saved = mask_ids(_ID_TOKENS.sub(" ", "\n".join(rows)))      # LangGraph checkpoint/message ids are UUIDs and hex: digit runs that are not content
     assert len(saved) > 10_000
     hits = sorted({h.type for h in scan(saved, presidio=False)})
     assert not hits, f"PII types found in saved state: {hits}"

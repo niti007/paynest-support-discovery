@@ -87,3 +87,13 @@ def test_uuid_and_hex_ids_are_not_pii_but_canaries_are():
     }
     for name, text in canaries.items():
         assert scan_text(f"{text} and id 1f0d3c2a-7b9e-4c11-9a62-123456789012"), name
+
+
+def test_mask_ids_checkpoint_shapes():
+    """Integration: ids packed into msgpack checkpoints have no delimiter after them; long digit strings are not ids."""
+    from solution.a7.pii.scanner import mask_ids
+    u = "1f0b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d"
+    assert mask_ids("$" + u + "abc") == "$" + "_" * 36 + "abc"
+    h = "5a3b9c0d1e2f4a5b6c7d8e9f0a1b2c3dnode_x"
+    assert mask_ids(h).startswith("_" * 32) and "node_x" not in mask_ids(h)[:32]
+    assert mask_ids("123456789012345678901234567890") == "123456789012345678901234567890"

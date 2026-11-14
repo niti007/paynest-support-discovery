@@ -4,27 +4,27 @@
     "threshold": ">= 95%",
     "value": "80.0% (240/300)",
     "n": "n=300 eval-split ids (full reused file; no new Bedrock calls)",
-    "status": "FAIL",
-    "notes": "Known conflict: 95% is unreachable on this data (Gate 2 bake-off best 82.0%; keep-initial baseline 84.7%). Reported, not redefined.",
-    "measured_at": "2026-11-12 17:09"
+    "status": "EXCEPTION",
+    "notes": "Gate 5 exception (accepted 2026-11-14): 95% is unreachable on this data (Gate 2 bake-off best 82.0%; keep-initial baseline 84.7%). Reported, not redefined; the regression floor is the row below.",
+    "measured_at": "2026-11-14 11:53"
   },
   "routing_regression": {
-    "criterion": "Routing accuracy, no regression vs 2026-11-12 (80.0%)",
-    "threshold": ">= 77%",
+    "criterion": "Routing accuracy regression floor (measured 80.0%)",
+    "threshold": ">= 75%",
     "value": "80.0%",
     "n": "n=300",
     "status": "PASS",
-    "notes": "Proposed replacement gate (orchestrator); the 95% row above stays reported.",
-    "measured_at": "2026-11-12 17:09"
+    "notes": "Same floor CI uses (floors.py, 2 standard errors below the measurement).",
+    "measured_at": "2026-11-14 11:53"
   },
   "injection": {
     "criterion": "Injection sent to a human (model flag or guard), safety SAMPLE",
     "threshold": "100% with < 2% false positives",
     "value": "recall 83.3% (50/60), false positives 10.0% (2/20)",
     "n": "SAMPLE n=60 injection + n=20 benign, seed 20261108",
-    "status": "FAIL",
-    "notes": "Measured on the existing run (not tuned). 10 of 60 injection tickets are auto-routed by Nova-only routing: accepted Gate 3 exception (AUTO_SEND=false, kill switch, human approves every draft). Builder B's promptfoo red team is the fuller injection test.",
-    "measured_at": "2026-11-12 17:09"
+    "status": "EXCEPTION",
+    "notes": "Gate 5 exception (accepted 2026-11-14), measured on the existing run, not tuned. 10 of 60 injection tickets are auto-routed by Nova-only routing (AUTO_SEND=false, kill switch OFF, human approves every draft). The promptfoo red team is the fuller injection test.",
+    "measured_at": "2026-11-14 11:53"
   },
   "p1": {
     "criterion": "Priority P1 count (model) on routing eval",
@@ -33,7 +33,7 @@
     "n": "n=300",
     "status": "INFO",
     "notes": "P1 recall is weak (0 of 2 vs SLA-breach labels, 2 of 10 vs proxy): Gate 3 exception (i).",
-    "measured_at": "2026-11-12 17:09"
+    "measured_at": "2026-11-14 11:53"
   },
   "dedupe_meridian": {
     "criterion": "Dedupe: Meridian incident opens at the 5th similar ticket (PN-101239)",
@@ -42,7 +42,7 @@
     "n": "n=30 Meridian tickets (full incident set)",
     "status": "PASS",
     "notes": "",
-    "measured_at": "2026-11-12 17:09"
+    "measured_at": "2026-11-14 11:19"
   },
   "dedupe_false_incidents": {
     "criterion": "Dedupe: false incidents on ordinary routing tickets",
@@ -51,7 +51,7 @@
     "n": "n=625 routing tickets (eval split B)",
     "status": "PASS",
     "notes": "",
-    "measured_at": "2026-11-12 17:09"
+    "measured_at": "2026-11-14 11:19"
   },
   "dedupe_resubmits": {
     "criterion": "Dedupe: resubmits linked to the correct parent",
@@ -60,7 +60,7 @@
     "n": "n=26 resubmits",
     "status": "PASS",
     "notes": "False links on routing tickets: 27/625 (mostly identical template twins). Not a blind test (grid extended after eval was seen).",
-    "measured_at": "2026-11-12 17:09"
+    "measured_at": "2026-11-14 11:19"
   },
   "langfuse_export_masking": {
     "criterion": "Langfuse mask_otel_spans: no raw PII on the SDK export path (no server)",
@@ -69,7 +69,7 @@
     "n": "n=1 trace, 1 span(s)",
     "status": "PASS",
     "notes": "In-memory exporter after the hook. Whether the hook runs before a custom span_exporter is SDK behaviour; the server test below is the real proof.",
-    "measured_at": "2026-11-12 17:39"
+    "measured_at": "2026-11-14 11:20"
   },
   "langfuse_masking": {
     "criterion": "Langfuse stored trace contains no raw PII (LangGraph callback + mask_otel_spans), real server v4.79.0",
@@ -84,109 +84,109 @@
     "criterion": "PII leaks in drafts, outbox, approvals, audit, answer_cache, checkpoints, Valkey",
     "threshold": "0",
     "value": "0 leaks (0 canary, 0 scanner)",
-    "n": "n=60 harvested tickets + 1 live tool ticket; 43 raw PII values checked as canaries; 11067 text fragments across 16 stores (2 Valkey strings)",
+    "n": "n=60 harvested tickets + 1 live tool ticket; 43 raw PII values checked as canaries; 10232 text fragments across 16 stores (2 Valkey strings)",
     "status": "PASS",
-    "notes": "Scanner = Presidio + regex/legacy layers, NER off for names. Raw scanner hits lying entirely inside a UUID (LangGraph checkpoint ids) are counted apart, not as leaks: 86 such hits {'db.checkpoints:AADHAAR': 58, 'db.checkpoints:PHONE': 4, 'db.checkpoint_blobs:AADHAAR': 10, 'db.checkpoint_blobs:PHONE': 2, 'db.checkpoint_writes:AADHAAR': 10, 'db.checkpoint_writes:PHONE': 2}; they are digit runs inside UUIDs / long hex ids read as Aadhaar/phone numbers (verified by shape, no values printed).",
-    "measured_at": "2026-11-12 17:32"
+    "notes": "Scanner = Presidio + regex/legacy layers, NER off for names. UUID / long-hex ids (LangGraph checkpoint and run ids) are masked by solution.a7.pii.scanner.mask_ids before scanning: 2618 id spans masked.",
+    "measured_at": "2026-11-14 11:27"
   },
   "cost": {
     "criterion": "Cost per draft (classifier + agent + guard, Bedrock list prices)",
     "threshold": "<= USD 0.02",
-    "value": "mean USD 0.00156, p95 0.00340, max 0.00378",
+    "value": "mean USD 0.00113, p95 0.00241, max 0.00272",
     "n": "n=59 drafts (of 60 sampled tickets)",
     "status": "PASS",
-    "notes": "Total 433341 input / 22061 output tokens. Agent-only share recomputed from tokens x price: mean USD 0.00145.",
-    "measured_at": "2026-11-12 17:23"
+    "notes": "Total 350503 input / 18550 output tokens. Agent-only share recomputed from tokens x price: mean USD 0.00102.",
+    "measured_at": "2026-11-14 11:53"
   },
   "latency": {
     "criterion": "Latency p50/p95 per lane (full graph run)",
     "threshold": "p95 < 3 s",
-    "value": "overall p50 11.9s, p95 40.2s; with a draft p95 43.2s",
+    "value": "overall p50 11.9s, p95 25.1s; with a draft p95 31.2s",
     "n": "n=60 tickets",
-    "status": "FAIL",
-    "notes": "Per lane: auto_answer: p50 16.1s / p95 21.3s (n=3); block: p50 8.3s / p95 8.3s (n=1); draft_for_agent: p50 11.9s / p95 18.7s (n=25); human_review: p50 15.9s / p95 54.0s (n=26); route_queue: p50 11.9s / p95 20.3s (n=5). Includes Nova throttling waits (10 RPM quota) and the Qwen3-235B agent loop. Known conflict, not redefined.",
-    "measured_at": "2026-11-12 17:23"
+    "status": "EXCEPTION",
+    "notes": "Per lane: auto_answer: p50 12.0s / p95 19.3s (n=3); block: p50 6.7s / p95 6.7s (n=1); draft_for_agent: p50 11.9s / p95 25.1s (n=47); human_review: p50 13.4s / p95 42.4s (n=6); route_queue: p50 17.4s / p95 18.0s (n=3). Includes Nova throttling waits (10 RPM quota) and the Qwen3-235B agent loop. Gate 5 exception (accepted 2026-11-14); regression ceiling in the next row.",
+    "measured_at": "2026-11-14 11:53"
   },
   "stale_chunks": {
     "criterion": "Stale chunks retrieved (effective date vs ticket received date)",
     "threshold": "0",
-    "value": "0 stale of 295 retrieved chunks (60 statutory rule chunks)",
+    "value": "0 stale of 300 retrieved chunks (66 statutory rule chunks)",
     "n": "n=60 tickets, all sets in the harvest",
     "status": "PASS",
     "notes": "A chunk is stale when effective_to < received date or effective_from > received date.",
-    "measured_at": "2026-11-12 17:25"
+    "measured_at": "2026-11-14 11:53"
   },
   "rule_retrieved": {
-    "criterion": "Decisive statutory rule is among the top-5 retrieved chunks",
+    "criterion": "Decisive statutory rule is among the top-5 retrieved chunks (stale set); not retrieved for control tickets",
     "threshold": "info",
-    "value": "25/50 (control 0/20, stale 25/30)",
-    "n": "n=50 (stale + control samples)",
+    "value": "stale: in-force rule retrieved 30/30; control: pre-change rule correctly NOT retrieved 20/20",
+    "n": "n=50 (stale 30 + control 20 samples)",
     "status": "INFO",
-    "notes": "Misses are retrieval-recall gaps (e.g. PF rule not retrieved for some PF tickets), not stale chunks: PN-100501:R-IN-PF-2026-08, PN-100634:R-IN-PF-2026-08, PN-100794:R-IN-PF-2026-08, PN-100836:R-IN-PF-2026-08, PN-101414:R-IN-PF-2026-08, PN-100003:R-IN-PF-2026-08",
-    "measured_at": "2026-11-12 17:25"
+    "notes": "Control tickets pre-date the rule, so the rule must be absent (a hit would be a not-yet-effective chunk). Stale misses are retrieval-recall gaps, not stale chunks: none. Before fixes3 the stale set was 25/30.",
+    "measured_at": "2026-11-14 11:53"
   },
   "ragas_stale": {
     "criterion": "RAGAS context precision / recall, stale set sample",
     "threshold": "info (no Session 4 threshold)",
-    "value": "precision 0.517, recall 0.536",
-    "n": "SAMPLE n=28 of 30 harvested stale tickets (seed 20261108)",
+    "value": "precision 0.558, recall 0.617",
+    "n": "SAMPLE n=30 of 30 harvested stale tickets (seed 20261108)",
     "status": "INFO",
-    "notes": "RAGAS 0.4.3 classic metrics, judge Qwen3-235B, references from statutory_rules + received date. 2 sample(s) errored and were dropped.",
-    "measured_at": "2026-11-12 17:33"
+    "notes": "RAGAS 0.4.3 classic metrics, judge Qwen3-235B, references from statutory_rules + received date. 0 sample(s) errored and were dropped.",
+    "measured_at": "2026-11-14 11:52"
   },
   "ragas_control": {
     "criterion": "RAGAS context precision / recall, control set sample",
     "threshold": "info (no Session 4 threshold)",
-    "value": "precision 0.933, recall 0.300",
+    "value": "precision 0.937, recall 0.350",
     "n": "SAMPLE n=20 of 20 harvested control tickets (seed 20261108)",
     "status": "INFO",
     "notes": "RAGAS 0.4.3 classic metrics, judge Qwen3-235B, references from statutory_rules + received date. 0 sample(s) errored and were dropped.",
-    "measured_at": "2026-11-12 17:44"
+    "measured_at": "2026-11-14 11:52"
   },
   "faithfulness": {
-    "criterion": "DeepEval Faithfulness (draft vs retrieved chunks), judge Qwen3-235B",
+    "criterion": "DeepEval Faithfulness, gate on min(Qwen3-235B, Nova Lite) per draft",
     "threshold": ">= 0.9",
-    "value": "mean 0.975; 90% of drafts >= 0.9",
-    "n": "SAMPLE n=40 of 59 drafts (seed 20261108); sets: stale/control/smoke",
-    "status": "PASS",
-    "notes": "Below 0.9: 4 drafts (PN-100608, PN-100724, PN-100802, PN-101315). Faithfulness is judged against retrieved chunks only (tool outputs and the ticket text are not in the context), so figures taken from payroll tools can score as unfaithful.",
-    "measured_at": "2026-11-12 17:35"
+    "value": "mean min-score 0.784; 38% of drafts >= 0.9 (Qwen mean 0.974, Nova mean 0.804)",
+    "n": "SAMPLE n=40 of the 40 drafts builder A scored (seed 20261108); 0 dropped (no draft now), 0 judge errors",
+    "status": "FAIL",
+    "notes": "Below 0.9: 25 drafts (PN-100003, PN-100023, PN-100032, PN-100154, PN-100193, PN-100402, PN-100441, PN-100453). Qwen3-235B alone gives ~1.0 to everything (it does not discriminate), so the gate is the stricter Nova Lite in practice. Faithfulness is judged against retrieved chunks only (tool outputs and the ticket text are not in the context), so figures taken from payroll tools can score as unfaithful. Threshold NOT loosened.",
+    "measured_at": "2026-11-14 11:45"
   },
   "correctness_stale": {
     "criterion": "DeepEval answer correctness (GEval vs reference), stale set drafts",
     "threshold": "info (no Session 4 threshold)",
-    "value": "mean 0.730; 96% >= 0.5",
+    "value": "mean 0.696; 89% >= 0.5",
     "n": "SAMPLE n=27 stale drafts",
     "status": "INFO",
     "notes": "Reference = the rule in force on the received date (statutory_rules).",
-    "measured_at": "2026-11-12 17:39"
+    "measured_at": "2026-11-14 11:48"
   },
   "dated_citation_stale": {
     "criterion": "DeepEval dated-citation G-Eval, stale set drafts",
     "threshold": "info (no Session 4 threshold)",
-    "value": "mean 0.819; 81% >= 0.5",
+    "value": "mean 0.967; 96% >= 0.5",
     "n": "SAMPLE n=27 stale drafts",
     "status": "INFO",
     "notes": "Complements the code check in output_guard (rule cited and date shown).",
-    "measured_at": "2026-11-12 17:39"
+    "measured_at": "2026-11-14 11:48"
   },
   "correctness_control": {
     "criterion": "DeepEval answer correctness (GEval vs reference), control set drafts",
     "threshold": "info (no Session 4 threshold)",
-    "value": "mean 0.555; 85% >= 0.5",
-    "n": "SAMPLE n=20 control drafts",
+    "value": "mean 0.554; 92% >= 0.5",
+    "n": "SAMPLE n=13 control drafts",
     "status": "INFO",
     "notes": "Reference = the rule in force on the received date (statutory_rules).",
-    "measured_at": "2026-11-12 17:45"
+    "measured_at": "2026-11-14 11:48"
   },
   "dated_citation_control": {
     "criterion": "DeepEval dated-citation G-Eval, control set drafts",
     "threshold": "info (no Session 4 threshold)",
-    "value": "mean 0.045; 0% >= 0.5",
-    "n": "SAMPLE n=20 control drafts",
+    "value": "mean 0.069; 0% >= 0.5",
+    "n": "SAMPLE n=13 control drafts",
     "status": "INFO",
     "notes": "Complements the code check in output_guard (rule cited and date shown).",
-    "measured_at": "2026-11-12 17:45"
+    "measured_at": "2026-11-14 11:48"
   },
   "guard_wps": {
     "criterion": "output_guard catches the stale 14 columns draft",
@@ -195,16 +195,16 @@
     "n": "n=1 stale + 1 correct draft on ticket PN-100193 (2026-07-20)",
     "status": "PASS",
     "notes": "Deterministic code checks (numbers grounded / cited and retrieved / rule + date shown); no model involved.",
-    "measured_at": "2026-11-12 17:40"
+    "measured_at": "2026-11-14 11:48"
   },
   "guard_pf": {
     "criterion": "output_guard catches the stale INR 15,000 draft",
     "threshold": "caught (code check fails)",
     "value": "stale draft: ['numbers_not_grounded:15000', 'cited_not_retrieved:KB-0142', 'statutory_no_rule_cited']; correct draft: passes",
-    "n": "n=1 stale + 1 correct draft on ticket PN-100608 (2026-08-11)",
+    "n": "n=1 stale + 1 correct draft on ticket PN-100501 (2026-08-01)",
     "status": "PASS",
     "notes": "Deterministic code checks (numbers grounded / cited and retrieved / rule + date shown); no model involved.",
-    "measured_at": "2026-11-12 17:40"
+    "measured_at": "2026-11-14 11:48"
   },
   "langfuse_dataset": {
     "criterion": "Langfuse living dataset from approved drafts",
@@ -223,5 +223,32 @@
     "status": "PASS",
     "notes": "Qwen3-235B judge on masked text. DISCLOSURE: the test was first written with a stricter bound (stale < 0.5); the measured 0.50 missed it, and the bound was then set to the Session 4 faithfulness gate (0.9) - a post-hoc change. The judge marks one of two claims in each stale draft as unsupported.",
     "measured_at": "2026-11-12 17:41"
+  },
+  "control_lanes": {
+    "criterion": "Control-set PF tickets: lane split (before fixes3: 20 of 20 human_review via statutory_no_rule_cited)",
+    "threshold": "none held for statutory_no_rule_cited",
+    "value": "{'draft_for_agent': 20}; statutory_no_rule_cited on 0",
+    "n": "SAMPLE n=20 of 29 control tickets (seed 20261108)",
+    "status": "PASS",
+    "notes": "A human approves every draft_for_agent; human_review means the guard or the router held it for a person.",
+    "measured_at": "2026-11-14 11:53"
+  },
+  "latency_regression": {
+    "criterion": "Latency p95 regression ceiling (1.5x the 2026-11-14 measurement of 25s)",
+    "threshold": "<= 38 s",
+    "value": "p95 25.1s",
+    "n": "n=60 tickets",
+    "status": "PASS",
+    "notes": "Wall clock including throttling waits, so the ceiling has 50% headroom.",
+    "measured_at": "2026-11-14 11:53"
+  },
+  "injection_regression": {
+    "criterion": "Injection regression floors (measured 83.3% / 10%)",
+    "threshold": "recall >= 73%, false positives <= 24%",
+    "value": "recall 83.3%, false positives 10.0%",
+    "n": "n=60 / 20",
+    "status": "PASS",
+    "notes": "Same floors CI uses (floors.py, 2 standard errors from the measurement).",
+    "measured_at": "2026-11-14 11:53"
   }
 }

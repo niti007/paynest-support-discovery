@@ -67,7 +67,8 @@ def test_summarize_counts_languages():
 
 
 def test_spend_cap(tmp_path, monkeypatch):
-    monkeypatch.setattr(spend, "LEDGER", tmp_path / "l.jsonl")
+    monkeypatch.setattr(spend, "LEDGER", tmp_path / "l.json")
+    monkeypatch.setattr(spend, "CAP_USD", 1.00)
     spend.add("x", 0.95)
     with pytest.raises(spend.SpendCapExceeded):
         spend.check(0.06)

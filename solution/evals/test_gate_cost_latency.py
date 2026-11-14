@@ -14,7 +14,7 @@ from collections import defaultdict
 
 import pytest
 
-from solution.evals import results, spend
+from solution.evals import floors, results, spend
 
 pytestmark = pytest.mark.eval
 
@@ -49,10 +49,10 @@ def test_latency_per_lane(harvest):
     drafting = [r["latency_s"] for r in harvest if (r["draft"] or "").strip()]
     results.record("latency", "Latency p50/p95 per lane (full graph run)", "p95 < 3 s",
                    f"overall p50 {pct(allv, .5):.1f}s, p95 {p95:.1f}s; with a draft p95 {pct(drafting, .95):.1f}s", f"n={len(allv)} tickets",
-                   p95 < 3.0, f"Per lane: {lanes}. Includes Nova throttling waits (10 RPM quota) and the Qwen3-235B agent loop. Known conflict, not redefined.")
+                   p95 < 3.0, f"Per lane: {lanes}. Includes Nova throttling waits (10 RPM quota) and the Qwen3-235B agent loop. Gate 5 exception (accepted 2026-11-14); regression ceiling in the next row.",
+                   exception=True)
+    ceil = floors.latency_ceiling(floors.LATENCY_P95_BASELINE_S)
+    results.record("latency_regression", f"Latency p95 regression ceiling ({floors.LATENCY_CEILING_FACTOR}x the 2026-11-14 measurement of {floors.LATENCY_P95_BASELINE_S:.0f}s)",
+                   f"<= {ceil:.0f} s", f"p95 {p95:.1f}s", f"n={len(allv)} tickets", p95 <= ceil, "Wall clock including throttling waits, so the ceiling has 50% headroom.")
+    assert p95 <= ceil
     assert math.isfinite(p95)
-
-
-@pytest.mark.xfail(reason="known conflict: p95 < 3 s is not reachable with the Qwen3-235B agent loop + Nova 10 RPM; measured and reported as FAIL", strict=False)
-def test_latency_p95_under_3s(harvest):
-    assert pct([r["latency_s"] for r in harvest], 0.95) < 3.0

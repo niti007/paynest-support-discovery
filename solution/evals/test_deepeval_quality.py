@@ -14,6 +14,7 @@ import json
 import os
 import random
 import statistics
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -74,27 +75,48 @@ def judge():
     return judges.primary_judge()
 
 
+FAITH_IDS = Path(__file__).resolve().parent / "reports" / "p5_faith_sample_ids.json"
+
+
+def _two_judges(r: dict) -> tuple[str, str, float | None, float | None]:
+    out = []
+    for jd in (judges.primary_judge("judge_qwen235b"), judges.cross_judge("judge_nova")):
+        score = None
+        for attempt in range(4):      # Nova Lite's on-demand quota is 10 RPM: back off and retry; a judge failure is a missing score, never a pass
+            m = faith_metric(jd)
+            try:
+                m.measure(case(r))
+                score = m.score
+                break
+            except Exception:  # noqa: BLE001
+                time.sleep(15 * (attempt + 1))
+        out.append(score)
+    return r["id"], r["set"], out[0], out[1]
+
+
 @pytest.mark.judge
-def test_faithfulness(drafts, judge):
+def test_faithfulness(drafts):
+    """User decision 2026-11-14: gate on the STRICTER of two judges, min(Qwen3-235B, Nova Lite) per draft, threshold 0.9 (not loosened).
+    Same 40-draft sample builder A used (reports/p5_faith_sample_ids.json, seed 20261108); drafts are the current graph's, so a ticket whose
+    graph run no longer produces a draft with retrieved context drops out and the n shown is smaller."""
     spend.guard()
-    pool = sorted(drafts, key=lambda r: r["id"])
-    rows = pool if len(pool) <= N_FAITH else sorted(random.Random(SEED).sample(pool, N_FAITH), key=lambda r: r["id"])
-
-    def one(r):
-        m = faith_metric(judges.primary_judge())
-        m.measure(case(r))
-        return r["id"], r["set"], m.score
-
-    out = run_parallel(one, rows)
-    sc = [s for _, _, s in out if s is not None]
-    mean, share = statistics.mean(sc), sum(s >= 0.9 for s in sc) / len(sc)
-    low = sorted((i for i, _, s in out if s is not None and s < 0.9))
-    _save("faithfulness", {i: s for i, _, s in out})
-    results.record("faithfulness", "DeepEval Faithfulness (draft vs retrieved chunks), judge Qwen3-235B", ">= 0.9",
-                   f"mean {mean:.3f}; {100 * share:.0f}% of drafts >= 0.9", f"SAMPLE n={len(sc)} of {len(pool)} drafts (seed {SEED}); sets: stale/control/smoke",
-                   mean >= 0.9, f"Below 0.9: {len(low)} drafts ({', '.join(low[:6])}). Faithfulness is judged against retrieved chunks only (tool outputs and the ticket text are not in the context), "
-                                "so figures taken from payroll tools can score as unfaithful.")
-    assert mean >= 0.9, (mean, low)
+    want = json.loads(FAITH_IDS.read_text())["ids"]
+    by_id = {r["id"]: r for r in drafts}
+    rows = [by_id[i] for i in want if i in by_id]
+    out = run_parallel(_two_judges, rows, workers=2)
+    both = [(i, st, q, nv) for i, st, q, nv in out if q is not None and nv is not None]
+    mins = [min(q, nv) for _, _, q, nv in both]
+    mean_min, share = statistics.mean(mins), sum(m >= 0.9 for m in mins) / len(mins)
+    mq, mn = statistics.mean(q for _, _, q, _ in both), statistics.mean(nv for _, _, _, nv in both)
+    low = sorted(i for (i, _, q, nv), m in zip(both, mins) if m < 0.9)
+    _save("faithfulness_min2", {i: {"qwen": q, "nova": nv, "min": min(q, nv)} for i, _, q, nv in both})
+    results.record("faithfulness", "DeepEval Faithfulness, gate on min(Qwen3-235B, Nova Lite) per draft", ">= 0.9",
+                   f"mean min-score {mean_min:.3f}; {100 * share:.0f}% of drafts >= 0.9 (Qwen mean {mq:.3f}, Nova mean {mn:.3f})",
+                   f"SAMPLE n={len(both)} of the 40 drafts builder A scored (seed {SEED}); {len(want) - len(rows)} dropped (no draft now), {len(rows) - len(both)} judge errors",
+                   mean_min >= 0.9,
+                   f"Below 0.9: {len(low)} drafts ({', '.join(low[:8])}). Qwen3-235B alone gives ~1.0 to everything (it does not discriminate), so the gate is the stricter Nova Lite in practice. "
+                   "Faithfulness is judged against retrieved chunks only (tool outputs and the ticket text are not in the context), so figures taken from payroll tools can score as unfaithful. Threshold NOT loosened.")
+    assert mean_min >= 0.9, (mean_min, low)
 
 
 @pytest.mark.judge

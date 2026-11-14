@@ -12,12 +12,11 @@ from collections import Counter
 from typing import Any, Iterator
 
 from solution.a7 import db
-from solution.a7.pii.scanner import scan
+from solution.a7.pii.scanner import ID_SPAN_RE, scan   # scan() masks UUID / long-hex ids itself (mask_ids)
 
 TEXT_TABLES = ["outbox", "approvals", "audit_log", "answer_cache", "escalations", "shadow_reviews", "incidents", "kb_suggestions",
                "partner_map_suggestions"]
 VEC_RE = re.compile(r"\[(?:-?\d+(?:\.\d+)?(?:e-?\d+)?,){50,}-?\d+(?:\.\d+)?(?:e-?\d+)?\]")      # embedding vectors are numbers, not text
-UUID_RE = re.compile(r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{24,64}")      # LangGraph checkpoint / run ids: UUIDs and long hex ids
 RUN_RE =re.compile(r"[^\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]{6,}")
 
 
@@ -116,22 +115,19 @@ def raw_strings(obj: Any) -> Iterator[str]:
 def scan_stores(stores: dict[str, list[str]], can: dict[str, str]) -> dict[str, Any]:
     by_store: dict[str, Counter] = {}
     canary_hits: Counter = Counter()
-    uuid_fp: Counter = Counter()
+    n_ids: Counter = Counter()
     n_frag = {}
     for name, frags in stores.items():
         n_frag[name] = len(frags)
         cnt: Counter = Counter()
         for t in frags:
-            uu = [(m.start(), m.end()) for m in UUID_RE.finditer(t)]
+            n_ids[name] += len(ID_SPAN_RE.findall(t))      # LangGraph checkpoint / run ids: masked inside scan() by scanner.mask_ids
             for h in scan(t, presidio=True, ner=False):
-                if any(a <= h.start and h.end <= b for a, b in uu):      # digit runs inside a UUID are ids, not PII; counted separately
-                    uuid_fp[f"{name}:{h.type}"] += 1
-                    continue
                 cnt[h.type] += 1
             for val, typ in can.items():
                 if val in t:
                     canary_hits[f"{name}:{typ}"] += 1
         by_store[name] = cnt
     return {"fragments": n_frag, "scanner_hits": {k: dict(v) for k, v in by_store.items() if v},
-            "canary_hits": dict(canary_hits), "uuid_false_positives": dict(uuid_fp), "canaries_checked": len(can),
+            "canary_hits": dict(canary_hits), "id_spans_masked": dict(n_ids), "canaries_checked": len(can),
             "leaks": sum(sum(v.values()) for v in by_store.values()) + sum(canary_hits.values())}
