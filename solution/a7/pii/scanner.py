@@ -4,6 +4,7 @@ Hits carry type, offsets and source only; never the matched value.
 """
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Any, Iterator
 
@@ -22,9 +23,21 @@ class Hit:
     score: float = 1.0
 
 
+# Machine ids that merely LOOK like PII: a canonical UUID (LangGraph thread / checkpoint / run ids) or a long bare hex id (32+ chars:
+# md5, sha, checkpoint ids). Their digit runs read as Aadhaar / phone numbers. Real identifiers never match: Aadhaar is 12 digits,
+# phone <= 15, IBAN <= 34 and has non-hex letters, PAN and Emirates ID are short.
+ID_SPAN_RE = re.compile(r"(?<![0-9A-Za-z])(?:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32,})(?![0-9A-Za-z])")
+
+
+def mask_ids(text: str) -> str:
+    """Blank out UUID / long-hex-id spans with '_' (same length, so every offset stays valid) before scanning."""
+    return ID_SPAN_RE.sub(lambda m: "_" * len(m.group()), text)
+
+
 def scan(text: str, *, presidio: bool = True, ner: bool = True, language: str | None = None) -> list[Hit]:
     if not text:
         return []
+    text = mask_ids(text)
     spans = find_regex_spans(text) + find_legacy_spans(text)
     if presidio:
         dl = language or detect_language(text)

@@ -69,6 +69,8 @@ class TicketState(TypedDict, total=False):
     retrieved: list[dict[str, Any]]         # {source_id, kind, effective_from, effective_to, score}
     context_chunks: list[dict[str, Any]]    # {source_id, title, body, effective_from}: global KB text, no PII
     topic: str | None               # KB topic of the best retrieved KB chunk (the answer_cache key)
+    ticket_topic: str | None        # statutory tickets: topic of the best KB chunk ignoring validity dates (superseded chunks included)
+    topic_rules: list[str]          # statutory tickets: rule ids IN FORCE at received_at for (tenant region, ticket_topic); [] = none yet
     region: str | None              # tenant region IN | UAE (the answer_cache key)
     # box 7: cache_lookup
     cache: dict[str, Any]           # {status: hit|miss|skipped, similarity?, entry_id?, reason?}

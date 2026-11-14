@@ -102,6 +102,15 @@ def asserted_stale_in(state: TicketState, stale: set[str]) -> set[str]:
     return asserted_stale(state.get("draft") or "", stale, current_values(state, stale))
 
 
+def rule_required(state: TicketState) -> bool:
+    """A statutory draft must cite a rule only when one is IN FORCE at the ticket's received date for its region and topic
+    (retrieve sets topic_rules). Before the rule's effective date the right answer is the KB article, so a KB citation is fine.
+    A draft can never cite a not-yet-in-force rule: such a rule is not retrievable (validity filter) -> cited_not_retrieved.
+    No topic_rules key (state not produced by retrieve): fail closed, require a rule."""
+    rules = state.get("topic_rules")
+    return True if rules is None else bool(rules)
+
+
 def code_checks(state: TicketState) -> list[str]:
     draft = state.get("draft") or ""
     fails: list[str] = []
@@ -123,7 +132,7 @@ def code_checks(state: TicketState) -> list[str]:
             fails.append(f"cited_not_retrieved:{cid}")
         elif r.get("kind") == "rule" and r.get("effective_from") and not date_shown(draft, r["effective_from"]):
             fails.append(f"rule_date_not_shown:{cid}")
-    if state.get("category") == "statutory" and not any(retrieved.get(c, {}).get("kind") == "rule" for c in cited):
+    if state.get("category") == "statutory" and rule_required(state) and not any(retrieved.get(c, {}).get("kind") == "rule" for c in cited):
         fails.append("statutory_no_rule_cited")
     # 3. validity on the ticket date
     as_of = state.get("as_of")
