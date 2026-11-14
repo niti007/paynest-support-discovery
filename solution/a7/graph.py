@@ -99,7 +99,7 @@ def build_graph(checkpointer: Any = None, *, deciders: dict | None = None, llm: 
                 tools_factory: Callable[[str], list] | None = None, tenant_lookup: Any = None, retriever: Any = None,
                 output_decider: Any = None, human_approval_node: Callable | None = None, act_node: Callable | None = None,
                 log_node: Callable | None = None, dedupe_node: Callable | None = None, cache_node: Callable | None = None,
-                tool_cache: Any = None):
+                tool_cache: Any = None, stale_checker: Any = None):
     if llm is None:
         from .llm import llm as default_llm
         llm = default_llm
@@ -129,7 +129,7 @@ def build_graph(checkpointer: Any = None, *, deciders: dict | None = None, llm: 
     g.add_node("retrieve", delta(make_retrieve(retriever)))
     g.add_node("cache_lookup", cache_delta(cache_node))
     g.add_node("agent", delta(agent_node, keep_tool_calls=True))
-    g.add_node("output_guard", delta(make_output_guard(output_decider)))
+    g.add_node("output_guard", delta(make_output_guard(output_decider, stale_checker=stale_checker)))
     g.add_node("human_approval", delta(human_approval_node or human_approval))
     g.add_node("act", delta(act_node or act))
     g.add_node("log_and_learn", delta(log_node or log_and_learn))

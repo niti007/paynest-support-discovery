@@ -2,11 +2,18 @@
 Cases: the 41 wrong drafts + 11 genuine corrections from the Gate 3/4 re-validation, plus our own en/ar/hinglish/hindi cases."""
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pytest
 
 from solution.a7.nodes.output_guard import code_checks
 from solution.tests.p3_fakes import PF, RULE
 from solution.tests.test_p3_nodes import agent_state
+
+# Wrong drafts the CODE rules no longer flag (user decision 2026-11-14: the rules keep the clear-cut catches, the LLM stale-claim check
+# the rest). They are skipped here and asserted against the LLM in test_guard_llm.py (marked aws).
+GAP = {x["draft"] for k in ("stale_values", "h1", "h1_extra") for x in json.loads((Path(__file__).parent / "data" / "rules_gap.json").read_text())[k]}
 
 W, P = "R-UAE-WPS-2026-07", "R-IN-PF-2026-08"
 cw = "[R-UAE-WPS-2026-07, effective 15 Jul 2026]"
@@ -134,11 +141,15 @@ OWN = [
 
 @pytest.mark.parametrize("draft,rid,stale,genuine", T[:], ids=[f"t{i}" for i in range(len(T))])
 def test_gate34_cases(draft, rid, stale, genuine):
+    if not genuine and draft in GAP:
+        pytest.skip("covered by the LLM stale-claim check (test_guard_llm.py, aws)")
     assert stale_passes(draft, rid, stale) == genuine, draft
 
 
 @pytest.mark.parametrize("draft,rid,stale,genuine", OWN, ids=[f"own{i}" for i in range(len(OWN))])
 def test_own_cases(draft, rid, stale, genuine):
+    if not genuine and draft in GAP:
+        pytest.skip("covered by the LLM stale-claim check (test_guard_llm.py, aws)")
     assert stale_passes(draft, rid, stale) == genuine, draft
 
 

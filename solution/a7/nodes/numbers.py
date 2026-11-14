@@ -95,6 +95,25 @@ for _v, _ws in enumerate(HINDI, 1):
     _reg(ADD, _v, *_ws.split(","))
 _reg(HUNDRED, 100, "सौ")
 
+# Hinglish (Hindi in Latin letters) 1-99, same order as HINDI above; "," separates spelling variants. A word is left out when it
+# is also an everyday English/Hinglish word and would turn prose into numbers: do (2), teen (3), char (4), tera (13), saath (60), sat, tis, bis.
+HINGLISH = """ek do! teen! chaar,char! paanch,panch chhah,chhe,chheh saat aath nau das,dus
+gyarah,gyaarah,igyarah barah,baarah terah chaudah,chaudha,chodah pandrah,pandra,pandrha solah satrah atharah,aathrah unnis,unnees,unis
+bees ikkis,ikkees,ekkis baais,baees,bais teis,teyis chaubis,chaubees pachchis,pachis,pachees,pachchees,pacchis chhabbis,chhabbees,chabbis
+sattais,sattaees,sataees atthais,athais,atthaees untis,unatees,untees tees ikatis,iktis,ikattis battis,battees taintis,tentis,tetis chautis,chauntis
+paintis,paitis,paintees chhattis,chhatis saintis,saintees adtis,artis,adatis untalis,unchalis chalis,chaalis,chalees ikatalis,iktalis bayalis,bayaalis
+taintalis,tetalis chauvalis,chaualis,chawalis paintalis,paitalis chiyalis,chhiyalis,chheyalis saintalis,saitalis adtalis,artalis unchas,unanchas
+pachas,pachaas ikyavan,ikkyawan bavan,baavan tirpan,tirepan,trepan chauvan,chauwan pachpan,pachpun,pachapan chhappan,chappan sattavan,satavan
+atthavan,athaavan unsath,unasath satth! iksath basath tirsath chausath painsath chhiyasath sadsath adsath unhattar sattar ikhattar bahattar
+tihattar chauhattar pachhattar,pachattar chhihattar sathattar athhattar unyasi,unasi assi ikyasi bayasi tirasi chaurasi pachasi chhiyasi satasi
+athasi navasi nabbe ikyanve banve tiranve chauranve panchanve chhiyanve sattanve atthanve ninyanve,ninnanve""".split()
+assert len(HINGLISH) == 99, len(HINGLISH)
+for _v, _ws in enumerate(HINGLISH, 1):
+    if _ws.endswith("!"):                # excluded: ambiguous with an ordinary word
+        continue
+    _reg(ADD, _v, *_ws.split(","))
+_reg(HUNDRED, 100, "sau")
+
 # Multiplier suffixes that may sit right after DIGITS only ("25k"); a bare letter k is not a word.
 DIGIT_SUFFIX = {"k": 1_000}
 

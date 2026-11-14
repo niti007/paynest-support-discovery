@@ -10,8 +10,8 @@ from typing import Any
 
 from . import config
 
-TIERS = {"cheap": config.MODEL_CHEAP, "hard": config.MODEL_HARD}
-MAX_TOKENS = {"cheap": 1200, "hard": 1800}
+TIERS = {"cheap": config.MODEL_CHEAP, "hard": config.MODEL_HARD, "fallback": config.MODEL_FALLBACK}
+MAX_TOKENS = {"cheap": 1200, "hard": 1800, "fallback": 600}
 _LOCK = threading.Lock()
 _CLIENT: Any = None
 _MODELS: dict[str, Any] = {}

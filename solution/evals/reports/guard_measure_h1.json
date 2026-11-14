@@ -1,0 +1,782 @@
+[
+ {
+  "id": "W1-00",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The WPS SIF file must have 14 columns.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states 14 columns, superseded by 16 columns",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 817,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 1.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-01",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Your SIF file is required to contain fourteen columns, so please check your export.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, which is the old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 821,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.39,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-02",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Is the file valid? Yes - the current WPS SIF format has 14 columns.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 824,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 6.95,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-03",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Please make sure the 14-column SIF v2 file is what you upload to the bank.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft recommends using SIF v2, which is superseded",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 826,
+  "llm_tokens_out": 36,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.12,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-04",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Under the current rules, a SIF v2 file with 14 columns is what the bank accepts.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions SIF v2 with 14 columns as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 826,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.0,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-05",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "SIF files are expected by the bank to be 14 columns wide.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states 14 columns, but rule changed to 16 columns",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 820,
+  "llm_tokens_out": 40,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-06",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The format in force is SIF v2. Your file should therefore be 14 columns.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states SIF v2 is still accepted",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 824,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 6.97,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-07",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Columns required in the WPS file:\n- Establishment ID\n- 14 columns in total\n- Employee records follow the EDR layout",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, old layout",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 833,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.3,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-08",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "| Item | Value |\n|---|---|\n| WPS SIF columns | 14 |\n| Version | v2 |",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states WPS SIF columns as 14 and version as v2",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 831,
+  "llm_tokens_out": 41,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-09",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "A 14-column file is what the UAE WPS format requires today.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, which is the old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 821,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.48,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-10",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Rather than 16, the file needs 14 columns. Please regenerate it accordingly.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns are current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 823,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 6.88,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-11",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The WPS file is to be submitted with fourteen (14) columns.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, which is the old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 820,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.84,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-12",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Thanks for reaching out. Your rejected file is likely due to the column count; the WPS SIF is made up of 14 columns, so please re-export.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, old layout",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 840,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.91,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-13",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Per the WPS rules, the SIF has 14 columns and uses version v2 currently.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states SIF v2 is currently used",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 825,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.92,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-14",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Use SIF v2: it is the format currently accepted, with 14 columns.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft recommends using SIF v2, which is superseded",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 823,
+  "llm_tokens_out": 36,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.13,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-15",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "We recommend the 14 column layout, as that is the current WPS SIF specification. Version 16 is not yet required.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft recommends 14 column layout, which is superseded",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 833,
+  "llm_tokens_out": 36,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.97,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-16",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Hello, the bank expects the SIF to carry 14 fields per record. Please fix your file.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 fields, old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 826,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.81,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-17",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Your file was rejected because it had 16 columns; the correct count is 14.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns is correct",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 824,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.06,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-18",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The standard WPS SIF layout is 14 columns, as it has always been. Nothing has changed.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states 14 columns as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 827,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.17,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-19",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Good news: the SIF format is still 14 columns, so no change is needed on your side.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies SIF v2 (14 columns) is still current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 827,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.84,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-20",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The EPF wage ceiling is INR 15,000 per month.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states old EPF wage ceiling",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 818,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.1e-05,
+  "llm_latency_s": 6.08,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-21",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "PF is calculated on basic wages up to Rs 15,000.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as the current limit for PF calculation",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 818,
+  "llm_tokens_out": 42,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.06,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-22",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Contributions are capped at a wage ceiling of ₹15,000 a month.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as the wage ceiling",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 820,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-23",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The statutory ceiling for provident fund is 15k per month, so contribution is computed on that.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states 15k per month as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 823,
+  "llm_tokens_out": 35,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.0,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-24",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Is the EPF ceiling still 15000? Yes, it is 15000 per month.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states EPF ceiling is 15,000, which is superseded",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 827,
+  "llm_tokens_out": 42,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-25",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The wage ceiling is fixed at fifteen thousand rupees per month.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as current wage ceiling",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 813,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-26",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "EPF is deducted on wages up to a maximum of INR 15,000, and anything above is excluded.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as the maximum, which is superseded",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 827,
+  "llm_tokens_out": 42,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-27",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Employees earning more than Rs. 15,000 are not required to contribute on the excess; the cap is Rs. 15,000.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as the cap",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 837,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.06,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-28",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "| Parameter | Limit |\n|---|---|\n| EPF wage ceiling | INR 15,000 |",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "EPF wage ceiling limit of INR 15,000",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 826,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-29",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "- Ceiling: 15,000\n- Rate: 12%\n- Applies monthly",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:12,15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:12,15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states ceiling as 15,000 which is superseded",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 823,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ }
+]

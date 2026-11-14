@@ -82,6 +82,7 @@ class TicketState(TypedDict, total=False):
     citations: list[dict[str, Any]]         # {source_id, effective_from}
     tool_calls: Annotated[list[dict[str, Any]], operator.add]   # {name, args_masked, ok}; nodes return DELTAS
     tool_numbers: list[str]                 # numbers (<= 9 digits) seen in tool outputs, for the grounding check
+    tool_evidence: list[str]                # masked tool outputs ("[tool name] {...}", <= 1500 chars): evidence for the faithfulness judge
     # box 10: output_guard
     guard: dict[str, Any]                   # {passed, failures, retries, final, stale_kb: [ids], missing_kb: bool}
     # box 11-13 (Builder C)

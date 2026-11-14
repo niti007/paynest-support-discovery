@@ -60,9 +60,12 @@ def citation_metric(judge):
 
 def case(row: dict, draft: str | None = None, expected: str | None = None) -> LLMTestCase:
     d = draft if draft is not None else row["draft"]
-    judges.assert_masked(row["masked_text"], d, *(c["body"] for c in row["contexts"]), expected or "")
+    tools = list(row.get("tool_evidence") or [])
+    judges.assert_masked(row["masked_text"], d, *(c["body"] for c in row["contexts"]), *tools, expected or "")
+    # evidence the draft was allowed to use: the retrieved chunks, what the read-only tools returned (masked) and the masked ticket itself
+    # (a draft that restates the customer's question or a tool result is not unfaithful; investigation 2026-11-14, CONTEXT GAP)
     return LLMTestCase(input=row["masked_text"], actual_output=d, expected_output=expected,
-                       retrieval_context=[ctx_text(c) for c in row["contexts"]])
+                       retrieval_context=[ctx_text(c) for c in row["contexts"]] + tools + [f"[ticket] {row['masked_text']}"])
 
 
 def run_parallel(fn, items, workers=4):
@@ -115,7 +118,8 @@ def test_faithfulness(drafts):
                    f"SAMPLE n={len(both)} of the 40 drafts builder A scored (seed {SEED}); {len(want) - len(rows)} dropped (no draft now), {len(rows) - len(both)} judge errors",
                    mean_min >= 0.9,
                    f"Below 0.9: {len(low)} drafts ({', '.join(low[:8])}). Qwen3-235B alone gives ~1.0 to everything (it does not discriminate), so the gate is the stricter Nova Lite in practice. "
-                   "Faithfulness is judged against retrieved chunks only (tool outputs and the ticket text are not in the context), so figures taken from payroll tools can score as unfaithful. Threshold NOT loosened.")
+                   "Evidence given to both judges: the retrieved chunks, the masked tool outputs the agent saw and the masked ticket text (added after the 2026-11-14 investigation, see faithfulness_investigation.md; "
+                   "the drafting prompt was tightened at the same time). Nova Lite is the stricter judge and the noisier one: at temperature 0 the same draft can score 0.0 on one run and 1.0 on the next. Threshold and min-of-two rule NOT changed.")
     assert mean_min >= 0.9, (mean_min, low)
 
 

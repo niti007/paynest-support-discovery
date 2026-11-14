@@ -1,0 +1,11 @@
+{
+  "cap_usd": 0.6,
+  "stop_usd": 0.57,
+  "total_usd": 0.012149,
+  "by_component": {
+    "judge_nova_investigate": 0.002703,
+    "stale_llm": 0.009446
+  },
+  "calls": 189,
+  "updated": "2026-11-14 14:50:20"
+}

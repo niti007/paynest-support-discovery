@@ -1,0 +1,59 @@
+{
+ "stale_values": [
+  {
+   "draft": "Your file has 14 columns, which is the current format and the old layout is not valid [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "The SIF has 14 columns, no longer 16 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "The new format replaced the old one, it has 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "Earlier versions had issues, but the current SIF has 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "The wage ceiling is 15,000 per month; the old rules do not apply [R-IN-PF-2026-08, effective 1 Aug 2026]",
+   "rule": "pf"
+  },
+  {
+   "draft": "كان الملف 14 عمودا وما زال كذلك [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "لم يعد الحد 25,000؛ الحد هو 15,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+   "rule": "pf"
+  },
+  {
+   "draft": "File 14 columns ki hi rakho, naya layout ab nahi [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "The file has 14 columns; the new layout is not used here [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "SIF v3 replaces nothing, so 14 columns is right [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "The old layout and the SIF with 14 columns are both fine [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+   "rule": "wps"
+  },
+  {
+   "draft": "كان الحد 25,000 والآن 15,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+   "rule": "pf"
+  }
+ ],
+ "h1": [],
+ "h1_extra": [
+  {
+   "draft": "The ceiling used to be 25k, but it is 15k from August 2026.",
+   "rule": "pf"
+  }
+ ]
+}

@@ -61,3 +61,11 @@ def vault():
 def gate(vault):
     from solution.a7.nodes.pii_gate import make_pii_gate
     return make_pii_gate(vault)
+
+
+@pytest.fixture(autouse=True)
+def _stale_llm_off_unless_aws(request, monkeypatch):
+    """The guard's stale-claim LLM check (nodes/stale_llm.py) calls Bedrock. Offline tests switch it off; tests that want it inject a
+    fake `stale_checker` / `make_llm`, and `aws`-marked tests run it for real."""
+    if "aws" not in request.keywords:
+        monkeypatch.setenv("A7_STALE_LLM", "0")

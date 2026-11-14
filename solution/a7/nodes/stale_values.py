@@ -277,6 +277,20 @@ def _mark(sentence: str) -> str:
     return NEG_PRE_RE.sub(lambda m: " " + NEG_PRE_TOK + " ", s)
 
 
+SUPERSESSION_CTX_RE = re.compile(_w(
+    r"previous(?:ly)?|former(?:ly)?|earlier|original(?:ly)?|prior|legacy|pre-?\w+|used to|until|till|"
+    r"outdated|out-of-date|obsolete|superseded|stale|expired|deprecated|retired|discontinued|replaced|replac(?:es|ing)|no longer|old(?:er)?(?=\s+(?:value|figure|limit|ceiling|layout|format|version|rate|v\d|\d))|(?:was|were)(?=\s+(?:[A-Za-z]{1,4}\.?\s*)?\d)|"
+    r"pehle|pahle|purana|purane|purani|tha|thi|पहले|पुराना|पुराने|पुरानी|था|थी|"
+    r"سابقا|السابق\w*|القديم\w*|قديم\w*|الأصلي|كان|كانت|لم يعد|لم تعد") + "|" + re.escape(NEG_POST_TOK) + "|" + re.escape(NEG_PRE_TOK), re.I)
+
+
+def _has_supersession_context(s: str) -> bool:
+    """The sentence talks about an old / replaced / previous value in some way (so its direction is for the LLM check to judge),
+    and does not say the value persists ("still", "unchanged"). Used only for stale numbers whose direction the slot and clause
+    patterns could not read; clear-cut asserts (no context at all, or the number in the current slot) are still flagged here."""
+    return bool(SUPERSESSION_CTX_RE.search(s)) and not PERSIST_RE.search(s)
+
+
 def asserted_in_sentence(sentence: str, stale: set[str], cur: CurrentValues, ctx: Context | None = None) -> set[str]:
     """Stale numbers this sentence states as current (or whose direction cannot be determined)."""
     raw = _prep(sentence)
@@ -294,8 +308,9 @@ def asserted_in_sentence(sentence: str, stale: set[str], cur: CurrentValues, ctx
             out.add(n)                                  # in the CURRENT slot of some marker: asserted
         elif "old" in v:
             continue                                    # superseded slot, current value in the other slot: a mention
-        elif not _clause_ok(s, m.start(), cur, ctx):
-            out.add(n)                                  # no marker, or no clear direction: fail closed
+        elif not _clause_ok(s, m.start(), cur, ctx) and not _has_supersession_context(s):
+            out.add(n)                                  # no marker and no supersession context at all: asserted. (Wording that has history
+                                                        # context but no readable direction goes to the LLM stale-claim check, stale_llm.py.)
     return out
 
 

@@ -78,7 +78,13 @@ def main() -> None:
     ap.add_argument("--control", type=int, default=20)
     ap.add_argument("--no-smoke", action="store_true")
     ap.add_argument("--fresh", action="store_true", help="ignore an existing p5_harvest.jsonl")
+    ap.add_argument("--out", help="write here instead of reports/p5_harvest.jsonl")
+    ap.add_argument("--repeat", help="ticket id to run several times through the graph (with --times); skips the sample sets")
+    ap.add_argument("--times", type=int, default=3)
     a = ap.parse_args()
+    global OUT
+    if a.out:
+        OUT = Path(a.out)
 
     from solution.a7 import db
     from solution.a7.decide.base import get_decider
@@ -91,10 +97,10 @@ def main() -> None:
     from solution.db import bootstrap
     from solution.evals import spend
 
-    todo = plan(a.stale, a.control, not a.no_smoke)
+    todo = [(n, t, 0) for n, t in plan(a.stale, a.control, not a.no_smoke)] if not a.repeat else [("repeat", a.repeat, k) for k in range(a.times)]
     done = set()
     if OUT.exists() and not a.fresh:
-        done = {r["id"] for r in jl(OUT)}
+        done = {(r["set"], r["id"], r.get("run", 0)) for r in jl(OUT)}
     elif OUT.exists():
         OUT.unlink()
     mock = start_mock()
@@ -106,8 +112,8 @@ def main() -> None:
             norm = make_normalise()
             graph = build_graph(cp, deciders={"bedrock_nova": nova, "bedrock_qwen32b": qwen}, output_decider=nova)
             spent = 0.0
-            for n, (setname, tid) in enumerate(todo, 1):
-                if tid in done:
+            for n, (setname, tid, run_k) in enumerate(todo, 1):
+                if (setname, tid, run_k) in done:
                     continue
                 if spent >= HARVEST_BUDGET_USD:
                     print(f"harvest budget {HARVEST_BUDGET_USD} reached at {n - 1}/{len(todo)}; stopping", flush=True)
@@ -124,7 +130,8 @@ def main() -> None:
                 ag = [x for x in v.get("trace", []) if x.get("node") == "agent" and "usage" in x]
                 agent_cost = sum(x["usage"]["cost_usd"] for x in ag)
                 agent_tok = (sum(x["usage"]["tokens_in"] for x in ag), sum(x["usage"]["tokens_out"] for x in ag))
-                cost = agent_cost + (a_cost - b_cost)
+                stale = [x["stale_llm"] for x in v.get("trace", []) if x.get("node") == "output_guard" and "stale_llm" in x]
+                cost = agent_cost + (a_cost - b_cost) + sum(x.get("cost_usd", 0.0) for x in stale)
                 spent += cost
                 spend.add("harvest", cost, calls=1)
                 draft = v.get("draft") or ""
@@ -133,7 +140,7 @@ def main() -> None:
                     cfg = thread_config(tid)
                     graph.invoke(Command(resume={"status": "approved", "reviewer": "eval-reviewer"}), cfg, durability="sync")
                     approval = "approved"
-                rec = {"set": setname, "id": tid, "lane": v.get("lane"), "queue": v.get("queue"), "priority": v.get("priority"),
+                rec = {"set": setname, "id": tid, "run": run_k, "lane": v.get("lane"), "queue": v.get("queue"), "priority": v.get("priority"),
                        "category": v.get("category"), "language": v.get("language"), "tenant": v.get("tenant_id"),
                        "as_of": v.get("as_of") or (v.get("received_at") or "")[:10], "received_at": v.get("received_at"),
                        "masked_text": v.get("masked_text"), "draft": draft,
@@ -141,6 +148,8 @@ def main() -> None:
                                     for c in v.get("context_chunks") or []],
                        "retrieved": v.get("retrieved") or [], "citations": v.get("citations") or [],
                        "tools": [(c["name"], c["ok"]) for c in v.get("tool_calls") or []],
+                       "tool_evidence": v.get("tool_evidence") or [],
+                       "stale_llm": stale, "guard_trail": [x.get("failures") for x in v.get("trace", []) if x.get("node") == "output_guard"],
                        "guard": v.get("guard"), "cache": (v.get("cache") or {}).get("status"), "route_reasons": v.get("route_reasons"),
                        "classify_backend": next((x.get("backend") for x in v.get("trace", []) if x.get("node") == "classify"), None),
                        "steps": [x.get("node") for x in v.get("trace", [])], "tier": v.get("llm_tier"),
@@ -153,7 +162,7 @@ def main() -> None:
     finally:
         mock.terminate()
         with db.connect(autocommit=True) as c:      # leave no vault rows behind (solution/tests vault tests assume their own key)
-            c.execute("DELETE FROM pii_vault WHERE ticket_id = ANY(%s)", ([t for _, t in todo],))
+            c.execute("DELETE FROM pii_vault WHERE ticket_id = ANY(%s)", ([t for _, t, _ in todo],))
 
 
 if __name__ == "__main__":

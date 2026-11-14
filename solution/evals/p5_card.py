@@ -41,11 +41,109 @@ def main() -> None:
     L += [row(res[k]) for k, _ in ORDER if k in res]
     L += ["", "## Supporting measurements", "", head]
     L += [row(res[k]) for k in EXTRA if k in res]
-    L += floors_section() + floors.GATE5_EXCEPTIONS + [""] + PROSE
+    L += floors_section() + floors.GATE5_EXCEPTIONS + [""] + guard_section() + [""] + PROSE
     OUT.write_text("\n".join(L))
     fails = [res[k]["criterion"] for k, _ in ORDER if k in res and res[k]["status"] == "FAIL"]
     exc = [res[k]["criterion"] for k, _ in ORDER if k in res and res[k]["status"] == "EXCEPTION"]
     print(f"wrote {OUT}; FAIL: {fails}; EXCEPTION: {exc}")
+
+
+def _rows(name: str) -> list[dict]:
+    f = OUT.parent / f"guard_measure_{name}.json"
+    return json.loads(f.read_text()) if f.exists() else []
+
+
+def _pct(a: int, b: int) -> str:
+    return f"{a}/{b} ({100 * a / b:.0f}%)" if b else "n/a"
+
+
+def guard_section() -> list[str]:
+    """Written from reports/guard_measure_*.json (solution/evals/guard_measure.py, one run, never tuned on) and the real-draft harvest."""
+    from solution.evals.guard_measure import is_rule_stale, tally
+
+    sets = [("h3", "round 3 (real DB rule chunks)"), ("h1", "round 2"), ("s41", "the 41 wrong / 11 genuine of the Gate 3/4 re-validation")]
+    L = ["## Guard: residual risk (user-accepted design 2026-11-14)", "",
+         "**Design.** The output guard is the code rules plus an LLM check. The code rules (grounding of numbers, stale value asserted with no supersession context, "
+         "rule cited and dated, validity, PII, language) keep the clear-cut catches; for statutory drafts `stale_llm.py` asks Nova Lite (Qwen3-32B fallback), through a forced tool call, "
+         "\"does this draft present any superseded value, version or layout as currently applicable on the received date?\" with each rule's Was / Now / effective date, the ticket's "
+         "received date and the draft. A code flag OR an LLM flag fails the guard (`stale_claim_llm`) and routes to human_review like every other guard failure; an LLM error fails closed. "
+         "Dates, ticket / rule ids, version labels and small ordinals are no longer treated as ungrounded numbers, a rule whose Now is `unchanged` keeps its Was figures as evidence, "
+         "and Hinglish number words (chaudah, pandrah, pachchis ...) are in the number table. Three held-out rounds had shown that rules alone do not converge, so the rules were frozen "
+         "after this one change and measured ONCE. Nothing was tuned on these sets afterwards.", "",
+         "**Measured (one run, held-out sets, drafts written by an independent validator).** bypass = a wrong draft nothing flagged; false rejection = a genuine correction something flagged "
+         "(it goes to human_review, so it is a cost, not a safety failure).", "",
+         "| set | wrong n | bypass: rules only | bypass: LLM only | bypass: combined | genuine n | false rejection: rules only | false rejection: LLM only | false rejection: combined |", "|---|---|---|---|---|---|---|---|---|"]
+    for name, label in sets:
+        rows = _rows(name)
+        if not rows:
+            continue
+        t = tally(rows, is_rule_stale)
+        w, g = t["wrong"], t["genuine"]
+        L.append(f"| {name}: {label} | {w['n']} | {_pct(w['bypass_rules'], w['n'])} | {_pct(w['bypass_llm'], w['n'])} | **{_pct(w['bypass_combined'], w['n'])}** | {g['n']} | "
+                 f"{_pct(g['false_rej_rules'], g['n'])} | {_pct(g['false_rej_llm'], g['n'])} | **{_pct(g['false_rej_combined'], g['n'])}** |")
+    h3 = _rows("h3")
+    if h3:
+        t = tally(h3, is_rule_stale)
+        L += ["", f"On h3 with the validator's own definition (ANY guard failure counts, including citation and date checks, decide() stubbed to yes): "
+              f"{t['wrong']['bypass_any_failure']} of {t['wrong']['n']} wrong drafts pass, {t['genuine']['false_rej_any_failure']} of {t['genuine']['n']} genuine drafts rejected. "
+              "Round 3 against the previous rule-only guard (560ecb6): 6 bypasses and 34 of 55 (62%) false rejections."]
+        byp = [r["id"] for r in h3 if r["label"] == "wrong" and not any(map(is_rule_stale, r["rule_fails"])) and not r.get("llm_flag")]
+        fr_l = [r["id"] for r in h3 if r["label"] == "genuine" and r.get("llm_flag")]
+        fr_r = [r["id"] for r in h3 if r["label"] == "genuine" and any(map(is_rule_stale, r["rule_fails"]))]
+        L += ["", f"Combined bypasses (h3): {', '.join(byp) or 'none'}. Rules-only false rejections that remain: {', '.join(fr_r)} (the old value named as history in wording the rules cannot read; "
+              "a '12%' rate and '14 days' / '15 minutes' that are true or harmless but not in the evidence, which the grounding rule rejects by design). "
+              f"LLM false rejections: {', '.join(fr_l) or 'none'}."]
+    lat = [r["llm_latency_s"] for n, _ in sets for r in _rows(n) if r.get("llm_latency_s") and not r.get("llm_error")]
+    cost = [r["llm_cost_usd"] for n, _ in sets for r in _rows(n) if r.get("llm_cost_usd")]
+    err = sum(1 for n, _ in sets for r in _rows(n) if r.get("llm_error"))
+    fb = sum(1 for n, _ in sets for r in _rows(n) if r.get("llm_fallback"))
+    if lat:
+        lat.sort()
+        L += ["", f"**Added cost and latency per statutory draft (measurement runs, n={len(lat)} LLM calls).** Mean {sum(lat) / len(lat):.1f} s, p95 {lat[int(0.95 * len(lat)) - 1]:.1f} s "
+              f"(this includes our own limiter that keeps the check under Nova Lite's 10 requests-per-minute quota; one call alone is about 1.5 s); mean cost USD {sum(cost) / len(cost):.6f} "
+              f"(about {sum(r['llm_tokens_in'] for n, _ in sets for r in _rows(n)) / max(1, len(cost)):.0f} tokens in, 30 out). LLM errors: {err}; Qwen3-32B fallback used: {fb}."]
+    L += real_guard_lines()
+    L += ["", "**Residual risk and mitigation.** The combined guard is a defence in depth, not a proof: an LLM check can miss a stale value in a wording nobody tried, and the rules reject some "
+          "correct drafts. What bounds the damage: (1) EVERY statutory draft needs human approval (draft_for_agent; auto_answer is shadow-only and AUTO_SEND is off with the kill switch default OFF), "
+          "so a stale claim that passes the guard still reaches a person; (2) a guard failure or an LLM error routes to human_review, never to a send; (3) drafts are only ever based on retrieved "
+          "chunks valid on the received date (0 stale chunks) and the draft must cite the in-force rule with its date. The residual risk the user accepted on 2026-11-14 is therefore: a wrong-version "
+          "statement in an unusual wording that both the rules and Nova Lite miss, reaching the approving agent, who sees the cited rule and its effective date next to the draft."]
+    return L
+
+
+def real_guard_lines() -> list[str]:
+    hv = OUT.parent / "p5_harvest.jsonl"
+    rp = OUT.parent / "p5_fin_repeat.jsonl"
+    rows = [json.loads(x) for x in hv.read_text().splitlines() if x.strip()] if hv.exists() else []
+    rep3 = [json.loads(x) for x in rp.read_text().splitlines() if x.strip()] if rp.exists() else []
+    if not rows:
+        return []
+    stat = [r for r in rows if r.get("category") == "statutory" or (r.get("set") in ("stale", "control"))]
+    def lanes(rs):
+        c: dict = {}
+        for r in rs:
+            c[r.get("lane")] = c.get(r.get("lane"), 0) + 1
+        return ", ".join(f"{k} {v}" for k, v in sorted(c.items(), key=lambda kv: str(kv[0])))
+    out = ["", "**Real drafts through the real graph (Nova routes, Qwen3-235B drafts, tightened prompt, new guard, drafts regenerated on this branch).**", "",
+           "| set | n | guard passed (final) | lanes | LLM-flagged (any attempt) | of which final guard failures |", "|---|---|---|---|---|---|"]
+    for name in ("stale", "control", "smoke"):
+        rs = [r for r in rows if r["set"] == name]
+        if not rs:
+            continue
+        ok = sum(1 for r in rs if (r.get("guard") or {}).get("passed"))
+        fl = sum(1 for r in rs if any(e.get("flag") for e in r.get("stale_llm") or []))
+        ff = sum(1 for r in rs if any(f.startswith("stale_claim_llm") for f in (r.get("guard") or {}).get("failures", [])))
+        out.append(f"| {name} | {len(rs)} | {_pct(ok, len(rs))} | {lanes(rs)} | {fl} | {ff} |")
+    if rep3:
+        ok = sum(1 for r in rep3 if (r.get("guard") or {}).get("passed"))
+        out.append(f"| PN-100402 x3 | {len(rep3)} | {_pct(ok, len(rep3))} | {lanes(rep3)} | {sum(1 for r in rep3 if any(e.get('flag') for e in r.get('stale_llm') or []))} | "
+                   f"{sum(1 for r in rep3 if any(f.startswith('stale_claim_llm') for f in (r.get('guard') or {}).get('failures', [])))} |")
+    calls = [e for r in rows + rep3 for e in (r.get("stale_llm") or [])]
+    if calls:
+        lat = sorted(e["latency_s"] for e in calls if not e.get("error"))
+        out += ["", f"In the graph the check ran {len(calls)} times (every statutory guard pass that had a rule change to compare against, retries included): mean {sum(lat) / len(lat):.1f} s, "
+                f"p95 {lat[int(0.95 * len(lat)) - 1]:.1f} s per call, mean cost USD {sum(e['cost_usd'] for e in calls) / len(calls):.6f}, errors {sum(1 for e in calls if e.get('error'))}."]
+    return out
 
 
 def floors_section() -> list[str]:
