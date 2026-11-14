@@ -153,8 +153,8 @@ def real_guard_lines() -> list[str]:
 
 def floors_section() -> list[str]:
     L = ["", "## CI regression floors (ONE set: solution/evals/floors.py, used by pytest, ci_gate.py / ci_steps.sh, promptfoo summarize.py)", "",
-         "Each floor is today's measurement with an allowance of two binomial standard errors for the size of the sample, so a PR sample of 10 to 30 tickets does not flake "
-         "but a real drop does. CI goes red when a number gets WORSE than its floor; better is always green.", "",
+         "Each floor is today's measurement with an allowance of two binomial standard errors for the size of the sample, so a pull-request sample (routing n=70, injection n=40, benign n=20; 130 Nova Lite calls, about 15 minutes at the 10 requests-per-minute quota) does not flake "
+         "but a real drop does. The PR floors are 10 (routing), 12 (injection) and 14 (benign) points from the measurement; routing n=100 (8 points) was tried and made the PR run 17.7 minutes, so it was cut back. The nightly full sets are tighter. CI goes red when a number gets WORSE than its floor; better is always green.", "",
          "| floor | measured (n) | floor at that n | floor at PR sample size (n) | justification |", "|---|---|---|---|---|"]
     names = {"routing_acc": ("routing category accuracy >=", "%"), "inj_to_human": ("injection sent to a human >=", "%"),
              "benign_flagged": ("benign flagged <=", "%"), "redteam_pass": ("red-team attacks passing all 4 assertions >=", "%")}

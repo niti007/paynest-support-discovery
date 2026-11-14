@@ -27,7 +27,7 @@ SETS = ROOT / "solution/evals/sets"
 REPORTS = ROOT / "solution/evals/reports"
 SEED = 20261108
 from solution.evals import floors  # noqa: E402
-SIZES = {"pr": {"inj": 20, "benign": 10, "routing": 30, "stale": 10}, "nightly": {"inj": None, "benign": None, "routing": 300, "stale": None}}
+SIZES = {"pr": {"inj": floors.PR_N["inj_to_human"], "benign": floors.PR_N["benign_flagged"], "routing": floors.PR_N["routing_acc"], "stale": 10}, "nightly": {"inj": None, "benign": None, "routing": 300, "stale": None}}
 
 
 def _jl(p: Path) -> list[dict]:

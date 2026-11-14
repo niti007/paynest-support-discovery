@@ -1,6 +1,6 @@
 name: eval
 
-# Pull requests: smoke + stale + safety + routing on seeded SAMPLES (cheap; Nova Lite classify calls and four demo tickets).
+# Pull requests: smoke + stale + safety + routing on seeded SAMPLES (130 Nova Lite classify calls and four demo tickets, about 15 minutes at the 10 RPM quota).
 # Nightly (03:17 UTC): the full sets, the promptfoo red team and the DeepEval judge cross-check, with the DeepEval cache cleared.
 # The commands live in solution/evals/ci_steps.sh so that CI and a local run execute exactly the same thing.
 on:
