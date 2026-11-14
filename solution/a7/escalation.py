@@ -10,11 +10,18 @@ Timer table (elapsed calendar hours from the ticket's received_at; a human decis
 Entry points that share one firing path (`fire_escalation`):
   run_due(now)          local dev poller (call it from a loop / cron / a test with a fake clock)
   handler(event, ctx)   what an AWS EventBridge Scheduler target would call:  {"escalation_id": 12}
+AWS: with A7_ESCALATION_BACKEND=scheduler, create_timers also creates one one-time EventBridge Scheduler schedule per timer
+(group A7_SCHEDULER_GROUP, role A7_SCHEDULER_ROLE_ARN, target SQS A7_ESCALATION_QUEUE_ARN, body {"escalation_id": N}); the SQS worker
+calls `handler`. Unset (local default) = nothing is scheduled and the DB poller `run_due` is the mechanism. Scheduling is best effort:
+a failure is logged (ids only) and never fails the ticket; the recurring run_due backstop message catches anything missed.
 Firing = set fired_at, write an audit_log row, write an outbox kind='notify' row. Exactly once per escalation.
 """
 from __future__ import annotations
 
 import datetime as dt
+import json
+import logging
+import os
 from typing import Any
 
 import psycopg
@@ -23,6 +30,7 @@ from psycopg.types.json import Jsonb
 from .human_db import maybe_conn, scoped
 
 UTC = dt.timezone.utc
+log = logging.getLogger("a7.escalation")
 HOUR = dt.timedelta(hours=1)
 
 P1_FIRST_RESPONSE = {"enterprise": 60, "business": 120}      # minutes, SLA 3.1; Standard = best effort
@@ -79,7 +87,38 @@ def create_timers(conn: psycopg.Connection, state: dict, now: dt.datetime | None
                 "INSERT INTO escalations (tenant_id, ticket_id, kind, level, due_at, reason) "
                 "VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT (ticket_id, kind) DO NOTHING",
                 (tenant, tid, t["kind"], t["level"], t["due_at"], t["reason"]))
+        ids = conn.execute("SELECT id, kind, due_at FROM escalations WHERE ticket_id = %s AND fired_at IS NULL "
+                           "AND resolved_at IS NULL", (tid,)).fetchall() if scheduler_enabled() else []
+    for esc_id, kind, due_at in ids:                   # outside the DB transaction: a network call must not hold it
+        schedule_escalation(esc_id, due_at, kind=kind)
     return timers
+
+
+def scheduler_enabled() -> bool:
+    return os.environ.get("A7_ESCALATION_BACKEND", "").strip().lower() == "scheduler"
+
+
+def schedule_escalation(escalation_id: int, due_at: dt.datetime, *, kind: str = "", client: Any = None,
+                        now: dt.datetime | None = None) -> bool:
+    """One-time EventBridge Scheduler schedule -> SQS. Idempotent (same name = already scheduled). Never raises."""
+    try:
+        now = now or dt.datetime.now(UTC)
+        when = max(_parse(due_at, now), now + dt.timedelta(seconds=60))      # at() must be in the future: overdue fires in ~1 min
+        if client is None:
+            import boto3
+            client = boto3.client("scheduler", region_name=os.environ.get("AWS_REGION", "eu-north-1"))
+        client.create_schedule(
+            Name=f"a7-esc-{escalation_id}", GroupName=os.environ["A7_SCHEDULER_GROUP"],
+            ScheduleExpression=f"at({when.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%S')})", ScheduleExpressionTimezone="UTC",
+            FlexibleTimeWindow={"Mode": "OFF"}, ActionAfterCompletion="DELETE",
+            Target={"Arn": os.environ["A7_ESCALATION_QUEUE_ARN"], "RoleArn": os.environ["A7_SCHEDULER_ROLE_ARN"],
+                    "Input": json.dumps({"escalation_id": int(escalation_id)}),
+                    "RetryPolicy": {"MaximumEventAgeInSeconds": 3600, "MaximumRetryAttempts": 3}})
+        return True
+    except Exception as e:  # noqa: BLE001 - ConflictException = already scheduled; anything else is logged by id only
+        if type(e).__name__ != "ConflictException":
+            log.warning("escalation %s (%s): scheduling failed: %s", escalation_id, kind, type(e).__name__)
+        return False
 
 
 def resolve_timers(conn: psycopg.Connection, tenant_id: str, ticket_id: str, now: dt.datetime | None = None) -> None:

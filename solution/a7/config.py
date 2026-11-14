@@ -4,10 +4,12 @@ Values come from the Phase 0 probes (infra/probes/p1_*.py, results in infra/prob
 run on 2026-11-08 against account 554559231166, Region eu-north-1, FREE plan.
 Only values that a probe resolved and exercised are listed here.
 """
+import os
 from dataclasses import dataclass, field
 
 REGION = "eu-north-1"
-AWS_PROFILE = "paynest"
+# Local default "paynest". On ECS the task role is the credential source: set A7_AWS_PROFILE=none (or empty) to use no profile.
+AWS_PROFILE = (None if os.environ.get("A7_AWS_PROFILE", "paynest").strip().lower() in ("", "none") else os.environ.get("A7_AWS_PROFILE", "paynest"))
 
 # Model choice confirmed by the user on 2026-11-08.
 # Evidence: infra/probes/results/p1_model_candidates.json (EN/AR/HI/Hinglish + forced enum tool, all passed for these).

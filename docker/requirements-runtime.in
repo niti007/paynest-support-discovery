@@ -1,0 +1,27 @@
+# api / worker / act images. Direct pins = the versions in the root uv.lock (the tested set).
+# No torch, laya, strands, deepeval, ragas or langfuse (tracing is a no-op without LANGFUSE_* env).
+# Recompile: uv pip compile docker/requirements-runtime.in -o docker/requirements-runtime.txt --python-version 3.12 --python-platform aarch64-unknown-linux-gnu
+psycopg[binary]==3.3.8
+psycopg-pool==3.3.3
+pgvector==0.5.1
+boto3==1.43.117
+botocore==1.43.117
+valkey==6.2.0
+presidio-analyzer==2.2.366
+spacy==3.8.18
+cryptography==50.0.2
+fastapi==0.162.2
+uvicorn==0.54.0
+httpx==0.28.1
+langgraph==1.2.20
+langgraph-checkpoint-postgres==3.2.0
+langchain-aws==1.9.2
+langchain-core==1.7.6
+jinja2==3.1.6
+python-multipart==0.0.33
+jsonschema==4.26.0
+pyyaml==6.0.3
+numpy==2.4.6
+pydantic==2.14.3
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+xx_ent_wiki_sm @ https://github.com/explosion/spacy-models/releases/download/xx_ent_wiki_sm-3.8.0/xx_ent_wiki_sm-3.8.0-py3-none-any.whl

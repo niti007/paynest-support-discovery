@@ -5,8 +5,15 @@ import os
 import aws_cdk as cdk
 
 from config import PROJECT_TAGS, REGION, SIZINGS
+from stacks.compute_stack import ComputeStack
 from stacks.data_stack import DataStack
+from stacks.monitoring_stack import MonitoringStack
 from stacks.network_stack import NetworkStack
+from stacks.ops_stack import OpsStack
+
+
+def _flag(app, name: str) -> bool:
+    return str(app.node.try_get_context(name)).lower() == "true"
 
 
 def build_app(**ctx) -> cdk.App:
@@ -28,7 +35,20 @@ def build_app(**ctx) -> cdk.App:
 
     net = NetworkStack(app, f"paynest-a7-{env_name}-network", sizing=sizing, public_alb=public_alb, env=env)
     data = DataStack(app, f"paynest-a7-{env_name}-data", sizing=sizing, env_name=env_name,
-                     vpc=net.vpc, db_sg=net.db_sg, cache_sg=net.cache_sg, env=env)
+                     vpc=net.vpc, db_sg=net.db_sg, cache_sg=net.cache_sg,
+                     keep_data=_flag(app, "keep_data"), env=env)
+    # Context (all optional): alarm_email (EMPTY by default, never hard-coded), budget_usd (default 20), log_retention_days (7|14|30),
+    # keep_data (true = snapshot RDS + retain the CMK on destroy), alb_certificate_arn (public_alb only), escalation_backstop_minutes.
+    def ctx(name, default):
+        v = app.node.try_get_context(name)
+        return default if v in (None, "") else v
+
+    ops = OpsStack(app, f"paynest-a7-{env_name}-ops", env_name=env_name, retention_days=int(ctx("log_retention_days", 7)),
+                   alarm_email=str(ctx("alarm_email", "")), budget_usd=float(ctx("budget_usd", 20)), env=env)
+    compute = ComputeStack(app, f"paynest-a7-{env_name}-compute", sizing=sizing, env_name=env_name, net=net, data=data, ops=ops,
+                           certificate_arn=str(ctx("alb_certificate_arn", "")),
+                           escalation_backstop_minutes=int(ctx("escalation_backstop_minutes", 30)), env=env)
+    monitoring = MonitoringStack(app, f"paynest-a7-{env_name}-monitoring", env_name=env_name, data=data, compute=compute, ops=ops, env=env)
     for k, v in PROJECT_TAGS.items():
         cdk.Tags.of(app).add(k, v)
 
@@ -36,6 +56,7 @@ def build_app(**ctx) -> cdk.App:
         import cdk_nag
         cdk.Aspects.of(app).add(cdk_nag.AwsSolutionsChecks(verbose=True))
         _suppress(net, data, sizing)
+        _suppress_p6(ops, compute, monitoring)
     return app
 
 
@@ -62,6 +83,31 @@ def _suppress(net, data, sizing):
         rules.append(S(id="AwsSolutions-RDS10", reason="dev sizing is intentionally destroyable (cdk destroy). "
                                                        "The doc sizing enables deletion protection."))
     N.add_stack_suppressions(data, rules)
+
+
+def _suppress_p6(ops, compute, monitoring):
+    """cdk-nag suppressions for OpsStack / ComputeStack / MonitoringStack. Every one carries a written reason."""
+    from cdk_nag import NagPackSuppression as S, NagSuppressions as N
+    N.add_stack_suppressions(ops, [
+        S(id="AwsSolutions-SNS2", reason="Alarm/budget payloads carry no PII. SSE with the AWS-managed key would stop CloudWatch "
+                                         "and Budgets from publishing; TLS is enforced by the topic policy."),
+    ])
+    N.add_stack_suppressions(compute, [
+        S(id="AwsSolutions-SMG4", reason="Demo credentials, regenerated on every deploy; rotation needs a rotation Lambda (out of scope)."),
+        S(id="AwsSolutions-ECS4", reason="Container Insights bills per metric/log volume; the demo uses the ALB/SQS/ECS alarms and "
+                                         "dashboard in MonitoringStack instead."),
+        S(id="AwsSolutions-ELB2", reason="ALB access logs need an S3 bucket (cost, extra resource to destroy). App logs go to CloudWatch."),
+        S(id="AwsSolutions-ECS2", reason="Environment holds only non-secret settings (hostnames, ARNs, flags); every secret is an ECS secret."),
+        S(id="AwsSolutions-EC23", reason="False positive: the ALB SG allows ingress only from the VPC CIDR (internal ALB) or, when "
+                                         "public_alb=true, 443 only; the unit tests assert both."),
+        S(id="AwsSolutions-IAM5", reason="Wildcards are limited to: EU-region prefix of the Bedrock foundation-model ARN (geo inference "
+                                         "profile, pinned by bedrock:InferenceProfileArn); scheduler schedule/<group>/*; Secrets Manager "
+                                         "random ARN suffix; ECR/logs resource policies CDK generates for the execution roles."),
+        S(id="AwsSolutions-IAM4", reason="AWS-managed policies only on the CDK-created execution roles (ECS task execution policy)."),
+    ])
+    N.add_stack_suppressions(monitoring, [
+        S(id="AwsSolutions-IAM5", reason="CDK-generated metric-filter/dashboard permissions use resource wildcards."),
+    ])
 
 
 if __name__ == "__main__":

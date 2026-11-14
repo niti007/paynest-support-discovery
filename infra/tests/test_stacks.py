@@ -10,7 +10,8 @@ from app import build_app  # noqa: E402
 
 
 def synth(sizing="dev", public_alb="false"):
-    app = build_app(region="eu-north-1", env_name="dev", sizing=sizing, public_alb=public_alb)
+    app = build_app(region="eu-north-1", env_name="dev", sizing=sizing, public_alb=public_alb,
+                    alb_certificate_arn="arn:aws:acm:eu-north-1:000000000000:certificate/test")
     net = app.node.find_child("paynest-a7-dev-network")
     data = app.node.find_child("paynest-a7-dev-data")
     return Template.from_stack(net), Template.from_stack(data), net, data

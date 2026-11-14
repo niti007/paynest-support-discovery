@@ -33,3 +33,25 @@ def worker_role_name(env_name: str) -> str:
 
 def act_role_name(env_name: str) -> str:
     return f"paynest-a7-{env_name}-act-task"
+
+
+def api_role_name(env_name: str) -> str:
+    return f"paynest-a7-{env_name}-api-task"
+
+
+def mock_role_name(env_name: str) -> str:
+    return f"paynest-a7-{env_name}-mock-task"
+
+
+def bootstrap_role_name(env_name: str) -> str:
+    return f"paynest-a7-{env_name}-bootstrap-task"
+
+
+# Bedrock models actually used (must equal solution/a7/config.py; tests/test_compute.py asserts it). Claude is NOT used: denied on this account.
+MODEL_CHEAP = "eu.amazon.nova-lite-v1:0"          # EU geo inference profile (routing, cheap drafting); underlying FM amazon.nova-lite-v1:0
+MODEL_HARD = "qwen.qwen3-235b-a22b-2507-v1:0"     # in-Region on-demand
+MODEL_FALLBACK = "qwen.qwen3-32b-v1:0"            # in-Region on-demand (routing fallback)
+EMBED_MODEL = "eu.cohere.embed-v4:0"              # EU geo inference profile; underlying FM cohere.embed-v4:0
+# Geo profiles route to EU Regions; IAM needs the profile ARN plus the foundation-model ARN in each destination Region.
+# The wildcard is pinned to the eu-* prefix and conditioned on the profile ARN (bedrock:InferenceProfileArn).
+GEO_FM_REGIONS = "eu-*"

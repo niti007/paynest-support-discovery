@@ -17,12 +17,30 @@ DEFAULT_APP_DSN = "postgresql://app_user:app_user_dev@localhost:55432/a7"
 SCHEMA_SQL = Path(__file__).resolve().parents[1] / "db" / "schema.sql"
 
 
+def _parts_dsn(user: str, password: str) -> str | None:
+    """AWS: ECS injects the host and the secret fields separately (a DSN cannot be assembled in the task definition).
+    A7_DB_HOST [A7_DB_PORT, A7_DB_NAME] + user/password -> a DSN with sslmode=require (RDS forces TLS). None if no host."""
+    host = os.environ.get("A7_DB_HOST")
+    if not host:
+        return None
+    from urllib.parse import quote
+    return (f"postgresql://{quote(user, safe='')}:{quote(password, safe='')}@{host}:{os.environ.get('A7_DB_PORT', '5432')}"
+            f"/{os.environ.get('A7_DB_NAME', 'a7')}?sslmode={os.environ.get('A7_DB_SSLMODE', 'require')}")
+
+
 def dsn() -> str:
-    return os.environ.get("A7_DATABASE_URL", DEFAULT_DSN)
+    """Owner DSN: A7_DATABASE_URL, else A7_DB_HOST + A7_DB_OWNER_USER/A7_DB_OWNER_PASSWORD (bootstrap task only)."""
+    return (os.environ.get("A7_DATABASE_URL")
+            or _parts_dsn(os.environ.get("A7_DB_OWNER_USER", "pnadmin"), os.environ.get("A7_DB_OWNER_PASSWORD", ""))
+            or DEFAULT_DSN)
 
 
 def app_dsn() -> str:
-    return os.environ.get("A7_APP_DATABASE_URL", DEFAULT_APP_DSN)
+    """app_user DSN: A7_APP_DATABASE_URL, else A7_DB_HOST + A7_APP_USER_PASSWORD. The act task sets only the host: its
+    a7_act DSN is derived from this one (host/port/db), so the password here may be empty."""
+    return (os.environ.get("A7_APP_DATABASE_URL")
+            or _parts_dsn("app_user", os.environ.get("A7_APP_USER_PASSWORD", ""))
+            or DEFAULT_APP_DSN)
 
 
 def connect(app: bool = False, **kw) -> psycopg.Connection:

@@ -1,0 +1,4 @@
+# mock-payroll image: FastAPI only.
+fastapi==0.162.2
+uvicorn==0.54.0
+pydantic==2.14.3

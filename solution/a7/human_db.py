@@ -29,9 +29,27 @@ def role_dsn(user: str, password: str, base: str | None = None) -> str:
     return urlunsplit((u.scheme, netloc, u.path, u.query, u.fragment))
 
 
+def _act_password() -> str:
+    """A7_ACT_PASSWORD, else (AWS) the Secrets Manager secret A7_ACT_SECRET_ARN read with the ACT TASK ROLE itself, so no
+    other principal (and no ECS execution role) ever reads it; else the local dev default."""
+    if os.environ.get("A7_ACT_PASSWORD"):
+        return os.environ["A7_ACT_PASSWORD"]
+    arn = os.environ.get("A7_ACT_SECRET_ARN")
+    if arn:
+        import json
+
+        import boto3
+        raw = boto3.client("secretsmanager", region_name=os.environ.get("AWS_REGION", "eu-north-1")).get_secret_value(SecretId=arn)["SecretString"]
+        try:
+            return json.loads(raw)["password"]
+        except (ValueError, KeyError, TypeError):
+            return raw
+    return ACT_DEV_PASSWORD
+
+
 def act_dsn() -> str:
-    """A7_ACT_DATABASE_URL, else derived from the app DSN (password: A7_ACT_PASSWORD, local dev default otherwise)."""
-    return os.environ.get("A7_ACT_DATABASE_URL") or role_dsn(ACT_USER, os.environ.get("A7_ACT_PASSWORD") or ACT_DEV_PASSWORD)
+    """A7_ACT_DATABASE_URL, else derived from the app DSN (password: see _act_password)."""
+    return os.environ.get("A7_ACT_DATABASE_URL") or role_dsn(ACT_USER, _act_password())
 
 
 def admin_dsn() -> str:

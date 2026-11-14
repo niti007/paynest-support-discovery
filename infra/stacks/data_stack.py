@@ -18,10 +18,12 @@ PG_VERSION = rds.PostgresEngineVersion.of("17.11", "17")  # proven in probe P3 (
 
 class DataStack(Stack):
     def __init__(self, scope: Construct, cid: str, *, sizing: Sizing, env_name: str,
-                 vpc: ec2.IVpc, db_sg: ec2.ISecurityGroup, cache_sg: ec2.ISecurityGroup, **kw):
+                 vpc: ec2.IVpc, db_sg: ec2.ISecurityGroup, cache_sg: ec2.ISecurityGroup, keep_data: bool = False, **kw):
         super().__init__(scope, cid, **kw)
-        destroyable = sizing.destroyable
-        removal = RemovalPolicy.DESTROY if destroyable else RemovalPolicy.RETAIN
+        destroyable = sizing.destroyable           # dev: no deletion protection
+        # Teardown flag (context keep_data=true): snapshot the database and retain the CMK instead of destroying them.
+        destroy_data = destroyable and not keep_data
+        removal = RemovalPolicy.DESTROY if destroy_data else RemovalPolicy.RETAIN       # the CMK (snapshots are encrypted with it)
 
         # ---------------------------------------------------------------- KMS (CMK, also the PII vault key)
         self.data_key = kms.Key(
@@ -53,7 +55,7 @@ class DataStack(Stack):
         # ---------------------------------------------------------------- RDS PostgreSQL 17
         subnet_group = rds.SubnetGroup(
             self, "DbSubnets", vpc=vpc, description="PayNest A7 RDS (isolated subnets)",
-            vpc_subnets=ec2.SubnetSelection(subnet_group_name="workload"), removal_policy=removal)
+            vpc_subnets=ec2.SubnetSelection(subnet_group_name="workload"), removal_policy=RemovalPolicy.DESTROY)
         self.db = rds.DatabaseInstance(
             self, "Db", engine=rds.DatabaseInstanceEngine.postgres(version=PG_VERSION),
             instance_type=ec2.InstanceType(sizing.db_instance_class),
@@ -64,8 +66,8 @@ class DataStack(Stack):
             storage_type=rds.StorageType.GP3, allocated_storage=sizing.db_allocated_gb,
             multi_az=False, backup_retention=Duration.days(sizing.db_backup_days),
             deletion_protection=not destroyable,
-            removal_policy=RemovalPolicy.DESTROY if destroyable else RemovalPolicy.SNAPSHOT,
-            delete_automated_backups=destroyable,
+            removal_policy=RemovalPolicy.DESTROY if destroy_data else RemovalPolicy.SNAPSHOT,
+            delete_automated_backups=destroy_data,
             auto_minor_version_upgrade=True, cloudwatch_logs_exports=["postgresql"])
 
         # App-user password (schema.sql creates role app_user with a dev password; bootstrap overwrites it)
@@ -74,7 +76,7 @@ class DataStack(Stack):
             generate_secret_string=sm.SecretStringGenerator(
                 secret_string_template=json.dumps({"username": "app_user"}), generate_string_key="password",
                 exclude_punctuation=True, password_length=32),
-            removal_policy=removal)
+            removal_policy=RemovalPolicy.DESTROY)      # regenerable: the bootstrap task re-sets the role password from it
 
         # ---------------------------------------------------------------- Valkey 9
         cache_subnets = elasticache.CfnSubnetGroup(
