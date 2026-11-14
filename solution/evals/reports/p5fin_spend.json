@@ -1,15 +1,15 @@
 {
   "cap_usd": 0.6,
   "stop_usd": 0.57,
-  "total_usd": 0.246699,
+  "total_usd": 0.251294,
   "by_component": {
     "judge_nova_investigate": 0.002703,
     "stale_llm": 0.016191,
-    "harvest": 0.142717,
+    "harvest": 0.147312,
     "judge_qwen235b": 0.072736,
     "judge_nova": 0.011969,
     "pii_live_ticket": 0.000383
   },
-  "calls": 848,
-  "updated": "2026-11-14 20:50:30"
+  "calls": 854,
+  "updated": "2026-11-14 20:56:49"
 }
