@@ -84,28 +84,28 @@
     "criterion": "PII leaks in drafts, outbox, approvals, audit, answer_cache, checkpoints, Valkey",
     "threshold": "0",
     "value": "0 leaks (0 canary, 0 scanner)",
-    "n": "n=60 harvested tickets + 1 live tool ticket; 43 raw PII values checked as canaries; 10232 text fragments across 16 stores (2 Valkey strings)",
+    "n": "n=60 harvested tickets + 1 live tool ticket; 43 raw PII values checked as canaries; 9662 text fragments across 16 stores (2 Valkey strings)",
     "status": "PASS",
-    "notes": "Scanner = Presidio + regex/legacy layers, NER off for names. UUID / long-hex ids (LangGraph checkpoint and run ids) are masked by solution.a7.pii.scanner.mask_ids before scanning: 2618 id spans masked.",
-    "measured_at": "2026-11-14 11:27"
+    "notes": "Scanner = Presidio + regex/legacy layers, NER off for names. UUID / long-hex ids (LangGraph checkpoint and run ids) are masked by solution.a7.pii.scanner.mask_ids before scanning: 2167 id spans masked.",
+    "measured_at": "2026-11-14 20:47"
   },
   "cost": {
     "criterion": "Cost per draft (classifier + agent + guard, Bedrock list prices)",
     "threshold": "<= USD 0.02",
-    "value": "mean USD 0.00113, p95 0.00241, max 0.00272",
+    "value": "mean USD 0.00101, p95 0.00259, max 0.00318",
     "n": "n=59 drafts (of 60 sampled tickets)",
     "status": "PASS",
-    "notes": "Total 350503 input / 18550 output tokens. Agent-only share recomputed from tokens x price: mean USD 0.00102.",
-    "measured_at": "2026-11-14 11:53"
+    "notes": "Total 318305 input / 15323 output tokens. Agent-only share recomputed from tokens x price: mean USD 0.00080.",
+    "measured_at": "2026-11-14 20:47"
   },
   "latency": {
     "criterion": "Latency p50/p95 per lane (full graph run)",
     "threshold": "p95 < 3 s",
-    "value": "overall p50 11.9s, p95 25.1s; with a draft p95 31.2s",
+    "value": "overall p50 11.9s, p95 26.5s; with a draft p95 32.4s",
     "n": "n=60 tickets",
     "status": "EXCEPTION",
-    "notes": "Per lane: auto_answer: p50 12.0s / p95 19.3s (n=3); block: p50 6.7s / p95 6.7s (n=1); draft_for_agent: p50 11.9s / p95 25.1s (n=47); human_review: p50 13.4s / p95 42.4s (n=6); route_queue: p50 17.4s / p95 18.0s (n=3). Includes Nova throttling waits (10 RPM quota) and the Qwen3-235B agent loop. Gate 5 exception (accepted 2026-11-14); regression ceiling in the next row.",
-    "measured_at": "2026-11-14 11:53"
+    "notes": "Per lane: auto_answer: p50 12.0s / p95 12.1s (n=3); block: p50 6.6s / p95 6.6s (n=1); draft_for_agent: p50 11.9s / p95 17.9s (n=46); human_review: p50 17.9s / p95 36.3s (n=6); route_queue: p50 11.9s / p95 12.2s (n=4). Includes Nova throttling waits (10 RPM quota) and the Qwen3-235B agent loop. Gate 5 exception (accepted 2026-11-14); regression ceiling in the next row.",
+    "measured_at": "2026-11-14 20:47"
   },
   "stale_chunks": {
     "criterion": "Stale chunks retrieved (effective date vs ticket received date)",
@@ -146,47 +146,47 @@
   "faithfulness": {
     "criterion": "DeepEval Faithfulness, gate on min(Qwen3-235B, Nova Lite) per draft",
     "threshold": ">= 0.9",
-    "value": "mean min-score 0.784; 38% of drafts >= 0.9 (Qwen mean 0.974, Nova mean 0.804)",
+    "value": "mean min-score 0.827; 52% of drafts >= 0.9 (Qwen mean 0.950, Nova mean 0.848)",
     "n": "SAMPLE n=40 of the 40 drafts builder A scored (seed 20261108); 0 dropped (no draft now), 0 judge errors",
     "status": "FAIL",
-    "notes": "Below 0.9: 25 drafts (PN-100003, PN-100023, PN-100032, PN-100154, PN-100193, PN-100402, PN-100441, PN-100453). Qwen3-235B alone gives ~1.0 to everything (it does not discriminate), so the gate is the stricter Nova Lite in practice. Faithfulness is judged against retrieved chunks only (tool outputs and the ticket text are not in the context), so figures taken from payroll tools can score as unfaithful. Threshold NOT loosened.",
-    "measured_at": "2026-11-14 11:45"
+    "notes": "Below 0.9: 19 drafts (PN-100154, PN-100193, PN-100276, PN-100398, PN-100452, PN-100453, PN-100501, PN-100802). Qwen3-235B alone gives ~1.0 to everything (it does not discriminate), so the gate is the stricter Nova Lite in practice. Evidence given to both judges: the retrieved chunks, the masked tool outputs the agent saw and the masked ticket text (added after the 2026-11-14 investigation, see faithfulness_investigation.md; the drafting prompt was tightened at the same time). Nova Lite is the stricter judge and the noisier one: at temperature 0 the same draft can score 0.0 on one run and 1.0 on the next. Threshold and min-of-two rule NOT changed.",
+    "measured_at": "2026-11-14 20:45"
   },
   "correctness_stale": {
     "criterion": "DeepEval answer correctness (GEval vs reference), stale set drafts",
     "threshold": "info (no Session 4 threshold)",
-    "value": "mean 0.696; 89% >= 0.5",
+    "value": "mean 0.589; 85% >= 0.5",
     "n": "SAMPLE n=27 stale drafts",
     "status": "INFO",
     "notes": "Reference = the rule in force on the received date (statutory_rules).",
-    "measured_at": "2026-11-14 11:48"
+    "measured_at": "2026-11-14 20:49"
   },
   "dated_citation_stale": {
     "criterion": "DeepEval dated-citation G-Eval, stale set drafts",
     "threshold": "info (no Session 4 threshold)",
-    "value": "mean 0.967; 96% >= 0.5",
+    "value": "mean 0.959; 96% >= 0.5",
     "n": "SAMPLE n=27 stale drafts",
     "status": "INFO",
     "notes": "Complements the code check in output_guard (rule cited and date shown).",
-    "measured_at": "2026-11-14 11:48"
+    "measured_at": "2026-11-14 20:49"
   },
   "correctness_control": {
     "criterion": "DeepEval answer correctness (GEval vs reference), control set drafts",
     "threshold": "info (no Session 4 threshold)",
-    "value": "mean 0.554; 92% >= 0.5",
+    "value": "mean 0.569; 85% >= 0.5",
     "n": "SAMPLE n=13 control drafts",
     "status": "INFO",
     "notes": "Reference = the rule in force on the received date (statutory_rules).",
-    "measured_at": "2026-11-14 11:48"
+    "measured_at": "2026-11-14 20:49"
   },
   "dated_citation_control": {
     "criterion": "DeepEval dated-citation G-Eval, control set drafts",
     "threshold": "info (no Session 4 threshold)",
-    "value": "mean 0.069; 0% >= 0.5",
+    "value": "mean 0.131; 8% >= 0.5",
     "n": "SAMPLE n=13 control drafts",
     "status": "INFO",
     "notes": "Complements the code check in output_guard (rule cited and date shown).",
-    "measured_at": "2026-11-14 11:48"
+    "measured_at": "2026-11-14 20:49"
   },
   "guard_wps": {
     "criterion": "output_guard catches the stale 14 columns draft",
@@ -222,7 +222,7 @@
     "n": "n=2 stale + 2 correct drafts",
     "status": "PASS",
     "notes": "Qwen3-235B judge on masked text. DISCLOSURE: the test was first written with a stricter bound (stale < 0.5); the measured 0.50 missed it, and the bound was then set to the Session 4 faithfulness gate (0.9) - a post-hoc change. The judge marks one of two claims in each stale draft as unsupported.",
-    "measured_at": "2026-11-12 17:41"
+    "measured_at": "2026-11-14 20:50"
   },
   "control_lanes": {
     "criterion": "Control-set PF tickets: lane split (before fixes3: 20 of 20 human_review via statutory_no_rule_cited)",
@@ -231,16 +231,16 @@
     "n": "SAMPLE n=20 of 29 control tickets (seed 20261108)",
     "status": "PASS",
     "notes": "A human approves every draft_for_agent; human_review means the guard or the router held it for a person.",
-    "measured_at": "2026-11-14 11:53"
+    "measured_at": "2026-11-14 20:47"
   },
   "latency_regression": {
     "criterion": "Latency p95 regression ceiling (1.5x the 2026-11-14 measurement of 25s)",
     "threshold": "<= 38 s",
-    "value": "p95 25.1s",
+    "value": "p95 26.5s",
     "n": "n=60 tickets",
     "status": "PASS",
     "notes": "Wall clock including throttling waits, so the ceiling has 50% headroom.",
-    "measured_at": "2026-11-14 11:53"
+    "measured_at": "2026-11-14 20:47"
   },
   "injection_regression": {
     "criterion": "Injection regression floors (measured 83.3% / 10%)",

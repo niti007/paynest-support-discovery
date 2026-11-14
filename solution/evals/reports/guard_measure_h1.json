@@ -778,5 +778,1321 @@
   "llm_cost_usd": 6.4e-05,
   "llm_latency_s": 7.01,
   "llm_fallback": false
+ },
+ {
+  "id": "W1-30",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The ceiling applicable today is 15,000 rupees, not 25,000.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states the old ceiling of 15,000 rupees as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 824,
+  "llm_tokens_out": 41,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 1.28,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-31",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Rather than 25,000, the EPF ceiling stays at INR 15,000 per month.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states EPF ceiling as INR 15,000 instead of INR 25,000",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 828,
+  "llm_tokens_out": 49,
+  "llm_cost_usd": 6.7e-05,
+  "llm_latency_s": 6.27,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-32",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Your payroll is correct: the PF wage limit is 15000 INR monthly.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states old PF wage limit of 15000 INR",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 820,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-33",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Set up the PF cap as INR 15,000 for all employees; that is the current ceiling.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as current ceiling",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 825,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.98,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-34",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The government has set the monthly PF wage cap at 15 thousand rupees.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 817,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-35",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Nothing changed for August: EPF contributions are still computed up to the INR 15,000 ceiling.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions INR 15,000 ceiling still applies",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 825,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.92,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-36",
+  "label": "wrong",
+  "lang": "ar",
+  "rule": "wps",
+  "draft": "يجب أن يحتوي ملف SIF على ١٤ عموداً.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states SIF file should have 14 columns, which is superseded",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 818,
+  "llm_tokens_out": 40,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.07,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-37",
+  "label": "wrong",
+  "lang": "ar",
+  "rule": "wps",
+  "draft": "صيغة ملف حماية الأجور الحالية هي SIF v2 وتتكون من 14 عموداً.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions SIF v2 with 14 columns",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 827,
+  "llm_tokens_out": 36,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-38",
+  "label": "wrong",
+  "lang": "ar",
+  "rule": "wps",
+  "draft": "عدد الأعمدة المطلوب في ملف نظام حماية الأجور هو أربعة عشر عموداً.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states 14 columns, old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 824,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-39",
+  "label": "wrong",
+  "lang": "ar",
+  "rule": "wps",
+  "draft": "يرجى التأكد من أن ملف SIF الخاص بكم يحتوي على 14 عمودا قبل رفعه إلى البنك.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 832,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-40",
+  "label": "wrong",
+  "lang": "ar",
+  "rule": "wps",
+  "draft": "الملف المقبول حالياً لدى البنك هو ملف من ١٤ عمود فقط.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 822,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-41",
+  "label": "wrong",
+  "lang": "ar",
+  "rule": "pf",
+  "draft": "الحد الأقصى للأجر في صندوق الادخار EPF هو 15,000 روبية شهرياً.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states old EPF ceiling of INR 15,000",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 828,
+  "llm_tokens_out": 40,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-42",
+  "label": "wrong",
+  "lang": "hi",
+  "rule": "wps",
+  "draft": "WPS SIF फ़ाइल में 14 कॉलम होने चाहिए।",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states 14 columns, superseded by 16 columns",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 820,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-43",
+  "label": "wrong",
+  "lang": "hi",
+  "rule": "wps",
+  "draft": "वर्तमान SIF फ़ाइल प्रारूप में चौदह कॉलम होते हैं।",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, superseded by 16 columns",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 822,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.08,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-44",
+  "label": "wrong",
+  "lang": "hi",
+  "rule": "wps",
+  "draft": "बैंक केवल SIF v2 फ़ाइल स्वीकार करता है, जिसमें १४ कॉलम होते हैं।",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions SIF v2 which is superseded",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 827,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.95,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-45",
+  "label": "wrong",
+  "lang": "hi",
+  "rule": "pf",
+  "draft": "EPF वेतन सीमा ₹15,000 प्रति माह है।",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states EPF limit as ₹15,000 per month",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 818,
+  "llm_tokens_out": 40,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.13,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-46",
+  "label": "wrong",
+  "lang": "hi",
+  "rule": "pf",
+  "draft": "पीएफ की गणना अधिकतम पंद्रह हज़ार रुपये के वेतन तक की जाती है।",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old INR 15,000 is still applicable",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 825,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-47",
+  "label": "wrong",
+  "lang": "hi",
+  "rule": "pf",
+  "draft": "वर्तमान में EPF वेतन सीमा १५,००० रुपये प्रति माह है।",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states old EPF value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 822,
+  "llm_tokens_out": 31,
+  "llm_cost_usd": 6.1e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-48",
+  "label": "wrong",
+  "lang": "hinglish",
+  "rule": "wps",
+  "draft": "Aapki SIF file mein 14 columns hone chahiye, abhi yahi format chal raha hai.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 832,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-49",
+  "label": "wrong",
+  "lang": "hinglish",
+  "rule": "wps",
+  "draft": "Current WPS SIF format 14 columns ka hai, to file dobara export kar lijiye.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, superseded by 16 columns",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 827,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-50",
+  "label": "wrong",
+  "lang": "hinglish",
+  "rule": "pf",
+  "draft": "EPF ka wage ceiling abhi Rs 15,000 per month hai.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states EPF wage ceiling as Rs 15,000 per month",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 820,
+  "llm_tokens_out": 42,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-51",
+  "label": "wrong",
+  "lang": "hinglish",
+  "rule": "pf",
+  "draft": "PF sirf 15000 tak ki salary par calculate hota hai, usse upar nahi.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies INR 15,000 is the current ceiling",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 825,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.0,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-52",
+  "label": "wrong",
+  "lang": "hinglish",
+  "rule": "pf",
+  "draft": "Ceiling 25,000 nahi, 15k per month hi hai abhi.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 823,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-53",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The new format adds an establishment-reference column and a revised EDR layout. However, the bank only takes 14 columns right now, so keep your current file.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies SIF v2 is still acceptable",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 839,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.2,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-54",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "We know a circular was published about the ceiling. Please ignore it for now: the ceiling you should use is INR 15,000 per month.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions INR 15,000 per month as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 834,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.89,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-55",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Your file has 16 columns. That is the problem. The SIF must have 14 columns, so drop the extra two.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns are current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 833,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "W1-56",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Some sources mention a higher limit. For your payroll the cap is Rs 15,000, which is the current EPF ceiling.",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as current EPF ceiling",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 831,
+  "llm_tokens_out": 40,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-00",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The SIF format moved from v2 to v3 on 15 July 2026, so the file now needs 16 columns instead of 14. See R-UAE-WPS-2026-07.",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history.",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 857,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.07,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-01",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Your file was rejected because it has 14 columns; the current SIF v3 requires 16 columns.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 828,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 6.96,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-02",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "SIF v2 (14 columns) is no longer accepted. Please export SIF v3 with 16 columns, including the new establishment-reference column.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 838,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.95,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-03",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Thanks for flagging this. The old 14-column layout was retired; the bank now expects 16 columns.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old layout as retired",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 829,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.18,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-04",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Previously the file had 14 columns. As of 15 July 2026 it must have 16.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 832,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-05",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The WPS file now has sixteen columns rather than fourteen.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions new value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 816,
+  "llm_tokens_out": 30,
+  "llm_cost_usd": 6.1e-05,
+  "llm_latency_s": 6.93,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-06",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Please do not use the 14-column version anymore; it has been replaced by the 16-column one.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 830,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-07",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The EPF wage ceiling was raised from INR 15,000 to INR 25,000 per month effective 1 August 2026 (R-IN-PF-2026-08).",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 852,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.12,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-08",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The old Rs 15,000 limit no longer applies; PF is now computed on wages up to Rs 25,000.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 833,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 6.86,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-09",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Your payroll is using the outdated 15,000 ceiling. The current ceiling is 25,000 per month.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 830,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-10",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Instead of 15k, the ceiling is now 25k per month.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 819,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 6.94,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-11",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The ceiling used to be ₹15,000, but it is ₹25,000 from August 2026.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 832,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.12,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-12",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Is the EPF ceiling still 15,000? No - it is 25,000 per month since 1 August 2026.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 838,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.98,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-13",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Contributions up to INR 25,000 of wages are covered now; the previous cap of INR 15,000 has been superseded.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 835,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.07,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-14",
+  "label": "genuine",
+  "lang": "ar",
+  "rule": "wps",
+  "draft": "تغيّر تنسيق ملف SIF من الإصدار 2 إلى الإصدار 3، ويجب أن يحتوي الملف الآن على ١٦ عموداً بدلاً من ١٤.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 841,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-15",
+  "label": "genuine",
+  "lang": "ar",
+  "rule": "wps",
+  "draft": "لم يعد ملف 14 عموداً مقبولاً؛ المطلوب حالياً ملف SIF v3 بـ 16 عموداً.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history.",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 835,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.96,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-16",
+  "label": "genuine",
+  "lang": "ar",
+  "rule": "wps",
+  "draft": "كان الملف السابق يتكون من أربعة عشر عموداً، أما الآن فيتكون من ستة عشر عموداً.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old layout as history.",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 828,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-17",
+  "label": "genuine",
+  "lang": "ar",
+  "rule": "pf",
+  "draft": "تم رفع الحد الأقصى للأجر في EPF من 15,000 إلى 25,000 روبية شهرياً اعتباراً من 1 أغسطس 2026.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 846,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.08,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-18",
+  "label": "genuine",
+  "lang": "ar",
+  "rule": "pf",
+  "draft": "الحد الأقصى القديم 15,000 روبية لم يعد ساري المفعول، والحد الحالي هو 25,000 روبية.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 837,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.95,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-19",
+  "label": "genuine",
+  "lang": "hi",
+  "rule": "wps",
+  "draft": "SIF फ़ाइल प्रारूप v2 से v3 में बदल गया है, अब फ़ाइल में 14 की जगह 16 कॉलम चाहिए।",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 837,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-20",
+  "label": "genuine",
+  "lang": "hi",
+  "rule": "wps",
+  "draft": "पुराना 14 कॉलम वाला प्रारूप अब मान्य नहीं है; बैंक को अब 16 कॉलम वाली फ़ाइल चाहिए।",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 834,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.97,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-21",
+  "label": "genuine",
+  "lang": "hi",
+  "rule": "pf",
+  "draft": "EPF वेतन सीमा ₹15,000 से बढ़ाकर ₹25,000 प्रति माह कर दी गई है।",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions the old value as history.",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 831,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-22",
+  "label": "genuine",
+  "lang": "hi",
+  "rule": "pf",
+  "draft": "पहले सीमा १५,००० रुपये थी, अब यह २५,००० रुपये है।",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 828,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.02,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-23",
+  "label": "genuine",
+  "lang": "hinglish",
+  "rule": "wps",
+  "draft": "Ab SIF file mein 16 columns chahiye, purana 14 columns wala format band ho gaya hai.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 832,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-24",
+  "label": "genuine",
+  "lang": "hinglish",
+  "rule": "wps",
+  "draft": "Aapki file 14 columns ki hai, isliye reject hui. Naya SIF v3 16 columns ka hai.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, old layout",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 834,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.96,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-25",
+  "label": "genuine",
+  "lang": "hinglish",
+  "rule": "pf",
+  "draft": "EPF ceiling pehle Rs 15,000 thi, ab 25,000 per month hai.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions the old value as history.",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 828,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "G1-26",
+  "label": "genuine",
+  "lang": "hinglish",
+  "rule": "pf",
+  "draft": "15k wali limit purani hai; abhi ceiling 25k per month hai.",
+  "tags": [],
+  "rule_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "all_fails": [
+   "statutory_no_rule_cited"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 822,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.2e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
  }
 ]

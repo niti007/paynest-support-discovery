@@ -99,7 +99,7 @@ def guard_section() -> list[str]:
     fb = sum(1 for n, _ in sets for r in _rows(n) if r.get("llm_fallback"))
     if lat:
         lat.sort()
-        L += ["", f"**Added cost and latency per statutory draft (measurement runs, n={len(lat)} LLM calls).** Mean {sum(lat) / len(lat):.1f} s, p95 {lat[int(0.95 * len(lat)) - 1]:.1f} s "
+        L += ["", f"**Added cost and latency per statutory draft (measurement runs, n={len(lat)} LLM calls).** Median {lat[len(lat) // 2]:.1f} s, mean {sum(lat) / len(lat):.1f} s, p95 {lat[int(0.95 * len(lat)) - 1]:.1f} s, max {lat[-1]:.1f} s "
               f"(this includes our own limiter that keeps the check under Nova Lite's 10 requests-per-minute quota; one call alone is about 1.5 s); mean cost USD {sum(cost) / len(cost):.6f} "
               f"(about {sum(r['llm_tokens_in'] for n, _ in sets for r in _rows(n)) / max(1, len(cost)):.0f} tokens in, 30 out). LLM errors: {err}; Qwen3-32B fallback used: {fb}."]
     L += real_guard_lines()
