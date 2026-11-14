@@ -1,6 +1,6 @@
 # PayNest A7 infra (AWS CDK, Python)
 
-Stacks owned here: `paynest-a7-<env>-network` and `paynest-a7-<env>-data`. ComputeStack and OpsStack are Builder B.
+Stacks: `paynest-a7-<env>-network`, `-data`, `-ops`, `-compute`, `-monitoring` (Phase 6 B added the last three; see the Phase 6 section).
 Region is fixed to **eu-north-1** (the app refuses any other Region). Nothing here is deployed by default.
 
 ## Setup and synth
@@ -30,9 +30,9 @@ Context flags (`cdk.json`, override with `-c`): `region=eu-north-1`, `env_name=d
 ## NetworkStack
 VPC 10.42.0.0/16, 2 AZs, **no NAT gateway**, private isolated `workload` subnets. Public subnets exist only if `public_alb=true`.
 Endpoints (9): S3 gateway plus interface endpoints for bedrock-runtime, sqs, kms, secretsmanager, ecr.api, ecr.dkr, logs, scheduler
-(all confirmed available in eu-north-1). Security groups (all defined here): alb, api, worker, decider, db, cache, endpoint.
-Ingress: ALB (VPC CIDR :80, or 0.0.0.0/0 :443 when public) -> api :8080; worker/api -> decider :8080, db :5432, cache :6379;
-worker/api/decider -> endpoints :443. The only 0.0.0.0/0 ingress that can exist is the ALB :443 rule.
+(all confirmed available in eu-north-1). Security groups (all defined here): alb, api, worker, mock, db, cache, endpoint (the Decider is out of the runtime path, so no decider SG or task).
+Ingress: ALB (VPC CIDR :80, or 0.0.0.0/0 :443 when public) -> api :8080; worker/api -> db :5432, cache :6379; worker -> ALB :8081 -> mock :8080;
+worker/api/mock -> endpoints :443. The only 0.0.0.0/0 ingress that can exist is the ALB :443 rule.
 Decision: **ALB is internal by default**; a public ALB needs WAF and an ACM certificate, which are out of scope.
 
 ## DataStack
@@ -46,7 +46,7 @@ Decision: **ALB is internal by default**; a public ALB needs WAF and an ACM cert
 - SQS ingest queue (maxReceiveCount 5) plus DLQ (14 days), both KMS-encrypted, TLS enforced.
 - Tags `project=paynest`, `app=a7` on everything.
 
-### Schema bootstrap (recommendation, stub only)
+### Schema bootstrap (implemented: `solution/db/provision.py`, bootstrap task in ComputeStack)
 A **one-off ECS Fargate task** that runs the idempotent `solution/db/schema.sql` from the worker image, then sets the `app_user` password
 from the secret. Reasons: it needs a psycopg connection and `CREATE EXTENSION vector` inside the VPC, the image already has both, and a
 custom resource would need a VPC Lambda and ties DDL to stack rollback. See `stacks/schema_bootstrap.py` (no resources; Builder B defines the task).
@@ -64,3 +64,91 @@ doc sizing retains the key and takes a final RDS snapshot; delete those by hand.
 ## cdk-nag (AwsSolutions)
 Clean for dev and doc after suppressions, each with a written reason in `app.py` (`_suppress`): VPC7 flow logs, RDS3/AEC4 single-AZ,
 RDS11 default port, SMG4 rotation, AEC6 Valkey AUTH, RDS10 (dev only), and a CdkNagValidationFailure for the CIDR token.
+
+
+---
+
+# Phase 6 B: images, ComputeStack, OpsStack, MonitoringStack (synth-only until the user confirms a deploy)
+
+## Images (`docker/Dockerfile`, build context = repo root, allow-list `.dockerignore`)
+One multi-stage file, five `linux/arm64` targets, all `python:3.12-slim`, non-root uid 10001, deps installed by `uv pip install` from
+compiled pins (`docker/requirements-*.txt`, made with `uv pip compile` from the versions in the root `uv.lock`), no secrets or `.env` baked in.
+`worker` (`python -m solution.a7.sqs_worker`), `api` (uvicorn :8080), `act` (`solution.a7.sender`, same deps), `mock-payroll`, `bootstrap`
+(`python -m solution.db.provision`: schema + role passwords + checkpoint tables, then load_reference and load_kb). The runtime images leave out
+torch, Laya, Strands, DeepEval, RAGAS and Langfuse (about 635 MB). CDK builds them with `DockerImageAsset` (ARM64) at deploy time.
+```
+docker buildx build --platform linux/arm64 -f docker/Dockerfile --target worker -t a7-worker .
+```
+
+## ComputeStack
+ECS cluster (Fargate ARM64, no Container Insights), internal ALB (:80 to api, health `/health`; :8081 to mock-payroll), three services:
+`api` (1 task), `mock-payroll` (1 task), `worker` (0 to 2 tasks, step scaling on queue visible + in-flight messages). RunTask-only task
+definitions: `bootstrap`, `act`, `smoke` (an in-VPC client, because an internal ALB is unreachable from a laptop).
+Secrets (generated, never in the template): a7_act, a7_admin, reviewer token, admin token, mock token; plus `app_user` and the RDS master secret
+from DataStack. They reach the containers as ECS secrets; each task definition has its own execution role that reads only its own secrets.
+
+### Act design (decision)
+The graph's `act` node only writes outbox rows (as `app_user`; no decryption). Only `act.render_outbound` (send-time PII restore) opens the vault,
+so it runs as **its own RunTask definition `act` under role `paynest-a7-<env>-act-task`**, not inside the worker and not by the worker assuming a role.
+That role alone has `kms:Decrypt` on the vault key (DataStack's `ActVaultPolicy`) and `GetSecretValue` on the a7_act secret (also the bootstrap role, which
+sets the password once; a secret resource policy denies everyone else). The a7_act secret is deliberately not an ECS secret: the act container reads it with
+its task role (`A7_ACT_SECRET_ARN`), so no execution role can read it. The worker has `GenerateDataKey` only and no `sts:AssumeRole`.
+Exception to "only act has Decrypt": the worker, as an SQS SSE-KMS consumer, has `kms:Decrypt` conditioned on `kms:ViaService=sqs.eu-north-1.amazonaws.com`
+(the key policy already allows service-mediated calls and denies every direct Decrypt except act's). The tests assert exactly that.
+
+### Bedrock scope
+InvokeModel / InvokeModelWithResponseStream only, on: `eu.amazon.nova-lite-v1:0` profile + `amazon.nova-lite-v1:0` FM in `eu-*` (conditioned on the profile ARN),
+`qwen.qwen3-235b-a22b-2507-v1:0`, `qwen.qwen3-32b-v1:0` (in-Region), `eu.cohere.embed-v4:0` profile + FM. Worker: all; api and bootstrap: embeddings; act, mock, smoke: none.
+
+### Escalation timers (EventBridge Scheduler)
+`A7_ESCALATION_BACKEND=scheduler` (set on worker and api) makes `escalation.create_timers` create one one-time schedule per timer (`a7-esc-<id>`, group
+`paynest-a7-<env>`, auto-delete) that sends `{"escalation_id": N}` to the ingest queue; the worker calls `escalation.handler`. Overdue timers fire in about a minute.
+A recurring `rate(30 minutes)` schedule sends `{"run_due": true}` as a backstop (context `escalation_backstop_minutes`, 0 disables). Unset (local) = unchanged DB poller.
+
+### Environment
+`A7_AUTO_SEND=false` (env can only force OFF; the DB flag `auto_send_enabled` defaults OFF), `AWS_REGION=eu-north-1`, `A7_AWS_PROFILE=none`, DB by parts
+(`A7_DB_HOST` + secrets; `sslmode=require`), Valkey `rediss://`.
+
+## OpsStack and MonitoringStack
+Log groups `/paynest/a7/<env>/{api,worker,act,mock-payroll,bootstrap}` (retention 7 days, context `log_retention_days` 7|14|30) with a **data protection policy** (audit + mask):
+managed `EmailAddress`, `CreditCardNumber`, `CreditCardSecurityCode`, `BankAccountNumber-{DE,ES,FR,GB,IT}`, `AwsSecretKey`; custom `IbanAny`, `EmiratesId`, `AadhaarIN`,
+`PanIN`, `BankAcctIfscIN`, `PhoneIntl` (AWS has no managed Aadhaar/PAN/Emirates ID identifier, and its phone/bank identifiers do not cover IN/UAE; CloudWatch custom
+regexes cannot use parentheses). SNS topic `paynest-a7-<env>-alarms` (email subscription only if `-c alarm_email=...`, empty by default). Alarms: DLQ depth, ALB 5xx, unhealthy
+hosts, worker errors (metric filter on `message failed`), RDS CPU and free storage, Bedrock throttles. One dashboard.
+**Budget**: `AWS::Budgets::Budget` does not exist in eu-north-1 (Budgets is global; its CFN resource is us-east-1 only and that Region is off limits here), so
+`infra/budget/create_budget.sh` creates it through the API (probe P1 showed the API works from eu-north-1): 50/80/100% of `BUDGET_USD` (default 20), to the SNS topic and optional email.
+
+## Context flags
+`alarm_email` (default empty), `budget_usd` (20, used by the script), `log_retention_days` (7), `keep_data` (false: RDS and CMK destroyed; true: final RDS snapshot + CMK retained, deletion protection off so destroy works),
+`alb_certificate_arn` (required only with `public_alb=true`), `escalation_backstop_minutes` (30).
+
+## Teardown
+`cdk destroy --all` removes everything created here: log groups, secrets, queues, Scheduler group (and its schedules), cluster, ALB, endpoints, RDS (or snapshot with `keep_data`).
+`infra/budget/create_budget.sh delete` removes the budget. Left behind on purpose: CDK asset images in the bootstrap ECR repo, and with `keep_data=true` the snapshot and the CMK.
+`sizing=doc` keeps deletion protection on RDS: disable it first.
+
+## Tests
+`uv run pytest` (37 assertions: no NAT, no public IPs, internal ALB, ARM64, only the act role has an unconditioned `kms:Decrypt`, Bedrock scoped to the exact models, data
+protection policy and identifiers, secrets via Secrets Manager only, removal policies, keep_data). cdk-nag `-c nag=true` is clean for dev and doc with documented suppressions in `app.py`.
+
+Cost: `COST_ESTIMATE.md`.
+
+## Deploy runbook (only after the user confirms; synth and tests need no credentials)
+```
+export AWS_PROFILE=paynest AWS_REGION=eu-north-1 JSII_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION=1
+export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+cd infra && uv sync --python 3.12 && uv run pytest -q
+npx -y aws-cdk@2 synth -c nag=true -q && npx -y aws-cdk@2 diff --all        # diff is read-only; Docker must be running for deploy
+npx -y aws-cdk@2 deploy --all --require-approval never                      # about 25 min (Valkey 11 min, RDS 7 min); optional: -c alarm_email=you@example.com
+BUDGET_USD=20 ./budget/create_budget.sh create
+out() { aws cloudformation describe-stacks --stack-name "$1" --query "Stacks[0].Outputs[?OutputKey=='$2'].OutputValue" --output text; }
+C=paynest-a7-dev; NET=$(out $C-compute RunTaskNetworkConfiguration); QUEUE=$(out $C-data IngestQueueUrl)
+run() { aws ecs run-task --cluster $C --launch-type FARGATE --network-configuration "$NET" --task-definition "$(out $C-compute $1)" ${2:+--overrides "$2"} --query 'tasks[0].taskArn' --output text; }
+T=$(run BootstrapTaskDefinition); aws ecs wait tasks-stopped --cluster $C --tasks $T
+aws ecs describe-tasks --cluster $C --tasks $T --query 'tasks[0].containers[0].exitCode'      # 0; logs: aws logs tail /paynest/a7/dev/bootstrap
+aws sqs send-message --queue-url $QUEUE --message-body '{"ticket_id":"PN-100402"}'          # repeat for PN-101055, PN-101333, PN-101129 (worker scales 0 -> 1 in 2-3 min)
+S=$(run SmokeTaskDefinition '{"containerOverrides":[{"name":"smoke","command":["python","-m","solution.a7.smoke","queue","--tenant","<C-id>"]}]}')   # health | queue | ticket | decide | flags | payroll
+aws logs tail /paynest/a7/dev/api --since 10m     # smoke output; approve with: smoke decide --tenant <C-id> --ticket <id> --status approved --reviewer demo
+run ActTaskDefinition '{"containerOverrides":[{"name":"act","command":["python","-m","solution.a7.sender","--tenant","<C-id>","--ticket","PN-100402"]}]}'
+npx -y aws-cdk@2 destroy --all --force && ./budget/create_budget.sh delete
+```

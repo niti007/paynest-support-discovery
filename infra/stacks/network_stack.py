@@ -19,7 +19,8 @@ INTERFACE_ENDPOINTS = {
 }
 
 API_PORT = 8080
-DECIDER_PORT = 8080
+MOCK_PORT = 8080          # mock-payroll container port
+MOCK_LISTENER_PORT = 8081  # internal ALB listener that fronts it (worker -> ALB:8081 -> mock)
 
 
 class NetworkStack(Stack):
@@ -51,7 +52,7 @@ class NetworkStack(Stack):
         self.alb_sg = sg("AlbSg", "PayNest A7 ALB", False)
         self.api_sg = sg("ApiSg", "PayNest A7 reviewer API", True)
         self.worker_sg = sg("WorkerSg", "PayNest A7 SQS worker", True)
-        self.decider_sg = sg("DeciderSg", "PayNest A7 Decider service", True)
+        self.mock_sg = sg("MockSg", "PayNest A7 mock payroll API (demo)", True)
         self.db_sg = sg("DbSg", "PayNest A7 RDS PostgreSQL", False)
         self.cache_sg = sg("CacheSg", "PayNest A7 Valkey", False)
         self.endpoint_sg = sg("EndpointSg", "PayNest A7 interface endpoints", False)
@@ -61,13 +62,15 @@ class NetworkStack(Stack):
         else:
             self.alb_sg.add_ingress_rule(ec2.Peer.ipv4(self.vpc.vpc_cidr_block), ec2.Port.tcp(80), "HTTP from inside the VPC")
         self.alb_sg.add_egress_rule(self.api_sg, ec2.Port.tcp(API_PORT), "ALB to API tasks")
+        self.alb_sg.add_egress_rule(self.mock_sg, ec2.Port.tcp(MOCK_PORT), "ALB to mock payroll tasks")
+        self.alb_sg.add_ingress_rule(self.worker_sg, ec2.Port.tcp(MOCK_LISTENER_PORT), "Worker to mock payroll via ALB")
+        self.mock_sg.add_ingress_rule(self.alb_sg, ec2.Port.tcp(MOCK_PORT), "From ALB only")
         self.api_sg.add_ingress_rule(self.alb_sg, ec2.Port.tcp(API_PORT), "From ALB only")
 
         for src, nm in ((self.worker_sg, "worker"), (self.api_sg, "api")):
-            self.decider_sg.add_ingress_rule(src, ec2.Port.tcp(DECIDER_PORT), f"From {nm}")
             self.db_sg.add_ingress_rule(src, ec2.Port.tcp(5432), f"PostgreSQL from {nm}")
             self.cache_sg.add_ingress_rule(src, ec2.Port.tcp(6379), f"Valkey TLS from {nm}")
-        for src, nm in ((self.worker_sg, "worker"), (self.api_sg, "api"), (self.decider_sg, "decider")):
+        for src, nm in ((self.worker_sg, "worker"), (self.api_sg, "api"), (self.mock_sg, "mock")):
             self.endpoint_sg.add_ingress_rule(src, ec2.Port.tcp(443), f"HTTPS from {nm}")
 
         # ---- endpoints: S3 gateway + 8 interface endpoints

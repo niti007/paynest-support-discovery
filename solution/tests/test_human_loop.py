@@ -237,6 +237,22 @@ def table(owner):
     return {k: d for k, d in rows(owner, "SELECT kind, due_at FROM escalations")}
 
 
+def test_f_scheduler_hook_off_by_default_and_schedules_when_on(owner, monkeypatch):
+    calls = []
+    monkeypatch.setattr(escalation, "schedule_escalation", lambda i, due, **kw: calls.append((i, kw.get("kind"))) or True)
+    s = base(priority="P1", received_at="2026-09-26T04:00:00Z", ticket_id="TST-SCH1")
+    monkeypatch.delenv("A7_ESCALATION_BACKEND", raising=False)
+    with db.connect(app=True, autocommit=True) as app:
+        escalation.create_timers(app, s)
+    assert calls == []                                       # local behaviour unchanged: nothing scheduled
+    monkeypatch.setenv("A7_ESCALATION_BACKEND", "scheduler")
+    with db.connect(app=True, autocommit=True) as app:
+        escalation.create_timers(app, s)                     # idempotent rows, but every open timer is (re)scheduled by id
+    ids = {i for i, _ in rows(owner, "SELECT id, kind FROM escalations WHERE ticket_id = 'TST-SCH1'")}
+    assert {c[0] for c in calls} == ids and len(calls) == len(ids) >= 2
+    owner.execute("DELETE FROM escalations WHERE ticket_id = 'TST-SCH1'")
+
+
 def test_f_timers_and_run_due(owner):
     # P1, Enterprise, payroll week, privacy concern, received 04:00Z
     s = base(priority="P1", is_payroll_window=True, received_at="2026-09-26T04:00:00Z", privacy_concern=True, ticket_id="TST-T1")
