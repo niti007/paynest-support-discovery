@@ -25,35 +25,23 @@ from ..lang import detect_language
 from ..pii.patterns import PLACEHOLDER_RE
 from ..pii.scanner import scan
 from ..state import TicketState
+from .numbers import DIGIT_MAP, numbers_in as _numbers_in
 from .stale_values import VERSION_RE, CurrentValues, asserted_stale
 
 ID_RE = re.compile(r"\b(?:R-[A-Z0-9]+(?:-[A-Z0-9]+)+|KB-\d{4})\b")
-NUM_RE = re.compile(r"\d+(?:[.,]\d+)*")
-_DIGITS = str.maketrans({**{chr(0x0660 + i): str(i) for i in range(10)}, **{chr(0x06F0 + i): str(i) for i in range(10)},
-                         **{chr(0x0966 + i): str(i) for i in range(10)}})
 WAS_RE = re.compile(r"\bWas:.*?\.(?=\s|$)", re.S)
 NOW_RE = re.compile(r"\bNow:.*?\.(?=\s|$)", re.S)
-LIST_MARK_RE = re.compile(r"(?m)^\s*\d+[.)]\s")
 MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 OK_LANGS = {"en": {"en", "hinglish"}, "hinglish": {"en", "hinglish", "hi"}, "hi": {"hi", "hinglish"}, "ar": {"ar"}}
 
 
 def ascii_digits(text: str) -> str:
-    return text.translate(_DIGITS)
+    return text.translate(DIGIT_MAP)
 
 
-def _norm_num(tok: str) -> str:
-    if re.fullmatch(r"\d{1,3}(,\d{3})+(\.\d+)?", tok):
-        tok = tok.replace(",", "")
-    tok = tok.replace(",", ".")
-    if re.fullmatch(r"\d+", tok):
-        return str(int(tok))
-    return tok.rstrip(".")
-
-
-def numbers_in(text: str) -> list[str]:
-    t = LIST_MARK_RE.sub(" ", ascii_digits(text or ""))
-    return [_norm_num(m) for m in NUM_RE.findall(t)]
+def numbers_in(text: str, keep: set[str] | frozenset[str] = frozenset(), include_small: bool = False) -> list[str]:
+    """Canonical numbers in the text (digits of any script, words, 25k, 15 thousand, Rs/INR/AED...): see numbers.py."""
+    return _numbers_in(text or "", keep, include_small)
 
 
 def date_forms(iso: str) -> set[str]:
@@ -81,10 +69,11 @@ def extract_citations(draft: str, retrieved: list[dict[str, Any]]) -> list[dict[
 
 def evidence_numbers(state: TicketState) -> set[str]:
     nums: set[str] = set(state.get("tool_numbers", []))
-    nums |= set(numbers_in(state.get("masked_text", "")))
+    nums |= set(numbers_in(state.get("masked_text", ""), include_small=True))
     for c in state.get("context_chunks", []):
-        nums |= set(numbers_in(WAS_RE.sub(" ", f'{c.get("source_id", "")} {c.get("title") or ""} {c.get("body", "")}')))
-        nums |= set(numbers_in(c.get("effective_from") or ""))
+        text = WAS_RE.sub(" ", f'{c.get("source_id", "")} {c.get("title") or ""} {c.get("body", "")}')
+        nums |= set(numbers_in(text, include_small=True))
+        nums |= set(numbers_in(c.get("effective_from") or "", include_small=True))
     return nums
 
 
@@ -93,7 +82,7 @@ def stale_numbers(state: TicketState) -> set[str]:
     old: set[str] = set()
     for c in state.get("context_chunks", []):
         for m in WAS_RE.finditer(f'{c.get("body", "")}'):
-            old |= set(numbers_in(m.group(0)))
+            old |= set(numbers_in(m.group(0), include_small=True))
     return old - evidence_numbers(state)
 
 
@@ -104,7 +93,7 @@ def current_values(state: TicketState, stale: set[str]) -> CurrentValues:
     for c in state.get("context_chunks", []):
         was = " ".join(m.group(0) for m in WAS_RE.finditer(c.get("body", ""))).lower()
         for m in NOW_RE.finditer(c.get("body", "")):
-            nums |= set(numbers_in(m.group(0)))
+            nums |= set(numbers_in(m.group(0), include_small=True))
             labels |= {v.lower() for v in VERSION_RE.findall(m.group(0)) if v.lower() not in was}
     return CurrentValues(nums - stale, labels)
 
@@ -122,7 +111,7 @@ def code_checks(state: TicketState) -> list[str]:
     ev = evidence_numbers(state)
     stale = stale_numbers(state)
     asserted = asserted_stale_in(state, stale)
-    ungrounded = sorted({n for n in numbers_in(draft) if n not in ev and (n not in stale or n in asserted)})
+    ungrounded = sorted({n for n in numbers_in(draft, keep=stale) if n not in ev and (n not in stale or n in asserted)})
     if ungrounded:
         fails.append("numbers_not_grounded:" + ",".join(ungrounded))
     # 2. rule + date
