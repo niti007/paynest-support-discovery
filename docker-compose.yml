@@ -1,6 +1,6 @@
 # PayNest A7 local stack.
 #   docker compose up -d                       -> postgres (55432) + valkey (56379)
-#   docker compose --profile langfuse up -d    -> adds Langfuse v3 (web 53000)
+#   docker compose --profile langfuse up -d    -> adds Langfuse v4.79.0 server for SDK 5.2.0 (web 53000)
 # Schema: solution/db/schema.sql runs on first start of an empty volume (initdb.d).
 # Re-apply to an existing volume with:  uv run python -m solution.a7.db apply
 services:
@@ -31,7 +31,7 @@ services:
       timeout: 3s
       retries: 20
 
-  # ---- Langfuse v3 (profile: langfuse). Own postgres/redis/clickhouse/minio. First used in Phase 5. ----
+  # ---- Langfuse v4.79.0 (profile: langfuse; pairs with langfuse SDK 5.2.0; tag verified on Docker Hub 2026-11-12). Own postgres/redis/clickhouse/minio. First used in Phase 5. ----
   langfuse-db:
     profiles: ["langfuse"]
     image: postgres:17
@@ -59,7 +59,7 @@ services:
 
   langfuse-clickhouse:
     profiles: ["langfuse"]
-    image: clickhouse/clickhouse-server:24.8
+    image: docker.io/clickhouse/clickhouse-server:26.3.62.3
     user: "101:101"
     environment:
       CLICKHOUSE_DB: default
@@ -76,7 +76,7 @@ services:
 
   langfuse-minio:
     profiles: ["langfuse"]
-    image: minio/minio:latest
+    image: cgr.dev/chainguard/minio
     entrypoint: sh
     command: -c 'mkdir -p /data/langfuse && minio server --address ":9000" --console-address ":9001" /data'
     environment:
@@ -92,7 +92,7 @@ services:
 
   langfuse-worker:
     profiles: ["langfuse"]
-    image: langfuse/langfuse-worker:3
+    image: langfuse/langfuse-worker:4.79.0
     depends_on: &lf_deps
       langfuse-db: {condition: service_healthy}
       langfuse-redis: {condition: service_healthy}
@@ -102,7 +102,7 @@ services:
       DATABASE_URL: postgresql://postgres:${LANGFUSE_DB_PASSWORD:-change-me-langfuse-db}@langfuse-db:5432/langfuse
       SALT: ${LANGFUSE_SALT:-change-me-salt}
       ENCRYPTION_KEY: ${LANGFUSE_ENCRYPTION_KEY:-0000000000000000000000000000000000000000000000000000000000000000}
-      NEXTAUTH_URL: http://localhost:53000
+      NEXTAUTH_URL: http://localhost:${LANGFUSE_WEB_PORT:-53000}
       NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:-change-me-nextauth}
       TELEMETRY_ENABLED: "false"
       CLICKHOUSE_MIGRATION_URL: clickhouse://langfuse-clickhouse:9000
@@ -123,10 +123,10 @@ services:
 
   langfuse-web:
     profiles: ["langfuse"]
-    image: langfuse/langfuse:3
+    image: langfuse/langfuse:4.79.0
     depends_on: *lf_deps
     ports:
-      - "53000:3000"
+      - "${LANGFUSE_WEB_PORT:-53000}:3000"
     environment:
       <<: *lf_env
       LANGFUSE_INIT_ORG_ID: a7

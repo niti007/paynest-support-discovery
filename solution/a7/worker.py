@@ -35,7 +35,10 @@ def run_ticket(raw_record: dict[str, Any], graph: Any, gate: Callable, normalise
     if state.get("pii_gate_status") != "passed":
         return {**state, "lane": "human_review", "route_reasons": ["pii_gate_blocked"]}
     cfg = thread_config(state["ticket_id"])
-    result = graph.invoke(state, cfg, durability="sync")
+    from . import tracing                                   # no-op unless LANGFUSE_HOST/PUBLIC_KEY/SECRET_KEY are set
+    run_cfg = tracing.with_callbacks(cfg, state["ticket_id"])
+    result = graph.invoke(state, run_cfg, durability="sync")
+    tracing.flush()
     values = dict(graph.get_state(cfg).values)
     values["__interrupt__"] = bool(result.get("__interrupt__")) if isinstance(result, dict) else False
     return values

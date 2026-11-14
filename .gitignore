@@ -19,3 +19,6 @@ infra/cdk.out*/
 infra/.venv/
 infra/cdk.context.json
 solution/evals/cache/
+solution/evals/reports/p5_spend.lock
+solution/evals/cache/
+solution/evals/reports/*.lock
