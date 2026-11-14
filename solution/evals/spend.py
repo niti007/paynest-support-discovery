@@ -8,14 +8,16 @@ from __future__ import annotations
 
 import fcntl
 import json
+import os
 import time
 from pathlib import Path
 
 from solution.a7 import config
 
-LEDGER = Path(__file__).resolve().parent / "reports" / "p5_spend.json"
-CAP_USD = 1.00
-STOP_USD = 0.95          # stop line: leaves room for one in-flight multi-call metric
+LEDGER = Path(os.environ.get("A7_SPEND_LEDGER") or Path(__file__).resolve().parent / "reports" / "p5_spend.json")
+CAP_USD = float(os.environ.get("A7_SPEND_CAP_USD", "1.00"))
+STOP_USD = round(CAP_USD * 0.95, 4)
+PRICES = config.PRICE_PER_1M_TOKENS   # kept for judge_crosscheck (Builder B API)          # stop line: leaves room for one in-flight multi-call metric
 
 
 class SpendCapExceeded(RuntimeError):
@@ -40,7 +42,7 @@ def _read() -> dict:
     return {"cap_usd": CAP_USD, "stop_usd": STOP_USD, "total_usd": 0.0, "by_component": {}, "calls": 0}
 
 
-def add(component: str, cost: float, calls: int = 1) -> float:
+def add(component: str, cost: float, calls: int = 1, **_meta) -> float:
     """Add cost to the ledger (file-locked: tests may run in several processes). Returns the new total."""
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
     with open(LEDGER.with_suffix(".lock"), "w") as lk:
@@ -62,3 +64,10 @@ def guard() -> None:
     t = total()
     if t >= STOP_USD:
         raise SpendCapExceeded(f"Bedrock spend {t:.4f} USD reached the stop line {STOP_USD} (cap {CAP_USD})")
+
+
+def check(next_call_usd: float = 0.01) -> None:
+    """Builder B API: refuse a call that could cross the cap."""
+    t = total()
+    if t + next_call_usd > CAP_USD:
+        raise SpendCapExceeded(f"Bedrock spend {t:.4f} + {next_call_usd} would exceed the USD {CAP_USD:.2f} cap")
