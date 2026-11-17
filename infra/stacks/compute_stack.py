@@ -261,11 +261,16 @@ class ComputeStack(Stack):
         self.act_td = act_td
 
         # ---- smoke (RunTask only): the internal ALB is unreachable from a laptop, so API calls for the gate run in-VPC (python -m solution.a7.smoke)
-        self.smoke_role = role("SmokeRole", f"paynest-a7-{env_name}-smoke-task", "A7 in-VPC smoke client: no AWS permissions")
+        self.smoke_role = role("SmokeRole", f"paynest-a7-{env_name}-smoke-task", "A7 in-VPC smoke client: HTTP calls plus SendMessage to the ingest queue (smoke batch)")
+        # `smoke batch` replays ticket ids through the ingest queue: SendMessage on that one queue, and GenerateDataKey only through SQS (queue is SSE-KMS).
+        self.smoke_role.add_to_policy(iam.PolicyStatement(actions=["sqs:SendMessage"], resources=[data.ingest_queue.queue_arn]))
+        self.smoke_role.add_to_policy(iam.PolicyStatement(
+            actions=["kms:GenerateDataKey"], resources=[data.data_key.key_arn],
+            conditions={"StringEquals": {"kms:ViaService": f"sqs.{region}.amazonaws.com"}}))
         smoke_td = taskdef("SmokeTask", 256, 512, self.smoke_role)
         scheme = "https" if net.public_alb else "http"
         container(smoke_td, "smoke", api_img, "api",
-                  {"A7_ALB_URL": f"{scheme}://{self.alb.load_balancer_dns_name}",
+                  {"A7_ALB_URL": f"{scheme}://{self.alb.load_balancer_dns_name}", "AWS_REGION": region, "A7_QUEUE_URL": data.ingest_queue.queue_url,
                    "A7_PAYROLL_API_URL": f"http://{self.alb.load_balancer_dns_name}:{MOCK_LISTENER_PORT}"},
                   {"A7_REVIEWER_TOKEN": S.from_secrets_manager(self.reviewer_token), "A7_ADMIN_TOKEN": S.from_secrets_manager(self.admin_token),
                    "A7_PAYROLL_API_TOKEN": S.from_secrets_manager(self.mock_token)},

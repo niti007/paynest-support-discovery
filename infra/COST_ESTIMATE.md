@@ -49,7 +49,7 @@ bootstrap embeds 28 KB chunks for under USD 0.01.
 2. Deploy, bootstrap, gate run, collect evidence, destroy: **about 3 hours** of paid time.
    - Valkey needs about 11 minutes to create and RDS about 7, in parallel; image publish and first deploy about 25 minutes in total.
    - Bootstrap/ingest task about 3 minutes. Gate 6 flows (one ticket per lane, approval, P1 escalation, log mask check) about 1 hour.
-   - Cost of the window: 3 h x 0.21 = about USD 0.65, plus Bedrock about USD 1, so **under USD 2 for a Gate 6 session**.
+   - Cost of the window: 3 h x 0.21 = about USD 0.62, plus Bedrock about USD 1, so **under USD 2 for a Gate 6 session**.
 3. Run `cdk destroy --all` the same day. A demo to a class is the same pattern (deploy 30 minutes before, destroy after).
 4. Never leave it up overnight: 24 h is USD 5, a week is USD 35.
 5. Cost Explorer lags by a day, so the AWS Budget (alerts at 50/80/100% of USD 20) is the safety net, not the meter.

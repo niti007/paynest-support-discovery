@@ -63,7 +63,7 @@ doc sizing retains the key and takes a final RDS snapshot; delete those by hand.
 
 ## cdk-nag (AwsSolutions)
 Clean for dev and doc after suppressions, each with a written reason in `app.py` (`_suppress`): VPC7 flow logs, RDS3/AEC4 single-AZ,
-RDS11 default port, SMG4 rotation, AEC6 Valkey AUTH, RDS10 (dev only), and a CdkNagValidationFailure for the CIDR token. ComputeStack IAM5 is suppressed per role and per
+RDS11 default port, SMG4 rotation, AEC6 Valkey AUTH, RDS10 (dev only), and a CdkNagValidationFailure for the CIDR token (EC23 on the ALB SG; it fires, so it stays). Stale suppressions that never fired (ops SNS2, compute EC23) were removed after a per-suppression probe. ComputeStack IAM5 is suppressed per role and per
 resource (`applies_to`: the EU-prefix Bedrock foundation-model ARNs, the scheduler group, `ecr:GetAuthorizationToken`), never stack-wide.
 
 
@@ -129,7 +129,7 @@ hosts, worker errors (metric filter on `message failed`), RDS CPU and free stora
 `sizing=doc` keeps deletion protection on RDS: disable it first.
 
 ## Tests
-`uv run pytest` (37 assertions: no NAT, no public IPs, internal ALB, ARM64, only the act role has an unconditioned `kms:Decrypt`, Bedrock scoped to the exact models, data
+`uv run pytest` (42 tests: no NAT, no public IPs, internal ALB, ARM64, only the act role has an unconditioned `kms:Decrypt`, Bedrock scoped to the exact models, data
 protection policy and identifiers, secrets via Secrets Manager only, removal policies, keep_data). cdk-nag `-c nag=true` is clean for dev and doc with documented suppressions in `app.py`.
 
 Cost: `COST_ESTIMATE.md`.
@@ -171,7 +171,7 @@ allows stay) and redeploy. The rolled-back key sits in the 7-day KMS pending-del
 ## Pre-flight checklist (before any deploy; the user approves each step)
 1. Docker is running (`docker info`); the CDK builds five ARM64 images (`docker buildx` with QEMU or a native arm64 builder).
 2. `aws sts get-caller-identity --profile paynest` is valid (the session is not expired; never run `aws login` from a script).
-3. Cost window: about USD 0.21 per hour (about USD 5 per day). Plan 3 hours (about USD 0.65 plus about USD 1 Bedrock) and the destroy time. Confirm the spend limit and credits in AWS Settings.
+3. Cost window: about USD 0.21 per hour (about USD 5 per day). Plan 3 hours (about USD 0.62 plus about USD 1 Bedrock) and the destroy time. Confirm the spend limit and credits in AWS Settings.
 4. `cd infra && uv run pytest -q` is green, `npx -y aws-cdk@2 synth -c nag=true -q` succeeds and `cdk diff --all` has been reviewed.
 5. The user has said "deploy". Nothing here deploys, bootstraps or destroys on its own.
 
@@ -187,10 +187,21 @@ npx -y aws-cdk@2 deploy --all                                               # de
 BUDGET_USD=20 ./budget/create_budget.sh create                              # idempotent: an existing budget only gets its limit updated
 out() { aws cloudformation describe-stacks --stack-name "$1" --query "Stacks[0].Outputs[?OutputKey=='$2'].OutputValue" --output text; }
 C=paynest-a7-dev; NET=$(out $C-compute RunTaskNetworkConfiguration); QUEUE=$(out $C-data IngestQueueUrl)
-run() { aws ecs run-task --cluster $C --launch-type FARGATE --network-configuration "$NET" --task-definition "$(out $C-compute $1)" ${2:+--overrides "$2"} --query 'tasks[0].taskArn' --output text; }
+run() {                                # zsh-safe: an empty overrides argument must not become an empty --overrides
+  if [ -n "$2" ]; then
+    aws ecs run-task --cluster $C --launch-type FARGATE --network-configuration "$NET" --task-definition "$(out $C-compute $1)" --overrides "$2" --query 'tasks[0].taskArn' --output text
+  else
+    aws ecs run-task --cluster $C --launch-type FARGATE --network-configuration "$NET" --task-definition "$(out $C-compute $1)" --query 'tasks[0].taskArn' --output text
+  fi
+}
+smoke() {                              # smoke <subcommand and args>: runs the Smoke task, waits, prints the task id (output: aws logs get-log-events, see below)
+  T=$(run SmokeTaskDefinition "$(python3 -c "import json,sys;print(json.dumps({'containerOverrides':[{'name':'smoke','command':['python','-m','solution.a7.smoke']+sys.argv[1:]}]}))" "$@")")
+  aws ecs wait tasks-stopped --cluster $C --tasks $T; echo ${T##*/}
+}
+# smoke output: aws logs get-log-events --log-group-name /paynest/a7/dev/api --log-stream-name smoke/smoke/<taskid> --query 'events[].message' --output text
 T=$(run BootstrapTaskDefinition); aws ecs wait tasks-stopped --cluster $C --tasks $T
 aws ecs describe-tasks --cluster $C --tasks $T --query 'tasks[0].containers[0].exitCode'      # 0; logs: aws logs tail /paynest/a7/dev/bootstrap
-S=$(run SmokeTaskDefinition)       # default command `smoke health` = GET /readyz: 200 once the bootstrap has run. Other commands: live | queue | ticket | decide | flags | payroll
+S=$(run SmokeTaskDefinition)       # default command `smoke health` = GET /readyz: 200 once the bootstrap has run. Other commands: live | queue | ticket (lane, queue, priority of any processed ticket) | decide | flags | payroll | batch (`smoke batch --tickets PN-101230,PN-101235..PN-101239` replays ids through the ingest queue)
 aws sqs send-message --queue-url $QUEUE --message-body '{"ticket_id":"PN-100402"}'          # repeat for PN-101055, PN-101333, PN-101129 (worker scales 0 -> 1 in 2-3 min)
 S=$(run SmokeTaskDefinition '{"containerOverrides":[{"name":"smoke","command":["python","-m","solution.a7.smoke","queue","--tenant","<C-id>"]}]}')
 aws logs tail /paynest/a7/dev/api --since 10m     # smoke output; approve with: smoke decide --tenant <C-id> --ticket <id> --status approved --reviewer demo
@@ -208,6 +219,10 @@ fields @log | filter @message like /\b[A-Z]{2}[0-9]{2}[ ]?[A-Z0-9]{4}[ ]?[0-9]{4
 fields @log | filter @message like /\b[A-Z]{5}[0-9]{4}[A-Z]\b/ | stats count(*) by @log
 # Emirates ID (784-YYYY-NNNNNNN-C, separators optional)
 fields @log | filter @message like /\b784[ -]?[0-9]{4}[ -]?[0-9]{7}[ -]?[0-9]\b/ | stats count(*) by @log
+# Aadhaar (12 digits starting 2-9, optional spaces or hyphens between groups of 4)
+fields @log | filter @message like /\b[2-9][0-9]{3}[ -]?[0-9]{4}[ -]?[0-9]{4}\b/ | stats count(*) by @log
+# Phone (international: + then 8 to 14 digits, separators allowed; or a 10-digit Indian mobile starting 6-9)
+fields @log | filter @message like /\+[0-9][0-9 -]{7,16}[0-9]/ or @message like /\b[6-9][0-9]{9}\b/ | stats count(*) by @log
 ```
 Expected: 0 rows. A non-zero row means a value reached a log unmasked: stop and report it. Also read the data protection audit findings per log group.
 
@@ -217,3 +232,13 @@ npx -y aws-cdk@2 destroy --all          # asks for confirmation; add --force onl
 ./budget/create_budget.sh delete        # idempotent: a missing budget is a no-op
 ```
 Leftovers on purpose: CDK asset images in the bootstrap ECR repo; with `keep_data=true` the snapshot and the CMK. The RDS PostgreSQL log group is now owned by the data stack and is removed by destroy.
+
+## Lessons from the first live deploy (2026-11-16)
+- Deploy took 968 s for all five stacks. The KMS `Deny kms:Decrypt` (everyone but the act role, with service and ViaService exemptions) was accepted by RDS, Valkey, SQS and
+  Secrets Manager, and the CloudWatch data-protection custom regexes were accepted at create time.
+- Gate 6 verdict: PASS with warnings (see `docs/validation/gate6_live.md`). Warnings: route_queue name not visible through smoke (fixed here: `smoke ticket` now returns lane, queue and
+  priority), no Incident batch command (fixed here: `smoke batch`), Cost Explorer lags up to 24 h, no audit findings destination on the log data-protection policy.
+- A cold-start ticket (worker scaled 0 to 1) took about 3.3 min end to end; a warm worker takes 3 to 10 s per ticket.
+- No ticket routed P1 under Nova (all P2, one P3), so the P1 escalation path was proven only by forcing overdue timers (Scheduler schedule, fire, handler).
+- The deployment was left up about 25 h because the AWS login expired before destroy could run. Lesson: run destroy in the same session as the deploy, and check
+  `aws sts get-caller-identity --profile paynest` before the cost window ends (never run `aws login` from a script).

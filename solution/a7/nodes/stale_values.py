@@ -81,7 +81,7 @@ SLOT_PATTERNS = [re.compile(p, re.I) for p in (
     # previously OLD, now NEW     "Previously 16 columns, now 14" / "Pehle 25,000 tha, ab 15,000 hai"
     rf"{_w(_PRE_NOW)}\s+(?P<old>{K}+?)[,،;]?\s+{_w(_NOW)}\s+(?P<new>{K}+)",
     # NEW, previously/after being OLD   "now 16, after being 14" / "بعد أن كان 14"
-    rf"(?P<new>{C}+?)[,،(]?\s*{_w('previously|formerly|earlier|originally|used to be|after being|after it was|(?:was|were)(?=\s+(?:[A-Za-z]{1,4}\.?\s*)?\d)|بعد أن كان|بعد ان كان|بعد أن كانت|بعدما كان')}\s+(?P<old>{K}+)",
+    rf"(?P<new>{C}+?)[,،(]?\s*{_w(r'previously|formerly|earlier|originally|used to be|after being|after it was|(?:was|were)(?=\s+(?:[A-Za-z]{1,4}\.?\s*)?\d)|بعد أن كان|بعد ان كان|بعد أن كانت|بعدما كان')}\s+(?P<old>{K}+)",
     # replaced OLD with/by NEW
     rf"{_w('replac(?:e|es|ed|ing)|supersed(?:e|es|ed|ing)')}\s+(?:the\s+)?(?P<old>{K}+?)\s+{_w('with|by')}\s+(?P<new>{K}+)",
     # OLD was replaced by NEW / OLD is superseded by NEW

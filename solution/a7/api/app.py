@@ -185,15 +185,28 @@ def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str 
 
     @app.get("/tickets/{ticket_id}")
     def ticket(ticket_id: str, request: Request, _: None = Depends(auth), tenant_id: str = Depends(tenant_of)):
-        rows = fetch(request.app.state.pool, tenant_id,
+        """Any processed ticket: lane, queue and priority, from the approval row (drafts) or the audit row + outbox assignment
+        (route_queue, block, incident, auto_answer). Masked fields and ids only."""
+        pool = request.app.state.pool
+        rows = fetch(pool, tenant_id,
                      "SELECT ticket_id, tenant_id, lane, priority, category, status, draft_masked, edited_draft_masked, "
                      "reviewer, requested_at, decided_at FROM approvals WHERE ticket_id = %s", (ticket_id,))
-        if not rows:
+        audit = fetch(pool, tenant_id, "SELECT signals FROM audit_log WHERE ticket_id = %s AND event = 'ticket_processed' "
+                                       "ORDER BY id LIMIT 1", (ticket_id,))
+        if not rows and not audit:
             raise HTTPException(404, "ticket not found")
-        esc = fetch(request.app.state.pool, tenant_id,
+        sig = (audit[0]["signals"] if audit else None) or {}
+        out = dict(rows[0]) if rows else {"ticket_id": ticket_id, "tenant_id": tenant_id}
+        for k in ("lane", "priority", "category"):
+            out[k] = out.get(k) or sig.get(k)
+        box = fetch(pool, tenant_id, "SELECT kind, status, channel, payload FROM outbox WHERE ticket_id = %s ORDER BY id", (ticket_id,))
+        queue = next(((b["payload"] or {}).get("queue") or b["channel"] for b in box if b["kind"] == "assignment"), None)
+        esc = fetch(pool, tenant_id,
                     "SELECT kind, level, due_at, fired_at, resolved_at FROM escalations WHERE ticket_id = %s ORDER BY due_at",
                     (ticket_id,))
-        return JSONResponse(content=_jsonable({**rows[0], "escalations": esc}))
+        return JSONResponse(content=_jsonable({**out, "queue": queue, "processed": bool(audit),
+                                               "outbox": [{"kind": b["kind"], "status": b["status"], "channel": b["channel"]} for b in box],
+                                               "escalations": esc}))
 
     @app.post("/tickets/{ticket_id}/decision")
     def decide(ticket_id: str, body: Decision, request: Request, _: None = Depends(auth),

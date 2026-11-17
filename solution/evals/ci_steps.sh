@@ -10,6 +10,7 @@ export DEEPEVAL_TELEMETRY_OPT_OUT=1
 MODE="${1:-pr}"
 BEDROCK="${A7_BEDROCK:-1}"
 FAILED=0
+export A7_CI_REPORT_DIR="${A7_CI_REPORT_DIR:-solution/evals/reports/runs}"   # run output: untracked (gitignored); the committed reports/ci_gate_pr.json stays frozen
 step() { echo; echo "=== $* ==="; }
 run() { "$@" || FAILED=1; }       # keep going so one report shows every red step; the script still exits 1 at the end
 
@@ -28,8 +29,8 @@ if [ "$BEDROCK" != "1" ]; then
   echo; echo "EVAL CI: GREEN (offline only, Bedrock steps skipped)"; exit 0
 fi
 
-step "smoke: the four demo tickets through the real graph"
-run uv run pytest solution/tests/test_p3_gate.py -m aws -q
+step "smoke: the four demo tickets through the real graph + the output guard on 8 wrong drafts (real model, 0 bypasses)"
+run uv run pytest solution/tests/test_p3_gate.py solution/tests/test_guard_smoke.py -m aws -q
 
 step "stale + safety + routing ($MODE)"
 run uv run python -m solution.evals.ci_gate "$MODE"

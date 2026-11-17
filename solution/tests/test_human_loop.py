@@ -374,3 +374,23 @@ def test_h_cross_tenant_is_404(pool, client, owner):
     assert "TST-X1" not in client.get("/queue", headers=other).text
     assert rows(owner, "SELECT status FROM approvals WHERE ticket_id='TST-X1'") == [("pending",)]
     assert client.get("/tickets/TST-X1", headers=H).status_code == 200
+
+
+def test_i_ticket_endpoint_returns_lane_queue_priority_for_non_draft_lanes(owner, client):
+    """Gate 6 gap: /tickets/<id> was 404 for route_queue and block tickets (only drafts have an approvals row)."""
+    owner.execute("INSERT INTO audit_log (tenant_id, ticket_id, event, masked_text, signals, node, dedupe_key) VALUES "
+                  "(%s,'TST-RQ1','ticket_processed','',%s,'log_and_learn','TST-RQ1:ticket_processed'),"
+                  "(%s,'TST-BL1','ticket_processed','',%s,'log_and_learn','TST-BL1:ticket_processed')",
+                  (ENT, '{"lane":"route_queue","priority":"P2","category":"payroll"}', ENT, '{"lane":"block","priority":"P2"}'))
+    owner.execute("INSERT INTO outbox (tenant_id, ticket_id, channel, masked_body, status, kind, lane, payload) VALUES "
+                  "(%s,'TST-RQ1','Payroll-Ops','Assign TST-RQ1 to Payroll-Ops','queued','assignment','route_queue',%s)",
+                  (ENT, '{"queue":"Payroll-Ops"}'))
+    r = client.get("/tickets/TST-RQ1", headers=H)
+    assert r.status_code == 200
+    b = r.json()
+    assert (b["lane"], b["queue"], b["priority"], b["category"], b["processed"]) == ("route_queue", "Payroll-Ops", "P2", "payroll", True)
+    assert b["outbox"] == [{"kind": "assignment", "status": "queued", "channel": "Payroll-Ops"}]
+    r = client.get("/tickets/TST-BL1", headers=H)
+    assert r.status_code == 200 and (r.json()["lane"], r.json()["queue"], r.json()["outbox"]) == ("block", None, [])
+    assert client.get("/tickets/TST-RQ1", headers={**H, "X-Tenant-Id": BUS}).status_code == 404     # tenant isolation holds
+    assert client.get("/tickets/TST-NOPE", headers=H).status_code == 404

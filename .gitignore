@@ -22,3 +22,4 @@ solution/evals/cache/
 solution/evals/reports/p5_spend.lock
 solution/evals/cache/
 solution/evals/reports/*.lock
+solution/evals/reports/runs/

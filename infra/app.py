@@ -88,21 +88,16 @@ def _suppress(net, data, sizing):
 def _suppress_p6(ops, compute, monitoring):
     """cdk-nag suppressions for OpsStack / ComputeStack / MonitoringStack. Every one carries a written reason."""
     from cdk_nag import NagPackSuppression as S, NagSuppressions as N
-    N.add_stack_suppressions(ops, [
-        S(id="AwsSolutions-SNS2", reason="Alarm/budget payloads carry no PII. SSE with the AWS-managed key would stop CloudWatch "
-                                         "and Budgets from publishing; TLS is enforced by the topic policy."),
-    ])
     N.add_stack_suppressions(compute, [
         S(id="AwsSolutions-SMG4", reason="Demo credentials generated ONCE at stack creation (never in the template); rotation needs a rotation Lambda (out of scope). Bootstrap sets the DB passwords from them; destroy removes them."),
         S(id="AwsSolutions-ECS4", reason="Container Insights bills per metric/log volume; the demo uses the ALB/SQS/ECS alarms and "
                                          "dashboard in MonitoringStack instead."),
         S(id="AwsSolutions-ELB2", reason="ALB access logs need an S3 bucket (cost, extra resource to destroy). App logs go to CloudWatch."),
         S(id="AwsSolutions-ECS2", reason="Environment holds only non-secret settings (hostnames, ARNs, flags); every secret is an ECS secret."),
-        S(id="AwsSolutions-EC23", reason="False positive: the ALB SG allows ingress only from the VPC CIDR (internal ALB) or, when "
-                                         "public_alb=true, 443 only; the unit tests assert both."),
     ])
     # IAM5 is suppressed per ROLE and per RESOURCE (applies_to), never stack-wide, so any new wildcard still fails the nag run.
-    # (The earlier IAM4 and monitoring-stack IAM5 suppressions were stale: no managed policy and no IAM wildcard exist there. Removed.)
+    # (Stale suppressions removed after a per-suppression probe: IAM4, monitoring IAM5, ops SNS2 and compute EC23 never fire. The network
+    # CdkNagValidationFailure (EC23 on the VPC CIDR token) does fire, so it stays.)
     # The internal ALB listens on plain HTTP (no nag rule fires): accepted demo risk, bearer tokens and masked ticket text stay inside the VPC
     # (isolated subnets, no IGW/NAT, SG-restricted); a public ALB requires an ACM certificate and HTTPS (enforced in ComputeStack).
     base = compute.node.path

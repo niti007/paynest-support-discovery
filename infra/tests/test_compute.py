@@ -157,14 +157,18 @@ def test_vault_key_policy_denies_decrypt_except_act_and_aws_services(t):
     assert deny["Action"] == "kms:Decrypt" and deny["Effect"] == "Deny" and deny["Principal"] == {"AWS": "*"}
     cond = json.dumps(deny["Condition"])
     assert ACT in cond and "aws-service-role" in cond
-    # the rendered account is a token-free literal at synth (CDK_DEFAULT_ACCOUNT dummy 000000000000)
-    acct = "000000000000"
+    # the rendered account is a token-free literal at synth: the dummy 000000000000, or CDK_DEFAULT_ACCOUNT when it is set.
+    # Derive it from the template so the test passes either way.
+    import re
+    accts = set(re.findall(r"arn:aws:iam::(\d{12}):", cond))
+    assert len(accts) == 1, accts
+    acct = accts.pop()
     via = {f"{svc}.eu-north-1.amazonaws.com" for svc in ("rds", "elasticache", "sqs", "secretsmanager", "logs")}
     assert set(deny["Condition"]["StringNotEquals"]["kms:ViaService"]) == via
     role = lambda n: f"arn:aws:iam::{acct}:role/{n}"           # noqa: E731
     # blocked: humans and apps calling Decrypt directly (no ViaService), and via a service that is not on the list
     for who in (role("paynest-a7-dev-worker-task"), role("paynest-a7-dev-api-task"), role("paynest-a7-dev-bootstrap-task"),
-                role("aws-reserved/sso.amazonaws.com/AWSReservedSSO_Admin_abc"), role("cdk-hnb659fds-cfn-exec-role-000000000000-eu-north-1"),
+                role("aws-reserved/sso.amazonaws.com/AWSReservedSSO_Admin_abc"), role(f"cdk-hnb659fds-cfn-exec-role-{acct}-eu-north-1"),
                 f"arn:aws:iam::{acct}:user/someone"):
         assert _deny_applies(deny, who, None), who
         assert _deny_applies(deny, who, "s3.eu-north-1.amazonaws.com"), who
@@ -435,3 +439,13 @@ def test_images_are_arm64_assets_with_four_targets(t):
         assert bad.lower() not in df.lower().replace("passwords", ""), bad
     ign = (Path(__file__).resolve().parents[2] / ".dockerignore").read_text()
     assert ign.startswith("#") and "\n*\n" in ign and ".env" in ign and "!trainer" not in ign
+
+
+def test_smoke_role_can_only_send_to_the_ingest_queue(t):
+    """`smoke batch` replays ticket ids through the ingest queue: SendMessage on that queue and GenerateDataKey via SQS, nothing else."""
+    mine = [(o, st) for o, st in _iam_policies(t["compute"]) if "SmokeRole" in o or "smoke-task" in o]
+    stmts = [s for _o, ss in mine for s in ss if s.get("Effect") == "Allow"]
+    acts = sorted(a for s in stmts for a in _actions(s))
+    assert acts == ["kms:GenerateDataKey", "sqs:SendMessage"], acts
+    kms = next(s for s in stmts if "kms:GenerateDataKey" in _actions(s))
+    assert kms["Condition"]["StringEquals"]["kms:ViaService"] == "sqs.eu-north-1.amazonaws.com"

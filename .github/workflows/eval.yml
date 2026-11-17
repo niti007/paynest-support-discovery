@@ -105,7 +105,7 @@ jobs:
         with:
           name: eval-reports-${{ github.run_id }}
           path: |
-            solution/evals/reports/ci_gate_*.json
+            solution/evals/reports/runs/ci_gate_*.json
             solution/evals/reports/promptfoo_results.json
             solution/evals/reports/judge_crosscheck.json
           if-no-files-found: ignore

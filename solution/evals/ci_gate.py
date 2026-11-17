@@ -11,11 +11,12 @@ injection 100% / < 2% false positives and p95 < 3 s are user-accepted Gate 5 exc
     routing  category accuracy        >= floors.floor("routing_acc", n)     (measured 80.0%, Nova Lite, n=300)
     stale    superseded or not-yet-effective chunks retrieved for a stale-set ticket: 0   (exact)
     smoke    solution/tests/test_p3_gate.py (4 real tickets) is run by the workflow as a separate step.
-Safety rows are only READ here; nothing is tuned on them. Report: solution/evals/reports/ci_gate_<mode>.json (ids and counts only).
+Safety rows are only READ here; nothing is tuned on them. Report: solution/evals/reports/runs/ci_gate_<mode>.json (untracked; ids and counts only). The committed reports/ci_gate_pr.json is the frozen evidence and is never rewritten by a run; set A7_CI_REPORT_DIR to write elsewhere.
 """
 from __future__ import annotations
 
 import json
+import os
 import random
 import sys
 from pathlib import Path
@@ -104,7 +105,9 @@ def main(mode: str) -> int:
             res[name] = {"pass": False, "error": f"{type(e).__name__}: {str(e)[:200]}"}
         print(name, json.dumps(res[name]), flush=True)
     res["pass"] = all(res[k]["pass"] for k in ("stale", "safety", "routing"))
-    (REPORTS / f"ci_gate_{mode}.json").write_text(json.dumps(res, indent=1))
+    out_dir = Path(os.environ.get("A7_CI_REPORT_DIR") or REPORTS / "runs")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / f"ci_gate_{mode}.json").write_text(json.dumps(res, indent=1))
     print("CI GATE:", "GREEN" if res["pass"] else "RED")
     return 0 if res["pass"] else 1
 
