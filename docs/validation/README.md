@@ -10,4 +10,4 @@ not written in the report; they come from the seeds and commit ids it cites.
 - `final_validation.md`: Gate 5 part 2 and Gate 6 pre-deploy recheck (a7-final 395be84), verdict MERGE-READY with warnings and DEPLOY-READY on the user's explicit go, 2026-11-16.
 - `gate6_live.md`: Gate 6 live validation on AWS eu-north-1, verdict PASS with warnings, 2026-11-16.
 
-Not included (the files were not found on this machine when this folder was made): the reports for Gate 3, Gate 4, and Gate 3/4 re-validations 1 and 2.
+- `gates_3_4_summary.md`: Gate 3 (ff0096c), Gate 4 (0a4c8a0), Gate 3/4 re-validations 1 (da1aa00, FAIL on R2) and 2 (1ae1eed, FAIL on H1); verdicts PASS-with-warnings, PASS-with-warnings plus 1 defect, FAIL, FAIL; about 2026-11-12 to 2026-11-14 (inferred); reconstructed from the orchestrator's plan notes on 2026-11-18, since the original reports were lost.
