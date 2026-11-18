@@ -45,6 +45,7 @@ def test_dedupe_parent_wins_and_none_never_clobbers():
     assert v["parent_ticket_id"] == "PN-NEW"
 
 
+@pytest.mark.aws      # the default retriever embeds the query on Bedrock; without this mark the A7_BEDROCK=0 offline CI path fails with no credentials
 def test_retrieve_sets_topic_and_region():
     kb = {**KB, "topic": "payslips"}
     v, _ = run(howto_state(), chunks=(kb,))

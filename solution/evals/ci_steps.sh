@@ -17,7 +17,7 @@ run() { "$@" || FAILED=1; }       # keep going so one report shows every red ste
 step "prepare data (schema, reference data, KB + embeddings, bootstrap)"
 uv run python -m solution.a7.db apply
 uv run python -m solution.ingest.load_reference
-if [ "$BEDROCK" = "1" ]; then uv run python -m solution.ingest.load_kb --embed; else uv run python -m solution.ingest.load_kb; fi
+if [ "$BEDROCK" = "1" ]; then uv run python -m solution.ingest.load_kb --embed; else uv run python -m solution.ingest.load_kb --no-embed; fi
 uv run python -m solution.db.bootstrap
 
 step "offline unit + memory tests (no Bedrock)"
