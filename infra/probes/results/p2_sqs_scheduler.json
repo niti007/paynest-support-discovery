@@ -1,0 +1,41 @@
+{
+  "probe": "p2_sqs_scheduler",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "sqs_send_receive_delete",
+      "pass": true,
+      "evidence": "local-test"
+    },
+    {
+      "name": "schedule_created",
+      "pass": true,
+      "evidence": "2026-11-08T15:30:02 UTC arn:aws:scheduler:eu-north-1:554559231166:schedule/default/paynest-probe-once ActionAfterCompletion=DELETE"
+    },
+    {
+      "name": "scheduled_message_arrived",
+      "pass": true,
+      "evidence": "scheduled-hello"
+    },
+    {
+      "name": "schedule_auto_deleted_after_completion",
+      "pass": true,
+      "evidence": "ResourceNotFound"
+    }
+  ],
+  "ids_resolved": {
+    "queue_url": "https://sqs.eu-north-1.amazonaws.com/554559231166/paynest-probe-q",
+    "scheduler_role": "arn:aws:iam::554559231166:role/paynest-probe-scheduler-role",
+    "schedule_arn": "arn:aws:scheduler:eu-north-1:554559231166:schedule/default/paynest-probe-once"
+  },
+  "latency_ms": {
+    "sqs_roundtrip": 431,
+    "scheduled_message_wait": 314876
+  },
+  "est_cost_usd": 0.0,
+  "error": null,
+  "fallback": null,
+  "notes": [
+    "ECS RunTask target not exercised (no dry run). scheduler.amazonaws.com CreateSchedule supports ecs target type (Arn=cluster, EcsParameters); role would need ecs:RunTask + iam:PassRole. Simulate for current probe role (only has sqs:SendMessage): explicitDeny"
+  ]
+}

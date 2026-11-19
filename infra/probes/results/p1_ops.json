@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "logs_put_5_events",
+      "pass": true,
+      "evidence": "5 events, retention=1d"
+    },
+    {
+      "name": "insights_iban_count_is_1",
+      "pass": true,
+      "evidence": "count=1"
+    },
+    {
+      "name": "budget_create_describe",
+      "pass": true,
+      "evidence": "paynest-probe-budget {'Amount': '20.0', 'Unit': 'USD'}"
+    },
+    {
+      "name": "cost_explorer_7d",
+      "pass": true,
+      "evidence": "total=0.0000 USD over 0 services"
+    }
+  ],
+  "ids_resolved": {
+    "ce_7d_by_service": {},
+    "ce_7d_total_usd": 0,
+    "cleanup": [
+      "log group deleted",
+      "budget deleted"
+    ]
+  },
+  "latency_ms": {
+    "insights_total": 9418
+  },
+  "est_cost_usd": 0.01,
+  "error": null,
+  "fallback": null
+}

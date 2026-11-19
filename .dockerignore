@@ -1,0 +1,16 @@
+# Allow-list build context: only what the images COPY. Keeps secrets, .env, trainer/, docs and tests out of every image
+# and keeps the CDK asset hash stable.
+*
+!docker/Dockerfile
+!docker/requirements-*.txt
+!solution/a7
+!solution/db
+!solution/ingest
+!data-room
+**/__pycache__
+**/*.pyc
+solution/**/tests
+.env
+.env.*
+**/.a7_vault_key
+**/.DS_Store

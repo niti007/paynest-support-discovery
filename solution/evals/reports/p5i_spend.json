@@ -1,0 +1,14 @@
+{
+  "cap_usd": 0.5,
+  "stop_usd": 0.475,
+  "total_usd": 0.289215,
+  "by_component": {
+    "harvest": 0.066969,
+    "pii_live_ticket": 0.00153,
+    "judge_qwen235b": 0.093953,
+    "judge_nova": 0.018823,
+    "ragas_qwen235b": 0.10794
+  },
+  "calls": 1004,
+  "updated": "2026-11-14 11:52:22"
+}

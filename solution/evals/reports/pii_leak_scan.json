@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "tickets_export": 1367,
+    "whatsapp_export": 112,
+    "call_center_notes": 61
+  },
+  "leaks": [],
+  "placeholders_by_type": {
+    "USERREF": 483,
+    "EMAIL": 665,
+    "PERSON": 218,
+    "IBAN": 18,
+    "EID": 44,
+    "PAN": 45,
+    "AADHAAR": 45,
+    "BANK": 28,
+    "PHONE": 112
+  },
+  "records_processed": 1540,
+  "tickets_with_pii_before": 101,
+  "pii_hits_before": 154,
+  "real_tickets": 1327,
+  "blocked": [],
+  "leaks_after_gate": 0
+}

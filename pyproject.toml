@@ -1,0 +1,53 @@
+[project]
+name = "paynest-a7"
+version = "0.1.0"
+description = "PayNest A7 support pipeline (solution/)"
+requires-python = ">=3.12"
+dependencies = [
+    "psycopg[binary]>=3.2",
+    "pgvector>=0.3",
+    "boto3[crt]>=1.35",
+    "valkey>=6.0",
+    "pytest>=8",
+    "presidio-analyzer==2.2.366",
+    "spacy==3.8.18",
+    "cryptography==50.0.2",
+    "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl",
+    "xx_ent_wiki_sm @ https://github.com/explosion/spacy-models/releases/download/xx_ent_wiki_sm-3.8.0/xx_ent_wiki_sm-3.8.0-py3-none-any.whl",
+    "laya>=0.4.29",
+    "strands-decider[mlx]>=0.3.0",
+    "fastapi>=0.162.2",
+    "uvicorn[standard]>=0.54.0",
+    "httpx>=0.28.1",
+    "langgraph==1.2.20",
+    "langgraph-checkpoint-postgres==3.2.0",
+    "langchain-aws==1.9.2",
+    "psycopg-pool>=3.3.3",
+    "jinja2>=3.1.6",
+    "python-multipart>=0.0.33",
+    "langchain-core>=1.7.6",
+    "jsonschema>=4.23",
+    "pyyaml>=6",
+    "numpy>=2",
+    "deepeval==4.3.3",
+    "ragas==0.4.3",
+    "langfuse==5.2.0",
+    "presidio-anonymizer==2.2.366",
+    "aiobotocore>=3.10.0",
+]
+
+[tool.uv]
+package = false
+# torch must not resolve below what Phase 3/4 was tested on. boto3/botocore (1.43.117) and transformers (5.17.0) CANNOT be floored at the p34-fixes3 versions (1.43.126 / 5.22.2): aiobotocore, needed by the native DeepEval AmazonBedrockModel, pins botocore<1.43.118, and deepeval 4.3.3 pins click<8.4 which excludes the huggingface-hub that transformers>=5.18 needs.
+constraint-dependencies = ["torch>=2.15.0"]
+python-preference = "only-managed"  # Anaconda python breaks spaCy (h5py)
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["solution/tests"]
+markers = [
+    "db: needs the docker compose postgres/valkey stack running",
+    "aws: calls AWS (Bedrock); profile paynest, Region eu-north-1",
+    "model: loads a real local model (Laya on MPS/CPU, Strands Decider on MLX; first run downloads weights)",
+]
+

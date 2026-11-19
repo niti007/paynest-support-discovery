@@ -1,0 +1,252 @@
+"""Reviewer API: pending approvals (HTML queue), ticket detail, decision -> resumes the graph.
+
+Auth: `Authorization: Bearer $A7_REVIEWER_TOKEN` on everything except /livez, /readyz and /health (no token configured = all 401).
+Tenant scope: every request names ONE tenant (header X-Tenant-Id or ?tenant=). Reads and writes run under RLS for that
+tenant, so another tenant's ticket is a 404, never a leak (the May-2026 incident was two tenants in one session).
+Only masked text is stored or shown.
+
+Run:  uvicorn solution.a7.api.app:app --port 18082
+"""
+from __future__ import annotations
+
+import os
+import secrets
+from contextlib import asynccontextmanager
+from pathlib import Path
+from typing import Any, Callable
+
+from fastapi import Depends, FastAPI, Header, HTTPException, Request
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.templating import Jinja2Templates
+from psycopg.rows import dict_row
+from psycopg_pool import ConnectionPool
+from pydantic import BaseModel
+
+from .. import db, human_db, shadow_review
+from ..nodes.human_approval import validate_decision
+
+TEMPLATES = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
+
+
+class FlagUpdate(BaseModel):
+    name: str
+    enabled: bool
+    updated_by: str
+
+
+class ShadowDecision(BaseModel):
+    status: str          # approved | rejected
+    reviewer: str
+
+
+class Decision(BaseModel):
+    status: str
+    reviewer: str
+    edited_draft: str | None = None
+
+
+def default_graph_factory(checkpointer):
+    from ..graph import build_graph          # Builder A's module; imported lazily so queue/health work without it
+    return build_graph(checkpointer)
+
+
+def create_app(*, graph_factory: Callable[[Any], Any] | None = None, token: str | None = None, dsn: str | None = None,
+               admin_dsn: str | None = None, admin_token: str | None = None, embedder: Callable[..., list[list[float]]] | None = None) -> FastAPI:
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        pool = ConnectionPool(dsn or db.app_dsn(), min_size=1, max_size=8, open=False,
+                              kwargs={"autocommit": True, "row_factory": dict_row, "prepare_threshold": 0})
+        pool.open()
+        # The kill-switch writer: its own login (a7_admin), used by /admin/flags only. app_user can only read feature_flags.
+        admin_pool = ConnectionPool(admin_dsn or human_db.admin_dsn(), min_size=0, max_size=2, open=False,
+                                    kwargs={"autocommit": True, "row_factory": dict_row, "prepare_threshold": 0})
+        admin_pool.open(wait=False)
+        app.state.pool = pool
+        app.state.admin_pool = admin_pool
+        app.state.graph = None
+        yield
+        admin_pool.close()
+        pool.close()
+
+    app = FastAPI(title="PayNest A7 reviewer API", lifespan=lifespan)
+    app.state.graph_factory = graph_factory or default_graph_factory
+    app.state.token = token
+    app.state.admin_token = admin_token
+    app.state.embedder = embedder
+
+    def auth(authorization: str | None = Header(default=None)) -> None:
+        expected = app.state.token if app.state.token is not None else os.environ.get("A7_REVIEWER_TOKEN", "")
+        given = authorization[7:] if authorization and authorization.lower().startswith("bearer ") else ""
+        if not expected or not secrets.compare_digest(given.encode(), expected.encode()):
+            raise HTTPException(401, "invalid or missing bearer token", headers={"WWW-Authenticate": "Bearer"})
+
+    def admin_auth(authorization: str | None = Header(default=None)) -> None:
+        """Kill-switch admin token (A7_ADMIN_TOKEN), separate from the reviewer token: a reviewer token cannot flip flags.
+        Role that holds it: Head of Support (our default; the sources name no one)."""
+        expected = app.state.admin_token if app.state.admin_token is not None else os.environ.get("A7_ADMIN_TOKEN", "")
+        given = authorization[7:] if authorization and authorization.lower().startswith("bearer ") else ""
+        if not expected or not secrets.compare_digest(given.encode(), expected.encode()):
+            raise HTTPException(401, "invalid or missing admin token", headers={"WWW-Authenticate": "Bearer"})
+
+    def tenant_of(x_tenant_id: str | None = Header(default=None), tenant: str | None = None) -> str:
+        t = x_tenant_id or tenant
+        if not t:
+            raise HTTPException(400, "tenant required: header X-Tenant-Id or ?tenant=")
+        return t
+
+    def graph(request: Request):
+        if request.app.state.graph is None:
+            from langgraph.checkpoint.postgres import PostgresSaver
+            saver = PostgresSaver(request.app.state.pool)      # pool conns are autocommit + dict_row
+            request.app.state.graph = request.app.state.graph_factory(saver)
+        return request.app.state.graph
+
+    def fetch(pool, tenant_id: str, sql: str, params: tuple = ()):
+        with pool.connection() as conn, conn.transaction():
+            conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+            return conn.execute(sql, params).fetchall()
+
+    @app.get("/livez")
+    def livez():
+        """Liveness, NO database: the ALB health check. The stack deploys with an empty DB (app_user has no valid login until the
+        bootstrap task has run), so the load balancer must not depend on it."""
+        return {"status": "ok"}
+
+    @app.get("/readyz")
+    def readyz(request: Request):
+        """Readiness: app_user can reach the database (used by the smoke task). 503 until the bootstrap has run."""
+        try:
+            with request.app.state.pool.connection(timeout=3) as conn:
+                conn.execute("SELECT 1")
+        except Exception:  # noqa: BLE001 - PoolTimeout / OperationalError: report, never leak the message
+            return JSONResponse({"status": "not_ready"}, status_code=503)
+        return {"status": "ok"}
+
+    @app.get("/health")
+    def health(request: Request):
+        """Kept for compatibility (local tests, humans): same as /readyz but raises on failure."""
+        with request.app.state.pool.connection() as conn:
+            conn.execute("SELECT 1")
+        return {"status": "ok"}
+
+    @app.get("/admin/flags")
+    def get_flags(request: Request, _: None = Depends(admin_auth)):
+        from .. import flags
+        with request.app.state.admin_pool.connection() as conn:
+            return {"flags": {n: flags.get_flag(conn, n) for n in sorted(flags.KNOWN)},
+                    "env_forces_off": flags.env_forces_off(),
+                    "auto_send_effective": flags.auto_send_enabled(conn)}
+
+    @app.post("/admin/flags")
+    def set_flags(body: FlagUpdate, request: Request, _: None = Depends(admin_auth)):
+        from .. import flags
+        if body.name not in flags.KNOWN:
+            raise HTTPException(422, f"unknown flag {body.name!r}")
+        if not body.updated_by.strip():
+            raise HTTPException(422, "updated_by required")
+        with request.app.state.admin_pool.connection() as conn, conn.transaction():
+            flags.set_flag(conn, body.name, body.enabled, body.updated_by.strip())
+            eff = flags.auto_send_enabled(conn)
+        return {"name": body.name, "enabled": body.enabled, "auto_send_effective": eff,
+                "env_forces_off": flags.env_forces_off()}
+
+    @app.get("/queue", response_class=HTMLResponse)
+    def queue(request: Request, _: None = Depends(auth), tenant_id: str = Depends(tenant_of)):
+        rows = fetch(request.app.state.pool, tenant_id,
+                     "SELECT a.ticket_id, a.lane, a.priority, a.category, a.requested_at, a.draft_masked, "
+                     "(SELECT min(due_at) FROM escalations e WHERE e.ticket_id = a.ticket_id AND e.fired_at IS NULL "
+                     " AND e.resolved_at IS NULL) AS next_due FROM approvals a WHERE a.status = 'pending' "
+                     "ORDER BY (a.priority = 'P1') DESC, a.requested_at")
+        with request.app.state.pool.connection() as conn, conn.transaction():
+            conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+            shadow = shadow_review.list_pending(conn)
+        return TEMPLATES.TemplateResponse(request, "queue.html", {"rows": rows, "tenant": tenant_id, "shadow": shadow})
+
+    @app.get("/shadow")
+    def shadow_list(request: Request, _: None = Depends(auth), tenant_id: str = Depends(tenant_of)):
+        with request.app.state.pool.connection() as conn, conn.transaction():
+            conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+            return JSONResponse(content=_jsonable({"pending": shadow_review.list_pending(conn)}))
+
+    @app.post("/shadow/{ticket_id}/review")
+    def shadow_decide(ticket_id: str, body: ShadowDecision, request: Request, _: None = Depends(auth),
+                      tenant_id: str = Depends(tenant_of)):
+        """Grade a shadow auto_answer draft. Never sends or queues anything; approved + cacheable fills answer_cache."""
+        try:
+            with request.app.state.pool.connection() as conn, conn.transaction():
+                conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+                return shadow_review.review(conn, tenant_id, ticket_id, body.status, body.reviewer, request.app.state.embedder)
+        except ValueError as e:
+            raise HTTPException(422, str(e))
+        except shadow_review.NotFound:
+            raise HTTPException(404, "no shadow draft for this ticket")
+        except shadow_review.AlreadyReviewed:
+            raise HTTPException(409, "already reviewed")
+
+    @app.get("/tickets/{ticket_id}")
+    def ticket(ticket_id: str, request: Request, _: None = Depends(auth), tenant_id: str = Depends(tenant_of)):
+        """Any processed ticket: lane, queue and priority, from the approval row (drafts) or the audit row + outbox assignment
+        (route_queue, block, incident, auto_answer). Masked fields and ids only."""
+        pool = request.app.state.pool
+        rows = fetch(pool, tenant_id,
+                     "SELECT ticket_id, tenant_id, lane, priority, category, status, draft_masked, edited_draft_masked, "
+                     "reviewer, requested_at, decided_at FROM approvals WHERE ticket_id = %s", (ticket_id,))
+        audit = fetch(pool, tenant_id, "SELECT signals FROM audit_log WHERE ticket_id = %s AND event = 'ticket_processed' "
+                                       "ORDER BY id LIMIT 1", (ticket_id,))
+        if not rows and not audit:
+            raise HTTPException(404, "ticket not found")
+        sig = (audit[0]["signals"] if audit else None) or {}
+        out = dict(rows[0]) if rows else {"ticket_id": ticket_id, "tenant_id": tenant_id}
+        for k in ("lane", "priority", "category"):
+            out[k] = out.get(k) or sig.get(k)
+        box = fetch(pool, tenant_id, "SELECT kind, status, channel, payload FROM outbox WHERE ticket_id = %s ORDER BY id", (ticket_id,))
+        queue = next(((b["payload"] or {}).get("queue") or b["channel"] for b in box if b["kind"] == "assignment"), None)
+        esc = fetch(pool, tenant_id,
+                    "SELECT kind, level, due_at, fired_at, resolved_at FROM escalations WHERE ticket_id = %s ORDER BY due_at",
+                    (ticket_id,))
+        return JSONResponse(content=_jsonable({**out, "queue": queue, "processed": bool(audit),
+                                               "outbox": [{"kind": b["kind"], "status": b["status"], "channel": b["channel"]} for b in box],
+                                               "escalations": esc}))
+
+    @app.post("/tickets/{ticket_id}/decision")
+    def decide(ticket_id: str, body: Decision, request: Request, _: None = Depends(auth),
+               tenant_id: str = Depends(tenant_of)):
+        try:
+            d = validate_decision(body.model_dump())
+        except ValueError as e:
+            raise HTTPException(422, str(e))
+        pool = request.app.state.pool
+        claimed = None
+        with pool.connection() as conn, conn.transaction():          # claim: only one reviewer wins
+            conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+            exists = conn.execute("SELECT status FROM approvals WHERE ticket_id = %s", (ticket_id,)).fetchone()
+            if not exists:
+                raise HTTPException(404, "ticket not found")
+            claimed = conn.execute("UPDATE approvals SET status = 'deciding' WHERE ticket_id = %s AND status = 'pending' "
+                                   "RETURNING ticket_id", (ticket_id,)).fetchone()
+        if not claimed:
+            raise HTTPException(409, f"ticket already {exists['status']}")
+        from langgraph.types import Command
+        try:
+            out = graph(request).invoke(Command(resume=d), {"configurable": {"thread_id": ticket_id}}, durability="sync")
+        except Exception:
+            with pool.connection() as conn, conn.transaction():      # release the claim so it can be retried
+                conn.execute("SELECT a7.set_tenant(%s, true)", (tenant_id,))
+                conn.execute("UPDATE approvals SET status = 'pending' WHERE ticket_id = %s AND status = 'deciding'", (ticket_id,))
+            raise
+        actions = (out or {}).get("actions") or []
+        return {"ticket_id": ticket_id, "status": d["status"],
+                "actions": [{k: a.get(k) for k in ("type", "status", "outbox_id")} for a in actions]}
+
+    return app
+
+
+def _jsonable(o: Any) -> Any:
+    if isinstance(o, dict):
+        return {k: _jsonable(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [_jsonable(v) for v in o]
+    return o.isoformat() if hasattr(o, "isoformat") else o
+
+
+app = create_app()

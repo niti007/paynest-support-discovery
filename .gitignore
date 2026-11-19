@@ -8,3 +8,18 @@ __pycache__/
 # optional: strip trainer/ from the student copy
 # trainer/
 trainer/
+.claude/
+
+.env
+# A7 local vault key (generated on first use; never commit)
+.a7_vault_key
+
+# CDK
+infra/cdk.out*/
+infra/.venv/
+infra/cdk.context.json
+solution/evals/cache/
+solution/evals/reports/p5_spend.lock
+solution/evals/cache/
+solution/evals/reports/*.lock
+solution/evals/reports/runs/

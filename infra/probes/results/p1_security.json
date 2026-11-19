@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "kms_roundtrip",
+      "pass": true,
+      "evidence": "key=43c53102-ad91-4e38-98a8-16a0b188b46a ct_len=180 match=True"
+    },
+    {
+      "name": "secretsmanager_create_describe",
+      "pass": true,
+      "evidence": "arn=arn:aws:secretsmanager:eu-north-1:554559231166:secret:paynest-probe-secret-5ZEDl9 tags=['project', 'probe']"
+    },
+    {
+      "name": "cleanup",
+      "pass": true,
+      "evidence": [
+        "secret deleted",
+        "key 43c53102-ad91-4e38-98a8-16a0b188b46a scheduled"
+      ]
+    }
+  ],
+  "ids_resolved": {
+    "kms_key_id": "43c53102-ad91-4e38-98a8-16a0b188b46a",
+    "secret_arn": "arn:aws:secretsmanager:eu-north-1:554559231166:secret:paynest-probe-secret-5ZEDl9",
+    "cleanup": [
+      "secret deleted",
+      "key 43c53102-ad91-4e38-98a8-16a0b188b46a scheduled"
+    ],
+    "kms_state": "PendingDeletion"
+  },
+  "latency_ms": {
+    "kms_encrypt": 43,
+    "kms_decrypt": 42
+  },
+  "est_cost_usd": 0.0,
+  "error": null,
+  "fallback": null
+}
