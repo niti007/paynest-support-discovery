@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "fit_split": "routing calib (20%, stratified, seed 20261108)",
+    "n": 266
+  },
+  "temperatures": {
+    "category": 9.565746398124103,
+    "urgency": 3.7513417053155043
+  }
+}

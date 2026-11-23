@@ -1,0 +1,726 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "freetier.get_account_plan_state",
+      "pass": true,
+      "evidence": {
+        "accountId": "554559231166",
+        "accountPlanType": "FREE",
+        "accountPlanStatus": "ACTIVE",
+        "accountPlanRemainingCredits": {
+          "amount": 100.0,
+          "unit": "USD"
+        },
+        "accountPlanExpirationDate": "2027-05-07 20:23:37.505000+00:00"
+      }
+    },
+    {
+      "name": "quotas:bedrock",
+      "pass": true,
+      "evidence": "102 of 539 quotas matched"
+    },
+    {
+      "name": "quotas:fargate",
+      "pass": true,
+      "evidence": "1 of 6 quotas matched"
+    },
+    {
+      "name": "quotas:rds",
+      "pass": true,
+      "evidence": "1 of 22 quotas matched"
+    },
+    {
+      "name": "quotas:elasticache",
+      "pass": true,
+      "evidence": "3 of 11 quotas matched"
+    },
+    {
+      "name": "quotas:vpc",
+      "pass": true,
+      "evidence": "2 of 31 quotas matched"
+    }
+  ],
+  "ids_resolved": {
+    "account_plan": {
+      "accountId": "554559231166",
+      "accountPlanType": "FREE",
+      "accountPlanStatus": "ACTIVE",
+      "accountPlanRemainingCredits": {
+        "amount": 100.0,
+        "unit": "USD"
+      },
+      "accountPlanExpirationDate": "2027-05-07 20:23:37.505000+00:00"
+    },
+    "quotas": {
+      "bedrock": [
+        {
+          "name": "Global cross-region model inference requests per minute for Anthropic Claude Sonnet 4.6",
+          "code": "L-F6E116D7",
+          "value": 10.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference requests per minute for Anthropic Claude Haiku 4.5",
+          "code": "L-CCA5DF70",
+          "value": 10.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference requests per minute for Amazon Nova Lite",
+          "code": "L-89F8391A",
+          "value": 20.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference job size (in GB) for Claude Sonnet 4.5",
+          "code": "L-A8E19E21",
+          "value": 5.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference requests per minute for Amazon Nova 2 Lite",
+          "code": "L-D5F39C2F",
+          "value": 20.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Nova 2 Lite",
+          "code": "L-4A832410",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Anthropic Claude Sonnet 4.5 V1 1M Context Length",
+          "code": "L-8EA73537",
+          "value": 1000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Model invocation max tokens per day for Anthropic Claude Sonnet 4.5 V1 1M Context Length (doubled for cross-region calls)",
+          "code": "L-E107194C",
+          "value": 27000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Claude Sonnet 4.6",
+          "code": "L-6DE38E15",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Model units per provisioned model for the 300k context length variant for Amazon Nova Lite",
+          "code": "L-127FC9D0",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Titan Text Embeddings V2",
+          "code": "L-3CAACDCF",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference requests per minute for Anthropic Claude Sonnet 4.5 V1 1M Context Length",
+          "code": "L-A052927A",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Nova Lite V1",
+          "code": "L-916C9264",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Anthropic Claude Haiku 5.5",
+          "code": "L-47520EB7",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a custom model for Titan Multimodal Embeddings G1",
+          "code": "L-652C224A",
+          "value": 3.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per day for Cohere Embed V4",
+          "code": "L-795ADAB0",
+          "value": 16200000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Nova Lite V1",
+          "code": "L-E2ED42E6",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Nova 2 Lite",
+          "code": "L-9782A23E",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Titan Text Embeddings V2",
+          "code": "L-1AC1CABC",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Anthropic Claude Haiku 4.5",
+          "code": "L-58BE175A",
+          "value": 5000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Anthropic Claude Haiku 4.5",
+          "code": "L-9A11C666",
+          "value": 5000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a custom model for Titan Text Embeddings V2",
+          "code": "L-329D7443",
+          "value": 3.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Qwen3 32B",
+          "code": "L-DF5FF3C8",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Anthropic Claude Sonnet 4.5 V1 1M Context Length",
+          "code": "L-4B26E44A",
+          "value": 1000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Model invocation max tokens per day for Amazon Nova 2 Lite (doubled for cross-region calls)",
+          "code": "L-210172B5",
+          "value": 216000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference requests per minute for Cohere Embed V4",
+          "code": "L-7089DC7D",
+          "value": 20.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Claude Haiku 4.5",
+          "code": "L-7315A204",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Claude Sonnet 4.5",
+          "code": "L-FFFEDD8D",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Nova 2 Lite",
+          "code": "L-4C301596",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Claude 3.5 Haiku",
+          "code": "L-C39B6D57",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Titan Multimodal Embeddings G1",
+          "code": "L-81E26054",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Nova 2 Lite",
+          "code": "L-ECCE76C6",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference requests per minute for Anthropic Claude Sonnet 4.5 V1",
+          "code": "L-4A6BFAB1",
+          "value": 10.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Titan Multimodal Embeddings G1",
+          "code": "L-447BB329",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Nova 2 Lite",
+          "code": "L-10F69CA1",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Qwen3 32B",
+          "code": "L-3C5E49B6",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "[bedrock-mantle endpoint] Input tokens per minute for Claude Sonnet 5",
+          "code": "L-38EB0A61",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "On-demand model inference requests per minute for Qwen3 32B V1",
+          "code": "L-E880C759",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Claude Sonnet 4.6",
+          "code": "L-2AF05E49",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference job size (in GB) for Qwen3 32B",
+          "code": "L-BD405FCD",
+          "value": 5.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Claude Sonnet 4.5.",
+          "code": "L-23DB0C0C",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Claude 3.5 Haiku",
+          "code": "L-B688EFA5",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Nova Lite V1",
+          "code": "L-39FA8DCA",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "On-demand model inference tokens per minute for Amazon Nova Lite",
+          "code": "L-70423BF8",
+          "value": 200000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Anthropic Claude Sonnet 5",
+          "code": "L-DD84E5CA",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Claude Haiku 4.5",
+          "code": "L-9EDE6039",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Claude Haiku 4.5",
+          "code": "L-28612175",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Anthropic Claude Sonnet 4.6",
+          "code": "L-15B8E632",
+          "value": 6000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Amazon Nova 2 Lite",
+          "code": "L-71C69B70",
+          "value": 8000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference job size (in GB) for Claude Haiku 4.5",
+          "code": "L-909ED56A",
+          "value": 5.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Nova Lite V1",
+          "code": "L-B8626674",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Claude Sonnet 4.6",
+          "code": "L-3030E098",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference requests per minute for Cohere Embed V4",
+          "code": "L-EB8C1F30",
+          "value": 20.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Cohere Embed V4",
+          "code": "L-02DFBB76",
+          "value": 300000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Claude 3.5 Haiku",
+          "code": "L-B48488BD",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Titan Text Embeddings V2",
+          "code": "L-AAC5F6D6",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference requests per minute for Amazon Nova 2 Lite",
+          "code": "L-F06F1187",
+          "value": 20.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Titan Text Embeddings V2",
+          "code": "L-6F2B2616",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Titan Multimodal Embeddings G1",
+          "code": "L-7F2C6F33",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference job size (in GB) for Nova Lite V1",
+          "code": "L-19E52681",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Claude 3.5 Haiku",
+          "code": "L-274AA31F",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Claude Sonnet 4.6",
+          "code": "L-01A2DC4B",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "[bedrock-mantle endpoint] Output tokens per minute for Claude Sonnet 5",
+          "code": "L-15830237",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference job size (in GB) for Claude 3.5 Haiku",
+          "code": "L-987C98F5",
+          "value": 5.0,
+          "unit": "None"
+        },
+        {
+          "name": "Model invocation max tokens per day for Amazon Nova Lite (doubled for cross-region calls)",
+          "code": "L-45E0AD92",
+          "value": 564480001.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Anthropic Claude Sonnet 4.5 V1",
+          "code": "L-27C57EE8",
+          "value": 5000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference job size (in GB) for Titan Multimodal Embeddings G1",
+          "code": "L-4C584163",
+          "value": 5.0,
+          "unit": "None"
+        },
+        {
+          "name": "Model units per provisioned model for the 24k context length variant for Amazon Nova Lite ",
+          "code": "L-4532261E",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per day for Anthropic Claude Sonnet 4.5 V1 1M Context Length",
+          "code": "L-229A5DEC",
+          "value": 54000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Amazon Nova 2 Lite",
+          "code": "L-C6F5908D",
+          "value": 8000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "On-demand model inference tokens per minute for Qwen3 32B V1",
+          "code": "L-B7C52139",
+          "value": 100000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference requests per minute for Anthropic Claude Sonnet 4.6",
+          "code": "L-00FF3314",
+          "value": 10.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Claude Sonnet 4.5",
+          "code": "L-640034B8",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Amazon Nova Lite",
+          "code": "L-7C42E72A",
+          "value": 400000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Nova Lite V1",
+          "code": "L-F60B56CC",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference input file size (in GB) for Qwen3 32B",
+          "code": "L-25820050",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Anthropic Claude Sonnet 5.5",
+          "code": "L-94A31E46",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference requests per minute for Anthropic Claude Sonnet 4.5 V1 1M Context Length",
+          "code": "L-C0D53EFB",
+          "value": 1.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference requests per minute for Anthropic Claude Haiku 4.5",
+          "code": "L-E5084BBA",
+          "value": 10.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Titan Text Embeddings V2",
+          "code": "L-D1151D45",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Claude Sonnet 4.5",
+          "code": "L-4DFF050E",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Titan Multimodal Embeddings G1",
+          "code": "L-1A69C08F",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Anthropic Claude Sonnet 4.6",
+          "code": "L-7BEE40FB",
+          "value": 6000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Anthropic Claude Sonnet 4.5 V1",
+          "code": "L-F4DDD3EB",
+          "value": 5000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference job size (in GB) for Claude Sonnet 4.6",
+          "code": "L-2806605C",
+          "value": 5.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Cohere Embed V4",
+          "code": "L-4C3F0FE6",
+          "value": 300000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per batch inference job for Titan Multimodal Embeddings G1",
+          "code": "L-3BD2251E",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "On-demand model inference requests per minute for Amazon Nova Lite",
+          "code": "L-E386A278",
+          "value": 10.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Claude Sonnet 4.6",
+          "code": "L-391CEF89",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Anthropic Claude Sonnet 5.5",
+          "code": "L-31AB82D0",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per minute for Anthropic Claude Haiku 5.5",
+          "code": "L-F26CA8D1",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Model invocation max tokens per day for Cohere Embed V4 (doubled for cross-region calls)",
+          "code": "L-F1BB08BB",
+          "value": 8100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference tokens per day for Amazon Nova 2 Lite",
+          "code": "L-AD940EDE",
+          "value": 432000000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Records per input file per batch inference job for Qwen3 32B",
+          "code": "L-28258E5D",
+          "value": 100000.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Claude 3.5 Haiku",
+          "code": "L-220B8A25",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Batch inference job size (in GB) for Titan Text Embeddings V2",
+          "code": "L-F687AD4D",
+          "value": 5.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Claude Haiku 4.5",
+          "code": "L-63020993",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Cross-region model inference tokens per minute for Anthropic Claude Sonnet 5",
+          "code": "L-D4FBCF4E",
+          "value": 0.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Qwen3 32B",
+          "code": "L-7B9A79C8",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Minimum number of records per batch inference job for Claude Haiku 4.5",
+          "code": "L-EDFC771A",
+          "value": 100.0,
+          "unit": "None"
+        },
+        {
+          "name": "Global cross-region model inference requests per minute for Anthropic Claude Sonnet 4.5 V1",
+          "code": "L-DB84CE56",
+          "value": 10.0,
+          "unit": "None"
+        },
+        {
+          "name": "Sum of in-progress and submitted batch inference jobs using a base model for Claude Sonnet 4.5.",
+          "code": "L-A0300844",
+          "value": 100.0,
+          "unit": "None"
+        }
+      ],
+      "fargate": [
+        {
+          "name": "Fargate On-Demand vCPU resource count",
+          "code": "L-3032A538",
+          "value": 12.0,
+          "unit": "None"
+        }
+      ],
+      "rds": [
+        {
+          "name": "DB instances",
+          "code": "L-7B6409FD",
+          "value": 40.0,
+          "unit": "None"
+        }
+      ],
+      "elasticache": [
+        {
+          "name": "Nodes per Region",
+          "code": "L-DFE45DF3",
+          "value": 300.0,
+          "unit": "None"
+        },
+        {
+          "name": "Nodes per cluster (cluster mode enabled)",
+          "code": "L-AF354865",
+          "value": 90.0,
+          "unit": "None"
+        },
+        {
+          "name": "Nodes per cluster (Memcached)",
+          "code": "L-8C334AD1",
+          "value": 60.0,
+          "unit": "None"
+        }
+      ],
+      "vpc": [
+        {
+          "name": "Interface VPC endpoints per VPC",
+          "code": "L-29B6F2EB",
+          "value": 50.0,
+          "unit": "None"
+        },
+        {
+          "name": "Gateway VPC endpoints per Region",
+          "code": "L-1B52E74A",
+          "value": 20.0,
+          "unit": "None"
+        }
+      ]
+    }
+  },
+  "latency_ms": {},
+  "est_cost_usd": 0.0,
+  "error": null,
+  "fallback": null
+}

@@ -1,0 +1,111 @@
+name: eval
+
+# Pull requests: smoke + stale + safety + routing on seeded SAMPLES (130 Nova Lite classify calls and four demo tickets, about 15 minutes at the 10 RPM quota).
+# Nightly (03:17 UTC): the full sets, the promptfoo red team and the DeepEval judge cross-check, with the DeepEval cache cleared.
+# The commands live in solution/evals/ci_steps.sh so that CI and a local run execute exactly the same thing.
+on:
+  pull_request:
+    paths: ["solution/**", "pyproject.toml", "uv.lock", ".github/workflows/eval.yml"]
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "pr (samples) or nightly (full)"
+        default: "pr"
+
+permissions:
+  id-token: write      # OIDC token for aws-actions/configure-aws-credentials
+  contents: read
+
+concurrency:
+  group: eval-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEEPEVAL_TELEMETRY_OPT_OUT: "1"
+  # Local-stack settings: the service containers below, mapped to the default ports.
+  A7_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/a7
+  A7_APP_DATABASE_URL: postgresql://app_user:app_user_dev@localhost:5432/a7
+  A7_ACT_DATABASE_URL: postgresql://a7_act:a7_act_dev@localhost:5432/a7
+  A7_VALKEY_URL: redis://localhost:6379/0
+  AWS_REGION: eu-north-1
+  AWS_DEFAULT_REGION: eu-north-1
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      # AWS/OIDC is OPTIONAL. With the secret (or variable) AWS_EVAL_ROLE_ARN set, the Bedrock steps run; without it they are skipped with a notice
+      # and the offline steps (schema, unit and memory tests) still gate the pull request. Fork PRs never get the secret, so they take the offline path too.
+      AWS_EVAL_ROLE_ARN: ${{ secrets.AWS_EVAL_ROLE_ARN || vars.AWS_EVAL_ROLE_ARN }}
+      A7_BEDROCK: ${{ (secrets.AWS_EVAL_ROLE_ARN || vars.AWS_EVAL_ROLE_ARN) != '' && '1' || '0' }}
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: a7
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d a7"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+      valkey:
+        image: valkey/valkey:9
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "valkey-cli ping"
+          --health-interval 5s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: "auto"
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0 - promptfoo 0.125.1 needs Node >= 22.22
+        with:
+          node-version: "22.22.0"
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      # AWS access for Bedrock (Nova Lite, Qwen3-235B, Cohere embeddings) through GitHub OIDC. DOCUMENTED ONLY: no IAM role exists yet, so the step below is skipped.
+      # To enable: create the IAM OIDC provider token.actions.githubusercontent.com, then a role whose trust policy allows
+      # sts:AssumeRoleWithWebIdentity for repo:<owner>/<repo>:pull_request and :ref:refs/heads/main (condition token.actions.githubusercontent.com:sub),
+      # with bedrock:InvokeModel / bedrock:Converse on the models above only. Store its ARN as the repository secret or variable AWS_EVAL_ROLE_ARN.
+      - name: Bedrock steps are skipped (AWS_EVAL_ROLE_ARN is not set)
+        if: ${{ env.A7_BEDROCK != '1' }}
+        run: echo "::notice title=Bedrock eval skipped::AWS_EVAL_ROLE_ARN is not set, so only the offline steps run (schema, unit and memory tests). Set the secret to enable the smoke, safety, routing and nightly steps."
+
+      - name: Configure AWS credentials (OIDC)
+        if: ${{ env.A7_BEDROCK == '1' }}
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4.3.1
+        with:
+          role-to-assume: ${{ env.AWS_EVAL_ROLE_ARN }}
+          aws-region: eu-north-1
+          role-session-name: a7-eval-${{ github.run_id }}
+
+      - name: "Eval (pull request, samples)"
+        if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.mode != 'nightly') }}
+        run: bash solution/evals/ci_steps.sh pr
+
+      - name: "Eval (nightly, full sets, red team, judge cross-check)"
+        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'nightly') }}
+        env:
+          ENABLE_DEEPEVAL_CACHE: "0"
+          DEEPEVAL_CACHE_FOLDER: .deepeval_cache
+        run: bash solution/evals/ci_steps.sh nightly
+
+      - name: Upload eval reports (ids and counts only, masked)
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: eval-reports-${{ github.run_id }}
+          path: |
+            solution/evals/reports/runs/ci_gate_*.json
+            solution/evals/reports/promptfoo_results.json
+            solution/evals/reports/judge_crosscheck.json
+          if-no-files-found: ignore

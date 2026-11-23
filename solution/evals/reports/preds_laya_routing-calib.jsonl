@@ -1,0 +1,798 @@
+{"id": "PN-101311", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 27.23, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101311", "name": "urgency", "choice": "normal", "confidence": 0.9727, "latency_ms": 27.23, "probs": {"urgent": 0.0138, "high": 0.0135, "normal": 0.9727}}
+{"id": "PN-101311", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 27.23, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100232", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 28.69, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100232", "name": "urgency", "choice": "urgent", "confidence": 0.7156, "latency_ms": 28.69, "probs": {"urgent": 0.7156, "high": 0.0146, "normal": 0.2697}}
+{"id": "PN-100232", "name": "is_injection", "choice": "no", "confidence": 0.9974, "latency_ms": 28.69, "probs": {"yes": 0.0026, "no": 0.9974}}
+{"id": "PN-100971", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 24.69, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100971", "name": "urgency", "choice": "normal", "confidence": 0.9213, "latency_ms": 24.69, "probs": {"urgent": 0.0446, "high": 0.034, "normal": 0.9213}}
+{"id": "PN-100971", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 24.69, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100276", "name": "category", "choice": "statutory", "confidence": 0.1366, "latency_ms": 30.81, "probs": {"howto": 0.1054, "payroll": 0.105, "integration": 0.1078, "statutory": 0.1366, "leave": 0.1074, "access": 0.1091, "reports": 0.1066, "onboarding": 0.1148, "billing": 0.1073}}
+{"id": "PN-100276", "name": "urgency", "choice": "normal", "confidence": 0.8978, "latency_ms": 30.81, "probs": {"urgent": 0.0462, "high": 0.0559, "normal": 0.8978}}
+{"id": "PN-100276", "name": "is_injection", "choice": "no", "confidence": 0.9796, "latency_ms": 30.81, "probs": {"yes": 0.0204, "no": 0.9796}}
+{"id": "PN-100526", "name": "category", "choice": "reports", "confidence": 0.4546, "latency_ms": 25.86, "probs": {"howto": 0.0452, "payroll": 0.031, "integration": 0.0824, "statutory": 0.191, "leave": 0.0442, "access": 0.0592, "reports": 0.4546, "onboarding": 0.0345, "billing": 0.058}}
+{"id": "PN-100526", "name": "urgency", "choice": "normal", "confidence": 0.9801, "latency_ms": 25.86, "probs": {"urgent": 0.0139, "high": 0.006, "normal": 0.9801}}
+{"id": "PN-100526", "name": "is_injection", "choice": "no", "confidence": 0.9495, "latency_ms": 25.86, "probs": {"yes": 0.0505, "no": 0.9495}}
+{"id": "PN-101162", "name": "category", "choice": "payroll", "confidence": 0.8744, "latency_ms": 26.76, "probs": {"howto": 0.1162, "payroll": 0.8744, "integration": 0.0011, "statutory": 0.0004, "leave": 0.0002, "access": 0.0026, "reports": 0.0001, "onboarding": 0.001, "billing": 0.0039}}
+{"id": "PN-101162", "name": "urgency", "choice": "normal", "confidence": 0.4788, "latency_ms": 26.76, "probs": {"urgent": 0.1882, "high": 0.333, "normal": 0.4788}}
+{"id": "PN-101162", "name": "is_injection", "choice": "yes", "confidence": 0.5279, "latency_ms": 26.76, "probs": {"yes": 0.5279, "no": 0.4721}}
+{"id": "PN-100590", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 25.3, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100590", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 25.3, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100590", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 25.3, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100786", "name": "category", "choice": "access", "confidence": 0.9889, "latency_ms": 24.8, "probs": {"howto": 0.0002, "payroll": 0.0002, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0003, "access": 0.9889, "reports": 0.0001, "onboarding": 0.0097, "billing": 0.0002}}
+{"id": "PN-100786", "name": "urgency", "choice": "normal", "confidence": 0.8849, "latency_ms": 24.8, "probs": {"urgent": 0.0837, "high": 0.0314, "normal": 0.8849}}
+{"id": "PN-100786", "name": "is_injection", "choice": "no", "confidence": 0.9719, "latency_ms": 24.8, "probs": {"yes": 0.0281, "no": 0.9719}}
+{"id": "PN-100399", "name": "category", "choice": "howto", "confidence": 0.5219, "latency_ms": 28.48, "probs": {"howto": 0.5219, "payroll": 0.0194, "integration": 0.0216, "statutory": 0.1917, "leave": 0.0037, "access": 0.0159, "reports": 0.0239, "onboarding": 0.0429, "billing": 0.1591}}
+{"id": "PN-100399", "name": "urgency", "choice": "normal", "confidence": 0.9012, "latency_ms": 28.48, "probs": {"urgent": 0.0747, "high": 0.0241, "normal": 0.9012}}
+{"id": "PN-100399", "name": "is_injection", "choice": "no", "confidence": 0.7899, "latency_ms": 28.48, "probs": {"yes": 0.2101, "no": 0.7899}}
+{"id": "PN-101070", "name": "category", "choice": "payroll", "confidence": 0.9865, "latency_ms": 29.68, "probs": {"howto": 0.0, "payroll": 0.9865, "integration": 0.0, "statutory": 0.013, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0004}}
+{"id": "PN-101070", "name": "urgency", "choice": "normal", "confidence": 0.8395, "latency_ms": 29.68, "probs": {"urgent": 0.1179, "high": 0.0426, "normal": 0.8395}}
+{"id": "PN-101070", "name": "is_injection", "choice": "no", "confidence": 0.9965, "latency_ms": 29.68, "probs": {"yes": 0.0035, "no": 0.9965}}
+{"id": "PN-101026", "name": "category", "choice": "payroll", "confidence": 0.9713, "latency_ms": 25.93, "probs": {"howto": 0.0026, "payroll": 0.9713, "integration": 0.0027, "statutory": 0.0026, "leave": 0.0026, "access": 0.0026, "reports": 0.0104, "onboarding": 0.0027, "billing": 0.0026}}
+{"id": "PN-101026", "name": "urgency", "choice": "normal", "confidence": 0.8321, "latency_ms": 25.93, "probs": {"urgent": 0.1509, "high": 0.017, "normal": 0.8321}}
+{"id": "PN-101026", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 25.93, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101265", "name": "category", "choice": "billing", "confidence": 0.9275, "latency_ms": 28.63, "probs": {"howto": 0.0094, "payroll": 0.0088, "integration": 0.0088, "statutory": 0.0094, "leave": 0.0093, "access": 0.0094, "reports": 0.0086, "onboarding": 0.0089, "billing": 0.9275}}
+{"id": "PN-101265", "name": "urgency", "choice": "normal", "confidence": 0.8776, "latency_ms": 28.63, "probs": {"urgent": 0.1118, "high": 0.0106, "normal": 0.8776}}
+{"id": "PN-101265", "name": "is_injection", "choice": "no", "confidence": 0.9815, "latency_ms": 28.63, "probs": {"yes": 0.0185, "no": 0.9815}}
+{"id": "PN-100921", "name": "category", "choice": "statutory", "confidence": 0.6466, "latency_ms": 28.63, "probs": {"howto": 0.0309, "payroll": 0.0319, "integration": 0.0453, "statutory": 0.6466, "leave": 0.0216, "access": 0.037, "reports": 0.0802, "onboarding": 0.0836, "billing": 0.023}}
+{"id": "PN-100921", "name": "urgency", "choice": "normal", "confidence": 0.7263, "latency_ms": 28.63, "probs": {"urgent": 0.1932, "high": 0.0805, "normal": 0.7263}}
+{"id": "PN-100921", "name": "is_injection", "choice": "no", "confidence": 0.9962, "latency_ms": 28.63, "probs": {"yes": 0.0038, "no": 0.9962}}
+{"id": "PN-100062", "name": "category", "choice": "integration", "confidence": 1.0, "latency_ms": 26.8, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 1.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100062", "name": "urgency", "choice": "normal", "confidence": 0.9471, "latency_ms": 26.8, "probs": {"urgent": 0.0254, "high": 0.0275, "normal": 0.9471}}
+{"id": "PN-100062", "name": "is_injection", "choice": "no", "confidence": 0.9951, "latency_ms": 26.8, "probs": {"yes": 0.0049, "no": 0.9951}}
+{"id": "PN-100745", "name": "category", "choice": "integration", "confidence": 1.0, "latency_ms": 25.24, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 1.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100745", "name": "urgency", "choice": "normal", "confidence": 0.9471, "latency_ms": 25.24, "probs": {"urgent": 0.0254, "high": 0.0275, "normal": 0.9471}}
+{"id": "PN-100745", "name": "is_injection", "choice": "no", "confidence": 0.9951, "latency_ms": 25.24, "probs": {"yes": 0.0049, "no": 0.9951}}
+{"id": "PN-101192", "name": "category", "choice": "howto", "confidence": 0.6644, "latency_ms": 27.69, "probs": {"howto": 0.6644, "payroll": 0.3286, "integration": 0.0005, "statutory": 0.0001, "leave": 0.0001, "access": 0.0016, "reports": 0.0002, "onboarding": 0.0005, "billing": 0.004}}
+{"id": "PN-101192", "name": "urgency", "choice": "normal", "confidence": 0.5278, "latency_ms": 27.69, "probs": {"urgent": 0.2566, "high": 0.2156, "normal": 0.5278}}
+{"id": "PN-101192", "name": "is_injection", "choice": "yes", "confidence": 0.5358, "latency_ms": 27.69, "probs": {"yes": 0.5358, "no": 0.4642}}
+{"id": "PN-100055", "name": "category", "choice": "leave", "confidence": 0.9999, "latency_ms": 23.11, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 0.0, "leave": 0.9999, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100055", "name": "urgency", "choice": "urgent", "confidence": 0.5876, "latency_ms": 23.11, "probs": {"urgent": 0.5876, "high": 0.0693, "normal": 0.3431}}
+{"id": "PN-100055", "name": "is_injection", "choice": "no", "confidence": 0.9946, "latency_ms": 23.11, "probs": {"yes": 0.0054, "no": 0.9946}}
+{"id": "PN-100111", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 27.04, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100111", "name": "urgency", "choice": "normal", "confidence": 0.7186, "latency_ms": 27.04, "probs": {"urgent": 0.1292, "high": 0.1522, "normal": 0.7186}}
+{"id": "PN-100111", "name": "is_injection", "choice": "no", "confidence": 0.9895, "latency_ms": 27.04, "probs": {"yes": 0.0105, "no": 0.9895}}
+{"id": "PN-101364", "name": "category", "choice": "access", "confidence": 0.9889, "latency_ms": 23.8, "probs": {"howto": 0.0002, "payroll": 0.0002, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0003, "access": 0.9889, "reports": 0.0001, "onboarding": 0.0097, "billing": 0.0002}}
+{"id": "PN-101364", "name": "urgency", "choice": "normal", "confidence": 0.8849, "latency_ms": 23.8, "probs": {"urgent": 0.0837, "high": 0.0314, "normal": 0.8849}}
+{"id": "PN-101364", "name": "is_injection", "choice": "no", "confidence": 0.9719, "latency_ms": 23.8, "probs": {"yes": 0.0281, "no": 0.9719}}
+{"id": "PN-101206", "name": "category", "choice": "leave", "confidence": 0.8336, "latency_ms": 26.9, "probs": {"howto": 0.0071, "payroll": 0.0047, "integration": 0.1272, "statutory": 0.0047, "leave": 0.8336, "access": 0.0048, "reports": 0.0051, "onboarding": 0.0078, "billing": 0.0049}}
+{"id": "PN-101206", "name": "urgency", "choice": "normal", "confidence": 0.9906, "latency_ms": 26.9, "probs": {"urgent": 0.006, "high": 0.0035, "normal": 0.9906}}
+{"id": "PN-101206", "name": "is_injection", "choice": "no", "confidence": 0.9684, "latency_ms": 26.9, "probs": {"yes": 0.0316, "no": 0.9684}}
+{"id": "PN-100715", "name": "category", "choice": "payroll", "confidence": 0.9303, "latency_ms": 31.48, "probs": {"howto": 0.001, "payroll": 0.9303, "integration": 0.0012, "statutory": 0.001, "leave": 0.001, "access": 0.001, "reports": 0.0029, "onboarding": 0.0192, "billing": 0.0426}}
+{"id": "PN-100715", "name": "urgency", "choice": "urgent", "confidence": 0.5988, "latency_ms": 31.48, "probs": {"urgent": 0.5988, "high": 0.0172, "normal": 0.384}}
+{"id": "PN-100715", "name": "is_injection", "choice": "no", "confidence": 0.998, "latency_ms": 31.48, "probs": {"yes": 0.002, "no": 0.998}}
+{"id": "PN-101350", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 23.53, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101350", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 23.53, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-101350", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 23.53, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-100405", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 22.62, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100405", "name": "urgency", "choice": "normal", "confidence": 0.9213, "latency_ms": 22.62, "probs": {"urgent": 0.0446, "high": 0.034, "normal": 0.9213}}
+{"id": "PN-100405", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 22.62, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-101081", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 24.35, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-101081", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 24.35, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-101081", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 24.35, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-100179", "name": "category", "choice": "access", "confidence": 0.9968, "latency_ms": 26.09, "probs": {"howto": 0.0007, "payroll": 0.0001, "integration": 0.0005, "statutory": 0.0001, "leave": 0.0002, "access": 0.9968, "reports": 0.0001, "onboarding": 0.0013, "billing": 0.0001}}
+{"id": "PN-100179", "name": "urgency", "choice": "normal", "confidence": 0.9119, "latency_ms": 26.09, "probs": {"urgent": 0.0387, "high": 0.0493, "normal": 0.9119}}
+{"id": "PN-100179", "name": "is_injection", "choice": "no", "confidence": 0.9801, "latency_ms": 26.09, "probs": {"yes": 0.0199, "no": 0.9801}}
+{"id": "PN-101276", "name": "category", "choice": "access", "confidence": 0.4449, "latency_ms": 23.54, "probs": {"howto": 0.2503, "payroll": 0.287, "integration": 0.0009, "statutory": 0.0061, "leave": 0.002, "access": 0.4449, "reports": 0.0007, "onboarding": 0.0073, "billing": 0.0007}}
+{"id": "PN-101276", "name": "urgency", "choice": "normal", "confidence": 0.7157, "latency_ms": 23.54, "probs": {"urgent": 0.0852, "high": 0.1991, "normal": 0.7157}}
+{"id": "PN-101276", "name": "is_injection", "choice": "yes", "confidence": 0.522, "latency_ms": 23.54, "probs": {"yes": 0.522, "no": 0.478}}
+{"id": "PN-100909", "name": "category", "choice": "payroll", "confidence": 0.9543, "latency_ms": 26.5, "probs": {"howto": 0.001, "payroll": 0.9543, "integration": 0.0016, "statutory": 0.001, "leave": 0.001, "access": 0.0011, "reports": 0.0035, "onboarding": 0.0263, "billing": 0.0101}}
+{"id": "PN-100909", "name": "urgency", "choice": "urgent", "confidence": 0.597, "latency_ms": 26.5, "probs": {"urgent": 0.597, "high": 0.0176, "normal": 0.3854}}
+{"id": "PN-100909", "name": "is_injection", "choice": "no", "confidence": 0.9984, "latency_ms": 26.5, "probs": {"yes": 0.0016, "no": 0.9984}}
+{"id": "PN-100860", "name": "category", "choice": "billing", "confidence": 0.4603, "latency_ms": 25.63, "probs": {"howto": 0.0303, "payroll": 0.0229, "integration": 0.0326, "statutory": 0.0462, "leave": 0.0174, "access": 0.0145, "reports": 0.3609, "onboarding": 0.0149, "billing": 0.4603}}
+{"id": "PN-100860", "name": "urgency", "choice": "normal", "confidence": 0.6421, "latency_ms": 25.63, "probs": {"urgent": 0.3111, "high": 0.0468, "normal": 0.6421}}
+{"id": "PN-100860", "name": "is_injection", "choice": "no", "confidence": 0.8344, "latency_ms": 25.63, "probs": {"yes": 0.1656, "no": 0.8344}}
+{"id": "PN-100034", "name": "category", "choice": "billing", "confidence": 0.703, "latency_ms": 23.4, "probs": {"howto": 0.0001, "payroll": 0.1678, "integration": 0.0001, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0011, "onboarding": 0.1276, "billing": 0.703}}
+{"id": "PN-100034", "name": "urgency", "choice": "normal", "confidence": 0.9625, "latency_ms": 23.4, "probs": {"urgent": 0.0157, "high": 0.0218, "normal": 0.9625}}
+{"id": "PN-100034", "name": "is_injection", "choice": "no", "confidence": 0.9994, "latency_ms": 23.4, "probs": {"yes": 0.0006, "no": 0.9994}}
+{"id": "PN-101372", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 25.7, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101372", "name": "urgency", "choice": "normal", "confidence": 0.8327, "latency_ms": 25.7, "probs": {"urgent": 0.0584, "high": 0.1089, "normal": 0.8327}}
+{"id": "PN-101372", "name": "is_injection", "choice": "no", "confidence": 0.6778, "latency_ms": 25.7, "probs": {"yes": 0.3222, "no": 0.6778}}
+{"id": "PN-101212", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.98, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101212", "name": "urgency", "choice": "normal", "confidence": 0.9727, "latency_ms": 23.98, "probs": {"urgent": 0.0138, "high": 0.0135, "normal": 0.9727}}
+{"id": "PN-101212", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 23.98, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100992", "name": "category", "choice": "howto", "confidence": 0.4644, "latency_ms": 22.65, "probs": {"howto": 0.4644, "payroll": 0.3757, "integration": 0.0298, "statutory": 0.0344, "leave": 0.0083, "access": 0.0141, "reports": 0.0047, "onboarding": 0.0286, "billing": 0.0399}}
+{"id": "PN-100992", "name": "urgency", "choice": "normal", "confidence": 0.9123, "latency_ms": 22.65, "probs": {"urgent": 0.0486, "high": 0.0391, "normal": 0.9123}}
+{"id": "PN-100992", "name": "is_injection", "choice": "no", "confidence": 0.9975, "latency_ms": 22.65, "probs": {"yes": 0.0025, "no": 0.9975}}
+{"id": "PN-101458", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 25.88, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-101458", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 25.88, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-101458", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 25.88, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-100922", "name": "category", "choice": "payroll", "confidence": 0.9692, "latency_ms": 23.36, "probs": {"howto": 0.0274, "payroll": 0.9692, "integration": 0.0002, "statutory": 0.0002, "leave": 0.0001, "access": 0.0011, "reports": 0.0, "onboarding": 0.0006, "billing": 0.0013}}
+{"id": "PN-100922", "name": "urgency", "choice": "normal", "confidence": 0.448, "latency_ms": 23.36, "probs": {"urgent": 0.2215, "high": 0.3305, "normal": 0.448}}
+{"id": "PN-100922", "name": "is_injection", "choice": "yes", "confidence": 0.5175, "latency_ms": 23.36, "probs": {"yes": 0.5175, "no": 0.4825}}
+{"id": "PN-100445", "name": "category", "choice": "payroll", "confidence": 0.935, "latency_ms": 23.58, "probs": {"howto": 0.0594, "payroll": 0.935, "integration": 0.0003, "statutory": 0.0002, "leave": 0.0001, "access": 0.001, "reports": 0.0, "onboarding": 0.0006, "billing": 0.0034}}
+{"id": "PN-100445", "name": "urgency", "choice": "normal", "confidence": 0.4508, "latency_ms": 23.58, "probs": {"urgent": 0.2795, "high": 0.2697, "normal": 0.4508}}
+{"id": "PN-100445", "name": "is_injection", "choice": "yes", "confidence": 0.5682, "latency_ms": 23.58, "probs": {"yes": 0.5682, "no": 0.4318}}
+{"id": "PN-101085", "name": "category", "choice": "access", "confidence": 0.4449, "latency_ms": 23.38, "probs": {"howto": 0.2503, "payroll": 0.287, "integration": 0.0009, "statutory": 0.0061, "leave": 0.002, "access": 0.4449, "reports": 0.0007, "onboarding": 0.0073, "billing": 0.0007}}
+{"id": "PN-101085", "name": "urgency", "choice": "normal", "confidence": 0.7157, "latency_ms": 23.38, "probs": {"urgent": 0.0852, "high": 0.1991, "normal": 0.7157}}
+{"id": "PN-101085", "name": "is_injection", "choice": "yes", "confidence": 0.522, "latency_ms": 23.38, "probs": {"yes": 0.522, "no": 0.478}}
+{"id": "PN-101182", "name": "category", "choice": "access", "confidence": 0.998, "latency_ms": 22.84, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0001, "access": 0.998, "reports": 0.0, "onboarding": 0.0017, "billing": 0.0}}
+{"id": "PN-101182", "name": "urgency", "choice": "normal", "confidence": 0.8158, "latency_ms": 22.84, "probs": {"urgent": 0.1643, "high": 0.0199, "normal": 0.8158}}
+{"id": "PN-101182", "name": "is_injection", "choice": "no", "confidence": 0.8968, "latency_ms": 22.84, "probs": {"yes": 0.1032, "no": 0.8968}}
+{"id": "PN-101476", "name": "category", "choice": "leave", "confidence": 0.1972, "latency_ms": 28.26, "probs": {"howto": 0.0909, "payroll": 0.0894, "integration": 0.0915, "statutory": 0.0918, "leave": 0.1972, "access": 0.0706, "reports": 0.19, "onboarding": 0.0872, "billing": 0.0913}}
+{"id": "PN-101476", "name": "urgency", "choice": "normal", "confidence": 0.8885, "latency_ms": 28.26, "probs": {"urgent": 0.0872, "high": 0.0243, "normal": 0.8885}}
+{"id": "PN-101476", "name": "is_injection", "choice": "yes", "confidence": 0.9997, "latency_ms": 28.26, "probs": {"yes": 0.9997, "no": 0.0003}}
+{"id": "PN-100008", "name": "category", "choice": "statutory", "confidence": 0.2364, "latency_ms": 29.15, "probs": {"howto": 0.0408, "payroll": 0.027, "integration": 0.2069, "statutory": 0.2364, "leave": 0.0491, "access": 0.2312, "reports": 0.0712, "onboarding": 0.0716, "billing": 0.0657}}
+{"id": "PN-100008", "name": "urgency", "choice": "normal", "confidence": 0.9591, "latency_ms": 29.15, "probs": {"urgent": 0.0338, "high": 0.007, "normal": 0.9591}}
+{"id": "PN-100008", "name": "is_injection", "choice": "no", "confidence": 0.9171, "latency_ms": 29.15, "probs": {"yes": 0.0829, "no": 0.9171}}
+{"id": "PN-100146", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 22.75, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-100146", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 22.75, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-100146", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 22.75, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-101095", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 23.26, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101095", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 23.26, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-101095", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 23.26, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-100637", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 24.32, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100637", "name": "urgency", "choice": "normal", "confidence": 0.7186, "latency_ms": 24.32, "probs": {"urgent": 0.1292, "high": 0.1522, "normal": 0.7186}}
+{"id": "PN-100637", "name": "is_injection", "choice": "no", "confidence": 0.9895, "latency_ms": 24.32, "probs": {"yes": 0.0105, "no": 0.9895}}
+{"id": "PN-101395", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 27.4, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101395", "name": "urgency", "choice": "normal", "confidence": 0.8192, "latency_ms": 27.4, "probs": {"urgent": 0.1234, "high": 0.0574, "normal": 0.8192}}
+{"id": "PN-101395", "name": "is_injection", "choice": "no", "confidence": 0.9557, "latency_ms": 27.4, "probs": {"yes": 0.0443, "no": 0.9557}}
+{"id": "PN-101117", "name": "category", "choice": "leave", "confidence": 0.8336, "latency_ms": 25.3, "probs": {"howto": 0.0071, "payroll": 0.0047, "integration": 0.1272, "statutory": 0.0047, "leave": 0.8336, "access": 0.0048, "reports": 0.0051, "onboarding": 0.0078, "billing": 0.0049}}
+{"id": "PN-101117", "name": "urgency", "choice": "normal", "confidence": 0.9906, "latency_ms": 25.3, "probs": {"urgent": 0.006, "high": 0.0035, "normal": 0.9906}}
+{"id": "PN-101117", "name": "is_injection", "choice": "no", "confidence": 0.9684, "latency_ms": 25.3, "probs": {"yes": 0.0316, "no": 0.9684}}
+{"id": "PN-101294", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 24.3, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101294", "name": "urgency", "choice": "normal", "confidence": 0.9727, "latency_ms": 24.3, "probs": {"urgent": 0.0138, "high": 0.0135, "normal": 0.9727}}
+{"id": "PN-101294", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 24.3, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100917", "name": "category", "choice": "onboarding", "confidence": 0.9665, "latency_ms": 28.78, "probs": {"howto": 0.0251, "payroll": 0.0005, "integration": 0.0057, "statutory": 0.0006, "leave": 0.0002, "access": 0.0008, "reports": 0.0003, "onboarding": 0.9665, "billing": 0.0004}}
+{"id": "PN-100917", "name": "urgency", "choice": "normal", "confidence": 0.8216, "latency_ms": 28.78, "probs": {"urgent": 0.1063, "high": 0.0721, "normal": 0.8216}}
+{"id": "PN-100917", "name": "is_injection", "choice": "no", "confidence": 0.896, "latency_ms": 28.78, "probs": {"yes": 0.104, "no": 0.896}}
+{"id": "PN-101107", "name": "category", "choice": "onboarding", "confidence": 0.9876, "latency_ms": 28.88, "probs": {"howto": 0.0103, "payroll": 0.0, "integration": 0.0015, "statutory": 0.0001, "leave": 0.0, "access": 0.0002, "reports": 0.0002, "onboarding": 0.9876, "billing": 0.0001}}
+{"id": "PN-101107", "name": "urgency", "choice": "normal", "confidence": 0.9648, "latency_ms": 28.88, "probs": {"urgent": 0.0208, "high": 0.0144, "normal": 0.9648}}
+{"id": "PN-101107", "name": "is_injection", "choice": "no", "confidence": 0.9155, "latency_ms": 28.88, "probs": {"yes": 0.0845, "no": 0.9155}}
+{"id": "PN-100188", "name": "category", "choice": "onboarding", "confidence": 0.4959, "latency_ms": 24.9, "probs": {"howto": 0.3049, "payroll": 0.0036, "integration": 0.08, "statutory": 0.0177, "leave": 0.0011, "access": 0.0045, "reports": 0.0885, "onboarding": 0.4959, "billing": 0.0038}}
+{"id": "PN-100188", "name": "urgency", "choice": "normal", "confidence": 0.6718, "latency_ms": 24.9, "probs": {"urgent": 0.0909, "high": 0.2372, "normal": 0.6718}}
+{"id": "PN-100188", "name": "is_injection", "choice": "yes", "confidence": 0.7462, "latency_ms": 24.9, "probs": {"yes": 0.7462, "no": 0.2538}}
+{"id": "PN-100035", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 28.95, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100035", "name": "urgency", "choice": "urgent", "confidence": 0.9361, "latency_ms": 28.95, "probs": {"urgent": 0.9361, "high": 0.0042, "normal": 0.0597}}
+{"id": "PN-100035", "name": "is_injection", "choice": "no", "confidence": 0.9983, "latency_ms": 28.95, "probs": {"yes": 0.0017, "no": 0.9983}}
+{"id": "PN-100293", "name": "category", "choice": "onboarding", "confidence": 0.4959, "latency_ms": 25.28, "probs": {"howto": 0.3049, "payroll": 0.0036, "integration": 0.08, "statutory": 0.0177, "leave": 0.0011, "access": 0.0045, "reports": 0.0885, "onboarding": 0.4959, "billing": 0.0038}}
+{"id": "PN-100293", "name": "urgency", "choice": "normal", "confidence": 0.6718, "latency_ms": 25.28, "probs": {"urgent": 0.0909, "high": 0.2372, "normal": 0.6718}}
+{"id": "PN-100293", "name": "is_injection", "choice": "yes", "confidence": 0.7462, "latency_ms": 25.28, "probs": {"yes": 0.7462, "no": 0.2538}}
+{"id": "PN-100632", "name": "category", "choice": "billing", "confidence": 0.4378, "latency_ms": 23.79, "probs": {"howto": 0.0001, "payroll": 0.4291, "integration": 0.0001, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0007, "onboarding": 0.132, "billing": 0.4378}}
+{"id": "PN-100632", "name": "urgency", "choice": "normal", "confidence": 0.9582, "latency_ms": 23.79, "probs": {"urgent": 0.0194, "high": 0.0223, "normal": 0.9582}}
+{"id": "PN-100632", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 23.79, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100181", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 22.78, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-100181", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 22.78, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-100181", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 22.78, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-100762", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.46, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100762", "name": "urgency", "choice": "normal", "confidence": 0.7186, "latency_ms": 23.46, "probs": {"urgent": 0.1292, "high": 0.1522, "normal": 0.7186}}
+{"id": "PN-100762", "name": "is_injection", "choice": "no", "confidence": 0.9895, "latency_ms": 23.46, "probs": {"yes": 0.0105, "no": 0.9895}}
+{"id": "PN-100057", "name": "category", "choice": "access", "confidence": 0.9989, "latency_ms": 27.64, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.9989, "reports": 0.0, "onboarding": 0.0008, "billing": 0.0}}
+{"id": "PN-100057", "name": "urgency", "choice": "normal", "confidence": 0.9085, "latency_ms": 27.64, "probs": {"urgent": 0.0681, "high": 0.0233, "normal": 0.9085}}
+{"id": "PN-100057", "name": "is_injection", "choice": "no", "confidence": 0.7334, "latency_ms": 27.64, "probs": {"yes": 0.2666, "no": 0.7334}}
+{"id": "PN-100114", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 25.2, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100114", "name": "urgency", "choice": "urgent", "confidence": 0.7156, "latency_ms": 25.2, "probs": {"urgent": 0.7156, "high": 0.0146, "normal": 0.2697}}
+{"id": "PN-100114", "name": "is_injection", "choice": "no", "confidence": 0.9974, "latency_ms": 25.2, "probs": {"yes": 0.0026, "no": 0.9974}}
+{"id": "PN-100218", "name": "category", "choice": "payroll", "confidence": 0.5609, "latency_ms": 23.59, "probs": {"howto": 0.0001, "payroll": 0.5609, "integration": 0.0001, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0007, "onboarding": 0.2462, "billing": 0.1918}}
+{"id": "PN-100218", "name": "urgency", "choice": "normal", "confidence": 0.9602, "latency_ms": 23.59, "probs": {"urgent": 0.0191, "high": 0.0207, "normal": 0.9602}}
+{"id": "PN-100218", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 23.59, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100125", "name": "category", "choice": "onboarding", "confidence": 0.9665, "latency_ms": 25.37, "probs": {"howto": 0.0251, "payroll": 0.0005, "integration": 0.0057, "statutory": 0.0006, "leave": 0.0002, "access": 0.0008, "reports": 0.0003, "onboarding": 0.9665, "billing": 0.0004}}
+{"id": "PN-100125", "name": "urgency", "choice": "normal", "confidence": 0.8216, "latency_ms": 25.37, "probs": {"urgent": 0.1063, "high": 0.0721, "normal": 0.8216}}
+{"id": "PN-100125", "name": "is_injection", "choice": "no", "confidence": 0.896, "latency_ms": 25.37, "probs": {"yes": 0.104, "no": 0.896}}
+{"id": "PN-100359", "name": "category", "choice": "access", "confidence": 0.9997, "latency_ms": 25.08, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.9997, "reports": 0.0, "onboarding": 0.0002, "billing": 0.0}}
+{"id": "PN-100359", "name": "urgency", "choice": "normal", "confidence": 0.9356, "latency_ms": 25.08, "probs": {"urgent": 0.0543, "high": 0.0101, "normal": 0.9356}}
+{"id": "PN-100359", "name": "is_injection", "choice": "no", "confidence": 0.7457, "latency_ms": 25.08, "probs": {"yes": 0.2543, "no": 0.7457}}
+{"id": "PN-100516", "name": "category", "choice": "onboarding", "confidence": 0.8759, "latency_ms": 27.15, "probs": {"howto": 0.0086, "payroll": 0.0208, "integration": 0.0122, "statutory": 0.0107, "leave": 0.019, "access": 0.009, "reports": 0.0352, "onboarding": 0.8759, "billing": 0.0086}}
+{"id": "PN-100516", "name": "urgency", "choice": "normal", "confidence": 0.5075, "latency_ms": 27.15, "probs": {"urgent": 0.4581, "high": 0.0344, "normal": 0.5075}}
+{"id": "PN-100516", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 27.15, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100329", "name": "category", "choice": "onboarding", "confidence": 0.4959, "latency_ms": 24.37, "probs": {"howto": 0.3049, "payroll": 0.0036, "integration": 0.08, "statutory": 0.0177, "leave": 0.0011, "access": 0.0045, "reports": 0.0885, "onboarding": 0.4959, "billing": 0.0038}}
+{"id": "PN-100329", "name": "urgency", "choice": "normal", "confidence": 0.6718, "latency_ms": 24.37, "probs": {"urgent": 0.0909, "high": 0.2372, "normal": 0.6718}}
+{"id": "PN-100329", "name": "is_injection", "choice": "yes", "confidence": 0.7462, "latency_ms": 24.37, "probs": {"yes": 0.7462, "no": 0.2538}}
+{"id": "PN-101059", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.73, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101059", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.73, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-101059", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.73, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100841", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 28.44, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100841", "name": "urgency", "choice": "urgent", "confidence": 0.9699, "latency_ms": 28.44, "probs": {"urgent": 0.9699, "high": 0.0019, "normal": 0.0282}}
+{"id": "PN-100841", "name": "is_injection", "choice": "no", "confidence": 0.9985, "latency_ms": 28.44, "probs": {"yes": 0.0015, "no": 0.9985}}
+{"id": "PN-100948", "name": "category", "choice": "payroll", "confidence": 0.9641, "latency_ms": 26.31, "probs": {"howto": 0.0009, "payroll": 0.9641, "integration": 0.0013, "statutory": 0.0009, "leave": 0.0009, "access": 0.0009, "reports": 0.0028, "onboarding": 0.0208, "billing": 0.0075}}
+{"id": "PN-100948", "name": "urgency", "choice": "urgent", "confidence": 0.5952, "latency_ms": 26.31, "probs": {"urgent": 0.5952, "high": 0.0171, "normal": 0.3877}}
+{"id": "PN-100948", "name": "is_injection", "choice": "no", "confidence": 0.998, "latency_ms": 26.31, "probs": {"yes": 0.002, "no": 0.998}}
+{"id": "PN-100952", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.27, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100952", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.27, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100952", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.27, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100249", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 24.37, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100249", "name": "urgency", "choice": "normal", "confidence": 0.9213, "latency_ms": 24.37, "probs": {"urgent": 0.0446, "high": 0.034, "normal": 0.9213}}
+{"id": "PN-100249", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 24.37, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100351", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 24.74, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100351", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 24.74, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-100351", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 24.74, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-100301", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 22.97, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-100301", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 22.97, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-100301", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 22.97, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-100465", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 25.21, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-100465", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 25.21, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-100465", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 25.21, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-101098", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 26.53, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101098", "name": "urgency", "choice": "normal", "confidence": 0.8423, "latency_ms": 26.53, "probs": {"urgent": 0.0644, "high": 0.0932, "normal": 0.8423}}
+{"id": "PN-101098", "name": "is_injection", "choice": "no", "confidence": 0.9878, "latency_ms": 26.53, "probs": {"yes": 0.0122, "no": 0.9878}}
+{"id": "PN-100747", "name": "category", "choice": "payroll", "confidence": 0.9243, "latency_ms": 27.04, "probs": {"howto": 0.0009, "payroll": 0.9243, "integration": 0.0013, "statutory": 0.0009, "leave": 0.0009, "access": 0.001, "reports": 0.0026, "onboarding": 0.0247, "billing": 0.0433}}
+{"id": "PN-100747", "name": "urgency", "choice": "urgent", "confidence": 0.5545, "latency_ms": 27.04, "probs": {"urgent": 0.5545, "high": 0.0173, "normal": 0.4282}}
+{"id": "PN-100747", "name": "is_injection", "choice": "no", "confidence": 0.9981, "latency_ms": 27.04, "probs": {"yes": 0.0019, "no": 0.9981}}
+{"id": "PN-101487", "name": "category", "choice": "statutory", "confidence": 0.6466, "latency_ms": 25.88, "probs": {"howto": 0.0309, "payroll": 0.0319, "integration": 0.0453, "statutory": 0.6466, "leave": 0.0216, "access": 0.037, "reports": 0.0802, "onboarding": 0.0836, "billing": 0.023}}
+{"id": "PN-101487", "name": "urgency", "choice": "normal", "confidence": 0.7263, "latency_ms": 25.88, "probs": {"urgent": 0.1932, "high": 0.0805, "normal": 0.7263}}
+{"id": "PN-101487", "name": "is_injection", "choice": "no", "confidence": 0.9962, "latency_ms": 25.88, "probs": {"yes": 0.0038, "no": 0.9962}}
+{"id": "PN-101382", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 27.78, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101382", "name": "urgency", "choice": "urgent", "confidence": 0.9572, "latency_ms": 27.78, "probs": {"urgent": 0.9572, "high": 0.0035, "normal": 0.0394}}
+{"id": "PN-101382", "name": "is_injection", "choice": "no", "confidence": 0.9982, "latency_ms": 27.78, "probs": {"yes": 0.0018, "no": 0.9982}}
+{"id": "PN-100916", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 26.74, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100916", "name": "urgency", "choice": "urgent", "confidence": 0.9496, "latency_ms": 26.74, "probs": {"urgent": 0.9496, "high": 0.0023, "normal": 0.0481}}
+{"id": "PN-100916", "name": "is_injection", "choice": "no", "confidence": 0.9987, "latency_ms": 26.74, "probs": {"yes": 0.0013, "no": 0.9987}}
+{"id": "PN-101138", "name": "category", "choice": "onboarding", "confidence": 0.4959, "latency_ms": 25.53, "probs": {"howto": 0.3049, "payroll": 0.0036, "integration": 0.08, "statutory": 0.0177, "leave": 0.0011, "access": 0.0045, "reports": 0.0885, "onboarding": 0.4959, "billing": 0.0038}}
+{"id": "PN-101138", "name": "urgency", "choice": "normal", "confidence": 0.6718, "latency_ms": 25.53, "probs": {"urgent": 0.0909, "high": 0.2372, "normal": 0.6718}}
+{"id": "PN-101138", "name": "is_injection", "choice": "yes", "confidence": 0.7462, "latency_ms": 25.53, "probs": {"yes": 0.7462, "no": 0.2538}}
+{"id": "PN-101123", "name": "category", "choice": "leave", "confidence": 0.2312, "latency_ms": 26.51, "probs": {"howto": 0.0838, "payroll": 0.0833, "integration": 0.0848, "statutory": 0.0854, "leave": 0.2312, "access": 0.0696, "reports": 0.1944, "onboarding": 0.0811, "billing": 0.0864}}
+{"id": "PN-101123", "name": "urgency", "choice": "normal", "confidence": 0.8684, "latency_ms": 26.51, "probs": {"urgent": 0.0992, "high": 0.0324, "normal": 0.8684}}
+{"id": "PN-101123", "name": "is_injection", "choice": "yes", "confidence": 0.9814, "latency_ms": 26.51, "probs": {"yes": 0.9814, "no": 0.0186}}
+{"id": "PN-100043", "name": "category", "choice": "payroll", "confidence": 0.9243, "latency_ms": 31.88, "probs": {"howto": 0.0005, "payroll": 0.9243, "integration": 0.0004, "statutory": 0.0004, "leave": 0.0004, "access": 0.0005, "reports": 0.001, "onboarding": 0.0656, "billing": 0.0068}}
+{"id": "PN-100043", "name": "urgency", "choice": "normal", "confidence": 0.636, "latency_ms": 31.88, "probs": {"urgent": 0.3501, "high": 0.0139, "normal": 0.636}}
+{"id": "PN-100043", "name": "is_injection", "choice": "no", "confidence": 0.9984, "latency_ms": 31.88, "probs": {"yes": 0.0016, "no": 0.9984}}
+{"id": "PN-101013", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 24.88, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101013", "name": "urgency", "choice": "urgent", "confidence": 0.8205, "latency_ms": 24.88, "probs": {"urgent": 0.8205, "high": 0.0093, "normal": 0.1702}}
+{"id": "PN-101013", "name": "is_injection", "choice": "no", "confidence": 0.9962, "latency_ms": 24.88, "probs": {"yes": 0.0038, "no": 0.9962}}
+{"id": "PN-100339", "name": "category", "choice": "payroll", "confidence": 0.9946, "latency_ms": 31.9, "probs": {"howto": 0.0002, "payroll": 0.9946, "integration": 0.0001, "statutory": 0.0007, "leave": 0.0002, "access": 0.0002, "reports": 0.0009, "onboarding": 0.0018, "billing": 0.0013}}
+{"id": "PN-100339", "name": "urgency", "choice": "urgent", "confidence": 0.8328, "latency_ms": 31.9, "probs": {"urgent": 0.8328, "high": 0.0159, "normal": 0.1513}}
+{"id": "PN-100339", "name": "is_injection", "choice": "no", "confidence": 0.9983, "latency_ms": 31.9, "probs": {"yes": 0.0017, "no": 0.9983}}
+{"id": "PN-100337", "name": "category", "choice": "statutory", "confidence": 0.9977, "latency_ms": 24.76, "probs": {"howto": 0.0002, "payroll": 0.0003, "integration": 0.0002, "statutory": 0.9977, "leave": 0.0002, "access": 0.0002, "reports": 0.0002, "onboarding": 0.0007, "billing": 0.0003}}
+{"id": "PN-100337", "name": "urgency", "choice": "normal", "confidence": 0.9176, "latency_ms": 24.76, "probs": {"urgent": 0.019, "high": 0.0634, "normal": 0.9176}}
+{"id": "PN-100337", "name": "is_injection", "choice": "no", "confidence": 0.7049, "latency_ms": 24.76, "probs": {"yes": 0.2951, "no": 0.7049}}
+{"id": "PN-100166", "name": "category", "choice": "onboarding", "confidence": 0.9665, "latency_ms": 25.47, "probs": {"howto": 0.0251, "payroll": 0.0005, "integration": 0.0057, "statutory": 0.0006, "leave": 0.0002, "access": 0.0008, "reports": 0.0003, "onboarding": 0.9665, "billing": 0.0004}}
+{"id": "PN-100166", "name": "urgency", "choice": "normal", "confidence": 0.8216, "latency_ms": 25.47, "probs": {"urgent": 0.1063, "high": 0.0721, "normal": 0.8216}}
+{"id": "PN-100166", "name": "is_injection", "choice": "no", "confidence": 0.896, "latency_ms": 25.47, "probs": {"yes": 0.104, "no": 0.896}}
+{"id": "PN-100144", "name": "category", "choice": "access", "confidence": 0.4449, "latency_ms": 25.54, "probs": {"howto": 0.2503, "payroll": 0.287, "integration": 0.0009, "statutory": 0.0061, "leave": 0.002, "access": 0.4449, "reports": 0.0007, "onboarding": 0.0073, "billing": 0.0007}}
+{"id": "PN-100144", "name": "urgency", "choice": "normal", "confidence": 0.7157, "latency_ms": 25.54, "probs": {"urgent": 0.0852, "high": 0.1991, "normal": 0.7157}}
+{"id": "PN-100144", "name": "is_injection", "choice": "yes", "confidence": 0.522, "latency_ms": 25.54, "probs": {"yes": 0.522, "no": 0.478}}
+{"id": "PN-100243", "name": "category", "choice": "access", "confidence": 0.9889, "latency_ms": 23.45, "probs": {"howto": 0.0002, "payroll": 0.0002, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0003, "access": 0.9889, "reports": 0.0001, "onboarding": 0.0097, "billing": 0.0002}}
+{"id": "PN-100243", "name": "urgency", "choice": "normal", "confidence": 0.8849, "latency_ms": 23.45, "probs": {"urgent": 0.0837, "high": 0.0314, "normal": 0.8849}}
+{"id": "PN-100243", "name": "is_injection", "choice": "no", "confidence": 0.9719, "latency_ms": 23.45, "probs": {"yes": 0.0281, "no": 0.9719}}
+{"id": "PN-100247", "name": "category", "choice": "leave", "confidence": 0.9999, "latency_ms": 23.58, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 0.0, "leave": 0.9999, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100247", "name": "urgency", "choice": "urgent", "confidence": 0.4759, "latency_ms": 23.58, "probs": {"urgent": 0.4759, "high": 0.053, "normal": 0.471}}
+{"id": "PN-100247", "name": "is_injection", "choice": "no", "confidence": 0.986, "latency_ms": 23.58, "probs": {"yes": 0.014, "no": 0.986}}
+{"id": "PN-100495", "name": "category", "choice": "reports", "confidence": 0.7911, "latency_ms": 25.37, "probs": {"howto": 0.0079, "payroll": 0.0018, "integration": 0.0021, "statutory": 0.0202, "leave": 0.0021, "access": 0.0086, "reports": 0.7911, "onboarding": 0.0027, "billing": 0.1636}}
+{"id": "PN-100495", "name": "urgency", "choice": "normal", "confidence": 0.5817, "latency_ms": 25.37, "probs": {"urgent": 0.3324, "high": 0.0859, "normal": 0.5817}}
+{"id": "PN-100495", "name": "is_injection", "choice": "no", "confidence": 0.9995, "latency_ms": 25.37, "probs": {"yes": 0.0005, "no": 0.9995}}
+{"id": "PN-100561", "name": "category", "choice": "payroll", "confidence": 0.9713, "latency_ms": 22.88, "probs": {"howto": 0.0026, "payroll": 0.9713, "integration": 0.0027, "statutory": 0.0026, "leave": 0.0026, "access": 0.0026, "reports": 0.0104, "onboarding": 0.0027, "billing": 0.0026}}
+{"id": "PN-100561", "name": "urgency", "choice": "normal", "confidence": 0.8321, "latency_ms": 22.88, "probs": {"urgent": 0.1509, "high": 0.017, "normal": 0.8321}}
+{"id": "PN-100561", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 22.88, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101437", "name": "category", "choice": "onboarding", "confidence": 0.3609, "latency_ms": 22.89, "probs": {"howto": 0.0002, "payroll": 0.3262, "integration": 0.0002, "statutory": 0.0002, "leave": 0.0002, "access": 0.0002, "reports": 0.0021, "onboarding": 0.3609, "billing": 0.3098}}
+{"id": "PN-101437", "name": "urgency", "choice": "normal", "confidence": 0.9665, "latency_ms": 22.89, "probs": {"urgent": 0.0153, "high": 0.0182, "normal": 0.9665}}
+{"id": "PN-101437", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 22.89, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100196", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 25.93, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-100196", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 25.93, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-100196", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 25.93, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-100801", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 26.58, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100801", "name": "urgency", "choice": "urgent", "confidence": 0.9496, "latency_ms": 26.58, "probs": {"urgent": 0.9496, "high": 0.0023, "normal": 0.0481}}
+{"id": "PN-100801", "name": "is_injection", "choice": "no", "confidence": 0.9987, "latency_ms": 26.58, "probs": {"yes": 0.0013, "no": 0.9987}}
+{"id": "PN-100150", "name": "category", "choice": "statutory", "confidence": 0.7884, "latency_ms": 25.83, "probs": {"howto": 0.0039, "payroll": 0.0018, "integration": 0.005, "statutory": 0.7884, "leave": 0.0073, "access": 0.0107, "reports": 0.0519, "onboarding": 0.0065, "billing": 0.1244}}
+{"id": "PN-100150", "name": "urgency", "choice": "normal", "confidence": 0.8743, "latency_ms": 25.83, "probs": {"urgent": 0.101, "high": 0.0247, "normal": 0.8743}}
+{"id": "PN-100150", "name": "is_injection", "choice": "no", "confidence": 0.997, "latency_ms": 25.83, "probs": {"yes": 0.003, "no": 0.997}}
+{"id": "PN-100721", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 24.99, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100721", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 24.99, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-100721", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 24.99, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-101403", "name": "category", "choice": "onboarding", "confidence": 0.4959, "latency_ms": 24.68, "probs": {"howto": 0.3049, "payroll": 0.0036, "integration": 0.08, "statutory": 0.0177, "leave": 0.0011, "access": 0.0045, "reports": 0.0885, "onboarding": 0.4959, "billing": 0.0038}}
+{"id": "PN-101403", "name": "urgency", "choice": "normal", "confidence": 0.6718, "latency_ms": 24.68, "probs": {"urgent": 0.0909, "high": 0.2372, "normal": 0.6718}}
+{"id": "PN-101403", "name": "is_injection", "choice": "yes", "confidence": 0.7462, "latency_ms": 24.68, "probs": {"yes": 0.7462, "no": 0.2538}}
+{"id": "PN-100692", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 24.54, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-100692", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 24.54, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-100692", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 24.54, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-100765", "name": "category", "choice": "integration", "confidence": 0.1765, "latency_ms": 26.43, "probs": {"howto": 0.1321, "payroll": 0.0758, "integration": 0.1765, "statutory": 0.1673, "leave": 0.1238, "access": 0.0532, "reports": 0.0853, "onboarding": 0.1233, "billing": 0.0627}}
+{"id": "PN-100765", "name": "urgency", "choice": "normal", "confidence": 0.6398, "latency_ms": 26.43, "probs": {"urgent": 0.324, "high": 0.0362, "normal": 0.6398}}
+{"id": "PN-100765", "name": "is_injection", "choice": "no", "confidence": 0.998, "latency_ms": 26.43, "probs": {"yes": 0.002, "no": 0.998}}
+{"id": "PN-101004", "name": "category", "choice": "payroll", "confidence": 0.8185, "latency_ms": 27.09, "probs": {"howto": 0.0019, "payroll": 0.8185, "integration": 0.0008, "statutory": 0.002, "leave": 0.1479, "access": 0.0008, "reports": 0.0043, "onboarding": 0.0228, "billing": 0.0009}}
+{"id": "PN-101004", "name": "urgency", "choice": "normal", "confidence": 0.9635, "latency_ms": 27.09, "probs": {"urgent": 0.0217, "high": 0.0148, "normal": 0.9635}}
+{"id": "PN-101004", "name": "is_injection", "choice": "no", "confidence": 0.9992, "latency_ms": 27.09, "probs": {"yes": 0.0008, "no": 0.9992}}
+{"id": "PN-101139", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.25, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101139", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.25, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-101139", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.25, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-101066", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 24.26, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-101066", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 24.26, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-101066", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 24.26, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-100258", "name": "category", "choice": "payroll", "confidence": 0.9925, "latency_ms": 29.22, "probs": {"howto": 0.001, "payroll": 0.9925, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0009, "reports": 0.0003, "onboarding": 0.0011, "billing": 0.0027}}
+{"id": "PN-100258", "name": "urgency", "choice": "normal", "confidence": 0.6742, "latency_ms": 29.22, "probs": {"urgent": 0.305, "high": 0.0207, "normal": 0.6742}}
+{"id": "PN-100258", "name": "is_injection", "choice": "no", "confidence": 0.9872, "latency_ms": 29.22, "probs": {"yes": 0.0128, "no": 0.9872}}
+{"id": "PN-100248", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.74, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100248", "name": "urgency", "choice": "normal", "confidence": 0.7186, "latency_ms": 23.74, "probs": {"urgent": 0.1292, "high": 0.1522, "normal": 0.7186}}
+{"id": "PN-100248", "name": "is_injection", "choice": "no", "confidence": 0.9895, "latency_ms": 23.74, "probs": {"yes": 0.0105, "no": 0.9895}}
+{"id": "PN-100969", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.68, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100969", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.68, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100969", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.68, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100365", "name": "category", "choice": "payroll", "confidence": 0.9767, "latency_ms": 27.3, "probs": {"howto": 0.0, "payroll": 0.9767, "integration": 0.0, "statutory": 0.0224, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0007}}
+{"id": "PN-100365", "name": "urgency", "choice": "normal", "confidence": 0.837, "latency_ms": 27.3, "probs": {"urgent": 0.1233, "high": 0.0397, "normal": 0.837}}
+{"id": "PN-100365", "name": "is_injection", "choice": "no", "confidence": 0.9961, "latency_ms": 27.3, "probs": {"yes": 0.0039, "no": 0.9961}}
+{"id": "PN-100528", "name": "category", "choice": "payroll", "confidence": 0.6463, "latency_ms": 24.72, "probs": {"howto": 0.0001, "payroll": 0.6463, "integration": 0.0001, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0007, "onboarding": 0.2112, "billing": 0.1414}}
+{"id": "PN-100528", "name": "urgency", "choice": "normal", "confidence": 0.9555, "latency_ms": 24.72, "probs": {"urgent": 0.0188, "high": 0.0257, "normal": 0.9555}}
+{"id": "PN-100528", "name": "is_injection", "choice": "no", "confidence": 0.9999, "latency_ms": 24.72, "probs": {"yes": 0.0001, "no": 0.9999}}
+{"id": "PN-101016", "name": "category", "choice": "onboarding", "confidence": 0.9785, "latency_ms": 27.68, "probs": {"howto": 0.0194, "payroll": 0.001, "integration": 0.0007, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0001, "onboarding": 0.9785, "billing": 0.0002}}
+{"id": "PN-101016", "name": "urgency", "choice": "normal", "confidence": 0.5569, "latency_ms": 27.68, "probs": {"urgent": 0.4196, "high": 0.0235, "normal": 0.5569}}
+{"id": "PN-101016", "name": "is_injection", "choice": "no", "confidence": 0.6534, "latency_ms": 27.68, "probs": {"yes": 0.3466, "no": 0.6534}}
+{"id": "PN-100684", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.22, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100684", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.22, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100684", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.22, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-101069", "name": "category", "choice": "access", "confidence": 0.9889, "latency_ms": 25.32, "probs": {"howto": 0.0002, "payroll": 0.0002, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0003, "access": 0.9889, "reports": 0.0001, "onboarding": 0.0097, "billing": 0.0002}}
+{"id": "PN-101069", "name": "urgency", "choice": "normal", "confidence": 0.8849, "latency_ms": 25.32, "probs": {"urgent": 0.0837, "high": 0.0314, "normal": 0.8849}}
+{"id": "PN-101069", "name": "is_injection", "choice": "no", "confidence": 0.9719, "latency_ms": 25.32, "probs": {"yes": 0.0281, "no": 0.9719}}
+{"id": "PN-100242", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 23.46, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-100242", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 23.46, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-100242", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 23.46, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-100486", "name": "category", "choice": "statutory", "confidence": 0.9989, "latency_ms": 24.86, "probs": {"howto": 0.0005, "payroll": 0.0001, "integration": 0.0, "statutory": 0.9989, "leave": 0.0001, "access": 0.0, "reports": 0.0, "onboarding": 0.0001, "billing": 0.0002}}
+{"id": "PN-100486", "name": "urgency", "choice": "normal", "confidence": 0.7761, "latency_ms": 24.86, "probs": {"urgent": 0.0683, "high": 0.1556, "normal": 0.7761}}
+{"id": "PN-100486", "name": "is_injection", "choice": "no", "confidence": 0.9876, "latency_ms": 24.86, "probs": {"yes": 0.0124, "no": 0.9876}}
+{"id": "PN-101454", "name": "category", "choice": "billing", "confidence": 0.9982, "latency_ms": 25.28, "probs": {"howto": 0.0002, "payroll": 0.0003, "integration": 0.0002, "statutory": 0.0002, "leave": 0.0002, "access": 0.0002, "reports": 0.0003, "onboarding": 0.0002, "billing": 0.9982}}
+{"id": "PN-101454", "name": "urgency", "choice": "normal", "confidence": 0.9954, "latency_ms": 25.28, "probs": {"urgent": 0.0026, "high": 0.002, "normal": 0.9954}}
+{"id": "PN-101454", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 25.28, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100703", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 23.57, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-100703", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 23.57, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-100703", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 23.57, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-100026", "name": "category", "choice": "leave", "confidence": 0.9999, "latency_ms": 24.94, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 0.0, "leave": 0.9999, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100026", "name": "urgency", "choice": "urgent", "confidence": 0.5819, "latency_ms": 24.94, "probs": {"urgent": 0.5819, "high": 0.0843, "normal": 0.3338}}
+{"id": "PN-100026", "name": "is_injection", "choice": "no", "confidence": 0.9911, "latency_ms": 24.94, "probs": {"yes": 0.0089, "no": 0.9911}}
+{"id": "PN-101093", "name": "category", "choice": "payroll", "confidence": 0.9713, "latency_ms": 23.22, "probs": {"howto": 0.0026, "payroll": 0.9713, "integration": 0.0027, "statutory": 0.0026, "leave": 0.0026, "access": 0.0026, "reports": 0.0104, "onboarding": 0.0027, "billing": 0.0026}}
+{"id": "PN-101093", "name": "urgency", "choice": "normal", "confidence": 0.8321, "latency_ms": 23.22, "probs": {"urgent": 0.1509, "high": 0.017, "normal": 0.8321}}
+{"id": "PN-101093", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 23.22, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101009", "name": "category", "choice": "statutory", "confidence": 0.1388, "latency_ms": 25.75, "probs": {"howto": 0.1045, "payroll": 0.1042, "integration": 0.1069, "statutory": 0.1388, "leave": 0.1074, "access": 0.1086, "reports": 0.1069, "onboarding": 0.1164, "billing": 0.1064}}
+{"id": "PN-101009", "name": "urgency", "choice": "normal", "confidence": 0.9058, "latency_ms": 25.75, "probs": {"urgent": 0.0425, "high": 0.0518, "normal": 0.9058}}
+{"id": "PN-101009", "name": "is_injection", "choice": "no", "confidence": 0.9827, "latency_ms": 25.75, "probs": {"yes": 0.0173, "no": 0.9827}}
+{"id": "PN-101121", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.11, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101121", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.11, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-101121", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.11, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100068", "name": "category", "choice": "payroll", "confidence": 0.9328, "latency_ms": 23.81, "probs": {"howto": 0.0634, "payroll": 0.9328, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0001, "access": 0.0006, "reports": 0.0, "onboarding": 0.0003, "billing": 0.0023}}
+{"id": "PN-100068", "name": "urgency", "choice": "normal", "confidence": 0.4507, "latency_ms": 23.81, "probs": {"urgent": 0.2349, "high": 0.3144, "normal": 0.4507}}
+{"id": "PN-100068", "name": "is_injection", "choice": "yes", "confidence": 0.5579, "latency_ms": 23.81, "probs": {"yes": 0.5579, "no": 0.4421}}
+{"id": "PN-100978", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 28.9, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100978", "name": "urgency", "choice": "urgent", "confidence": 0.8463, "latency_ms": 28.9, "probs": {"urgent": 0.8463, "high": 0.0035, "normal": 0.1502}}
+{"id": "PN-100978", "name": "is_injection", "choice": "no", "confidence": 0.9942, "latency_ms": 28.9, "probs": {"yes": 0.0058, "no": 0.9942}}
+{"id": "PN-100172", "name": "category", "choice": "payroll", "confidence": 0.6077, "latency_ms": 23.46, "probs": {"howto": 0.0001, "payroll": 0.6077, "integration": 0.0001, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0008, "onboarding": 0.2012, "billing": 0.1898}}
+{"id": "PN-100172", "name": "urgency", "choice": "normal", "confidence": 0.9581, "latency_ms": 23.46, "probs": {"urgent": 0.0226, "high": 0.0193, "normal": 0.9581}}
+{"id": "PN-100172", "name": "is_injection", "choice": "no", "confidence": 0.9988, "latency_ms": 23.46, "probs": {"yes": 0.0012, "no": 0.9988}}
+{"id": "PN-101342", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 26.72, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101342", "name": "urgency", "choice": "normal", "confidence": 0.9962, "latency_ms": 26.72, "probs": {"urgent": 0.0013, "high": 0.0026, "normal": 0.9962}}
+{"id": "PN-101342", "name": "is_injection", "choice": "no", "confidence": 0.9988, "latency_ms": 26.72, "probs": {"yes": 0.0012, "no": 0.9988}}
+{"id": "PN-100019", "name": "category", "choice": "billing", "confidence": 0.6918, "latency_ms": 24.05, "probs": {"howto": 0.0002, "payroll": 0.1566, "integration": 0.0001, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0012, "onboarding": 0.1496, "billing": 0.6918}}
+{"id": "PN-100019", "name": "urgency", "choice": "normal", "confidence": 0.9604, "latency_ms": 24.05, "probs": {"urgent": 0.0139, "high": 0.0257, "normal": 0.9604}}
+{"id": "PN-100019", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 24.05, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100429", "name": "category", "choice": "statutory", "confidence": 0.9707, "latency_ms": 23.93, "probs": {"howto": 0.0012, "payroll": 0.0164, "integration": 0.0012, "statutory": 0.9707, "leave": 0.0043, "access": 0.0012, "reports": 0.002, "onboarding": 0.0017, "billing": 0.0014}}
+{"id": "PN-100429", "name": "urgency", "choice": "normal", "confidence": 0.9187, "latency_ms": 23.93, "probs": {"urgent": 0.0618, "high": 0.0195, "normal": 0.9187}}
+{"id": "PN-100429", "name": "is_injection", "choice": "no", "confidence": 0.9996, "latency_ms": 23.93, "probs": {"yes": 0.0004, "no": 0.9996}}
+{"id": "PN-101005", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 23.35, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101005", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 23.35, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-101005", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 23.35, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-101088", "name": "category", "choice": "access", "confidence": 0.4449, "latency_ms": 23.82, "probs": {"howto": 0.2503, "payroll": 0.287, "integration": 0.0009, "statutory": 0.0061, "leave": 0.002, "access": 0.4449, "reports": 0.0007, "onboarding": 0.0073, "billing": 0.0007}}
+{"id": "PN-101088", "name": "urgency", "choice": "normal", "confidence": 0.7157, "latency_ms": 23.82, "probs": {"urgent": 0.0852, "high": 0.1991, "normal": 0.7157}}
+{"id": "PN-101088", "name": "is_injection", "choice": "yes", "confidence": 0.522, "latency_ms": 23.82, "probs": {"yes": 0.522, "no": 0.478}}
+{"id": "PN-101252", "name": "category", "choice": "billing", "confidence": 0.8676, "latency_ms": 26.25, "probs": {"howto": 0.003, "payroll": 0.1107, "integration": 0.003, "statutory": 0.003, "leave": 0.0031, "access": 0.0031, "reports": 0.0034, "onboarding": 0.0031, "billing": 0.8676}}
+{"id": "PN-101252", "name": "urgency", "choice": "normal", "confidence": 0.9389, "latency_ms": 26.25, "probs": {"urgent": 0.0532, "high": 0.0079, "normal": 0.9389}}
+{"id": "PN-101252", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 26.25, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100520", "name": "category", "choice": "payroll", "confidence": 0.9713, "latency_ms": 25.33, "probs": {"howto": 0.0026, "payroll": 0.9713, "integration": 0.0027, "statutory": 0.0026, "leave": 0.0026, "access": 0.0026, "reports": 0.0104, "onboarding": 0.0027, "billing": 0.0026}}
+{"id": "PN-100520", "name": "urgency", "choice": "normal", "confidence": 0.8321, "latency_ms": 25.33, "probs": {"urgent": 0.1509, "high": 0.017, "normal": 0.8321}}
+{"id": "PN-100520", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 25.33, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100936", "name": "category", "choice": "access", "confidence": 0.9968, "latency_ms": 23.07, "probs": {"howto": 0.0007, "payroll": 0.0001, "integration": 0.0005, "statutory": 0.0001, "leave": 0.0002, "access": 0.9968, "reports": 0.0001, "onboarding": 0.0013, "billing": 0.0001}}
+{"id": "PN-100936", "name": "urgency", "choice": "normal", "confidence": 0.9119, "latency_ms": 23.07, "probs": {"urgent": 0.0387, "high": 0.0493, "normal": 0.9119}}
+{"id": "PN-100936", "name": "is_injection", "choice": "no", "confidence": 0.9801, "latency_ms": 23.07, "probs": {"yes": 0.0199, "no": 0.9801}}
+{"id": "PN-100023", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 28.51, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100023", "name": "urgency", "choice": "normal", "confidence": 0.8494, "latency_ms": 28.51, "probs": {"urgent": 0.0874, "high": 0.0632, "normal": 0.8494}}
+{"id": "PN-100023", "name": "is_injection", "choice": "no", "confidence": 0.9992, "latency_ms": 28.51, "probs": {"yes": 0.0008, "no": 0.9992}}
+{"id": "PN-101414", "name": "category", "choice": "statutory", "confidence": 0.9994, "latency_ms": 32.41, "probs": {"howto": 0.0, "payroll": 0.0001, "integration": 0.0, "statutory": 0.9994, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0003, "billing": 0.0001}}
+{"id": "PN-101414", "name": "urgency", "choice": "normal", "confidence": 0.9736, "latency_ms": 32.41, "probs": {"urgent": 0.0138, "high": 0.0126, "normal": 0.9736}}
+{"id": "PN-101414", "name": "is_injection", "choice": "no", "confidence": 0.9996, "latency_ms": 32.41, "probs": {"yes": 0.0004, "no": 0.9996}}
+{"id": "PN-100327", "name": "category", "choice": "howto", "confidence": 0.2638, "latency_ms": 32.44, "probs": {"howto": 0.2638, "payroll": 0.0281, "integration": 0.0135, "statutory": 0.107, "leave": 0.0704, "access": 0.1178, "reports": 0.1799, "onboarding": 0.1623, "billing": 0.0573}}
+{"id": "PN-100327", "name": "urgency", "choice": "normal", "confidence": 0.9745, "latency_ms": 32.44, "probs": {"urgent": 0.0184, "high": 0.0072, "normal": 0.9745}}
+{"id": "PN-100327", "name": "is_injection", "choice": "no", "confidence": 0.9989, "latency_ms": 32.44, "probs": {"yes": 0.0011, "no": 0.9989}}
+{"id": "PN-100143", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 28.24, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100143", "name": "urgency", "choice": "urgent", "confidence": 0.9542, "latency_ms": 28.24, "probs": {"urgent": 0.9542, "high": 0.0034, "normal": 0.0424}}
+{"id": "PN-100143", "name": "is_injection", "choice": "no", "confidence": 0.9985, "latency_ms": 28.24, "probs": {"yes": 0.0015, "no": 0.9985}}
+{"id": "PN-101124", "name": "category", "choice": "statutory", "confidence": 0.6613, "latency_ms": 23.42, "probs": {"howto": 0.0069, "payroll": 0.0038, "integration": 0.0063, "statutory": 0.6613, "leave": 0.032, "access": 0.0062, "reports": 0.082, "onboarding": 0.0105, "billing": 0.191}}
+{"id": "PN-101124", "name": "urgency", "choice": "normal", "confidence": 0.9271, "latency_ms": 23.42, "probs": {"urgent": 0.057, "high": 0.0159, "normal": 0.9271}}
+{"id": "PN-101124", "name": "is_injection", "choice": "no", "confidence": 0.9956, "latency_ms": 23.42, "probs": {"yes": 0.0044, "no": 0.9956}}
+{"id": "PN-101404", "name": "category", "choice": "payroll", "confidence": 0.8744, "latency_ms": 23.38, "probs": {"howto": 0.1162, "payroll": 0.8744, "integration": 0.0011, "statutory": 0.0004, "leave": 0.0002, "access": 0.0026, "reports": 0.0001, "onboarding": 0.001, "billing": 0.0039}}
+{"id": "PN-101404", "name": "urgency", "choice": "normal", "confidence": 0.4788, "latency_ms": 23.38, "probs": {"urgent": 0.1882, "high": 0.333, "normal": 0.4788}}
+{"id": "PN-101404", "name": "is_injection", "choice": "yes", "confidence": 0.5279, "latency_ms": 23.38, "probs": {"yes": 0.5279, "no": 0.4721}}
+{"id": "PN-100158", "name": "category", "choice": "howto", "confidence": 0.4644, "latency_ms": 23.61, "probs": {"howto": 0.4644, "payroll": 0.3757, "integration": 0.0298, "statutory": 0.0344, "leave": 0.0083, "access": 0.0141, "reports": 0.0047, "onboarding": 0.0286, "billing": 0.0399}}
+{"id": "PN-100158", "name": "urgency", "choice": "normal", "confidence": 0.9123, "latency_ms": 23.61, "probs": {"urgent": 0.0486, "high": 0.0391, "normal": 0.9123}}
+{"id": "PN-100158", "name": "is_injection", "choice": "no", "confidence": 0.9975, "latency_ms": 23.61, "probs": {"yes": 0.0025, "no": 0.9975}}
+{"id": "PN-100787", "name": "category", "choice": "onboarding", "confidence": 0.4959, "latency_ms": 24.49, "probs": {"howto": 0.3049, "payroll": 0.0036, "integration": 0.08, "statutory": 0.0177, "leave": 0.0011, "access": 0.0045, "reports": 0.0885, "onboarding": 0.4959, "billing": 0.0038}}
+{"id": "PN-100787", "name": "urgency", "choice": "normal", "confidence": 0.6718, "latency_ms": 24.49, "probs": {"urgent": 0.0909, "high": 0.2372, "normal": 0.6718}}
+{"id": "PN-100787", "name": "is_injection", "choice": "yes", "confidence": 0.7462, "latency_ms": 24.49, "probs": {"yes": 0.7462, "no": 0.2538}}
+{"id": "PN-101429", "name": "category", "choice": "payroll", "confidence": 0.8744, "latency_ms": 23.59, "probs": {"howto": 0.1162, "payroll": 0.8744, "integration": 0.0011, "statutory": 0.0004, "leave": 0.0002, "access": 0.0026, "reports": 0.0001, "onboarding": 0.001, "billing": 0.0039}}
+{"id": "PN-101429", "name": "urgency", "choice": "normal", "confidence": 0.4788, "latency_ms": 23.59, "probs": {"urgent": 0.1882, "high": 0.333, "normal": 0.4788}}
+{"id": "PN-101429", "name": "is_injection", "choice": "yes", "confidence": 0.5279, "latency_ms": 23.59, "probs": {"yes": 0.5279, "no": 0.4721}}
+{"id": "PN-100817", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 25.36, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-100817", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 25.36, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-100817", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 25.36, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-100659", "name": "category", "choice": "payroll", "confidence": 0.4467, "latency_ms": 24.07, "probs": {"howto": 0.0001, "payroll": 0.4467, "integration": 0.0001, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0008, "onboarding": 0.1296, "billing": 0.4225}}
+{"id": "PN-100659", "name": "urgency", "choice": "normal", "confidence": 0.9565, "latency_ms": 24.07, "probs": {"urgent": 0.0191, "high": 0.0244, "normal": 0.9565}}
+{"id": "PN-100659", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 24.07, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101492", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 23.61, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-101492", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 23.61, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-101492", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 23.61, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-101152", "name": "category", "choice": "payroll", "confidence": 0.8179, "latency_ms": 28.21, "probs": {"howto": 0.0024, "payroll": 0.8179, "integration": 0.0011, "statutory": 0.0031, "leave": 0.1516, "access": 0.0011, "reports": 0.0101, "onboarding": 0.0113, "billing": 0.0013}}
+{"id": "PN-101152", "name": "urgency", "choice": "normal", "confidence": 0.9514, "latency_ms": 28.21, "probs": {"urgent": 0.0277, "high": 0.0209, "normal": 0.9514}}
+{"id": "PN-101152", "name": "is_injection", "choice": "no", "confidence": 0.9996, "latency_ms": 28.21, "probs": {"yes": 0.0004, "no": 0.9996}}
+{"id": "PN-100918", "name": "category", "choice": "payroll", "confidence": 0.9619, "latency_ms": 27.14, "probs": {"howto": 0.0005, "payroll": 0.9619, "integration": 0.0006, "statutory": 0.0005, "leave": 0.0005, "access": 0.0006, "reports": 0.0015, "onboarding": 0.0087, "billing": 0.0251}}
+{"id": "PN-100918", "name": "urgency", "choice": "urgent", "confidence": 0.6291, "latency_ms": 27.14, "probs": {"urgent": 0.6291, "high": 0.0153, "normal": 0.3556}}
+{"id": "PN-100918", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 27.14, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100006", "name": "category", "choice": "payroll", "confidence": 0.9328, "latency_ms": 23.75, "probs": {"howto": 0.0634, "payroll": 0.9328, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0001, "access": 0.0006, "reports": 0.0, "onboarding": 0.0003, "billing": 0.0023}}
+{"id": "PN-100006", "name": "urgency", "choice": "normal", "confidence": 0.4507, "latency_ms": 23.75, "probs": {"urgent": 0.2349, "high": 0.3144, "normal": 0.4507}}
+{"id": "PN-100006", "name": "is_injection", "choice": "yes", "confidence": 0.5579, "latency_ms": 23.75, "probs": {"yes": 0.5579, "no": 0.4421}}
+{"id": "PN-100371", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.46, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100371", "name": "urgency", "choice": "normal", "confidence": 0.9725, "latency_ms": 23.46, "probs": {"urgent": 0.015, "high": 0.0125, "normal": 0.9725}}
+{"id": "PN-100371", "name": "is_injection", "choice": "no", "confidence": 0.9998, "latency_ms": 23.46, "probs": {"yes": 0.0002, "no": 0.9998}}
+{"id": "PN-100066", "name": "category", "choice": "billing", "confidence": 0.4603, "latency_ms": 23.94, "probs": {"howto": 0.0303, "payroll": 0.0229, "integration": 0.0326, "statutory": 0.0462, "leave": 0.0174, "access": 0.0145, "reports": 0.3609, "onboarding": 0.0149, "billing": 0.4603}}
+{"id": "PN-100066", "name": "urgency", "choice": "normal", "confidence": 0.6421, "latency_ms": 23.94, "probs": {"urgent": 0.3111, "high": 0.0468, "normal": 0.6421}}
+{"id": "PN-100066", "name": "is_injection", "choice": "no", "confidence": 0.8344, "latency_ms": 23.94, "probs": {"yes": 0.1656, "no": 0.8344}}
+{"id": "PN-100282", "name": "category", "choice": "leave", "confidence": 0.9998, "latency_ms": 24.33, "probs": {"howto": 0.0, "payroll": 0.0001, "integration": 0.0, "statutory": 0.0, "leave": 0.9998, "access": 0.0, "reports": 0.0, "onboarding": 0.0001, "billing": 0.0}}
+{"id": "PN-100282", "name": "urgency", "choice": "urgent", "confidence": 0.5561, "latency_ms": 24.33, "probs": {"urgent": 0.5561, "high": 0.0883, "normal": 0.3556}}
+{"id": "PN-100282", "name": "is_injection", "choice": "no", "confidence": 0.995, "latency_ms": 24.33, "probs": {"yes": 0.005, "no": 0.995}}
+{"id": "PN-100665", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 24.3, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100665", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 24.3, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100665", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 24.3, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100672", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.61, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100672", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.61, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100672", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.61, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100749", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 24.8, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-100749", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 24.8, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-100749", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 24.8, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-100825", "name": "category", "choice": "access", "confidence": 0.9889, "latency_ms": 23.7, "probs": {"howto": 0.0002, "payroll": 0.0002, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0003, "access": 0.9889, "reports": 0.0001, "onboarding": 0.0097, "billing": 0.0002}}
+{"id": "PN-100825", "name": "urgency", "choice": "normal", "confidence": 0.8849, "latency_ms": 23.7, "probs": {"urgent": 0.0837, "high": 0.0314, "normal": 0.8849}}
+{"id": "PN-100825", "name": "is_injection", "choice": "no", "confidence": 0.9719, "latency_ms": 23.7, "probs": {"yes": 0.0281, "no": 0.9719}}
+{"id": "PN-101489", "name": "category", "choice": "reports", "confidence": 0.4445, "latency_ms": 25.91, "probs": {"howto": 0.0441, "payroll": 0.0315, "integration": 0.0748, "statutory": 0.2118, "leave": 0.0428, "access": 0.059, "reports": 0.4445, "onboarding": 0.0358, "billing": 0.0558}}
+{"id": "PN-101489", "name": "urgency", "choice": "normal", "confidence": 0.9789, "latency_ms": 25.91, "probs": {"urgent": 0.0148, "high": 0.0063, "normal": 0.9789}}
+{"id": "PN-101489", "name": "is_injection", "choice": "no", "confidence": 0.9493, "latency_ms": 25.91, "probs": {"yes": 0.0507, "no": 0.9493}}
+{"id": "PN-100079", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 23.08, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-100079", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 23.08, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-100079", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 23.08, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-100731", "name": "category", "choice": "payroll", "confidence": 0.8592, "latency_ms": 23.9, "probs": {"howto": 0.0, "payroll": 0.8592, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0004, "onboarding": 0.0754, "billing": 0.0648}}
+{"id": "PN-100731", "name": "urgency", "choice": "normal", "confidence": 0.9432, "latency_ms": 23.9, "probs": {"urgent": 0.0188, "high": 0.038, "normal": 0.9432}}
+{"id": "PN-100731", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 23.9, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100283", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 23.2, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100283", "name": "urgency", "choice": "normal", "confidence": 0.9213, "latency_ms": 23.2, "probs": {"urgent": 0.0446, "high": 0.034, "normal": 0.9213}}
+{"id": "PN-100283", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 23.2, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100237", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 23.63, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-100237", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 23.63, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-100237", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 23.63, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-101314", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 26.68, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101314", "name": "urgency", "choice": "normal", "confidence": 0.8395, "latency_ms": 26.68, "probs": {"urgent": 0.0889, "high": 0.0716, "normal": 0.8395}}
+{"id": "PN-101314", "name": "is_injection", "choice": "no", "confidence": 0.9994, "latency_ms": 26.68, "probs": {"yes": 0.0006, "no": 0.9994}}
+{"id": "PN-100211", "name": "category", "choice": "payroll", "confidence": 0.9713, "latency_ms": 24.52, "probs": {"howto": 0.0026, "payroll": 0.9713, "integration": 0.0027, "statutory": 0.0026, "leave": 0.0026, "access": 0.0026, "reports": 0.0104, "onboarding": 0.0027, "billing": 0.0026}}
+{"id": "PN-100211", "name": "urgency", "choice": "normal", "confidence": 0.8321, "latency_ms": 24.52, "probs": {"urgent": 0.1509, "high": 0.017, "normal": 0.8321}}
+{"id": "PN-100211", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 24.52, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101058", "name": "category", "choice": "statutory", "confidence": 0.9994, "latency_ms": 24.23, "probs": {"howto": 0.0001, "payroll": 0.0001, "integration": 0.0001, "statutory": 0.9994, "leave": 0.0001, "access": 0.0001, "reports": 0.0001, "onboarding": 0.0001, "billing": 0.0001}}
+{"id": "PN-101058", "name": "urgency", "choice": "normal", "confidence": 0.9832, "latency_ms": 24.23, "probs": {"urgent": 0.0129, "high": 0.0039, "normal": 0.9832}}
+{"id": "PN-101058", "name": "is_injection", "choice": "no", "confidence": 0.9775, "latency_ms": 24.23, "probs": {"yes": 0.0225, "no": 0.9775}}
+{"id": "PN-101341", "name": "category", "choice": "payroll", "confidence": 0.9956, "latency_ms": 25.55, "probs": {"howto": 0.0, "payroll": 0.9956, "integration": 0.0, "statutory": 0.0, "leave": 0.0004, "access": 0.0, "reports": 0.0, "onboarding": 0.0038, "billing": 0.0001}}
+{"id": "PN-101341", "name": "urgency", "choice": "normal", "confidence": 0.9827, "latency_ms": 25.55, "probs": {"urgent": 0.0083, "high": 0.009, "normal": 0.9827}}
+{"id": "PN-101341", "name": "is_injection", "choice": "no", "confidence": 0.9995, "latency_ms": 25.55, "probs": {"yes": 0.0005, "no": 0.9995}}
+{"id": "PN-100701", "name": "category", "choice": "onboarding", "confidence": 0.4959, "latency_ms": 24.12, "probs": {"howto": 0.3049, "payroll": 0.0036, "integration": 0.08, "statutory": 0.0177, "leave": 0.0011, "access": 0.0045, "reports": 0.0885, "onboarding": 0.4959, "billing": 0.0038}}
+{"id": "PN-100701", "name": "urgency", "choice": "normal", "confidence": 0.6718, "latency_ms": 24.12, "probs": {"urgent": 0.0909, "high": 0.2372, "normal": 0.6718}}
+{"id": "PN-100701", "name": "is_injection", "choice": "yes", "confidence": 0.7462, "latency_ms": 24.12, "probs": {"yes": 0.7462, "no": 0.2538}}
+{"id": "PN-100347", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 27.38, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100347", "name": "urgency", "choice": "urgent", "confidence": 0.9526, "latency_ms": 27.38, "probs": {"urgent": 0.9526, "high": 0.0036, "normal": 0.0438}}
+{"id": "PN-100347", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 27.38, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100609", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 25.26, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-100609", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 25.26, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-100609", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 25.26, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-101426", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 23.24, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-101426", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 23.24, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-101426", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 23.24, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-100286", "name": "category", "choice": "access", "confidence": 0.9889, "latency_ms": 23.29, "probs": {"howto": 0.0002, "payroll": 0.0002, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0003, "access": 0.9889, "reports": 0.0001, "onboarding": 0.0097, "billing": 0.0002}}
+{"id": "PN-100286", "name": "urgency", "choice": "normal", "confidence": 0.8849, "latency_ms": 23.29, "probs": {"urgent": 0.0837, "high": 0.0314, "normal": 0.8849}}
+{"id": "PN-100286", "name": "is_injection", "choice": "no", "confidence": 0.9719, "latency_ms": 23.29, "probs": {"yes": 0.0281, "no": 0.9719}}
+{"id": "PN-101266", "name": "category", "choice": "billing", "confidence": 0.8676, "latency_ms": 27.71, "probs": {"howto": 0.003, "payroll": 0.1107, "integration": 0.003, "statutory": 0.003, "leave": 0.0031, "access": 0.0031, "reports": 0.0034, "onboarding": 0.0031, "billing": 0.8676}}
+{"id": "PN-101266", "name": "urgency", "choice": "normal", "confidence": 0.9389, "latency_ms": 27.71, "probs": {"urgent": 0.0532, "high": 0.0079, "normal": 0.9389}}
+{"id": "PN-101266", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 27.71, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101245", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.87, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101245", "name": "urgency", "choice": "normal", "confidence": 0.7186, "latency_ms": 23.87, "probs": {"urgent": 0.1292, "high": 0.1522, "normal": 0.7186}}
+{"id": "PN-101245", "name": "is_injection", "choice": "no", "confidence": 0.9895, "latency_ms": 23.87, "probs": {"yes": 0.0105, "no": 0.9895}}
+{"id": "PN-100168", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.4, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100168", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.4, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100168", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.4, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100653", "name": "category", "choice": "statutory", "confidence": 0.6613, "latency_ms": 22.86, "probs": {"howto": 0.0069, "payroll": 0.0038, "integration": 0.0063, "statutory": 0.6613, "leave": 0.032, "access": 0.0062, "reports": 0.082, "onboarding": 0.0105, "billing": 0.191}}
+{"id": "PN-100653", "name": "urgency", "choice": "normal", "confidence": 0.9271, "latency_ms": 22.86, "probs": {"urgent": 0.057, "high": 0.0159, "normal": 0.9271}}
+{"id": "PN-100653", "name": "is_injection", "choice": "no", "confidence": 0.9956, "latency_ms": 22.86, "probs": {"yes": 0.0044, "no": 0.9956}}
+{"id": "PN-101398", "name": "category", "choice": "payroll", "confidence": 0.7651, "latency_ms": 28.49, "probs": {"howto": 0.0018, "payroll": 0.7651, "integration": 0.0017, "statutory": 0.0018, "leave": 0.1587, "access": 0.0017, "reports": 0.0073, "onboarding": 0.0172, "billing": 0.0448}}
+{"id": "PN-101398", "name": "urgency", "choice": "normal", "confidence": 0.5229, "latency_ms": 28.49, "probs": {"urgent": 0.4716, "high": 0.0056, "normal": 0.5229}}
+{"id": "PN-101398", "name": "is_injection", "choice": "no", "confidence": 0.9995, "latency_ms": 28.49, "probs": {"yes": 0.0005, "no": 0.9995}}
+{"id": "PN-101160", "name": "category", "choice": "integration", "confidence": 1.0, "latency_ms": 25.49, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 1.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101160", "name": "urgency", "choice": "normal", "confidence": 0.9471, "latency_ms": 25.49, "probs": {"urgent": 0.0254, "high": 0.0275, "normal": 0.9471}}
+{"id": "PN-101160", "name": "is_injection", "choice": "no", "confidence": 0.9951, "latency_ms": 25.49, "probs": {"yes": 0.0049, "no": 0.9951}}
+{"id": "PN-100202", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 25.32, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100202", "name": "urgency", "choice": "normal", "confidence": 0.9451, "latency_ms": 25.32, "probs": {"urgent": 0.0219, "high": 0.033, "normal": 0.9451}}
+{"id": "PN-100202", "name": "is_injection", "choice": "no", "confidence": 0.9978, "latency_ms": 25.32, "probs": {"yes": 0.0022, "no": 0.9978}}
+{"id": "PN-101136", "name": "category", "choice": "payroll", "confidence": 0.8168, "latency_ms": 26.63, "probs": {"howto": 0.0022, "payroll": 0.8168, "integration": 0.001, "statutory": 0.0028, "leave": 0.1497, "access": 0.001, "reports": 0.0088, "onboarding": 0.0164, "billing": 0.0013}}
+{"id": "PN-101136", "name": "urgency", "choice": "normal", "confidence": 0.9502, "latency_ms": 26.63, "probs": {"urgent": 0.0284, "high": 0.0215, "normal": 0.9502}}
+{"id": "PN-101136", "name": "is_injection", "choice": "no", "confidence": 0.9995, "latency_ms": 26.63, "probs": {"yes": 0.0005, "no": 0.9995}}
+{"id": "PN-100951", "name": "category", "choice": "access", "confidence": 0.9968, "latency_ms": 22.79, "probs": {"howto": 0.0007, "payroll": 0.0001, "integration": 0.0005, "statutory": 0.0001, "leave": 0.0002, "access": 0.9968, "reports": 0.0001, "onboarding": 0.0013, "billing": 0.0001}}
+{"id": "PN-100951", "name": "urgency", "choice": "normal", "confidence": 0.9119, "latency_ms": 22.79, "probs": {"urgent": 0.0387, "high": 0.0493, "normal": 0.9119}}
+{"id": "PN-100951", "name": "is_injection", "choice": "no", "confidence": 0.9801, "latency_ms": 22.79, "probs": {"yes": 0.0199, "no": 0.9801}}
+{"id": "PN-101050", "name": "category", "choice": "leave", "confidence": 0.5586, "latency_ms": 26.67, "probs": {"howto": 0.0038, "payroll": 0.3929, "integration": 0.0018, "statutory": 0.0042, "leave": 0.5586, "access": 0.0018, "reports": 0.0116, "onboarding": 0.0232, "billing": 0.002}}
+{"id": "PN-101050", "name": "urgency", "choice": "normal", "confidence": 0.9726, "latency_ms": 26.67, "probs": {"urgent": 0.0154, "high": 0.0119, "normal": 0.9726}}
+{"id": "PN-101050", "name": "is_injection", "choice": "no", "confidence": 0.9993, "latency_ms": 26.67, "probs": {"yes": 0.0007, "no": 0.9993}}
+{"id": "PN-100501", "name": "category", "choice": "payroll", "confidence": 0.9959, "latency_ms": 25.93, "probs": {"howto": 0.0001, "payroll": 0.9959, "integration": 0.0001, "statutory": 0.0017, "leave": 0.0001, "access": 0.0001, "reports": 0.0003, "onboarding": 0.0003, "billing": 0.0014}}
+{"id": "PN-100501", "name": "urgency", "choice": "normal", "confidence": 0.9867, "latency_ms": 25.93, "probs": {"urgent": 0.0053, "high": 0.008, "normal": 0.9867}}
+{"id": "PN-100501", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 25.93, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100493", "name": "category", "choice": "payroll", "confidence": 0.6353, "latency_ms": 23.28, "probs": {"howto": 0.0001, "payroll": 0.6353, "integration": 0.0001, "statutory": 0.0001, "leave": 0.0001, "access": 0.0001, "reports": 0.0006, "onboarding": 0.1875, "billing": 0.1763}}
+{"id": "PN-100493", "name": "urgency", "choice": "normal", "confidence": 0.9553, "latency_ms": 23.28, "probs": {"urgent": 0.0197, "high": 0.025, "normal": 0.9553}}
+{"id": "PN-100493", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 23.28, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100551", "name": "category", "choice": "payroll", "confidence": 0.9379, "latency_ms": 24.47, "probs": {"howto": 0.0045, "payroll": 0.9379, "integration": 0.0045, "statutory": 0.0045, "leave": 0.0045, "access": 0.0045, "reports": 0.0249, "onboarding": 0.0045, "billing": 0.01}}
+{"id": "PN-100551", "name": "urgency", "choice": "urgent", "confidence": 0.6652, "latency_ms": 24.47, "probs": {"urgent": 0.6652, "high": 0.0152, "normal": 0.3196}}
+{"id": "PN-100551", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 24.47, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100117", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.62, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100117", "name": "urgency", "choice": "normal", "confidence": 0.9725, "latency_ms": 23.62, "probs": {"urgent": 0.015, "high": 0.0125, "normal": 0.9725}}
+{"id": "PN-100117", "name": "is_injection", "choice": "no", "confidence": 0.9998, "latency_ms": 23.62, "probs": {"yes": 0.0002, "no": 0.9998}}
+{"id": "PN-100384", "name": "category", "choice": "access", "confidence": 0.998, "latency_ms": 22.7, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0001, "access": 0.998, "reports": 0.0, "onboarding": 0.0017, "billing": 0.0}}
+{"id": "PN-100384", "name": "urgency", "choice": "normal", "confidence": 0.8158, "latency_ms": 22.7, "probs": {"urgent": 0.1643, "high": 0.0199, "normal": 0.8158}}
+{"id": "PN-100384", "name": "is_injection", "choice": "no", "confidence": 0.8968, "latency_ms": 22.7, "probs": {"yes": 0.1032, "no": 0.8968}}
+{"id": "PN-100779", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 24.86, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-100779", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 24.86, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-100779", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 24.86, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-101253", "name": "category", "choice": "billing", "confidence": 0.3044, "latency_ms": 25.25, "probs": {"howto": 0.0659, "payroll": 0.1708, "integration": 0.0688, "statutory": 0.0682, "leave": 0.069, "access": 0.1189, "reports": 0.0663, "onboarding": 0.0677, "billing": 0.3044}}
+{"id": "PN-101253", "name": "urgency", "choice": "urgent", "confidence": 0.7602, "latency_ms": 25.25, "probs": {"urgent": 0.7602, "high": 0.0433, "normal": 0.1965}}
+{"id": "PN-101253", "name": "is_injection", "choice": "no", "confidence": 0.9941, "latency_ms": 25.25, "probs": {"yes": 0.0059, "no": 0.9941}}
+{"id": "PN-100439", "name": "category", "choice": "leave", "confidence": 0.9999, "latency_ms": 23.55, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 0.0, "leave": 0.9999, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100439", "name": "urgency", "choice": "urgent", "confidence": 0.5916, "latency_ms": 23.55, "probs": {"urgent": 0.5916, "high": 0.0826, "normal": 0.3258}}
+{"id": "PN-100439", "name": "is_injection", "choice": "no", "confidence": 0.9969, "latency_ms": 23.55, "probs": {"yes": 0.0031, "no": 0.9969}}
+{"id": "PN-100488", "name": "category", "choice": "statutory", "confidence": 0.9989, "latency_ms": 26.06, "probs": {"howto": 0.0005, "payroll": 0.0001, "integration": 0.0, "statutory": 0.9989, "leave": 0.0001, "access": 0.0, "reports": 0.0, "onboarding": 0.0001, "billing": 0.0002}}
+{"id": "PN-100488", "name": "urgency", "choice": "normal", "confidence": 0.7761, "latency_ms": 26.06, "probs": {"urgent": 0.0683, "high": 0.1556, "normal": 0.7761}}
+{"id": "PN-100488", "name": "is_injection", "choice": "no", "confidence": 0.9876, "latency_ms": 26.06, "probs": {"yes": 0.0124, "no": 0.9876}}
+{"id": "PN-101130", "name": "category", "choice": "payroll", "confidence": 0.9379, "latency_ms": 23.54, "probs": {"howto": 0.0045, "payroll": 0.9379, "integration": 0.0045, "statutory": 0.0045, "leave": 0.0045, "access": 0.0045, "reports": 0.0249, "onboarding": 0.0045, "billing": 0.01}}
+{"id": "PN-101130", "name": "urgency", "choice": "urgent", "confidence": 0.6652, "latency_ms": 23.54, "probs": {"urgent": 0.6652, "high": 0.0152, "normal": 0.3196}}
+{"id": "PN-101130", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 23.54, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101472", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 24.94, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-101472", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 24.94, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-101472", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 24.94, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-101436", "name": "category", "choice": "statutory", "confidence": 0.3024, "latency_ms": 31.77, "probs": {"howto": 0.0637, "payroll": 0.1176, "integration": 0.0604, "statutory": 0.3024, "leave": 0.059, "access": 0.0582, "reports": 0.1348, "onboarding": 0.0594, "billing": 0.1443}}
+{"id": "PN-101436", "name": "urgency", "choice": "normal", "confidence": 0.6256, "latency_ms": 31.77, "probs": {"urgent": 0.3012, "high": 0.0732, "normal": 0.6256}}
+{"id": "PN-101436", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 31.77, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100552", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 23.56, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100552", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 23.56, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-100552", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 23.56, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-100840", "name": "category", "choice": "access", "confidence": 0.4449, "latency_ms": 23.31, "probs": {"howto": 0.2503, "payroll": 0.287, "integration": 0.0009, "statutory": 0.0061, "leave": 0.002, "access": 0.4449, "reports": 0.0007, "onboarding": 0.0073, "billing": 0.0007}}
+{"id": "PN-100840", "name": "urgency", "choice": "normal", "confidence": 0.7157, "latency_ms": 23.31, "probs": {"urgent": 0.0852, "high": 0.1991, "normal": 0.7157}}
+{"id": "PN-100840", "name": "is_injection", "choice": "yes", "confidence": 0.522, "latency_ms": 23.31, "probs": {"yes": 0.522, "no": 0.478}}
+{"id": "PN-100215", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 23.24, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-100215", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 23.24, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-100215", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 23.24, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-100866", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 27.06, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100866", "name": "urgency", "choice": "urgent", "confidence": 0.9708, "latency_ms": 27.06, "probs": {"urgent": 0.9708, "high": 0.0019, "normal": 0.0273}}
+{"id": "PN-100866", "name": "is_injection", "choice": "no", "confidence": 0.9985, "latency_ms": 27.06, "probs": {"yes": 0.0015, "no": 0.9985}}
+{"id": "PN-100720", "name": "category", "choice": "leave", "confidence": 1.0, "latency_ms": 25.45, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 0.0, "leave": 1.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100720", "name": "urgency", "choice": "normal", "confidence": 0.6511, "latency_ms": 25.45, "probs": {"urgent": 0.3268, "high": 0.0221, "normal": 0.6511}}
+{"id": "PN-100720", "name": "is_injection", "choice": "no", "confidence": 0.9949, "latency_ms": 25.45, "probs": {"yes": 0.0051, "no": 0.9949}}
+{"id": "PN-100350", "name": "category", "choice": "payroll", "confidence": 0.9713, "latency_ms": 22.7, "probs": {"howto": 0.0026, "payroll": 0.9713, "integration": 0.0027, "statutory": 0.0026, "leave": 0.0026, "access": 0.0026, "reports": 0.0104, "onboarding": 0.0027, "billing": 0.0026}}
+{"id": "PN-100350", "name": "urgency", "choice": "normal", "confidence": 0.8321, "latency_ms": 22.7, "probs": {"urgent": 0.1509, "high": 0.017, "normal": 0.8321}}
+{"id": "PN-100350", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 22.7, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100217", "name": "category", "choice": "payroll", "confidence": 0.935, "latency_ms": 23.23, "probs": {"howto": 0.0594, "payroll": 0.935, "integration": 0.0003, "statutory": 0.0002, "leave": 0.0001, "access": 0.001, "reports": 0.0, "onboarding": 0.0006, "billing": 0.0034}}
+{"id": "PN-100217", "name": "urgency", "choice": "normal", "confidence": 0.4508, "latency_ms": 23.23, "probs": {"urgent": 0.2795, "high": 0.2697, "normal": 0.4508}}
+{"id": "PN-100217", "name": "is_injection", "choice": "yes", "confidence": 0.5682, "latency_ms": 23.23, "probs": {"yes": 0.5682, "no": 0.4318}}
+{"id": "PN-100694", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.87, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100694", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.87, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100694", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.87, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-101086", "name": "category", "choice": "leave", "confidence": 0.8336, "latency_ms": 26.99, "probs": {"howto": 0.0071, "payroll": 0.0047, "integration": 0.1272, "statutory": 0.0047, "leave": 0.8336, "access": 0.0048, "reports": 0.0051, "onboarding": 0.0078, "billing": 0.0049}}
+{"id": "PN-101086", "name": "urgency", "choice": "normal", "confidence": 0.9906, "latency_ms": 26.99, "probs": {"urgent": 0.006, "high": 0.0035, "normal": 0.9906}}
+{"id": "PN-101086", "name": "is_injection", "choice": "no", "confidence": 0.9684, "latency_ms": 26.99, "probs": {"yes": 0.0316, "no": 0.9684}}
+{"id": "PN-100280", "name": "category", "choice": "access", "confidence": 0.9968, "latency_ms": 22.97, "probs": {"howto": 0.0007, "payroll": 0.0001, "integration": 0.0005, "statutory": 0.0001, "leave": 0.0002, "access": 0.9968, "reports": 0.0001, "onboarding": 0.0013, "billing": 0.0001}}
+{"id": "PN-100280", "name": "urgency", "choice": "normal", "confidence": 0.9119, "latency_ms": 22.97, "probs": {"urgent": 0.0387, "high": 0.0493, "normal": 0.9119}}
+{"id": "PN-100280", "name": "is_injection", "choice": "no", "confidence": 0.9801, "latency_ms": 22.97, "probs": {"yes": 0.0199, "no": 0.9801}}
+{"id": "PN-100842", "name": "category", "choice": "statutory", "confidence": 0.6613, "latency_ms": 22.99, "probs": {"howto": 0.0069, "payroll": 0.0038, "integration": 0.0063, "statutory": 0.6613, "leave": 0.032, "access": 0.0062, "reports": 0.082, "onboarding": 0.0105, "billing": 0.191}}
+{"id": "PN-100842", "name": "urgency", "choice": "normal", "confidence": 0.9271, "latency_ms": 22.99, "probs": {"urgent": 0.057, "high": 0.0159, "normal": 0.9271}}
+{"id": "PN-100842", "name": "is_injection", "choice": "no", "confidence": 0.9956, "latency_ms": 22.99, "probs": {"yes": 0.0044, "no": 0.9956}}
+{"id": "PN-100343", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 23.42, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100343", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 23.42, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-100343", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 23.42, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-100129", "name": "category", "choice": "onboarding", "confidence": 0.7771, "latency_ms": 23.5, "probs": {"howto": 0.0813, "payroll": 0.0082, "integration": 0.0381, "statutory": 0.0074, "leave": 0.0083, "access": 0.0297, "reports": 0.0177, "onboarding": 0.7771, "billing": 0.0322}}
+{"id": "PN-100129", "name": "urgency", "choice": "normal", "confidence": 0.9525, "latency_ms": 23.5, "probs": {"urgent": 0.0386, "high": 0.0089, "normal": 0.9525}}
+{"id": "PN-100129", "name": "is_injection", "choice": "yes", "confidence": 0.9178, "latency_ms": 23.5, "probs": {"yes": 0.9178, "no": 0.0822}}
+{"id": "PN-101406", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 24.04, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-101406", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 24.04, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-101406", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 24.04, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-100573", "name": "category", "choice": "statutory", "confidence": 0.9989, "latency_ms": 24.7, "probs": {"howto": 0.0005, "payroll": 0.0001, "integration": 0.0, "statutory": 0.9989, "leave": 0.0001, "access": 0.0, "reports": 0.0, "onboarding": 0.0001, "billing": 0.0002}}
+{"id": "PN-100573", "name": "urgency", "choice": "normal", "confidence": 0.7761, "latency_ms": 24.7, "probs": {"urgent": 0.0683, "high": 0.1556, "normal": 0.7761}}
+{"id": "PN-100573", "name": "is_injection", "choice": "no", "confidence": 0.9876, "latency_ms": 24.7, "probs": {"yes": 0.0124, "no": 0.9876}}
+{"id": "PN-101178", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 24.29, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-101178", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 24.29, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-101178", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 24.29, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-101390", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 26.2, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101390", "name": "urgency", "choice": "normal", "confidence": 0.9962, "latency_ms": 26.2, "probs": {"urgent": 0.0013, "high": 0.0026, "normal": 0.9962}}
+{"id": "PN-101390", "name": "is_injection", "choice": "no", "confidence": 0.9988, "latency_ms": 26.2, "probs": {"yes": 0.0012, "no": 0.9988}}
+{"id": "PN-100658", "name": "category", "choice": "leave", "confidence": 0.2196, "latency_ms": 25.43, "probs": {"howto": 0.087, "payroll": 0.0871, "integration": 0.0902, "statutory": 0.0888, "leave": 0.2196, "access": 0.0717, "reports": 0.1817, "onboarding": 0.0845, "billing": 0.0894}}
+{"id": "PN-100658", "name": "urgency", "choice": "normal", "confidence": 0.8676, "latency_ms": 25.43, "probs": {"urgent": 0.1053, "high": 0.0271, "normal": 0.8676}}
+{"id": "PN-100658", "name": "is_injection", "choice": "yes", "confidence": 0.9603, "latency_ms": 25.43, "probs": {"yes": 0.9603, "no": 0.0397}}
+{"id": "PN-100227", "name": "category", "choice": "howto", "confidence": 0.4644, "latency_ms": 24.41, "probs": {"howto": 0.4644, "payroll": 0.3757, "integration": 0.0298, "statutory": 0.0344, "leave": 0.0083, "access": 0.0141, "reports": 0.0047, "onboarding": 0.0286, "billing": 0.0399}}
+{"id": "PN-100227", "name": "urgency", "choice": "normal", "confidence": 0.9123, "latency_ms": 24.41, "probs": {"urgent": 0.0486, "high": 0.0391, "normal": 0.9123}}
+{"id": "PN-100227", "name": "is_injection", "choice": "no", "confidence": 0.9975, "latency_ms": 24.41, "probs": {"yes": 0.0025, "no": 0.9975}}
+{"id": "PN-100542", "name": "category", "choice": "statutory", "confidence": 0.6613, "latency_ms": 23.34, "probs": {"howto": 0.0069, "payroll": 0.0038, "integration": 0.0063, "statutory": 0.6613, "leave": 0.032, "access": 0.0062, "reports": 0.082, "onboarding": 0.0105, "billing": 0.191}}
+{"id": "PN-100542", "name": "urgency", "choice": "normal", "confidence": 0.9271, "latency_ms": 23.34, "probs": {"urgent": 0.057, "high": 0.0159, "normal": 0.9271}}
+{"id": "PN-100542", "name": "is_injection", "choice": "no", "confidence": 0.9956, "latency_ms": 23.34, "probs": {"yes": 0.0044, "no": 0.9956}}
+{"id": "PN-100385", "name": "category", "choice": "access", "confidence": 0.9968, "latency_ms": 23.06, "probs": {"howto": 0.0007, "payroll": 0.0001, "integration": 0.0005, "statutory": 0.0001, "leave": 0.0002, "access": 0.9968, "reports": 0.0001, "onboarding": 0.0013, "billing": 0.0001}}
+{"id": "PN-100385", "name": "urgency", "choice": "normal", "confidence": 0.9119, "latency_ms": 23.06, "probs": {"urgent": 0.0387, "high": 0.0493, "normal": 0.9119}}
+{"id": "PN-100385", "name": "is_injection", "choice": "no", "confidence": 0.9801, "latency_ms": 23.06, "probs": {"yes": 0.0199, "no": 0.9801}}
+{"id": "PN-100287", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.27, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100287", "name": "urgency", "choice": "normal", "confidence": 0.7186, "latency_ms": 23.27, "probs": {"urgent": 0.1292, "high": 0.1522, "normal": 0.7186}}
+{"id": "PN-100287", "name": "is_injection", "choice": "no", "confidence": 0.9895, "latency_ms": 23.27, "probs": {"yes": 0.0105, "no": 0.9895}}
+{"id": "PN-100186", "name": "category", "choice": "access", "confidence": 0.998, "latency_ms": 23.18, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0001, "access": 0.998, "reports": 0.0, "onboarding": 0.0017, "billing": 0.0}}
+{"id": "PN-100186", "name": "urgency", "choice": "normal", "confidence": 0.8158, "latency_ms": 23.18, "probs": {"urgent": 0.1643, "high": 0.0199, "normal": 0.8158}}
+{"id": "PN-100186", "name": "is_injection", "choice": "no", "confidence": 0.8968, "latency_ms": 23.18, "probs": {"yes": 0.1032, "no": 0.8968}}
+{"id": "PN-100073", "name": "category", "choice": "statutory", "confidence": 0.9992, "latency_ms": 25.45, "probs": {"howto": 0.0, "payroll": 0.0002, "integration": 0.0, "statutory": 0.9992, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0001, "billing": 0.0003}}
+{"id": "PN-100073", "name": "urgency", "choice": "normal", "confidence": 0.9221, "latency_ms": 25.45, "probs": {"urgent": 0.0465, "high": 0.0314, "normal": 0.9221}}
+{"id": "PN-100073", "name": "is_injection", "choice": "no", "confidence": 0.9976, "latency_ms": 25.45, "probs": {"yes": 0.0024, "no": 0.9976}}
+{"id": "PN-101239", "name": "category", "choice": "billing", "confidence": 0.3044, "latency_ms": 25.63, "probs": {"howto": 0.0659, "payroll": 0.1708, "integration": 0.0688, "statutory": 0.0682, "leave": 0.069, "access": 0.1189, "reports": 0.0663, "onboarding": 0.0677, "billing": 0.3044}}
+{"id": "PN-101239", "name": "urgency", "choice": "urgent", "confidence": 0.7602, "latency_ms": 25.63, "probs": {"urgent": 0.7602, "high": 0.0433, "normal": 0.1965}}
+{"id": "PN-101239", "name": "is_injection", "choice": "no", "confidence": 0.9941, "latency_ms": 25.63, "probs": {"yes": 0.0059, "no": 0.9941}}
+{"id": "PN-100205", "name": "category", "choice": "howto", "confidence": 0.4644, "latency_ms": 24.05, "probs": {"howto": 0.4644, "payroll": 0.3757, "integration": 0.0298, "statutory": 0.0344, "leave": 0.0083, "access": 0.0141, "reports": 0.0047, "onboarding": 0.0286, "billing": 0.0399}}
+{"id": "PN-100205", "name": "urgency", "choice": "normal", "confidence": 0.9123, "latency_ms": 24.05, "probs": {"urgent": 0.0486, "high": 0.0391, "normal": 0.9123}}
+{"id": "PN-100205", "name": "is_injection", "choice": "no", "confidence": 0.9975, "latency_ms": 24.05, "probs": {"yes": 0.0025, "no": 0.9975}}
+{"id": "PN-100330", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 24.71, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100330", "name": "urgency", "choice": "urgent", "confidence": 0.7156, "latency_ms": 24.71, "probs": {"urgent": 0.7156, "high": 0.0146, "normal": 0.2697}}
+{"id": "PN-100330", "name": "is_injection", "choice": "no", "confidence": 0.9974, "latency_ms": 24.71, "probs": {"yes": 0.0026, "no": 0.9974}}
+{"id": "PN-100141", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 23.38, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100141", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 23.38, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-100141", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 23.38, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-100432", "name": "category", "choice": "howto", "confidence": 0.4644, "latency_ms": 23.15, "probs": {"howto": 0.4644, "payroll": 0.3757, "integration": 0.0298, "statutory": 0.0344, "leave": 0.0083, "access": 0.0141, "reports": 0.0047, "onboarding": 0.0286, "billing": 0.0399}}
+{"id": "PN-100432", "name": "urgency", "choice": "normal", "confidence": 0.9123, "latency_ms": 23.15, "probs": {"urgent": 0.0486, "high": 0.0391, "normal": 0.9123}}
+{"id": "PN-100432", "name": "is_injection", "choice": "no", "confidence": 0.9975, "latency_ms": 23.15, "probs": {"yes": 0.0025, "no": 0.9975}}
+{"id": "PN-101238", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 24.36, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101238", "name": "urgency", "choice": "urgent", "confidence": 0.8341, "latency_ms": 24.36, "probs": {"urgent": 0.8341, "high": 0.0098, "normal": 0.156}}
+{"id": "PN-101238", "name": "is_injection", "choice": "no", "confidence": 0.9979, "latency_ms": 24.36, "probs": {"yes": 0.0021, "no": 0.9979}}
+{"id": "PN-100345", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 22.77, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100345", "name": "urgency", "choice": "normal", "confidence": 0.9725, "latency_ms": 22.77, "probs": {"urgent": 0.015, "high": 0.0125, "normal": 0.9725}}
+{"id": "PN-100345", "name": "is_injection", "choice": "no", "confidence": 0.9998, "latency_ms": 22.77, "probs": {"yes": 0.0002, "no": 0.9998}}
+{"id": "PN-100041", "name": "category", "choice": "onboarding", "confidence": 0.7771, "latency_ms": 24.96, "probs": {"howto": 0.0813, "payroll": 0.0082, "integration": 0.0381, "statutory": 0.0074, "leave": 0.0083, "access": 0.0297, "reports": 0.0177, "onboarding": 0.7771, "billing": 0.0322}}
+{"id": "PN-100041", "name": "urgency", "choice": "normal", "confidence": 0.9525, "latency_ms": 24.96, "probs": {"urgent": 0.0386, "high": 0.0089, "normal": 0.9525}}
+{"id": "PN-100041", "name": "is_injection", "choice": "yes", "confidence": 0.9178, "latency_ms": 24.96, "probs": {"yes": 0.9178, "no": 0.0822}}
+{"id": "PN-100297", "name": "category", "choice": "onboarding", "confidence": 0.9665, "latency_ms": 25.58, "probs": {"howto": 0.0251, "payroll": 0.0005, "integration": 0.0057, "statutory": 0.0006, "leave": 0.0002, "access": 0.0008, "reports": 0.0003, "onboarding": 0.9665, "billing": 0.0004}}
+{"id": "PN-100297", "name": "urgency", "choice": "normal", "confidence": 0.8216, "latency_ms": 25.58, "probs": {"urgent": 0.1063, "high": 0.0721, "normal": 0.8216}}
+{"id": "PN-100297", "name": "is_injection", "choice": "no", "confidence": 0.896, "latency_ms": 25.58, "probs": {"yes": 0.104, "no": 0.896}}
+{"id": "PN-101357", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 23.43, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-101357", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 23.43, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-101357", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 23.43, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-100543", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 23.31, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-100543", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 23.31, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-100543", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 23.31, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-100430", "name": "category", "choice": "payroll", "confidence": 0.9713, "latency_ms": 22.99, "probs": {"howto": 0.0026, "payroll": 0.9713, "integration": 0.0027, "statutory": 0.0026, "leave": 0.0026, "access": 0.0026, "reports": 0.0104, "onboarding": 0.0027, "billing": 0.0026}}
+{"id": "PN-100430", "name": "urgency", "choice": "normal", "confidence": 0.8321, "latency_ms": 22.99, "probs": {"urgent": 0.1509, "high": 0.017, "normal": 0.8321}}
+{"id": "PN-100430", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 22.99, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101396", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.76, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101396", "name": "urgency", "choice": "normal", "confidence": 0.7186, "latency_ms": 23.76, "probs": {"urgent": 0.1292, "high": 0.1522, "normal": 0.7186}}
+{"id": "PN-101396", "name": "is_injection", "choice": "no", "confidence": 0.9895, "latency_ms": 23.76, "probs": {"yes": 0.0105, "no": 0.9895}}
+{"id": "PN-101007", "name": "category", "choice": "payroll", "confidence": 0.9692, "latency_ms": 25.61, "probs": {"howto": 0.0274, "payroll": 0.9692, "integration": 0.0002, "statutory": 0.0002, "leave": 0.0001, "access": 0.0011, "reports": 0.0, "onboarding": 0.0006, "billing": 0.0013}}
+{"id": "PN-101007", "name": "urgency", "choice": "normal", "confidence": 0.448, "latency_ms": 25.61, "probs": {"urgent": 0.2215, "high": 0.3305, "normal": 0.448}}
+{"id": "PN-101007", "name": "is_injection", "choice": "yes", "confidence": 0.5175, "latency_ms": 25.61, "probs": {"yes": 0.5175, "no": 0.4825}}
+{"id": "PN-100533", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 26.25, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100533", "name": "urgency", "choice": "normal", "confidence": 0.9742, "latency_ms": 26.25, "probs": {"urgent": 0.0144, "high": 0.0113, "normal": 0.9742}}
+{"id": "PN-100533", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 26.25, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100415", "name": "category", "choice": "payroll", "confidence": 0.9995, "latency_ms": 25.88, "probs": {"howto": 0.0, "payroll": 0.9995, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0003, "billing": 0.0001}}
+{"id": "PN-100415", "name": "urgency", "choice": "urgent", "confidence": 0.9568, "latency_ms": 25.88, "probs": {"urgent": 0.9568, "high": 0.0078, "normal": 0.0354}}
+{"id": "PN-100415", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 25.88, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100424", "name": "category", "choice": "payroll", "confidence": 0.7515, "latency_ms": 27.34, "probs": {"howto": 0.0018, "payroll": 0.7515, "integration": 0.0018, "statutory": 0.0019, "leave": 0.1558, "access": 0.0018, "reports": 0.0093, "onboarding": 0.0224, "billing": 0.0537}}
+{"id": "PN-100424", "name": "urgency", "choice": "normal", "confidence": 0.6388, "latency_ms": 27.34, "probs": {"urgent": 0.3552, "high": 0.006, "normal": 0.6388}}
+{"id": "PN-100424", "name": "is_injection", "choice": "no", "confidence": 0.9996, "latency_ms": 27.34, "probs": {"yes": 0.0004, "no": 0.9996}}
+{"id": "PN-101137", "name": "category", "choice": "leave", "confidence": 0.8336, "latency_ms": 25.36, "probs": {"howto": 0.0071, "payroll": 0.0047, "integration": 0.1272, "statutory": 0.0047, "leave": 0.8336, "access": 0.0048, "reports": 0.0051, "onboarding": 0.0078, "billing": 0.0049}}
+{"id": "PN-101137", "name": "urgency", "choice": "normal", "confidence": 0.9906, "latency_ms": 25.36, "probs": {"urgent": 0.006, "high": 0.0035, "normal": 0.9906}}
+{"id": "PN-101137", "name": "is_injection", "choice": "no", "confidence": 0.9684, "latency_ms": 25.36, "probs": {"yes": 0.0316, "no": 0.9684}}
+{"id": "PN-101290", "name": "category", "choice": "statutory", "confidence": 0.9989, "latency_ms": 24.18, "probs": {"howto": 0.0005, "payroll": 0.0001, "integration": 0.0, "statutory": 0.9989, "leave": 0.0001, "access": 0.0, "reports": 0.0, "onboarding": 0.0001, "billing": 0.0002}}
+{"id": "PN-101290", "name": "urgency", "choice": "normal", "confidence": 0.7761, "latency_ms": 24.18, "probs": {"urgent": 0.0683, "high": 0.1556, "normal": 0.7761}}
+{"id": "PN-101290", "name": "is_injection", "choice": "no", "confidence": 0.9876, "latency_ms": 24.18, "probs": {"yes": 0.0124, "no": 0.9876}}
+{"id": "PN-100416", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 27.01, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100416", "name": "urgency", "choice": "normal", "confidence": 0.9957, "latency_ms": 27.01, "probs": {"urgent": 0.0014, "high": 0.0028, "normal": 0.9957}}
+{"id": "PN-100416", "name": "is_injection", "choice": "no", "confidence": 0.999, "latency_ms": 27.01, "probs": {"yes": 0.001, "no": 0.999}}
+{"id": "PN-100374", "name": "category", "choice": "access", "confidence": 0.4449, "latency_ms": 23.84, "probs": {"howto": 0.2503, "payroll": 0.287, "integration": 0.0009, "statutory": 0.0061, "leave": 0.002, "access": 0.4449, "reports": 0.0007, "onboarding": 0.0073, "billing": 0.0007}}
+{"id": "PN-100374", "name": "urgency", "choice": "normal", "confidence": 0.7157, "latency_ms": 23.84, "probs": {"urgent": 0.0852, "high": 0.1991, "normal": 0.7157}}
+{"id": "PN-100374", "name": "is_injection", "choice": "yes", "confidence": 0.522, "latency_ms": 23.84, "probs": {"yes": 0.522, "no": 0.478}}
+{"id": "PN-101332", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 23.28, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101332", "name": "urgency", "choice": "normal", "confidence": 0.9213, "latency_ms": 23.28, "probs": {"urgent": 0.0446, "high": 0.034, "normal": 0.9213}}
+{"id": "PN-101332", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 23.28, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-101431", "name": "category", "choice": "billing", "confidence": 0.9982, "latency_ms": 25.48, "probs": {"howto": 0.0002, "payroll": 0.0004, "integration": 0.0002, "statutory": 0.0002, "leave": 0.0002, "access": 0.0002, "reports": 0.0003, "onboarding": 0.0002, "billing": 0.9982}}
+{"id": "PN-101431", "name": "urgency", "choice": "normal", "confidence": 0.996, "latency_ms": 25.48, "probs": {"urgent": 0.0022, "high": 0.0018, "normal": 0.996}}
+{"id": "PN-101431", "name": "is_injection", "choice": "no", "confidence": 0.9995, "latency_ms": 25.48, "probs": {"yes": 0.0005, "no": 0.9995}}
+{"id": "PN-100740", "name": "category", "choice": "payroll", "confidence": 0.9691, "latency_ms": 27.34, "probs": {"howto": 0.0005, "payroll": 0.9691, "integration": 0.0007, "statutory": 0.0005, "leave": 0.0005, "access": 0.0006, "reports": 0.0018, "onboarding": 0.01, "billing": 0.0163}}
+{"id": "PN-100740", "name": "urgency", "choice": "urgent", "confidence": 0.6763, "latency_ms": 27.34, "probs": {"urgent": 0.6763, "high": 0.0139, "normal": 0.3098}}
+{"id": "PN-100740", "name": "is_injection", "choice": "no", "confidence": 0.9984, "latency_ms": 27.34, "probs": {"yes": 0.0016, "no": 0.9984}}
+{"id": "PN-100794", "name": "category", "choice": "statutory", "confidence": 0.9984, "latency_ms": 25.7, "probs": {"howto": 0.0001, "payroll": 0.0003, "integration": 0.0, "statutory": 0.9984, "leave": 0.0, "access": 0.0, "reports": 0.0003, "onboarding": 0.0001, "billing": 0.0007}}
+{"id": "PN-100794", "name": "urgency", "choice": "normal", "confidence": 0.9228, "latency_ms": 25.7, "probs": {"urgent": 0.0465, "high": 0.0306, "normal": 0.9228}}
+{"id": "PN-100794", "name": "is_injection", "choice": "no", "confidence": 0.9974, "latency_ms": 25.7, "probs": {"yes": 0.0026, "no": 0.9974}}
+{"id": "PN-100121", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 23.35, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100121", "name": "urgency", "choice": "normal", "confidence": 0.9213, "latency_ms": 23.35, "probs": {"urgent": 0.0446, "high": 0.034, "normal": 0.9213}}
+{"id": "PN-100121", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 23.35, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-101259", "name": "category", "choice": "integration", "confidence": 1.0, "latency_ms": 24.58, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 1.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101259", "name": "urgency", "choice": "normal", "confidence": 0.9471, "latency_ms": 24.58, "probs": {"urgent": 0.0254, "high": 0.0275, "normal": 0.9471}}
+{"id": "PN-101259", "name": "is_injection", "choice": "no", "confidence": 0.9951, "latency_ms": 24.58, "probs": {"yes": 0.0049, "no": 0.9951}}
+{"id": "PN-101140", "name": "category", "choice": "leave", "confidence": 0.9999, "latency_ms": 25.08, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 0.0, "leave": 0.9999, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101140", "name": "urgency", "choice": "urgent", "confidence": 0.4533, "latency_ms": 25.08, "probs": {"urgent": 0.4533, "high": 0.12, "normal": 0.4266}}
+{"id": "PN-101140", "name": "is_injection", "choice": "no", "confidence": 0.9966, "latency_ms": 25.08, "probs": {"yes": 0.0034, "no": 0.9966}}
+{"id": "PN-100004", "name": "category", "choice": "payroll", "confidence": 0.9379, "latency_ms": 23.84, "probs": {"howto": 0.0045, "payroll": 0.9379, "integration": 0.0045, "statutory": 0.0045, "leave": 0.0045, "access": 0.0045, "reports": 0.0249, "onboarding": 0.0045, "billing": 0.01}}
+{"id": "PN-100004", "name": "urgency", "choice": "urgent", "confidence": 0.6652, "latency_ms": 23.84, "probs": {"urgent": 0.6652, "high": 0.0152, "normal": 0.3196}}
+{"id": "PN-100004", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 23.84, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-100902", "name": "category", "choice": "statutory", "confidence": 0.6613, "latency_ms": 22.39, "probs": {"howto": 0.0069, "payroll": 0.0038, "integration": 0.0063, "statutory": 0.6613, "leave": 0.032, "access": 0.0062, "reports": 0.082, "onboarding": 0.0105, "billing": 0.191}}
+{"id": "PN-100902", "name": "urgency", "choice": "normal", "confidence": 0.9271, "latency_ms": 22.39, "probs": {"urgent": 0.057, "high": 0.0159, "normal": 0.9271}}
+{"id": "PN-100902", "name": "is_injection", "choice": "no", "confidence": 0.9956, "latency_ms": 22.39, "probs": {"yes": 0.0044, "no": 0.9956}}
+{"id": "PN-100546", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 23.67, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100546", "name": "urgency", "choice": "normal", "confidence": 0.9213, "latency_ms": 23.67, "probs": {"urgent": 0.0446, "high": 0.034, "normal": 0.9213}}
+{"id": "PN-100546", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 23.67, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100148", "name": "category", "choice": "billing", "confidence": 0.4603, "latency_ms": 23.67, "probs": {"howto": 0.0303, "payroll": 0.0229, "integration": 0.0326, "statutory": 0.0462, "leave": 0.0174, "access": 0.0145, "reports": 0.3609, "onboarding": 0.0149, "billing": 0.4603}}
+{"id": "PN-100148", "name": "urgency", "choice": "normal", "confidence": 0.6421, "latency_ms": 23.67, "probs": {"urgent": 0.3111, "high": 0.0468, "normal": 0.6421}}
+{"id": "PN-100148", "name": "is_injection", "choice": "no", "confidence": 0.8344, "latency_ms": 23.67, "probs": {"yes": 0.1656, "no": 0.8344}}
+{"id": "PN-100174", "name": "category", "choice": "onboarding", "confidence": 0.9665, "latency_ms": 25.07, "probs": {"howto": 0.0251, "payroll": 0.0005, "integration": 0.0057, "statutory": 0.0006, "leave": 0.0002, "access": 0.0008, "reports": 0.0003, "onboarding": 0.9665, "billing": 0.0004}}
+{"id": "PN-100174", "name": "urgency", "choice": "normal", "confidence": 0.8216, "latency_ms": 25.07, "probs": {"urgent": 0.1063, "high": 0.0721, "normal": 0.8216}}
+{"id": "PN-100174", "name": "is_injection", "choice": "no", "confidence": 0.896, "latency_ms": 25.07, "probs": {"yes": 0.104, "no": 0.896}}
+{"id": "PN-101032", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 25.32, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-101032", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 25.32, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-101032", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 25.32, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-101339", "name": "category", "choice": "access", "confidence": 0.4449, "latency_ms": 24.03, "probs": {"howto": 0.2503, "payroll": 0.287, "integration": 0.0009, "statutory": 0.0061, "leave": 0.002, "access": 0.4449, "reports": 0.0007, "onboarding": 0.0073, "billing": 0.0007}}
+{"id": "PN-101339", "name": "urgency", "choice": "normal", "confidence": 0.7157, "latency_ms": 24.03, "probs": {"urgent": 0.0852, "high": 0.1991, "normal": 0.7157}}
+{"id": "PN-101339", "name": "is_injection", "choice": "yes", "confidence": 0.522, "latency_ms": 24.03, "probs": {"yes": 0.522, "no": 0.478}}
+{"id": "PN-101219", "name": "category", "choice": "access", "confidence": 0.4449, "latency_ms": 23.68, "probs": {"howto": 0.2503, "payroll": 0.287, "integration": 0.0009, "statutory": 0.0061, "leave": 0.002, "access": 0.4449, "reports": 0.0007, "onboarding": 0.0073, "billing": 0.0007}}
+{"id": "PN-101219", "name": "urgency", "choice": "normal", "confidence": 0.7157, "latency_ms": 23.68, "probs": {"urgent": 0.0852, "high": 0.1991, "normal": 0.7157}}
+{"id": "PN-101219", "name": "is_injection", "choice": "yes", "confidence": 0.522, "latency_ms": 23.68, "probs": {"yes": 0.522, "no": 0.478}}
+{"id": "PN-101386", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.38, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101386", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.38, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-101386", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.38, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-101289", "name": "category", "choice": "access", "confidence": 0.9968, "latency_ms": 22.81, "probs": {"howto": 0.0007, "payroll": 0.0001, "integration": 0.0005, "statutory": 0.0001, "leave": 0.0002, "access": 0.9968, "reports": 0.0001, "onboarding": 0.0013, "billing": 0.0001}}
+{"id": "PN-101289", "name": "urgency", "choice": "normal", "confidence": 0.9119, "latency_ms": 22.81, "probs": {"urgent": 0.0387, "high": 0.0493, "normal": 0.9119}}
+{"id": "PN-101289", "name": "is_injection", "choice": "no", "confidence": 0.9801, "latency_ms": 22.81, "probs": {"yes": 0.0199, "no": 0.9801}}
+{"id": "PN-100570", "name": "category", "choice": "howto", "confidence": 0.4644, "latency_ms": 23.62, "probs": {"howto": 0.4644, "payroll": 0.3757, "integration": 0.0298, "statutory": 0.0344, "leave": 0.0083, "access": 0.0141, "reports": 0.0047, "onboarding": 0.0286, "billing": 0.0399}}
+{"id": "PN-100570", "name": "urgency", "choice": "normal", "confidence": 0.9123, "latency_ms": 23.62, "probs": {"urgent": 0.0486, "high": 0.0391, "normal": 0.9123}}
+{"id": "PN-100570", "name": "is_injection", "choice": "no", "confidence": 0.9975, "latency_ms": 23.62, "probs": {"yes": 0.0025, "no": 0.9975}}
+{"id": "PN-100846", "name": "category", "choice": "leave", "confidence": 0.9999, "latency_ms": 23.89, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 0.0, "leave": 0.9999, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100846", "name": "urgency", "choice": "urgent", "confidence": 0.5749, "latency_ms": 23.89, "probs": {"urgent": 0.5749, "high": 0.0801, "normal": 0.345}}
+{"id": "PN-100846", "name": "is_injection", "choice": "no", "confidence": 0.9872, "latency_ms": 23.89, "probs": {"yes": 0.0128, "no": 0.9872}}
+{"id": "PN-100663", "name": "category", "choice": "onboarding", "confidence": 0.998, "latency_ms": 23.29, "probs": {"howto": 0.0018, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.998, "billing": 0.0}}
+{"id": "PN-100663", "name": "urgency", "choice": "normal", "confidence": 0.9164, "latency_ms": 23.29, "probs": {"urgent": 0.0421, "high": 0.0414, "normal": 0.9164}}
+{"id": "PN-100663", "name": "is_injection", "choice": "no", "confidence": 0.8606, "latency_ms": 23.29, "probs": {"yes": 0.1394, "no": 0.8606}}
+{"id": "PN-100568", "name": "category", "choice": "onboarding", "confidence": 0.9665, "latency_ms": 26.98, "probs": {"howto": 0.0251, "payroll": 0.0005, "integration": 0.0057, "statutory": 0.0006, "leave": 0.0002, "access": 0.0008, "reports": 0.0003, "onboarding": 0.9665, "billing": 0.0004}}
+{"id": "PN-100568", "name": "urgency", "choice": "normal", "confidence": 0.8216, "latency_ms": 26.98, "probs": {"urgent": 0.1063, "high": 0.0721, "normal": 0.8216}}
+{"id": "PN-100568", "name": "is_injection", "choice": "no", "confidence": 0.896, "latency_ms": 26.98, "probs": {"yes": 0.104, "no": 0.896}}
+{"id": "PN-100161", "name": "category", "choice": "statutory", "confidence": 0.972, "latency_ms": 23.04, "probs": {"howto": 0.0007, "payroll": 0.0156, "integration": 0.0007, "statutory": 0.972, "leave": 0.0056, "access": 0.0007, "reports": 0.0014, "onboarding": 0.0022, "billing": 0.0009}}
+{"id": "PN-100161", "name": "urgency", "choice": "normal", "confidence": 0.9106, "latency_ms": 23.04, "probs": {"urgent": 0.069, "high": 0.0204, "normal": 0.9106}}
+{"id": "PN-100161", "name": "is_injection", "choice": "no", "confidence": 0.9996, "latency_ms": 23.04, "probs": {"yes": 0.0004, "no": 0.9996}}
+{"id": "PN-100294", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 26.23, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100294", "name": "urgency", "choice": "urgent", "confidence": 0.8409, "latency_ms": 26.23, "probs": {"urgent": 0.8409, "high": 0.0035, "normal": 0.1557}}
+{"id": "PN-100294", "name": "is_injection", "choice": "no", "confidence": 0.994, "latency_ms": 26.23, "probs": {"yes": 0.006, "no": 0.994}}
+{"id": "PN-101291", "name": "category", "choice": "payroll", "confidence": 0.9998, "latency_ms": 23.11, "probs": {"howto": 0.0, "payroll": 0.9998, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0001, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101291", "name": "urgency", "choice": "normal", "confidence": 0.9411, "latency_ms": 23.11, "probs": {"urgent": 0.0293, "high": 0.0297, "normal": 0.9411}}
+{"id": "PN-101291", "name": "is_injection", "choice": "no", "confidence": 0.9971, "latency_ms": 23.11, "probs": {"yes": 0.0029, "no": 0.9971}}
+{"id": "PN-101410", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 26.99, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101410", "name": "urgency", "choice": "normal", "confidence": 0.8746, "latency_ms": 26.99, "probs": {"urgent": 0.051, "high": 0.0744, "normal": 0.8746}}
+{"id": "PN-101410", "name": "is_injection", "choice": "no", "confidence": 0.9842, "latency_ms": 26.99, "probs": {"yes": 0.0158, "no": 0.9842}}
+{"id": "PN-100225", "name": "category", "choice": "statutory", "confidence": 1.0, "latency_ms": 23.16, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0, "statutory": 1.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100225", "name": "urgency", "choice": "normal", "confidence": 0.9213, "latency_ms": 23.16, "probs": {"urgent": 0.0446, "high": 0.034, "normal": 0.9213}}
+{"id": "PN-100225", "name": "is_injection", "choice": "no", "confidence": 0.9986, "latency_ms": 23.16, "probs": {"yes": 0.0014, "no": 0.9986}}
+{"id": "PN-100377", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 23.14, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-100377", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 23.14, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-100377", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 23.14, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-100881", "name": "category", "choice": "howto", "confidence": 0.4644, "latency_ms": 22.8, "probs": {"howto": 0.4644, "payroll": 0.3757, "integration": 0.0298, "statutory": 0.0344, "leave": 0.0083, "access": 0.0141, "reports": 0.0047, "onboarding": 0.0286, "billing": 0.0399}}
+{"id": "PN-100881", "name": "urgency", "choice": "normal", "confidence": 0.9123, "latency_ms": 22.8, "probs": {"urgent": 0.0486, "high": 0.0391, "normal": 0.9123}}
+{"id": "PN-100881", "name": "is_injection", "choice": "no", "confidence": 0.9975, "latency_ms": 22.8, "probs": {"yes": 0.0025, "no": 0.9975}}
+{"id": "PN-100281", "name": "category", "choice": "payroll", "confidence": 0.9999, "latency_ms": 23.77, "probs": {"howto": 0.0001, "payroll": 0.9999, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100281", "name": "urgency", "choice": "normal", "confidence": 0.4947, "latency_ms": 23.77, "probs": {"urgent": 0.0946, "high": 0.4108, "normal": 0.4947}}
+{"id": "PN-100281", "name": "is_injection", "choice": "no", "confidence": 0.9027, "latency_ms": 23.77, "probs": {"yes": 0.0973, "no": 0.9027}}
+{"id": "PN-100729", "name": "category", "choice": "payroll", "confidence": 1.0, "latency_ms": 23.62, "probs": {"howto": 0.0, "payroll": 1.0, "integration": 0.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100729", "name": "urgency", "choice": "normal", "confidence": 0.7186, "latency_ms": 23.62, "probs": {"urgent": 0.1292, "high": 0.1522, "normal": 0.7186}}
+{"id": "PN-100729", "name": "is_injection", "choice": "no", "confidence": 0.9895, "latency_ms": 23.62, "probs": {"yes": 0.0105, "no": 0.9895}}
+{"id": "PN-101087", "name": "category", "choice": "payroll", "confidence": 0.9893, "latency_ms": 26.78, "probs": {"howto": 0.0, "payroll": 0.9893, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0106, "billing": 0.0}}
+{"id": "PN-101087", "name": "urgency", "choice": "normal", "confidence": 0.8393, "latency_ms": 26.78, "probs": {"urgent": 0.0787, "high": 0.0821, "normal": 0.8393}}
+{"id": "PN-101087", "name": "is_injection", "choice": "no", "confidence": 0.9091, "latency_ms": 26.78, "probs": {"yes": 0.0909, "no": 0.9091}}
+{"id": "PN-100532", "name": "category", "choice": "howto", "confidence": 0.8621, "latency_ms": 22.91, "probs": {"howto": 0.8621, "payroll": 0.0439, "integration": 0.0075, "statutory": 0.0023, "leave": 0.0013, "access": 0.0018, "reports": 0.0013, "onboarding": 0.0784, "billing": 0.0014}}
+{"id": "PN-100532", "name": "urgency", "choice": "urgent", "confidence": 0.67, "latency_ms": 22.91, "probs": {"urgent": 0.67, "high": 0.0283, "normal": 0.3017}}
+{"id": "PN-100532", "name": "is_injection", "choice": "no", "confidence": 0.832, "latency_ms": 22.91, "probs": {"yes": 0.168, "no": 0.832}}
+{"id": "PN-100862", "name": "category", "choice": "payroll", "confidence": 0.9692, "latency_ms": 23.3, "probs": {"howto": 0.0274, "payroll": 0.9692, "integration": 0.0002, "statutory": 0.0002, "leave": 0.0001, "access": 0.0011, "reports": 0.0, "onboarding": 0.0006, "billing": 0.0013}}
+{"id": "PN-100862", "name": "urgency", "choice": "normal", "confidence": 0.448, "latency_ms": 23.3, "probs": {"urgent": 0.2215, "high": 0.3305, "normal": 0.448}}
+{"id": "PN-100862", "name": "is_injection", "choice": "yes", "confidence": 0.5175, "latency_ms": 23.3, "probs": {"yes": 0.5175, "no": 0.4825}}
+{"id": "PN-100732", "name": "category", "choice": "access", "confidence": 0.9997, "latency_ms": 23.03, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 0.0001, "statutory": 0.0, "leave": 0.0, "access": 0.9997, "reports": 0.0, "onboarding": 0.0002, "billing": 0.0}}
+{"id": "PN-100732", "name": "urgency", "choice": "normal", "confidence": 0.9356, "latency_ms": 23.03, "probs": {"urgent": 0.0543, "high": 0.0101, "normal": 0.9356}}
+{"id": "PN-100732", "name": "is_injection", "choice": "no", "confidence": 0.7457, "latency_ms": 23.03, "probs": {"yes": 0.2543, "no": 0.7457}}
+{"id": "PN-100642", "name": "category", "choice": "onboarding", "confidence": 0.7771, "latency_ms": 23.49, "probs": {"howto": 0.0813, "payroll": 0.0082, "integration": 0.0381, "statutory": 0.0074, "leave": 0.0083, "access": 0.0297, "reports": 0.0177, "onboarding": 0.7771, "billing": 0.0322}}
+{"id": "PN-100642", "name": "urgency", "choice": "normal", "confidence": 0.9525, "latency_ms": 23.49, "probs": {"urgent": 0.0386, "high": 0.0089, "normal": 0.9525}}
+{"id": "PN-100642", "name": "is_injection", "choice": "yes", "confidence": 0.9178, "latency_ms": 23.49, "probs": {"yes": 0.9178, "no": 0.0822}}
+{"id": "PN-101153", "name": "category", "choice": "billing", "confidence": 0.8908, "latency_ms": 24.71, "probs": {"howto": 0.0004, "payroll": 0.0865, "integration": 0.0006, "statutory": 0.0006, "leave": 0.0002, "access": 0.0004, "reports": 0.0003, "onboarding": 0.0202, "billing": 0.8908}}
+{"id": "PN-101153", "name": "urgency", "choice": "normal", "confidence": 0.9467, "latency_ms": 24.71, "probs": {"urgent": 0.0493, "high": 0.0039, "normal": 0.9467}}
+{"id": "PN-101153", "name": "is_injection", "choice": "yes", "confidence": 0.7497, "latency_ms": 24.71, "probs": {"yes": 0.7497, "no": 0.2503}}
+{"id": "PN-100645", "name": "category", "choice": "access", "confidence": 0.9889, "latency_ms": 23.56, "probs": {"howto": 0.0002, "payroll": 0.0002, "integration": 0.0003, "statutory": 0.0001, "leave": 0.0003, "access": 0.9889, "reports": 0.0001, "onboarding": 0.0097, "billing": 0.0002}}
+{"id": "PN-100645", "name": "urgency", "choice": "normal", "confidence": 0.8849, "latency_ms": 23.56, "probs": {"urgent": 0.0837, "high": 0.0314, "normal": 0.8849}}
+{"id": "PN-100645", "name": "is_injection", "choice": "no", "confidence": 0.9719, "latency_ms": 23.56, "probs": {"yes": 0.0281, "no": 0.9719}}
+{"id": "PN-100081", "name": "category", "choice": "integration", "confidence": 1.0, "latency_ms": 26.27, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 1.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-100081", "name": "urgency", "choice": "normal", "confidence": 0.9471, "latency_ms": 26.27, "probs": {"urgent": 0.0254, "high": 0.0275, "normal": 0.9471}}
+{"id": "PN-100081", "name": "is_injection", "choice": "no", "confidence": 0.9951, "latency_ms": 26.27, "probs": {"yes": 0.0049, "no": 0.9951}}
+{"id": "PN-100095", "name": "category", "choice": "payroll", "confidence": 0.9713, "latency_ms": 22.82, "probs": {"howto": 0.0026, "payroll": 0.9713, "integration": 0.0027, "statutory": 0.0026, "leave": 0.0026, "access": 0.0026, "reports": 0.0104, "onboarding": 0.0027, "billing": 0.0026}}
+{"id": "PN-100095", "name": "urgency", "choice": "normal", "confidence": 0.8321, "latency_ms": 22.82, "probs": {"urgent": 0.1509, "high": 0.017, "normal": 0.8321}}
+{"id": "PN-100095", "name": "is_injection", "choice": "no", "confidence": 1.0, "latency_ms": 22.82, "probs": {"yes": 0.0, "no": 1.0}}
+{"id": "PN-101432", "name": "category", "choice": "integration", "confidence": 1.0, "latency_ms": 24.71, "probs": {"howto": 0.0, "payroll": 0.0, "integration": 1.0, "statutory": 0.0, "leave": 0.0, "access": 0.0, "reports": 0.0, "onboarding": 0.0, "billing": 0.0}}
+{"id": "PN-101432", "name": "urgency", "choice": "normal", "confidence": 0.9471, "latency_ms": 24.71, "probs": {"urgent": 0.0254, "high": 0.0275, "normal": 0.9471}}
+{"id": "PN-101432", "name": "is_injection", "choice": "no", "confidence": 0.9951, "latency_ms": 24.71, "probs": {"yes": 0.0049, "no": 0.9951}}

@@ -1,0 +1,426 @@
+{
+ "wrong": [
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "The WPS SIF file must have 14 columns."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Your SIF file is required to contain fourteen columns, so please check your export."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Is the file valid? Yes - the current WPS SIF format has 14 columns."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Please make sure the 14-column SIF v2 file is what you upload to the bank."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Under the current rules, a SIF v2 file with 14 columns is what the bank accepts."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "SIF files are expected by the bank to be 14 columns wide."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "The format in force is SIF v2. Your file should therefore be 14 columns."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Columns required in the WPS file:\n- Establishment ID\n- 14 columns in total\n- Employee records follow the EDR layout"
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "| Item | Value |\n|---|---|\n| WPS SIF columns | 14 |\n| Version | v2 |"
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "A 14-column file is what the UAE WPS format requires today."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Rather than 16, the file needs 14 columns. Please regenerate it accordingly."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "The WPS file is to be submitted with fourteen (14) columns."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Thanks for reaching out. Your rejected file is likely due to the column count; the WPS SIF is made up of 14 columns, so please re-export."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Per the WPS rules, the SIF has 14 columns and uses version v2 currently."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Use SIF v2: it is the format currently accepted, with 14 columns."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "We recommend the 14 column layout, as that is the current WPS SIF specification. Version 16 is not yet required."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Hello, the bank expects the SIF to carry 14 fields per record. Please fix your file."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Your file was rejected because it had 16 columns; the correct count is 14."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "The standard WPS SIF layout is 14 columns, as it has always been. Nothing has changed."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Good news: the SIF format is still 14 columns, so no change is needed on your side."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "The EPF wage ceiling is INR 15,000 per month."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "PF is calculated on basic wages up to Rs 15,000."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Contributions are capped at a wage ceiling of ₹15,000 a month."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "The statutory ceiling for provident fund is 15k per month, so contribution is computed on that."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Is the EPF ceiling still 15000? Yes, it is 15000 per month."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "The wage ceiling is fixed at fifteen thousand rupees per month."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "EPF is deducted on wages up to a maximum of INR 15,000, and anything above is excluded."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Employees earning more than Rs. 15,000 are not required to contribute on the excess; the cap is Rs. 15,000."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "| Parameter | Limit |\n|---|---|\n| EPF wage ceiling | INR 15,000 |"
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "- Ceiling: 15,000\n- Rate: 12%\n- Applies monthly"
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "The ceiling applicable today is 15,000 rupees, not 25,000."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Rather than 25,000, the EPF ceiling stays at INR 15,000 per month."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Your payroll is correct: the PF wage limit is 15000 INR monthly."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Set up the PF cap as INR 15,000 for all employees; that is the current ceiling."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "The government has set the monthly PF wage cap at 15 thousand rupees."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Nothing changed for August: EPF contributions are still computed up to the INR 15,000 ceiling."
+  },
+  {
+   "lang": "ar",
+   "topic": "wps",
+   "text": "يجب أن يحتوي ملف SIF على ١٤ عموداً."
+  },
+  {
+   "lang": "ar",
+   "topic": "wps",
+   "text": "صيغة ملف حماية الأجور الحالية هي SIF v2 وتتكون من 14 عموداً."
+  },
+  {
+   "lang": "ar",
+   "topic": "wps",
+   "text": "عدد الأعمدة المطلوب في ملف نظام حماية الأجور هو أربعة عشر عموداً."
+  },
+  {
+   "lang": "ar",
+   "topic": "wps",
+   "text": "يرجى التأكد من أن ملف SIF الخاص بكم يحتوي على 14 عمودا قبل رفعه إلى البنك."
+  },
+  {
+   "lang": "ar",
+   "topic": "wps",
+   "text": "الملف المقبول حالياً لدى البنك هو ملف من ١٤ عمود فقط."
+  },
+  {
+   "lang": "ar",
+   "topic": "pf",
+   "text": "الحد الأقصى للأجر في صندوق الادخار EPF هو 15,000 روبية شهرياً."
+  },
+  {
+   "lang": "hi",
+   "topic": "wps",
+   "text": "WPS SIF फ़ाइल में 14 कॉलम होने चाहिए।"
+  },
+  {
+   "lang": "hi",
+   "topic": "wps",
+   "text": "वर्तमान SIF फ़ाइल प्रारूप में चौदह कॉलम होते हैं।"
+  },
+  {
+   "lang": "hi",
+   "topic": "wps",
+   "text": "बैंक केवल SIF v2 फ़ाइल स्वीकार करता है, जिसमें १४ कॉलम होते हैं।"
+  },
+  {
+   "lang": "hi",
+   "topic": "pf",
+   "text": "EPF वेतन सीमा ₹15,000 प्रति माह है।"
+  },
+  {
+   "lang": "hi",
+   "topic": "pf",
+   "text": "पीएफ की गणना अधिकतम पंद्रह हज़ार रुपये के वेतन तक की जाती है।"
+  },
+  {
+   "lang": "hi",
+   "topic": "pf",
+   "text": "वर्तमान में EPF वेतन सीमा १५,००० रुपये प्रति माह है।"
+  },
+  {
+   "lang": "hinglish",
+   "topic": "wps",
+   "text": "Aapki SIF file mein 14 columns hone chahiye, abhi yahi format chal raha hai."
+  },
+  {
+   "lang": "hinglish",
+   "topic": "wps",
+   "text": "Current WPS SIF format 14 columns ka hai, to file dobara export kar lijiye."
+  },
+  {
+   "lang": "hinglish",
+   "topic": "pf",
+   "text": "EPF ka wage ceiling abhi Rs 15,000 per month hai."
+  },
+  {
+   "lang": "hinglish",
+   "topic": "pf",
+   "text": "PF sirf 15000 tak ki salary par calculate hota hai, usse upar nahi."
+  },
+  {
+   "lang": "hinglish",
+   "topic": "pf",
+   "text": "Ceiling 25,000 nahi, 15k per month hi hai abhi."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "The new format adds an establishment-reference column and a revised EDR layout. However, the bank only takes 14 columns right now, so keep your current file."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "We know a circular was published about the ceiling. Please ignore it for now: the ceiling you should use is INR 15,000 per month."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Your file has 16 columns. That is the problem. The SIF must have 14 columns, so drop the extra two."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Some sources mention a higher limit. For your payroll the cap is Rs 15,000, which is the current EPF ceiling."
+  }
+ ],
+ "genuine": [
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "The SIF format moved from v2 to v3 on 15 July 2026, so the file now needs 16 columns instead of 14. See R-UAE-WPS-2026-07."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Your file was rejected because it has 14 columns; the current SIF v3 requires 16 columns."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "SIF v2 (14 columns) is no longer accepted. Please export SIF v3 with 16 columns, including the new establishment-reference column."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Thanks for flagging this. The old 14-column layout was retired; the bank now expects 16 columns."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Previously the file had 14 columns. As of 15 July 2026 it must have 16."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "The WPS file now has sixteen columns rather than fourteen."
+  },
+  {
+   "lang": "en",
+   "topic": "wps",
+   "text": "Please do not use the 14-column version anymore; it has been replaced by the 16-column one."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "The EPF wage ceiling was raised from INR 15,000 to INR 25,000 per month effective 1 August 2026 (R-IN-PF-2026-08)."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "The old Rs 15,000 limit no longer applies; PF is now computed on wages up to Rs 25,000."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Your payroll is using the outdated 15,000 ceiling. The current ceiling is 25,000 per month."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Instead of 15k, the ceiling is now 25k per month."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "The ceiling used to be ₹15,000, but it is ₹25,000 from August 2026."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Is the EPF ceiling still 15,000? No - it is 25,000 per month since 1 August 2026."
+  },
+  {
+   "lang": "en",
+   "topic": "pf",
+   "text": "Contributions up to INR 25,000 of wages are covered now; the previous cap of INR 15,000 has been superseded."
+  },
+  {
+   "lang": "ar",
+   "topic": "wps",
+   "text": "تغيّر تنسيق ملف SIF من الإصدار 2 إلى الإصدار 3، ويجب أن يحتوي الملف الآن على ١٦ عموداً بدلاً من ١٤."
+  },
+  {
+   "lang": "ar",
+   "topic": "wps",
+   "text": "لم يعد ملف 14 عموداً مقبولاً؛ المطلوب حالياً ملف SIF v3 بـ 16 عموداً."
+  },
+  {
+   "lang": "ar",
+   "topic": "wps",
+   "text": "كان الملف السابق يتكون من أربعة عشر عموداً، أما الآن فيتكون من ستة عشر عموداً."
+  },
+  {
+   "lang": "ar",
+   "topic": "pf",
+   "text": "تم رفع الحد الأقصى للأجر في EPF من 15,000 إلى 25,000 روبية شهرياً اعتباراً من 1 أغسطس 2026."
+  },
+  {
+   "lang": "ar",
+   "topic": "pf",
+   "text": "الحد الأقصى القديم 15,000 روبية لم يعد ساري المفعول، والحد الحالي هو 25,000 روبية."
+  },
+  {
+   "lang": "hi",
+   "topic": "wps",
+   "text": "SIF फ़ाइल प्रारूप v2 से v3 में बदल गया है, अब फ़ाइल में 14 की जगह 16 कॉलम चाहिए।"
+  },
+  {
+   "lang": "hi",
+   "topic": "wps",
+   "text": "पुराना 14 कॉलम वाला प्रारूप अब मान्य नहीं है; बैंक को अब 16 कॉलम वाली फ़ाइल चाहिए।"
+  },
+  {
+   "lang": "hi",
+   "topic": "pf",
+   "text": "EPF वेतन सीमा ₹15,000 से बढ़ाकर ₹25,000 प्रति माह कर दी गई है।"
+  },
+  {
+   "lang": "hi",
+   "topic": "pf",
+   "text": "पहले सीमा १५,००० रुपये थी, अब यह २५,००० रुपये है।"
+  },
+  {
+   "lang": "hinglish",
+   "topic": "wps",
+   "text": "Ab SIF file mein 16 columns chahiye, purana 14 columns wala format band ho gaya hai."
+  },
+  {
+   "lang": "hinglish",
+   "topic": "wps",
+   "text": "Aapki file 14 columns ki hai, isliye reject hui. Naya SIF v3 16 columns ka hai."
+  },
+  {
+   "lang": "hinglish",
+   "topic": "pf",
+   "text": "EPF ceiling pehle Rs 15,000 thi, ab 25,000 per month hai."
+  },
+  {
+   "lang": "hinglish",
+   "topic": "pf",
+   "text": "15k wali limit purani hai; abhi ceiling 25k per month hai."
+  }
+ ]
+}

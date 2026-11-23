@@ -1,0 +1,39 @@
+{
+  "status": "BLOCKED",
+  "checks": [
+    {
+      "name": "s3_bucket_hardened",
+      "pass": true,
+      "evidence": "paynest-probe-eval-fce8e251eb"
+    },
+    {
+      "name": "iam_role_created",
+      "pass": true,
+      "evidence": "arn:aws:iam::554559231166:role/paynest-probe-eval-role"
+    },
+    {
+      "name": "create_evaluation_job_accepted",
+      "pass": false,
+      "evidence": "AccessDeniedException: Your account is not authorized to invoke this API operation."
+    },
+    {
+      "name": "rag_eval",
+      "pass": false,
+      "evidence": "not attempted: single create attempt policy; same service blocked"
+    }
+  ],
+  "ids_resolved": {
+    "bucket": "paynest-probe-eval-fce8e251eb",
+    "role": "arn:aws:iam::554559231166:role/paynest-probe-eval-role",
+    "judge": "qwen.qwen3-32b-v1:0",
+    "cleanup": [
+      "list_jobs: AccessDeniedException: Your account is not authorized to invoke this API operation.",
+      "bucket paynest-probe-eval-fce8e251eb deleted",
+      "role deleted"
+    ]
+  },
+  "latency_ms": {},
+  "est_cost_usd": 0.0,
+  "error": "AccessDeniedException: Your account is not authorized to invoke this API operation.",
+  "fallback": "DeepEval-only judge, cross-checked by a second Bedrock model"
+}

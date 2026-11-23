@@ -1,0 +1,1195 @@
+[
+ {
+  "id": "S00",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "v2 (14 columns) no longer applies [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 842,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 0.72,
+  "llm_fallback": false
+ },
+ {
+  "id": "S01",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "16 columns instead of 14 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions the new value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 840,
+  "llm_tokens_out": 31,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.71,
+  "llm_fallback": false
+ },
+ {
+  "id": "S02",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "From 15 Jul 2026 the SIF uses v3 with 16 columns, replacing the 14-column v2 layout [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 864,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.11,
+  "llm_fallback": false
+ },
+ {
+  "id": "S03",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The ceiling is now INR 25,000, up from INR 15,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 850,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.94,
+  "llm_fallback": false
+ },
+ {
+  "id": "S04",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The old INR 15,000 ceiling no longer applies; it is INR 25,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 852,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "S05",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "SIF v3 has 16 columns. The previous 14-column layout is obsolete [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as obsolete",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 852,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ },
+ {
+  "id": "S06",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Use 14 columns instead of 16 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft recommends using 14 columns instead of 16",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 842,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "S07",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The SIF still has 14 columns, not the new layout [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old SIF v2 with 14 columns is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 846,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 6.97,
+  "llm_fallback": false
+ },
+ {
+  "id": "S08",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Ignore v3; the file is 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 843,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.08,
+  "llm_fallback": false
+ },
+ {
+  "id": "S09",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Previously 16 columns, now 14 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 843,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ },
+ {
+  "id": "S10",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The file was updated and has 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, which is the old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 842,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
+ },
+ {
+  "id": "S11",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Your file has 14 columns, which is the current format and the old layout is not valid [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old layout is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 852,
+  "llm_tokens_out": 31,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.0,
+  "llm_fallback": false
+ },
+ {
+  "id": "S12",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The SIF has 14 columns, no longer 16 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, not 16 as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 846,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "S13",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The SIF format changed from v1 to v2 with 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions SIF v2 with 14 columns as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 848,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.23,
+  "llm_fallback": false
+ },
+ {
+  "id": "S14",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Generate the SIF with 14 columns rather than 16 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft suggests using 14 columns instead of 16",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 846,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 6.85,
+  "llm_fallback": false
+ },
+ {
+  "id": "S15",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Use the 14 column format instead of the new one [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft recommends using the 14 column format, which is superseded.",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 844,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "S16",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The format has not changed: it is still 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns still apply",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 845,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.06,
+  "llm_fallback": false
+ },
+ {
+  "id": "S17",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The new format replaced the old one, it has 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns still apply",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 846,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.98,
+  "llm_fallback": false
+ },
+ {
+  "id": "S18",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Earlier versions had issues, but the current SIF has 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns are current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.25,
+  "llm_fallback": false
+ },
+ {
+  "id": "S19",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The SIF has 14 columns. Please do not use the 16 column version [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns are current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 851,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.82,
+  "llm_fallback": false
+ },
+ {
+  "id": "S20",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "SIF v3 was cancelled; the file keeps 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies SIF v3 is cancelled",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 846,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "S21",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The SIF format was never changed, so 14 columns apply [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns apply",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 846,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ },
+ {
+  "id": "S22",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The SIF has 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states 14 columns, old value",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 840,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
+ },
+ {
+  "id": "S23",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Ceiling is INR 15,000 per month [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states old ceiling value of INR 15,000",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 840,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "S24",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The EPF ceiling is INR 15,000 instead of INR 25,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as current ceiling",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 850,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "S25",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The EPF ceiling stays INR 15,000, not the new amount [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states EPF ceiling as INR 15,000, not INR 25,000",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 845,
+  "llm_tokens_out": 49,
+  "llm_cost_usd": 6.8e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
+ },
+ {
+  "id": "S26",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Ignore the circular; the ceiling is INR 15,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies INR 15,000 is still applicable",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 842,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 6.95,
+  "llm_fallback": false
+ },
+ {
+  "id": "S27",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Previously INR 25,000, now INR 15,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.03,
+  "llm_fallback": false
+ },
+ {
+  "id": "S28",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The ceiling was raised but your wages are capped at INR 15,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as current wage cap",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 845,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "S29",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Use INR 15,000 rather than INR 25,000 for the wage cap [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft suggests using INR 15,000 instead of INR 25,000",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 850,
+  "llm_tokens_out": 46,
+  "llm_cost_usd": 6.7e-05,
+  "llm_latency_s": 6.96,
+  "llm_fallback": false
+ },
+ {
+  "id": "S30",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "The wage ceiling is 15,000 per month; the old rules do not apply [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "S31",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "يحتوي ملف SIF على 14 عمودا بدلا من 16 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies SIF v2 (14 columns) is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 850,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 6.9,
+  "llm_fallback": false
+ },
+ {
+  "id": "S32",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "لا يزال الملف يحتوي على 14 عمودا وليس التخطيط الجديد [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old layout with 14 columns is still applicable",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.07,
+  "llm_fallback": false
+ },
+ {
+  "id": "S33",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "كان الملف 14 عمودا وما زال كذلك [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "language_mismatch:expected_en",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old file layout (14 columns) is still applicable",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 844,
+  "llm_tokens_out": 38,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.07,
+  "llm_fallback": false
+ },
+ {
+  "id": "S34",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "الملف الآن 14 عمودا بعد أن كان 16 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old file layout (14 columns) is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "S35",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "استخدم 14 عمودا بدلا من التخطيط الجديد [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft suggests using 14 columns, old layout",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 845,
+  "llm_tokens_out": 35,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.94,
+  "llm_fallback": false
+ },
+ {
+  "id": "S36",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "الحد الأقصى للأجر هو 15,000 روبية بدلا من 25,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000",
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "language_mismatch:expected_en",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as the maximum wage",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 852,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.6e-05,
+  "llm_latency_s": 7.04,
+  "llm_fallback": false
+ },
+ {
+  "id": "S37",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "لم يعد الحد 25,000؛ الحد هو 15,000 [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "language_mismatch:expected_en",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old limit of 15,000 is still applicable",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 40,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.0,
+  "llm_fallback": false
+ },
+ {
+  "id": "S38",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "لم يعد تخطيط v2 (14 عمودا) ساريا؛ الملف الجديد 16 عمودا [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "language_mismatch:expected_en"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old layout as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 856,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.97,
+  "llm_fallback": false
+ },
+ {
+  "id": "S39",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "الملف يحتوي على 16 عمودا بدلا من 14 [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "language_mismatch:expected_en"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ },
+ {
+  "id": "S40",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "SIF file mein 14 columns hain, 16 ki jagah [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, old layout",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 849,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "S41",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Purana nahi, abhi bhi 14 columns hi hain [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns still apply",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 846,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.05,
+  "llm_fallback": false
+ },
+ {
+  "id": "S42",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Pehle 16 columns the, ab 14 columns use karo [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns are current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 848,
+  "llm_tokens_out": 33,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.1,
+  "llm_fallback": false
+ },
+ {
+  "id": "S43",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "File 14 columns ki hi rakho, naya layout ab nahi [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies 14 columns are still acceptable",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.95,
+  "llm_fallback": false
+ },
+ {
+  "id": "S44",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "EPF ceiling INR 15,000 hi hai, 25,000 ki jagah [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft states INR 15,000 as current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 851,
+  "llm_tokens_out": 37,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.06,
+  "llm_fallback": false
+ },
+ {
+  "id": "S45",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "Pehle 25,000 tha, ab INR 15,000 hai [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:15000"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:15000",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old value INR 15,000 is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 848,
+  "llm_tokens_out": 39,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.02,
+  "llm_fallback": false
+ },
+ {
+  "id": "S46",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "Naya SIF v3 mein 16 columns hain, purane 14 ki jagah [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 854,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 6.99,
+  "llm_fallback": false
+ },
+ {
+  "id": "S47",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "pf",
+  "draft": "EPF ceiling ab INR 25,000 hai; purana INR 15,000 ab nahi chalega [R-IN-PF-2026-08, effective 1 Aug 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 855,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ },
+ {
+  "id": "S48",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "SIF फ़ाइल में 14 कॉलम हैं, 16 के बजाय [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "language_mismatch:expected_en",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns instead of 16",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 850,
+  "llm_tokens_out": 36,
+  "llm_cost_usd": 6.5e-05,
+  "llm_latency_s": 7.15,
+  "llm_fallback": false
+ },
+ {
+  "id": "S49",
+  "label": "genuine",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "पुराना 14 कॉलम वाला फ़ॉर्मेट अब लागू नहीं है [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "language_mismatch:expected_en"
+  ],
+  "all_fails": [
+   "language_mismatch:expected_en"
+  ],
+  "llm_flag": false,
+  "llm_error": null,
+  "llm_reason": "Draft only mentions old value as history",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 32,
+  "llm_cost_usd": 6.3e-05,
+  "llm_latency_s": 6.94,
+  "llm_fallback": false
+ },
+ {
+  "id": "S50",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The old layout is gone. The file has 14 columns [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [
+   "numbers_not_grounded:14"
+  ],
+  "all_fails": [
+   "numbers_not_grounded:14",
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft implies old layout with 14 columns is current",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 845,
+  "llm_tokens_out": 36,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.02,
+  "llm_fallback": false
+ },
+ {
+  "id": "S51",
+  "label": "wrong",
+  "lang": "en",
+  "rule": "wps",
+  "draft": "The file has 14 columns; the new layout is not used here [R-UAE-WPS-2026-07, effective 15 Jul 2026]",
+  "tags": [],
+  "rule_fails": [],
+  "all_fails": [
+   "stale_claim_llm"
+  ],
+  "llm_flag": true,
+  "llm_error": null,
+  "llm_reason": "Draft mentions 14 columns, old layout",
+  "llm_backend": "eu.amazon.nova-lite-v1:0",
+  "llm_tokens_in": 847,
+  "llm_tokens_out": 34,
+  "llm_cost_usd": 6.4e-05,
+  "llm_latency_s": 7.01,
+  "llm_fallback": false
+ }
+]
